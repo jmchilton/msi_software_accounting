@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802182130) do
+ActiveRecord::Schema.define(:version => 20110802204856) do
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20110802182130) do
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rid"
   end
 
   create_table "groups", :primary_key => "gid", :force => true do |t|

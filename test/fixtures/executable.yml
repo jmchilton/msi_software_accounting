@@ -5,9 +5,11 @@ one:
   identifier_type: 1
   identifier: MyString
   comment: MyString
+  resource: one
 
 two:
   exid: 2
   identifier_type: 1
   identifier: MyString
   comment: MyString
+  resource: two
