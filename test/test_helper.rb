@@ -10,6 +10,7 @@ class ActiveSupport::TestCase
   set_fixture_class :swacct_purchases => Purchase
   set_fixture_class :people_people => Person
   set_fixture_class :people_users => User
+  set_fixture_class :people_groups => Group
 
   fixtures :all
 

@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :groups
+
   resources :users
 
   resources :people
