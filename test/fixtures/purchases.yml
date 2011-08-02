@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pid: 1
+  rid: 1
+  os: MyString
+  flexlm: 1
+  name: 1
+  fy10: 1
+  ry11: 1
+  ry12: 1
+  fy13: 1
+
+two:
+  pid: 1
+  rid: 1
+  os: MyString
+  flexlm: 1
+  name: 1
+  fy10: 1
+  ry11: 1
+  ry12: 1
+  fy13: 1

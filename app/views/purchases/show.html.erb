@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Pid:</b>
+  <%= @purchase.pid %>
+</p>
+
+<p>
+  <b>Rid:</b>
+  <%= @purchase.rid %>
+</p>
+
+<p>
+  <b>Os:</b>
+  <%= @purchase.os %>
+</p>
+
+<p>
+  <b>Flexlm:</b>
+  <%= @purchase.flexlm %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @purchase.name %>
+</p>
+
+<p>
+  <b>Fy10:</b>
+  <%= @purchase.fy10 %>
+</p>
+
+<p>
+  <b>Ry11:</b>
+  <%= @purchase.ry11 %>
+</p>
+
+<p>
+  <b>Ry12:</b>
+  <%= @purchase.ry12 %>
+</p>
+
+<p>
+  <b>Fy13:</b>
+  <%= @purchase.fy13 %>
+</p>
+
+
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<%= link_to 'Back', purchases_path %>

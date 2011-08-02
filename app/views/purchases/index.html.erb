@@ -1,0 +1,39 @@
+<h1>Listing purchases</h1>
+
+<table>
+  <tr>
+    <th>Pid</th>
+    <th>Rid</th>
+    <th>Os</th>
+    <th>Flexlm</th>
+    <th>Name</th>
+    <th>Fy10</th>
+    <th>Ry11</th>
+    <th>Ry12</th>
+    <th>Fy13</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @purchases.each do |purchase| %>
+  <tr>
+    <td><%= purchase.pid %></td>
+    <td><%= purchase.rid %></td>
+    <td><%= purchase.os %></td>
+    <td><%= purchase.flexlm %></td>
+    <td><%= purchase.name %></td>
+    <td><%= purchase.fy10 %></td>
+    <td><%= purchase.ry11 %></td>
+    <td><%= purchase.ry12 %></td>
+    <td><%= purchase.fy13 %></td>
+    <td><%= link_to 'Show', purchase %></td>
+    <td><%= link_to 'Edit', edit_purchase_path(purchase) %></td>
+    <td><%= link_to 'Destroy', purchase, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Purchase', new_purchase_path %>

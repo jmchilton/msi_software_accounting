@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :purchases
+
   get "home/index"
 
   root :to => "home#index"
