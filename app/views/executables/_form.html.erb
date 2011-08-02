@@ -1,0 +1,33 @@
+<%= form_for(@executable) do |f| %>
+  <% if @executable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@executable.errors.count, "error") %> prohibited this executable from being saved:</h2>
+
+      <ul>
+      <% @executable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :exid %><br />
+    <%= f.text_field :exid %>
+  </div>
+  <div class="field">
+    <%= f.label :identifier_type %><br />
+    <%= f.text_field :identifier_type %>
+  </div>
+  <div class="field">
+    <%= f.label :identifier %><br />
+    <%= f.text_field :identifier %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br />
+    <%= f.text_field :comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

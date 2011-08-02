@@ -1,0 +1,29 @@
+<h1>Listing executables</h1>
+
+<table>
+  <tr>
+    <th>Exid</th>
+    <th>Identifier type</th>
+    <th>Identifier</th>
+    <th>Comment</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @executables.each do |executable| %>
+  <tr>
+    <td><%= executable.exid %></td>
+    <td><%= executable.identifier_type %></td>
+    <td><%= executable.identifier %></td>
+    <td><%= executable.comment %></td>
+    <td><%= link_to 'Show', executable %></td>
+    <td><%= link_to 'Edit', edit_executable_path(executable) %></td>
+    <td><%= link_to 'Destroy', executable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Executable', new_executable_path %>

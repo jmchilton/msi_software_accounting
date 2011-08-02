@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Exid:</b>
+  <%= @executable.exid %>
+</p>
+
+<p>
+  <b>Identifier type:</b>
+  <%= @executable.identifier_type %>
+</p>
+
+<p>
+  <b>Identifier:</b>
+  <%= @executable.identifier %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%= @executable.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_executable_path(@executable) %> |
+<%= link_to 'Back', executables_path %>

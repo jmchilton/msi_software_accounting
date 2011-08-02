@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  exid: 1
+  identifier_type: 1
+  identifier: MyString
+  comment: MyString
+
+two:
+  exid: 2
+  identifier_type: 1
+  identifier: MyString
+  comment: MyString
