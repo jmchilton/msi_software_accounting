@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :colleges
+
   resources :departments
 
   resources :groups

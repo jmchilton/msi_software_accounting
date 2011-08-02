@@ -12,6 +12,7 @@ class ActiveSupport::TestCase
   set_fixture_class :people_users => User
   set_fixture_class :people_groups => Group
   set_fixture_class :people_departments => Department
+  set_fixture_class :people_colleges => College
 
   fixtures :all
 
