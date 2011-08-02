@@ -7,6 +7,10 @@ class EventsControllerTest < ActionController::TestCase
     @event = event(:one)
   end
 
+  test "should have user association fixture" do 
+    assert @event.process_user.username == "bob"
+  end
+
   test "should get index" do
     get :index
     assert_response :success

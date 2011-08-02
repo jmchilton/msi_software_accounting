@@ -2,8 +2,8 @@
 
 one:
   id: 1
-  username: MyString
+  username: bob
 
 two:
   id: 2
-  username: MyString
+  username: alice
