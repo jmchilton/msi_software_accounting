@@ -3,7 +3,11 @@
 one:
   id: 1
   username: bob
+  person: one
+  group: one
 
 two:
   id: 2
   username: alice
+  person: two
+  group: two
