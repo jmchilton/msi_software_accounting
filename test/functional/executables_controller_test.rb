@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class ExecutablesControllerTest < ActionController::TestCase
-  fixtures :swacct_executable
+  fixtures :executable
 
   setup do
-    @executable = swacct_executable(:one)
+    @executable = executable(:one)
   end
 
   test "should get index" do

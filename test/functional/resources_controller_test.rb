@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class ResourcesControllerTest < ActionController::TestCase
-  fixtures :swacct_resources
+  fixtures :resources
+
   setup do
-    @resource = swacct_resources(:one)
+    @resource = resources(:one)
   end
 
   test "should get index" do

@@ -1,9 +1,10 @@
 require 'test_helper'
 
 class EventsControllerTest < ActionController::TestCase
-  fixtures :swacct_event
+  fixtures :event
+
   setup do
-    @event = swacct_event(:one)
+    @event = event(:one)
   end
 
   test "should get index" do

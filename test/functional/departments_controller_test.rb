@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class DepartmentsControllerTest < ActionController::TestCase
-  fixtures :people_departments
+  fixtures :departments
 
   setup do
-    @department = people_departments(:one)
+    @department = departments(:one)
   end
 
   test "should get index" do

@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
-  fixtures :people_people
+  fixtures :persons
 
   setup do
-    @person = people_people(:one)
+    @person = persons(:one)
   end
 
   test "should get index" do

@@ -10,43 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802150629) do
+ActiveRecord::Schema.define(:version => 20110802182130) do
 
-  create_table "people.colleges", :force => true do |t|
+  create_table "colleges", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "people.departments", :force => true do |t|
+  create_table "departments", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "people.groups", :primary_key => "gid", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "people.persons", :force => true do |t|
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.integer  "active"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "people.users", :force => true do |t|
-    t.string   "username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "swacct.event", :primary_key => "evid", :force => true do |t|
+  create_table "event", :primary_key => "evid", :force => true do |t|
     t.datetime "ev_date"
     t.string   "vendor"
     t.string   "feature"
@@ -59,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110802150629) do
     t.datetime "updated_at"
   end
 
-  create_table "swacct.executable", :primary_key => "exid", :force => true do |t|
+  create_table "executable", :primary_key => "exid", :force => true do |t|
     t.integer  "identifier_type"
     t.string   "identifier"
     t.string   "comment"
@@ -67,7 +45,23 @@ ActiveRecord::Schema.define(:version => 20110802150629) do
     t.datetime "updated_at"
   end
 
-  create_table "swacct.purchase", :primary_key => "pid", :force => true do |t|
+  create_table "groups", :primary_key => "gid", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "persons", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.integer  "active"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "purchase", :primary_key => "pid", :force => true do |t|
     t.integer  "rid"
     t.string   "os"
     t.integer  "flexlm"
@@ -80,13 +74,19 @@ ActiveRecord::Schema.define(:version => 20110802150629) do
     t.datetime "updated_at"
   end
 
-  create_table "swacct.resources", :primary_key => "rid", :force => true do |t|
+  create_table "resources", :primary_key => "rid", :force => true do |t|
     t.string   "name"
     t.string   "short_name"
     t.string   "description"
     t.string   "calendar_desc"
     t.string   "documentation"
     t.string   "module"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

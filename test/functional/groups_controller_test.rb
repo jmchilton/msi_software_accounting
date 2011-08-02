@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
-  fixtures :people_groups
+  fixtures :groups
 
   setup do
-    @group = people_groups(:one)
+    @group = groups(:one)
   end
 
   test "should get index" do

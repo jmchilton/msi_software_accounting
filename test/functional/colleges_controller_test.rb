@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class CollegesControllerTest < ActionController::TestCase
-  fixtures :people_colleges
+  fixtures :colleges
 
   setup do
-    @college = people_colleges(:one)
+    @college = colleges(:one)
   end
 
   test "should get index" do
