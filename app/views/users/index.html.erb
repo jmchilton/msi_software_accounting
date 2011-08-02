@@ -1,5 +1,19 @@
 <h1>Listing users</h1>
 
+<%=raw jqgrid("Users", "users", "/users",
+    [
+    { :field => "id", :label => "ID", :width => 35, :resizable => false },
+    { :field => "username", :label => "Username" }
+    ],
+    { :rows_per_page => 2, :autowidth => true }
+    )
+%>
+<script>
+  $(document).ready(function(){
+    $("#users").width("1000px");
+  });
+</script>
+
 <table>
   <tr>
     <th>Id</th>

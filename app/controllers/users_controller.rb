@@ -2,11 +2,18 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.find(:all) do
+      if params[:_search] == "true"
+        username =~ "%#{params[:username]}%" if params[:username].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
+      format.json { render :json => @users.to_jqgrid_json([:id, :username], params[:page], params[:rows], @users.total_entries) }
     end
   end
 
