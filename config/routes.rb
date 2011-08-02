@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :users
+
   resources :people
 
   resources :purchases
