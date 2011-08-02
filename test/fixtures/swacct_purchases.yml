@@ -1,7 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  pid: 1
   rid: 1
   os: MyString
   flexlm: 1
@@ -12,7 +11,6 @@ one:
   fy13: 1
 
 two:
-  pid: 1
   rid: 1
   os: MyString
   flexlm: 1
