@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class PurchasesControllerTest < ActionController::TestCase
+  #set_fixture_class :swacct_purchases => Purchase
+  fixtures :swacct_purchases
+
   setup do
-    @purchase = purchases(:one)
+    @purchase = swacct_purchases(:one)
   end
 
   test "should get index" do
