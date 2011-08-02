@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  rid: 1
+  resource: one
   os: MyString
   flexlm: 1
   name: 1
@@ -11,7 +11,7 @@ one:
   fy13: 1
 
 two:
-  rid: 1
+  resource: two
   os: MyString
   flexlm: 1
   name: 1
