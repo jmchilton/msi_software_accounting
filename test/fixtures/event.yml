@@ -10,6 +10,7 @@ one:
   host: MyString
   operation: MyString
   comment: MyString
+  resource: one
 
 two:
   evid: 2
@@ -21,3 +22,4 @@ two:
   host: MyString
   operation: MyString
   comment: MyString
+  resource: two
