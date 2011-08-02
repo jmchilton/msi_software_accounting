@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110801191435) do
+ActiveRecord::Schema.define(:version => 20110802041309) do
+
+  create_table "people.persons", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.integer  "active"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "swacct.purchase", :primary_key => "pid", :force => true do |t|
     t.integer  "rid"

@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :people
+
   resources :purchases
 
   get "home/index"
