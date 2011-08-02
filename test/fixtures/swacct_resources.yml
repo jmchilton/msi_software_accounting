@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  rid: 1
+  name: MyString
+  short_name: MyString
+  description: MyString
+  calendar_desc: MyString
+  documentation: MyString
+  module: MyString
+
+two:
+  rid: 2
+  name: MyString
+  short_name: MyString
+  description: MyString
+  calendar_desc: MyString
+  documentation: MyString
+  module: MyString

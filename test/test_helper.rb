@@ -8,6 +8,7 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   set_fixture_class :swacct_purchases => Purchase
+  set_fixture_class :swacct_resources => Resource
   set_fixture_class :people_people => Person
   set_fixture_class :people_users => User
   set_fixture_class :people_groups => Group

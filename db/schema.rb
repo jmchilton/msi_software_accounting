@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802045325) do
+ActiveRecord::Schema.define(:version => 20110802145111) do
 
   create_table "people.colleges", :force => true do |t|
     t.string   "name"
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(:version => 20110802045325) do
     t.integer  "ry11"
     t.integer  "ry12"
     t.integer  "fy13"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swacct.resources", :primary_key => "rid", :force => true do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "description"
+    t.string   "calendar_desc"
+    t.string   "documentation"
+    t.string   "module"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
