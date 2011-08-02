@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802145903) do
+ActiveRecord::Schema.define(:version => 20110802150629) do
 
   create_table "people.colleges", :force => true do |t|
     t.string   "name"
@@ -42,6 +42,19 @@ ActiveRecord::Schema.define(:version => 20110802145903) do
 
   create_table "people.users", :force => true do |t|
     t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swacct.event", :primary_key => "evid", :force => true do |t|
+    t.datetime "ev_date"
+    t.string   "vendor"
+    t.string   "feature"
+    t.string   "user"
+    t.string   "ugrp"
+    t.string   "host"
+    t.string   "operation"
+    t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  resources :events
+
   resources :executables
 
   resources :resources

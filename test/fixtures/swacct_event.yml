@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  evid: 1
+  ev_date: 2011-08-02 10:06:29
+  vendor: MyString
+  feature: MyString
+  user: MyString
+  ugrp: MyString
+  host: MyString
+  operation: MyString
+  comment: MyString
+
+two:
+  evid: 2
+  ev_date: 2011-08-02 12:06:29
+  vendor: MyString
+  feature: MyString
+  user: MyString
+  ugrp: MyString
+  host: MyString
+  operation: MyString
+  comment: MyString
