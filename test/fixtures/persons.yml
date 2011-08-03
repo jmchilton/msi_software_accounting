@@ -1,3 +1,4 @@
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
@@ -7,6 +8,7 @@ one:
   last_name: MyString
   active: 
   email: MyString
+  department: one
 
 two:
   id: 2
@@ -15,3 +17,4 @@ two:
   last_name: MyString
   active: 
   email: MyString
+  department: two

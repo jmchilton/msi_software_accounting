@@ -10,12 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802233050) do
+ActiveRecord::Schema.define(:version => 20110802235216) do
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "department_colleges", :id => false, :force => true do |t|
+    t.integer "dept_id"
+    t.integer "college_id"
   end
 
   create_table "departments", :force => true do |t|
@@ -61,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20110802233050) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "dept_id"
   end
 
   create_table "purchase", :primary_key => "pid", :force => true do |t|

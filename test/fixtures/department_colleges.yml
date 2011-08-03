@@ -1,0 +1,8 @@
+
+department_college_one:
+  dept_id: 1
+  college_id: 1
+
+department_college_two:
+  dept_id: 2
+  college_id: 2
