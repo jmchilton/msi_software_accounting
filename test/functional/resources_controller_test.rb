@@ -4,7 +4,7 @@ class ResourcesControllerTest < ActionController::TestCase
   fixtures :resources
 
   setup do
-    @resource = resources(:one)
+    @resource = resources(:resource_one)
   end
 
   test "should get index" do

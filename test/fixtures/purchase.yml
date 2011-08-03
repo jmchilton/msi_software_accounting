@@ -1,21 +1,39 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  resource: one
+purchase_one_2010:
+  pid: 1
+  rid: 1
   os: MyString
   flexlm: 1
   name: 1
-  fy10: 1
-  ry11: 1
-  ry12: 1
-  fy13: 1
+  fy10: 10
+  fy11: 0
+  fy12: 0
+  fy13: 0
 
-two:
-  resource: two
+purchase_one_2011:
+  pid: 2
+  rid: 1
+  fy10: 0
+  fy11: 20
+  fy12: 20
+  fy13: 0
+
+purchase_one_2012:
+  pid: 3
+  rid: 1
+  fy10: 0
+  fy11: 0
+  fy12: 5
+  fy13: 0
+
+purchase_two:
+  pid: 10
+  rid: 2
   os: MyString
   flexlm: 1
   name: 1
-  fy10: 1
-  ry11: 1
-  ry12: 1
-  fy13: 1
+  fy10: 10
+  fy11: 10
+  fy12: 10
+  fy13: 10

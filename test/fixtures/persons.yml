@@ -1,20 +1,29 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+person_bob:
   id: 1
-  first_name: MyString
-  middle_name: MyString
-  last_name: MyString
+  first_name: Bobert
+  middle_name: 
+  last_name: McBobby
   active: 
-  email: MyString
-  department: one
+  email: bob@example.com
+  dept_id: 1
 
-two:
+person_alice:
   id: 2
   first_name: MyString
   middle_name: MyString
   last_name: MyString
-  active: 
-  email: MyString
-  department: two
+  active: true
+  email: alice@example.com
+  dept_id: 2
+
+person_carl:
+  id: 3
+  first_name: Carl
+  middle_name:
+  last_name: 
+  active: true
+  email: carl@example.com
+  dept_id: 2

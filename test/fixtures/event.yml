@@ -1,25 +1,40 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+event_one:
   evid: 1
   ev_date: 2011-08-02 10:06:29
   vendor: MyString
   feature: MyString
   ugrp: MyString
   host: MyString
-  operation: MyString
+  operation: OUT
   comment: MyString
-  resource: one
+  rid: 1
   user: bob
 
-two:
+event_two:
   evid: 2
   ev_date: 2011-08-02 12:06:29
   vendor: MyString
   feature: MyString
   ugrp: MyString
   host: MyString
-  operation: MyString
+  operation: OUT
   comment: MyString
-  resource: two
+  rid: 2
   user: alice
+
+event_three:
+  evid: 3
+  ev_date: 2011-08-03 12:24:34
+  rid: 2
+  operation: OUT
+  user: carl
+
+event_four:
+  evid: 4
+  ev_date: 2011-08-04 18:30:34
+  rid: 2
+  operation: OUT
+  user: carl2
+  

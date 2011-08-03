@@ -4,7 +4,7 @@ class UsersControllerTest < ActionController::TestCase
   fixtures :users
 
   setup do
-    @user = users(:one)
+    @user = users(:user_bob)
   end
 
   test "should get index" do

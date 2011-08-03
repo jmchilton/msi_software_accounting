@@ -4,7 +4,7 @@ class PurchasesControllerTest < ActionController::TestCase
   fixtures :purchase
 
   setup do
-    @purchase = purchase(:one)
+    @purchase = purchase(:purchase_one_2010)
   end
 
   test "should get index" do

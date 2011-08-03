@@ -4,7 +4,7 @@ class GroupsControllerTest < ActionController::TestCase
   fixtures :groups
 
   setup do
-    @group = groups(:one)
+    @group = groups(:group_1)
   end
 
   test "should get index" do

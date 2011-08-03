@@ -4,11 +4,16 @@ class EventsControllerTest < ActionController::TestCase
   fixtures :event
 
   setup do
-    @event = event(:one)
+    @event = event(:event_one)
   end
 
   test "should have user association fixture" do 
     assert @event.process_user.username == "bob"
+  end
+
+  test "show have resource association fixture" do
+    assert_not_nil @event.resource
+    assert_equal @event.resource.name, "resource_1"
   end
 
   test "should get index" do

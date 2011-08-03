@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110802235216) do
+ActiveRecord::Schema.define(:version => 20110803190500) do
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -69,14 +69,15 @@ ActiveRecord::Schema.define(:version => 20110802235216) do
     t.integer  "dept_id"
   end
 
-  create_table "purchase", :primary_key => "pid", :force => true do |t|
+  create_table "purchase", :id => false, :force => true do |t|
+    t.integer  "pid"
     t.integer  "rid"
     t.string   "os"
     t.integer  "flexlm"
     t.integer  "name"
     t.integer  "fy10"
-    t.integer  "ry11"
-    t.integer  "ry12"
+    t.integer  "fy11"
+    t.integer  "fy12"
     t.integer  "fy13"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,4 +1,20 @@
 class ResourcesController < ApplicationController
+
+  def report
+    @rows = Resource.find(:all,
+                          :select => "resources.rid, resources.name, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups",
+                          :group => "resources.name",
+                          :conditions => "event.operation = 'OUT'",
+                          :joins => [{:events => { :process_user => :group}}])
+    @rows.each do |row| 
+      purchases = Resource.find(row.rid, :include => :purchases).purchases
+      row[:fy10] = purchases.map { |purchase| purchase.fy10 || 0 }.sum()
+      row[:fy11] = purchases.map { |purchase| purchase.fy11 || 0 }.sum()
+      row[:fy12] = purchases.map { |purchase| purchase.fy12 || 0 }.sum()
+      row[:fy13] = purchases.map { |purchase| purchase.fy13 || 0 }.sum()
+    end
+  end
+
   # GET /resources
   # GET /resources.xml
   def index

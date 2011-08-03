@@ -4,7 +4,7 @@ class PeopleControllerTest < ActionController::TestCase
   fixtures :persons
 
   setup do
-    @person = persons(:one)
+    @person = persons(:person_bob)
   end
 
   test "should get index" do

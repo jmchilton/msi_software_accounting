@@ -1,0 +1,27 @@
+<h1>Resource Report</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Unique Users</th>
+    <th>Unique Groups</th>
+    <th>Cost (FY 2010)</th>
+    <th>Cost (FY 2011)</th>
+    <th>Cost (FY 2012)</th>
+    <th>Cost (FY 2013)</th>
+  </tr>
+
+<% @rows.each do |row| %>
+  <tr>
+    <td><%= row.name %></td>
+    <td><%= row.num_users %></td>
+    <td><%= row.num_groups %></td>
+    <td><%= row.fy10 %></td>
+    <td><%= row.fy11 %></td>
+    <td><%= row.fy12 %></td>
+    <td><%= row.fy13 %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

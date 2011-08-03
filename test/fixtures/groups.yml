@@ -1,9 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+group_1:
   gid: 1
-  name: MyString
+  name: Group1
 
-two:
+group_2:
   gid: 2
-  name: MyString
+  name: Group2
+
+group_3:
+  gid: 3
+  name: Group3
+

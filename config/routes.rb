@@ -1,4 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
+  match 'resources/report' => 'resources#report'
+
   resources :events
 
   resources :executables
