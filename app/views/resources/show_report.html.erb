@@ -16,10 +16,9 @@
     <td><%= row.name %></td>
     <td><%= row.num_users %></td>
     <td><%= row.num_groups %></td>
-    <td><%= row.fy10 %></td>
-    <td><%= row.fy11 %></td>
-    <td><%= row.fy12 %></td>
-    <td><%= row.fy13 %></td>
+  <% fiscal_years.each do |fiscal_year| %>
+    <td><%= row.read_attribute(fiscal_year) %></td>
+  <% end %>
   </tr>
 <% end %>
 </table>

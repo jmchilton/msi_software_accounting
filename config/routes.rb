@@ -1,5 +1,6 @@
 SoftwareWebApp::Application.routes.draw do
   match 'resources/report' => 'resources#report'
+  match 'resources/show_report' => 'resources#show_report'
 
   resources :events
 

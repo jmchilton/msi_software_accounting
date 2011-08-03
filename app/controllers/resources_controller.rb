@@ -1,18 +1,21 @@
 class ResourcesController < ApplicationController
+  # @@fiscal_years = (10..13).map { |year| "fy#{year}"}
 
-  def report
+  def show_report
     @rows = Resource.find(:all,
                           :select => "resources.rid, resources.name, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups",
                           :group => "resources.name",
                           :conditions => "event.operation = 'OUT'",
                           :joins => [{:events => { :process_user => :group}}])
+
     @rows.each do |row| 
       purchases = Resource.find(row.rid, :include => :purchases).purchases
-      row[:fy10] = purchases.map { |purchase| purchase.fy10 || 0 }.sum()
-      row[:fy11] = purchases.map { |purchase| purchase.fy11 || 0 }.sum()
-      row[:fy12] = purchases.map { |purchase| purchase.fy12 || 0 }.sum()
-      row[:fy13] = purchases.map { |purchase| purchase.fy13 || 0 }.sum()
+      fiscal_years.each do |fiscal_year|
+        year_sum = purchases.map {|purchase| purchase.read_attribute(fiscal_year)}.sum()
+        row[fiscal_year] = year_sum
+      end
     end
+
   end
 
   # GET /resources
@@ -96,4 +99,11 @@ class ResourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  #helper_method :fiscal_years
+
+  #def fiscal_years
+  #  @@fiscal_years
+  #end
+
 end
