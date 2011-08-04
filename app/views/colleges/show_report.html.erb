@@ -1,0 +1,24 @@
+<h1>Resource Report</h1>
+
+<table>
+  <tr>
+    <th>Colllege</th>
+    <th>Number of Software Pacakges</th>
+    <th>Cost (FY 2010)</th>
+    <th>Cost (FY 2011)</th>
+    <th>Cost (FY 2012)</th>
+    <th>Cost (FY 2013)</th>
+  </tr>
+
+<% @rows.each do |row| %>
+  <tr>
+    <td><%= row.name %></td>
+    <td><%= row.num_resources %></td>
+  <% fiscal_years.each do |fiscal_year| %>
+    <td><%= row.read_attribute(fiscal_year) %></td>
+  <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />

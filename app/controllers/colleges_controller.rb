@@ -1,4 +1,12 @@
 class CollegesController < ApplicationController
+  
+  def report
+  end
+
+  def show_report
+    @rows = []
+  end
+
   # GET /colleges
   # GET /colleges.xml
   def index

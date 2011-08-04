@@ -7,6 +7,14 @@ class ResourcesControllerTest < ActionController::TestCase
     @resource = resources(:resource_one)
   end
 
+  test "show_report contains resource_1" do
+    get :show_report
+    assert_response :success
+    assert_not_nil assigns(:rows)
+    assert_equal @controller.rows[0].name, "resource_1"
+    assert_equal @controller.rows[0].fy10, 10
+  end
+
   test "should get index" do
     get :index
     assert_response :success

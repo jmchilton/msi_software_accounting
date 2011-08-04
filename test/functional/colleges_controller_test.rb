@@ -7,6 +7,13 @@ class CollegesControllerTest < ActionController::TestCase
     @college = colleges(:one)
   end
 
+  test "show_report contains CFANS" do
+    get :show_report
+    assert_response :success    
+  end
+  
+
+
   test "should get index" do
     get :index
     assert_response :success

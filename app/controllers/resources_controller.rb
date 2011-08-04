@@ -1,11 +1,21 @@
 class ResourcesController < ApplicationController
   # @@fiscal_years = (10..13).map { |year| "fy#{year}"}
 
+  helper_method :rows
+
+  def rows
+    @rows
+  end
+
+  def report
+  end
+
   def show_report
     @rows = Resource.find(:all,
                           :select => "resources.rid, resources.name, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups",
                           :group => "resources.name",
                           :conditions => "event.operation = 'OUT'",
+                          :order => "resources.name ASC",
                           :joins => [{:events => { :process_user => :group}}])
 
     @rows.each do |row| 

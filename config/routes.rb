@@ -1,6 +1,12 @@
 SoftwareWebApp::Application.routes.draw do
-  match 'resources/report' => 'resources#report'
-  match 'resources/show_report' => 'resources#show_report'
+
+  def add_report_to_controller(controller)
+    match "#{controller}/report" => "#{controller}#report"
+    match "#{controller}/show_report" => "#{controller}#show_report"
+  end
+
+  add_report_to_controller("resources")
+  add_report_to_controller("colleges")
 
   resources :events
 
