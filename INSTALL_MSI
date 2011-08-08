@@ -1,0 +1,34 @@
+export RUBY_DEPS=~/ruby_deps/            
+mkdir $RUBY_DEPS
+mkdir $RUBY_DEPS/libxml
+wget ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
+tar -xzvf libxml2-2.7.8.tar.gz
+cd libxml2-2.7.8
+./configure --prefix=$RUBY_DEPS/libxml 
+make
+make install
+
+
+cd ..
+mkdir $RUBY_DEPS/libxslt
+wget ftp://xmlsoft.org/libxslt/libxslt-1.1.26.tar.gz
+tar -xzvf libxslt-1.1.26.tar.gz
+cd libxslt-1.1.26
+./configure --prefix=$RUBY_DEPS/libxslt with_libxml_prefix=$RUBY_DEPS/libxml
+make
+make install
+
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+. "$HOME/.rvm/scripts/rvm"
+
+rvm install 1.8.7
+
+rvm use 1.8.7 
+
+gem install bundler
+gem install nokogiri -- --with-xml2-include=$RUBY_DEPS/libxml/include/libxml2 --with-xml2-lib=$RUBY_DEPS/libxml/lib --with-xslt-dir=$RUBY_DEPS/libxslt
+
+# git clone project  TODO
+bundle install
