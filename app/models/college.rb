@@ -1,4 +1,4 @@
-class College < ActiveRecord::Base
+class College < ReadOnlyModel
   set_table_name "colleges"
   set_primary_key "id"
 

@@ -12,7 +12,7 @@ gem 'fastercsv'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'postgres'
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -37,6 +37,7 @@ gem 'sqlite3'
 # end
 
 group :test do
+  gem 'factory_girl_rails'
   gem "capybara"
   gem "rspec-rails", ">= 2"
 end

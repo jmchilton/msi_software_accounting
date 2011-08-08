@@ -42,6 +42,10 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    factory_girl (2.0.3)
+    factory_girl_rails (1.1.0)
+      factory_girl (~> 2.0.0)
+      railties (>= 3.0.0)
     fastercsv (1.5.4)
     ffi (1.0.9)
     hashery (1.4.0)
@@ -55,6 +59,7 @@ GEM
     mime-types (1.16)
     nokogiri (1.5.0)
     polyglot (0.3.2)
+    postgres (0.7.9.2008.01.28)
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -109,8 +114,10 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  factory_girl_rails
   fastercsv
   hashery
+  postgres
   rails (= 3.0.9)
   rspec-rails (>= 2)
   sqlite3

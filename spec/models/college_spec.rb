@@ -1,11 +1,15 @@
 require 'spec_helper'
 
-feature "College report" do
+describe College do
 
-  scenario "Default options" do
-    College.report.first.name.should == "CFANS"
-
+  it "Reports should contain CFANS" do
+    College.report.first.name.should eql("CFANS")
   end
+  
+  it "Should be readonly" do 
+    college = FactoryGirl.create(:college)
+    lambda {college.destroy}.should raise_error(ActiveRecord::ReadOnlyRecord)
+  end  
   
 end
 
