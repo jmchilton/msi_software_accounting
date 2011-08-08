@@ -10,8 +10,6 @@
     <th>Documentation</th>
     <th>Module</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @resources.each do |resource| %>
@@ -24,12 +22,10 @@
     <td><%= resource.documentation %></td>
     <td><%= resource.module %></td>
     <td><%= link_to 'Show', resource %></td>
-    <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-    <td><%= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Resource', new_resource_path %>
+

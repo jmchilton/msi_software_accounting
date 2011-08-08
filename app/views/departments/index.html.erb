@@ -5,8 +5,6 @@
     <th>Id</th>
     <th>Name</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @departments.each do |department| %>
@@ -14,12 +12,9 @@
     <td><%= department.id %></td>
     <td><%= department.name %></td>
     <td><%= link_to 'Show', department %></td>
-    <td><%= link_to 'Edit', edit_department_path(department) %></td>
-    <td><%= link_to 'Destroy', department, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Department', new_department_path %>

@@ -8,22 +8,14 @@ SoftwareWebApp::Application.routes.draw do
   add_report_to_controller("resources")
   add_report_to_controller("colleges")
 
-  resources :events
-
+  resources :events, :only => [:index, :show]
   resources :executables
-
-  resources :resources
-
-  resources :colleges
-
-  resources :departments
-
-  resources :groups
-
-  resources :users
-
-  resources :people
-
+  resources :resources, :only => [:index, :show]
+  resources :colleges, :only => [:index, :show]
+  resources :departments, :only => [:index, :show]
+  resources :groups, :only => [:index, :show]
+  resources :users, :only => [:index, :show]
+  resources :people, :only => [:index, :show]
   resources :purchases
 
   get "home/index"
