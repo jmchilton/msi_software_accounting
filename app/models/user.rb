@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ReadOnlyModel
   set_table_name "users"
   set_primary_key "id"
 

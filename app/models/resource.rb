@@ -1,4 +1,4 @@
-class Resource < ActiveRecord::Base
+class Resource < ReadOnlyModel
   set_table_name "resources"
   set_primary_key "rid"
  

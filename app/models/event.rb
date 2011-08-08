@@ -1,4 +1,4 @@
-class Event < ActiveRecord::Base
+class Event < ReadOnlyModel
   set_table_name "event"
   set_primary_key "evid"
 

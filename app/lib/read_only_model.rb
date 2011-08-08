@@ -1,6 +1,6 @@
 # Base ideas from http://blog.zobie.com/2009/01/read-only-models-in-activerecord/
 class ReadOnlyModel < ActiveRecord::Base
-  before_destroy :prevent_read_only
+  before_destroy :prevent_destroy
 
   # Prevent creation of new records and modification to existing records
   def readonly?
@@ -8,7 +8,15 @@ class ReadOnlyModel < ActiveRecord::Base
   end
 
   # Prevent objects from being destroyed
-  def prevent_read_only
+  def prevent_destroy
+    raise ActiveRecord::ReadOnlyRecord
+  end
+
+  def self.delete_all
+    raise ActiveRecord::ReadOnlyRecord
+  end
+
+  def delete
     raise ActiveRecord::ReadOnlyRecord
   end
 

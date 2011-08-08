@@ -1,4 +1,4 @@
-class Person < ActiveRecord::Base
+class Person < ReadOnlyModel
   set_table_name "persons"
   set_primary_key "id"
 
