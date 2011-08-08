@@ -1,0 +1,23 @@
+
+<% if params['no_javascript'] == '1' %>
+  <table id="data_table">
+    <tr id="data_table_header">
+      <% @fields.each do |field| %>
+        <td><%= field[:label] || field[:field] %></td>
+      <% end %>
+    </tr>
+    <% @rows.each do |row| %>
+      <tr class="data_table_data_row">
+        <% @fields.each do |field| %>
+          <td><%= row[field[:field].to_sym] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <%=raw jqgrid(@title, "data_table", url_for(:action => controller.action_name, :format => "json", :params => params), @fields,
+    { :rows_per_page => 20,
+      :autowidth => true }
+    )
+  %>
+<% end %>

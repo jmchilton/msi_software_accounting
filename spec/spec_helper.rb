@@ -31,3 +31,7 @@ end
 
 require 'capybara/rails'
 require 'capybara/dsl'
+
+Capybara.add_selector(:data_table_header) do
+  xpath { ".//table[id=data_table]/tr[1]" }
+end

@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
 
   belongs_to :group, :foreign_key => "gid"
   belongs_to :person, :foreign_key => "person_id"
+
+  has_many :events, :foreign_key => "user", :primary_key => "username"
 end

@@ -1,8 +1,8 @@
 SoftwareWebApp::Application.routes.draw do
 
   def add_report_to_controller(controller)
-    match "#{controller}/report" => "#{controller}#report"
-    match "#{controller}/show_report" => "#{controller}#show_report"
+    match "#{controller}/report" => "#{controller}#report", :as => "#{controller}_report".to_sym
+    match "#{controller}/show_report(.:format)" => "#{controller}#show_report", :as => "#{controller}_show_report".to_sym
   end
 
   add_report_to_controller("resources")

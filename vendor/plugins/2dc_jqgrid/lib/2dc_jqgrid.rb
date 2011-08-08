@@ -367,9 +367,15 @@ module JqgridJson
       each do |elem|
         elem.id ||= index(elem)
         json << %Q({"id":"#{elem.id}","cell":[)
-        couples = elem.attributes.symbolize_keys
+        if elem.is_a? Hash
+          couples = elem
+        else
+          couples = elem.attributes.symbolize_keys
+        end
         attributes.each do |atr|
+          puts "Attribute is #{atr}"
           value = get_atr_value(elem, atr, couples)
+          puts 'Foo'
           value = escape_javascript(value) if value and value.is_a? String
           json << %Q("#{value}",)
         end
@@ -385,10 +391,11 @@ module JqgridJson
   
   def get_atr_value(elem, atr, couples)
     if atr.to_s.include?('.')
-      value = get_nested_atr_value(elem, atr.to_s.split('.').reverse) 
+      value = get_nested_atr_value(elem, atr.to_s.split('.').reverse)
     else
       value = couples[atr]
-      value = elem.send(atr.to_sym) if value.blank? && elem.respond_to?(atr) # Required for virtual attributes
+      value = elem.send(atr.to_sym) if value.blank? && elem.respond_to?(atr.to_sym) # Required for virtual attributes
+      puts "Value is #{value}"
     end
     value
   end

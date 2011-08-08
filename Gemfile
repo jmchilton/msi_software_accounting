@@ -2,6 +2,12 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 
+# For ordered dictionaries in ruby 1.8
+gem 'hashery'
+
+gem 'fastercsv'
+
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

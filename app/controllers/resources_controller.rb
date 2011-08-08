@@ -1,3 +1,5 @@
+require 'hashery/dictionary.rb'
+
 class ResourcesController < ApplicationController
   # @@fiscal_years = (10..13).map { |year| "fy#{year}"}
 
@@ -11,21 +13,27 @@ class ResourcesController < ApplicationController
   end
 
   def show_report
-    @rows = Resource.find(:all,
-                          :select => "resources.rid, resources.name, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups",
-                          :group => "resources.name",
-                          :conditions => "event.operation = 'OUT'",
-                          :order => "resources.name ASC",
-                          :joins => [{:events => { :process_user => :group}}])
-
+    @columns = Dictionary[:fy10 => "Cost (FY 2010)",
+                          :fy11 => "Cost (FY 2011)",
+                          :fy12 => "Cost (FY 2012)",
+                          :fy13 => "Cost (FY 2013)",
+                          :name => "Name",
+                          :num_users => "Unique Users",
+                          :num_groups => "Unique Groups",
+                          ]
+    @rows = Resource.report.all
     @rows.each do |row| 
-      purchases = Resource.find(row.rid, :include => :purchases).purchases
+      purchases = Resource.purchases_for(row.rid)
       fiscal_years.each do |fiscal_year|
         year_sum = purchases.map {|purchase| purchase.read_attribute(fiscal_year)}.sum()
         row[fiscal_year] = year_sum
       end
     end
 
+    respond_to do |format|
+      format.html
+      format.csv { render_csv("resource_report.csv") }
+    end
   end
 
   # GET /resources

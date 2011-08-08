@@ -4,7 +4,11 @@ class CollegesController < ApplicationController
   end
 
   def show_report
-    @rows = []
+    @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
+               { :field => "name", :label => "College" }]
+    @rows = [{:id => "1", :name => "CFANS"}]
+    @title = "College Report"
+    respond_with_table
   end
 
   # GET /colleges
