@@ -8,6 +8,18 @@ class College < ReadOnlyModel
                           :association_foreign_key => :dept_id,
                           :class_name => 'Department'
 
+  scope :resources, select("colleges.id, ex.rid").
+                    joins(" as c
+                            INNER JOIN department_colleges dc ON dc.college_id = c.id
+                            INNER JOIN departments d ON d.id = dc.dept_id
+                            INNER JOIN persons person ON person.dept_id = d.id
+                            INNER JOIN users u ON u.person_id = person.id
+                            INNER JOIN event e ON e.unam = u.username
+                            INNER JOIN executable ex on e.feature = ex.identifier").
+                    where("e.operation = 'OUT'").
+                    group("c.id, ev.rid")
+
+
   scope :report, select("colleges.name, " +  
                         "count(*) as num_packages, " + 
                         "count(distinct purchase.pid) as num_purchases, " +            

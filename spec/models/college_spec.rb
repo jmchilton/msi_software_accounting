@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe College do
 
+  describe "resources" do
+    let(:college_resources) { College.resources }
+    
+    specify "cfans should use 1 resource" do
+      college_resources.find_by_id("1").should have(1).items
+    end
+    
+  end
+
   describe "reports" do
 
     describe "cfans report" do 
