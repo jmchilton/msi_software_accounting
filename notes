@@ -1,0 +1,28 @@
+This college report!
+
+  select oc.name, count(*), sum(fy10), sum(fy11), sum(fy12), sum(fy13)
+   from colleges oc
+     inner join
+       (select c.id, ex.rid
+          FROM people.colleges c
+            INNER JOIN people.department_colleges dc ON dc.college_id = c."id"
+            INNER JOIN people.departments d ON d.id = dc.dept_id
+            INNER JOIN people.persons person ON person.dept_id = d.id
+            INNER JOIN people.users u ON u.person_id = person.id
+            INNER JOIN event e ON e.unam = u.username
+            INNER JOIN executable ex on e.feature = ex.identifier
+          WHERE (e.operation = 'OUT')
+          GROUP BY c.id, ex.rid) cr
+       on oc.id = cr.id
+     inner join
+       (select p.rid as rid, sum(p.fy10) as fy10, sum(p.fy11) as fy11, sum(p.fy12) as fy12, sum(p.fy13) as fy13 from purchase p group by p.rid) ps
+       on ps.rid = cr.rid
+   group by oc.name;
+
+
+
+
+ruby-1.8.7-p352 :002 > College.all[0].departments[0].people[0].users[0].events[0].executable.resource.purchases[0]
+ => #<Purchase pid: 1, rid: 1, os: "MyString", flexlm: 1, name: 1, fy10: 10, fy11: 0, fy12: 0, fy13: 0, created_at: "2011-08-09 21:48:49", updated_at: "2011-08-09 21:48:49">
+ruby-1.8.7-p352 :003 > Purchase.all[0].resource.executables[0].events[0].process_user.person.department.colleges[0]
+ => #<College id: 1, name: "CFANS", created_at: "2011-08-09 21:48:49", updated_at: "2011-08-09 21:48:49">

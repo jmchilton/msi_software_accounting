@@ -4,7 +4,7 @@ class CollegesControllerTest < ActionController::TestCase
   fixtures :colleges
 
   setup do
-    @college = colleges(:one)
+    @college = colleges(:cfans)
   end
 
   test "show_report contains CFANS" do

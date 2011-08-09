@@ -1,8 +1,24 @@
 
 department_college_one:
   dept_id: 1
-  college_id: 1
+  college_id: 2
 
 department_college_two:
   dept_id: 2
   college_id: 2
+
+food_science_in_cfans:
+  dept_id: 3
+  college_id: 1
+
+cardiology_in_med_school:
+  dept_id: 4
+  college_id: 4
+
+derm_in_med_school:
+  dept_id: 5
+  college_id: 4
+
+envir_in_pub_health:
+  dept_id: 6
+  college_id: 3

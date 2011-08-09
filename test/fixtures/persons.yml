@@ -12,12 +12,12 @@ person_bob:
 
 person_alice:
   id: 2
-  first_name: MyString
-  middle_name: MyString
-  last_name: MyString
+  first_name: Alice
+  middle_name:
+  last_name: 
   active: true
   email: alice@example.com
-  dept_id: 2
+  dept_id: 6
 
 person_carl:
   id: 3
@@ -26,4 +26,13 @@ person_carl:
   last_name: 
   active: true
   email: carl@example.com
-  dept_id: 2
+  dept_id: 6
+
+person_alyssa:
+  id: 4
+  first_name: Alyssa
+  middle_name:
+  last_name:
+  active: true
+  email: alyssa@example.com
+  dept_id: 3

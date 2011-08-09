@@ -11,11 +11,6 @@ class EventsControllerTest < ActionController::TestCase
     assert @event.process_user.username == "bob"
   end
 
-  test "show have resource association fixture" do
-    assert_not_nil @event.resource
-    assert_equal @event.resource.name, "resource_1"
-  end
-
   test "should get index" do
     get :index
     assert_response :success

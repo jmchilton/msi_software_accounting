@@ -23,3 +23,9 @@ user_carl2: # Second user for same person
   username: carl2
   person_id: 3
   gid: 3
+
+user_alyssa: 
+  id: 5
+  username: alyssa
+  person_id: 4
+  gid: 4

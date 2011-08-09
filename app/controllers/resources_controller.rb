@@ -23,7 +23,7 @@ class ResourcesController < ApplicationController
                           ]
     @rows = Resource.report.all
     @rows.each do |row| 
-      purchases = Resource.purchases_for(row.rid)
+      purchases = Resource.purchases_for(row.id)
       fiscal_years.each do |fiscal_year|
         year_sum = purchases.map {|purchase| purchase.read_attribute(fiscal_year)}.sum()
         row[fiscal_year] = year_sum

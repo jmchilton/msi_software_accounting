@@ -4,37 +4,41 @@ event_one:
   evid: 1
   ev_date: 2011-08-02 10:06:29
   vendor: MyString
-  feature: MyString
   ugrp: MyString
   host: MyString
   operation: OUT
   comment: MyString
-  rid: 1
-  user: bob
+  feature: 2
+  unam: bob
 
 event_two:
   evid: 2
   ev_date: 2011-08-02 12:06:29
   vendor: MyString
-  feature: MyString
   ugrp: MyString
   host: MyString
   operation: OUT
   comment: MyString
-  rid: 2
-  user: alice
+  feature: 1
+  unam: alice
 
-event_three:
+event_carl_users_r2_1:
   evid: 3
   ev_date: 2011-08-03 12:24:34
-  rid: 2
+  feature: 2
   operation: OUT
-  user: carl
+  unam: carl
 
-event_four:
+event_carl_uses_r2_2:
   evid: 4
   ev_date: 2011-08-04 18:30:34
-  rid: 2
+  feature: 2
   operation: OUT
-  user: carl2
+  unam: carl2
   
+event_five: # User alyssa users resource 1
+  evid: 5
+  ev_date: 2011-08-03 12:10:34
+  feature: 1
+  operation: OUT
+  unam: alyssa

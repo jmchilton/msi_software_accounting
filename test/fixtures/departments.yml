@@ -8,3 +8,19 @@ two:
   id: 2
   name: MyString
 
+food_science:
+  id: 3
+  name: Food Science
+
+cardiology:
+  id: 4
+  name: Cardiology
+
+dermatology:
+  id: 5
+  name: Dermatology
+
+environment_health:
+  id: 6
+  name: Environmental Health Sciences
+
