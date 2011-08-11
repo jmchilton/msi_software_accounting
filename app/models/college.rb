@@ -26,13 +26,7 @@ class College < ReadOnlyModel
                         "sum(fy12) as fy12," + 
                         "sum(fy13) as fy13").
                   joins("inner join (#{resources.to_aliased_sql('ic')}) cr on colleges.id = cr.id
-                         inner join (select p.rid as rid, 
-                                            sum(p.fy10) as fy10, 
-                                            sum(p.fy11) as fy11, 
-                                            sum(p.fy12) as fy12, 
-                                            sum(p.fy13) as fy13 
-                                     from purchase p group by p.rid) ps
-                        on ps.rid = cr.rid").
+                         inner join (#{Purchase.resource_summary.to_sql}) ps on ps.rid = cr.rid").
                   order("colleges.name ASC").
                   group("colleges.name")
 

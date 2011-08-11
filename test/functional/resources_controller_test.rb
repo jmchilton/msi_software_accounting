@@ -11,8 +11,8 @@ class ResourcesControllerTest < ActionController::TestCase
     get :show_report
     assert_response :success
     assert_not_nil assigns(:rows)
-    assert_equal @controller.rows[0].name, "resource_1"
-    assert_equal @controller.rows[0].fy10, 10
+    assert_equal assigns(:rows)[0].name, "resource_1"
+    assert_equal assigns(:rows)[0].fy10, 10
   end
 
   test "should get index" do

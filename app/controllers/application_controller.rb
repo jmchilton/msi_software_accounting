@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render :html => @rows }# index.html.erb
       format.xml  { render :xml => @row }
+      format.csv { render_csv(@title + ".csv") }
       format.json { render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @rows.count) }
     end
   end

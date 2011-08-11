@@ -1,39 +1,22 @@
 require 'hashery/dictionary.rb'
 
 class ResourcesController < ApplicationController
-  # @@fiscal_years = (10..13).map { |year| "fy#{year}"}
-
-  helper_method :rows
-
-  def rows
-    @rows
-  end
 
   def report
   end
 
   def show_report
-    @columns = Dictionary[:fy10 => "Cost (FY 2010)",
-                          :fy11 => "Cost (FY 2011)",
-                          :fy12 => "Cost (FY 2012)",
-                          :fy13 => "Cost (FY 2013)",
-                          :name => "Name",
-                          :num_users => "Unique Users",
-                          :num_groups => "Unique Groups",
-                          ]
-    @rows = Resource.report.all
-    @rows.each do |row| 
-      purchases = Resource.purchases_for(row.id)
-      fiscal_years.each do |fiscal_year|
-        year_sum = purchases.map {|purchase| purchase.read_attribute(fiscal_year)}.sum()
-        row[fiscal_year] = year_sum
-      end
-    end
-
-    respond_to do |format|
-      format.html
-      format.csv { render_csv("resource_report.csv") }
-    end
+    @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
+               { :field => "name", :label => "Name" },
+               { :field => "num_users", :label => "# Users"},
+               { :field => "num_groups", :label => "# Groups"},
+               { :field => "fy10", :label => "Cost (FY 2010)"},
+               { :field => "fy11", :label => "Cost (FY 2011)"},
+               { :field => "fy12", :label => "Cost (FY 2012)"},
+               { :field => "fy13", :label => "Cost (FY 2013)"}]
+    @rows = Resource.report
+    @title = "Resource Report"
+    respond_with_table
   end
 
   # GET /resources
