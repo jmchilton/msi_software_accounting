@@ -1,12 +1,13 @@
 SoftwareWebApp::Application.routes.draw do
 
-  def add_report_to_controller(controller)
+  def add_report_to_controller(controller_symbol)
+    controller = controller_symbol.to_s
     match "#{controller}/report" => "#{controller}#report", :as => "#{controller}_report".to_sym
     match "#{controller}/show_report(.:format)" => "#{controller}#show_report", :as => "#{controller}_show_report".to_sym
   end
 
-  add_report_to_controller("resources")
-  add_report_to_controller("colleges")
+  add_report_to_controller :resources
+  add_report_to_controller :colleges
 
   resources :events, :only => [:index, :show]
   resources :executables
