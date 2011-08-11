@@ -38,6 +38,14 @@ gem 'postgres'
 
 group :development, :test do
   gem "rcov"
+  gem "guard-rspec"
+  if RbConfig::CONFIG['target_os'] =~ /darwin/i
+    gem 'rb-fsevent', '>= 0.4.0', :require => false
+  end
+  if RbConfig::CONFIG['target_os'] =~ /linux/i
+    gem 'rb-inotify', '>= 0.8.5', :require => false
+  end
+  gem "guard-livereload"
 end
 
 group :test do
