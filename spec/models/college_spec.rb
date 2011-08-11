@@ -6,10 +6,33 @@ describe College do
     let(:college_resources) { College.resources }
     
     specify "cfans should use 1 resource" do
-      college_resources.find_by_id("1").should have(1).items
+      college_resources.find_by_id("1").should_not be_instance_of Array
+    end
+
+    specify "cfans should use resource 1" do 
+      college_resources.find_by_id("1").rid.should eql(1)
     end
     
   end
+
+  # TODO: Extract to_aliased_sql code into a plugin
+  describe "to_aliased_sql" do 
+    let(:aliased_sql) { College.resources.to_aliased_sql("cool_bean") }
+
+    it "should be equivalent to normal sql" do
+      College.find_by_sql(aliased_sql).should eql(College.resources.all)
+    end
+
+    it "should specify a name in the from" do
+      aliased_sql.should match /FROM\s+\"?colleges\"?\s+\"?cool_bean\"?/
+    end
+
+    it "should specify name in the select statement" do
+      aliased_sql.should match "cool_bean.id"
+    end
+
+  end
+
 
   describe "reports" do
 
@@ -48,7 +71,6 @@ describe College do
         cfans_report.fy13.should eql(0)
       end
 
-
     end
 
     describe "it report" do
@@ -64,7 +86,7 @@ describe College do
       let(:cph_report) { College.report.find_by_name("CPH") }
 
       it "should have a cost for multiple resources" do
-        cph_report.fy11.should eql(20)
+        cph_report.fy11.should eql(30)
       end
  
       it "should use two packages" do

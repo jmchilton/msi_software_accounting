@@ -9,27 +9,31 @@ class College < ReadOnlyModel
                           :class_name => 'Department'
 
   scope :resources, select("colleges.id, ex.rid").
-                    joins(" as c
-                            INNER JOIN department_colleges dc ON dc.college_id = c.id
+                    joins(" INNER JOIN department_colleges dc ON dc.college_id = colleges.id
                             INNER JOIN departments d ON d.id = dc.dept_id
                             INNER JOIN persons person ON person.dept_id = d.id
                             INNER JOIN users u ON u.person_id = person.id
                             INNER JOIN event e ON e.unam = u.username
                             INNER JOIN executable ex on e.feature = ex.identifier").
                     where("e.operation = 'OUT'").
-                    group("c.id, ev.rid")
+                    group("colleges.id, ex.rid")
 
 
   scope :report, select("colleges.name, " +  
                         "count(*) as num_packages, " + 
-                        "count(distinct purchase.pid) as num_purchases, " +            
-                        "sum(purchase.fy10) as fy10," +     
-                        "sum(purchase.fy11) as fy11," + 
-                        "sum(purchase.fy12) as fy12," + 
-                        "sum(purchase.fy13) as fy13").
-                  where("event.operation = 'OUT'").
-                  joins(:departments => { :people => {:users => { :events => { :executable => { :resource => :purchases } } } } }).
+                        "sum(fy10) as fy10," +     
+                        "sum(fy11) as fy11," + 
+                        "sum(fy12) as fy12," + 
+                        "sum(fy13) as fy13").
+                  joins("inner join (#{resources.to_aliased_sql('ic')}) cr on colleges.id = cr.id
+                         inner join (select p.rid as rid, 
+                                            sum(p.fy10) as fy10, 
+                                            sum(p.fy11) as fy11, 
+                                            sum(p.fy12) as fy12, 
+                                            sum(p.fy13) as fy13 
+                                     from purchase p group by p.rid) ps
+                        on ps.rid = cr.rid").
                   order("colleges.name ASC").
-                  group("colleges.name, resources.rid")
+                  group("colleges.name")
 
 end
