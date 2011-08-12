@@ -7,6 +7,7 @@ gem 'hashery'
 
 gem 'fastercsv'
 
+gem 'basic_model'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

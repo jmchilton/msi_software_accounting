@@ -27,6 +27,8 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include(Capybara, :type => :integration)
+
+  config.global_fixtures = :all
 end
 
 require 'capybara/rails'

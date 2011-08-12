@@ -30,6 +30,9 @@ GEM
     activesupport (3.0.9)
     addressable (2.2.6)
     arel (2.0.10)
+    basic_model (0.3.0)
+      activemodel (~> 3.0)
+      activesupport (~> 3.0)
     builder (2.1.2)
     capybara (1.0.0)
       mime-types (>= 1.16)
@@ -130,6 +133,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  basic_model
   capybara
   factory_girl_rails
   fastercsv
