@@ -2,19 +2,15 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = with_pagination_and_ordering(User)
+    users = with_pagination_and_ordering(User)
     if perform_search?
-      @users = @users.where("username like ?", "%#{params[:username]}%")
+      users = @users.where("username like ?", "%#{params[:username]}%")
     end
-    @users = @users.all
     @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
                { :field => "username", :label => "Username" }]
+    @rows = users.all
     @title = "Users"
-    respond_to do |format|
-      format.html { render :html => @users }# index.html.erb
-      format.xml  { render :xml => @users }
-      format.json { render :json => @users.to_jqgrid_json([:id, :username], params[:page], params[:rows], @users.count) }
-    end
+    respond_with_table
   end
 
   # GET /users/1

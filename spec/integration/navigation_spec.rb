@@ -24,6 +24,9 @@ feature "Index Page", %q{
     visit '/'
     click_link('View Resources')
     current_path.should eql(resources_path)
+    click_link('View')    
   end 
+
+
 
 end

@@ -30,6 +30,9 @@ GEM
     activesupport (3.0.9)
     addressable (2.2.6)
     arel (2.0.10)
+    basic_model (0.3.0)
+      activemodel (~> 3.0)
+      activesupport (~> 3.0)
     builder (2.1.2)
     capybara (1.0.0)
       mime-types (>= 1.16)
@@ -63,6 +66,9 @@ GEM
       guard (>= 0.4.0)
     hashery (1.4.0)
     i18n (0.5.0)
+    jquery-rails (1.0.13)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json_pure (1.5.3)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -130,12 +136,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  basic_model
   capybara
   factory_girl_rails
   fastercsv
   guard-livereload
   guard-rspec
   hashery
+  jquery-rails
   postgres
   rails (= 3.0.9)
   rb-inotify (>= 0.8.5)

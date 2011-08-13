@@ -6,4 +6,6 @@ feature "Download Report" do
     visit '/resources/show_report.csv'
     page.should have_content("resource_1")
   end
+
 end
+

@@ -7,6 +7,11 @@ gem 'hashery'
 
 gem 'fastercsv'
 
+gem 'basic_model'
+
+gem 'jquery-rails'
+
+#gem 'jqgrid-rails3', :git => 'git://github.com/springbok/jqgrid-rails3.git'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
