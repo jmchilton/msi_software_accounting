@@ -1,3 +1,11 @@
 <%= show_report_form_tag do %>
+  <div class="form_item">
+    <label for="from">From</label>
+    <%= text_field_tag("from", "", :class=> 'date-selector') %>
+  </div>
+  <div class="form_item">
+    <label for="to">To</label>
+    <%= text_field_tag("to", "", :class=> 'date-selector') %>
+  </div>
   <%= submit_tag("Show Report") %>
 <% end %>

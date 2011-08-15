@@ -12,5 +12,7 @@ $(document).ready(function() {
         };
         $("a").attr('href', enable_javascript);
         $("form").attr('action', enable_javascript);
-  
+
+		$( ".date-selector" ).datepicker();
+
     });

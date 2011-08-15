@@ -35,4 +35,8 @@
   <%= @resource.module %>
 </p>
 
+<p>
+  <%= link_to "View Usage Report", :action =>  :usage_report, :id => params[:id] %>
+</p>
+
 <%= link_to 'Back', resources_path %>

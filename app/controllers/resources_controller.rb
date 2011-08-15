@@ -1,4 +1,3 @@
-require 'hashery/dictionary.rb'
 
 class ResourcesController < ApplicationController
   @@report_fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
@@ -15,12 +14,19 @@ class ResourcesController < ApplicationController
                     { :field => "name", :label => "Name" }]
   @@index_title = "Resources"
 
+  @@usage_report_fields = [{:field => "username", :label => "Username"},
+                           {:field => "group_name", :label=> "Group" },
+                           {:field => "use_count", :label => "Checkouts"}]
+  @@usage_report_title = "Resource Usage"
+
   def report
   end
 
   def show_report
+    from = params[:from]
+    to = params[:to]
+    @rows = with_pagination_and_ordering(Resource.report(from, to))
     @fields = @@report_fields
-    @rows = with_pagination_and_ordering(Resource.report)
     @title = @@report_title
     respond_with_table
   end
@@ -29,6 +35,13 @@ class ResourcesController < ApplicationController
   end
  
   def show_usage_report
+    resource_id = params[:id]
+    from = params[:from]
+    to = params[:to]
+    @rows = with_pagination_and_ordering(User.resource_report(resource_id, from, to))
+    @title = @@usage_report_title
+    @fields = @@usage_report_fields
+    respond_with_table
   end 
 
   # GET /resources
@@ -37,7 +50,7 @@ class ResourcesController < ApplicationController
     @fields = @@index_fields
     @title = @@index_title
     @rows = with_pagination_and_ordering(Resource).all
-    @view_link = lambda { |row| resources_path(row) }
+    @view_link = lambda { |row| resource_path(row) }
     respond_with_table
   end
 
@@ -51,6 +64,5 @@ class ResourcesController < ApplicationController
       format.xml  { render :xml => @resource }
     end
   end
-
 
 end

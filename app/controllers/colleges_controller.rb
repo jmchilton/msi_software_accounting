@@ -6,7 +6,7 @@ class CollegesController < ApplicationController
   def show_report
     @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
                { :field => "name", :label => "College" }]
-    @rows = College.report
+    @rows = College.report(params[:from], params[:to])
     @title = "College Report"
     respond_with_table
   end

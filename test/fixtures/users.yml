@@ -29,3 +29,9 @@ user_alyssa:
   username: alyssa
   person_id: 4
   gid: 4
+
+user_shelly: # Uses only rareapp
+  id: 6
+  username: shelly
+  person_id: 5
+  gid: 5

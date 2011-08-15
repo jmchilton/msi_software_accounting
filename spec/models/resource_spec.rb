@@ -1,7 +1,7 @@
 describe Resource do
 
   describe "report" do
-    let(:record1) { Resource.report.find { |record| record.id == 1 }  }
+    let(:record1) { Resource.report.find_by_id(1)  }
 
     it "should include correct purchase totals" do
       record1.fy11.should eql(20)
@@ -12,6 +12,18 @@ describe Resource do
 
     it "should include resource name" do
       record1.name.should == "resource_1"
+    end
+
+    it "should find records in range" do
+      Resource.report('2011-09-01', '2011-09-02').find_by_id(3).num_users.should == 1
+    end
+
+    it "should not find records for events after range" do
+      Resource.report("2011-09-05", "").find_by_id(3).should be_blank
+    end
+
+    it "should not find records for events before range" do
+      Resource.report(nil, "2011-08-04").find_by_id(3).should be_blank
     end
 
   end

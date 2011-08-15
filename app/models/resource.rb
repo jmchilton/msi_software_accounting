@@ -6,18 +6,20 @@ class Resource < ReadOnlyModel
   has_many :purchases, :foreign_key => "rid"
 
   
-  scope :usage_report, select("resources.id, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups").
-                       where("event.operation = 'OUT'").
-                       joins(:executables => { :events => { :process_user => :group} }).
-                       group("resources.id")
-
-  scope:report, select("resources.id, resources.name, num_users, num_groups, fy10, fy11, fy12, fy13").
-                joins("inner join (#{Purchase.resource_summary.to_sql}) rs on rs.rid = resources.id                                            
-                       inner join (#{Resource.usage_report.to_aliased_sql('ir')}) ur on ur.id = resources.id").
-                order("resources.name")
-
-                
-  def self.purchases_for(rid)
-    where("id = ?", rid).includes(:purchases).first.purchases
+  def self.usage_report(from = nil, to = nil)
+    select("resources.id, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups").
+      joins("INNER JOIN executable on executable.rid = resources.id
+             INNER JOIN (#{Event.valid_events(from, to).to_sql}) e on e.feature = executable.identifier
+             INNER JOIN users on users.username = e.unam
+             INNER JOIN groups on users.gid = groups.gid").
+      group("resources.id")
   end
+
+  def self.report(from = nil, to = nil)
+    select("resources.id, resources.name, num_users, num_groups, fy10, fy11, fy12, fy13").
+                joins("left join (#{Purchase.resource_summary.to_sql}) rs on rs.rid = resources.id
+                       inner join (#{Resource.usage_report(from, to).to_aliased_sql('ir')}) ur on ur.id = resources.id").
+                order("resources.name")
+  end
+
 end

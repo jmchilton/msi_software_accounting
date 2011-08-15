@@ -8,7 +8,7 @@ class EventType
   def self.to_event_type(event)
     EventType.new({:id => event.evid, :feature => event.feature, :vendor => event.vendor, :resource_id => event.resource_id})
   end
-
+``
   def self.all 
     event_types.all.map {|event| to_event_type(event) }
   end

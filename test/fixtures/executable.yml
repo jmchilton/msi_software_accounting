@@ -13,3 +13,11 @@ two:
   identifier: 2
   comment: MyString
   rid: 2
+
+
+rare_exec:
+  exid: 3
+  identifier_type: 1
+  identifier: rareexec
+  comment: rarevendor
+  rid: 3

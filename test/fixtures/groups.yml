@@ -15,3 +15,7 @@ group_3:
 group_alyssa:
   gid: 4
   name: alyssa
+
+group_shelly:
+  gid: 5
+  name: shelly

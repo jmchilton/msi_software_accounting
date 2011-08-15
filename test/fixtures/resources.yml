@@ -17,3 +17,7 @@ resource_two:
   calendar_desc: MyString
   documentation: MyString
   module: MyString
+
+rarely_used_resource:
+  id: 3
+  name: rareapp
