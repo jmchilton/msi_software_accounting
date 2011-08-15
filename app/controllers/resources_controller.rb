@@ -25,6 +25,7 @@ class ResourcesController < ApplicationController
   def show_report
     from = params[:from]
     to = params[:to]
+    puts params
     @rows = with_pagination_and_ordering(Resource.report(from, to))
     @fields = @@report_fields
     @title = @@report_title

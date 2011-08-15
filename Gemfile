@@ -8,6 +8,8 @@ gem 'basic_model'
 
 gem 'jquery-rails'
 
+gem 'compass'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

@@ -23,9 +23,17 @@
     <% end %>
   </table>
 <% else %>
-  <%=raw jqgrid(@title, "data_table", url_for(:action => controller.action_name, :format => "json", :params => params), @fields,
+  <%=raw jqgrid(@title, "data_table", url_for(:action => controller.action_name, :format => "json", :to => params[:to], :from => params[:from]), @fields,
     { :rows_per_page => 20,
-      :autowidth => true }
+      :autowidth => true,
+      :height => 400
+    }
     )
   %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      configure_data_table($("#data_table"));
+    });
+  </script>
+
 <% end %>

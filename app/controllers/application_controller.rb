@@ -5,12 +5,19 @@ class ApplicationController < ActionController::Base
   protected
 
   def respond_with_table
+    if not @view_link.blank?
+      @fields.push({:field => "link", :hidden => true})
+      @rows.each { |row| row[:link] = @view_link.call(row) }
+    end
+
     keys = @fields.map { |field| field[:field] }
     respond_to do |format|
       format.html { render :html => @rows }# index.html.erb
       format.xml  { render :xml => @row }
       format.csv { render_csv(@title + ".csv") }
-      format.json { render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @rows.count) }
+      format.json {
+        render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @rows.count)
+      }
     end
   end
 

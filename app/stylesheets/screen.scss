@@ -1,0 +1,124 @@
+$blueprint_grid_width: 40px;
+
+// Colors from MSI DB site
+$dark_red: #7a0019;
+$dark_gray: #808080;
+$medium_gray: #cccccc;
+$light_gray: #f5f5f5;
+
+$link-color: $dark_red;
+$link-hover-color: $dark_gray;
+
+$blueprint-border-color: $dark_gray;
+
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset";
+
+// To configure blueprint, edit the partials/base.sass file.
+@import "partials/base";
+
+// Import all the default blueprint modules so that we can access their mixins.
+@import "blueprint";
+
+@import "blueprint/liquid";
+
+
+// To generate css equivalent to the blueprint css but with your
+// configuration applied, uncomment:
+// @include blueprint
+
+// If you are doing a lot of stylesheet concatenation, it is suggested
+// that you scope your blueprint styles, so that you can better control
+// what pages use blueprint when stylesheets are concatenated together.
+body.bp {
+  @include blueprint-typography(true);
+  @include blueprint-utilities;
+  @include blueprint-debug;
+  @include blueprint-interaction;
+  // Remove the scaffolding when you're ready to start doing visual design.
+  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+}
+
+form.bp {
+  @include blueprint-form;
+  // You'll probably want to remove the scaffolding once you start styling your site.
+
+  label {
+    width: 50px;
+    display: block;
+  }
+}
+
+body.bp {
+  @include blueprint-typography(true);
+  @include blueprint-utilities;
+  @include blueprint-debug;
+  @include blueprint-interaction;
+
+  border-top: 2px solid $dark_red;
+}
+
+body .two-column {
+  @include container;
+  width: 94%;
+
+  #header, #footer {
+    @include column(24);
+  }
+
+  #sidebar {
+    //$sidebar_columns: floor($blueprint_grid_columns / 4) - 1;
+    padding-top: 10px;
+    @include column(4);
+    @include colborder;
+
+    .link-group {
+      list-style-type: none;
+
+      lh {
+        font-weight: 700;
+        font-size: 1.05em;
+      }
+
+     a {
+       text-decoration: none;
+       font-weight: 700;
+     }
+
+     li {
+       padding-left: 8px;
+     }
+
+    }
+
+  }
+
+  #content {
+    padding-top: 10px;
+    @include column(18, true);
+
+    h1 {
+      font-size: 1.4em;
+      font-weight: 700;
+    }
+
+  }
+
+}
+
+
+// http://stackoverflow.com/questions/444842/altering-jquery-datepicker-to-work-with-blueprint-css
+/* JQUERY-UI + BLUEPRINT CSS CALENDAR FIX */
+.ui-datepicker table{
+  margin: 0; }
+.ui-datepicker-calendar thead tr th , .ui-datepicker tbody tr td {
+  background:white; color:#333;  }
+.ui-datepicker-calendar thead tr th{
+  padding: 5px 0; }
+.ui-datepicker-calendar tbody td{
+  padding:0 2px 2px 0; }
+.ui-datepicker-calendar tbody td a{
+  padding:0 1px 0 0; }
+.ui-datepicker-calendar {
+  font-size:0.8em; }
+
