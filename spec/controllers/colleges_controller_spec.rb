@@ -1,0 +1,44 @@
+require "spec_helper"
+require 'controllers/table_helpers'
+
+describe CollegesController do
+  include TableHelpers
+
+  describe "GET index" do
+    before(:each) { get :index }
+    specify { response.should be_success }
+    specify { response.should render_template("index") }
+  end
+
+  describe "GET report" do
+    before(:each) { get :report }
+    specify { response.should be_success }
+    specify { response.should render_template("report")}
+  end
+
+  describe "GET show" do
+    let(:college) { FactoryGirl.create(:college) }
+    before(:each) {
+      id = college.id
+      College.stub!(:find).with(id).and_return(college)
+      get :show, :id => college.id
+    }
+
+    specify { response.should be_success }
+    specify { response.should render_template("show")}
+    specify { assigns(:college).should == college }
+  end
+
+  describe "POST show_report" do
+
+    describe "default response" do
+      before(:each) { post :show_report }
+
+      specify { response.should be_success }
+      specify { response.should render_template("show_report")}
+      specify { it_should_setup_table_variables }
+    end
+
+  end
+
+end

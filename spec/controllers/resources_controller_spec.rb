@@ -14,7 +14,7 @@ describe ResourcesController do
   end
 
   describe "GET 'show_usage_report'" do
-    before(:each) { get 'show_usage_report', :id => "1" }
+    before(:each) { put 'show_usage_report', :id => "1" }
 
     specify { response.should be_success }
 
