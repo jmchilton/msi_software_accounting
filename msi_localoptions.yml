@@ -1,0 +1,4 @@
+nokogiri:
+  xml2-include: <%=ENV["RUBY_DEPS"] %>/libxml/include/libxml2
+  xml2-lib: <%= ENV["RUBY_DEPS"] %>/libxml/lib
+  xslt-dir: <%= ENV["RUBY_DEPS"] %>/libxslt

@@ -5,3 +5,4 @@ tmp/
 .idea/
 coverage/
 app/stylesheets/.sass-cache
+production

@@ -14,7 +14,13 @@ gem 'compass'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'postgres'
+
+group :production do 
+  gem 'postgres'
+  gem 'pg'
+  gem 'passenger'
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

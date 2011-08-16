@@ -15,16 +15,13 @@ test:
   pool: 5
   timeout: 5000
 
-msi-development:
-  adapter: postgres
-  database: msi
-  username: msiswcheck
-  host: localhost
-  port: 15002
-#  password: <%= begin IO.read(ENV["HOME"] + "/.pgpass").split(":").last rescue "" end %>
-
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: <%= ENV["PG_DATABASE"] %>
+  username: <%= ENV["PG_USERNAME"] %>
+  host: <%= ENV["PG_HOST"] || "localhost" %>
+  password: <%= ENV["PG_PASSWORD"] %>
+  port: <%= ENV["PG_PORT"] %>
   pool: 5
   timeout: 5000
+

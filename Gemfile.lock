@@ -48,6 +48,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    daemon_controller (0.2.6)
     diff-lcs (1.1.2)
     em-websocket (0.3.1)
       addressable (>= 2.1.1)
@@ -60,6 +61,7 @@ GEM
       factory_girl (~> 2.0.0)
       railties (>= 3.0.0)
     fastercsv (1.5.4)
+    fastthread (1.0.7)
     ffi (1.0.9)
     fssm (0.2.7)
     guard (0.5.1)
@@ -83,6 +85,12 @@ GEM
     mime-types (1.16)
     multi_json (1.0.3)
     nokogiri (1.5.0)
+    passenger (3.0.8)
+      daemon_controller (>= 0.2.5)
+      fastthread (>= 1.0.1)
+      rack
+      rake (>= 0.8.1)
+    pg (0.11.0)
     polyglot (0.3.2)
     postgres (0.7.9.2008.01.28)
     rack (1.2.3)
@@ -150,6 +158,8 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   jquery-rails
+  passenger
+  pg
   postgres
   rails (= 3.0.9)
   rb-inotify (>= 0.8.5)
