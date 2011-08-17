@@ -4,19 +4,64 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def respond_with_table
-    if not @view_link.blank?
-      @fields.push({:field => "link", :hidden => true})
-      @rows.each { |row| row[:link] = @view_link.call(row) }
-    end
+  def self.fy_10_field
+   { :field => "fy10", :label => "Cost (FY 2010)"}
+  end
 
-    keys = @fields.map { |field| field[:field] }
+  def self.fy_11_field
+    { :field => "fy11", :label => "Cost (FY 2011)"}
+  end
+
+  def self.fy_12_field
+    { :field => "fy12", :label => "Cost (FY 2012)"}
+  end
+
+  def self.fy_13_field
+    { :field => "fy13", :label => "Cost (FY 2013)"}
+  end
+
+  def setup_rows(for_json = false)
+    if @allow_pagination
+      @row_count = @rows.count
+      @rows = with_pagination_and_ordering(@rows)
+    end
+    if !@view_link.blank?
+      @fields.push({:field => "link", :hidden => true})
+      if for_json
+        @rows.each { |row| row[:link] = @view_link.call(row) }
+      end
+    end
+  end
+
+
+  def respond_with_table(allow_pagination = true)
+    @allow_pagination = allow_pagination
+    @rows_per_page = allow_pagination ? 50 : 10000
+    @row_list = allow_pagination ? '[10,25,100]' : '[]'
+    @scroll = ! allow_pagination
     respond_to do |format|
-      format.html { render :html => @rows }# index.html.erb
-      format.xml  { render :xml => @row }
-      format.csv { render_csv(@title + ".csv") }
+      format.html {
+        setup_rows
+        render :html => @rows
+      }
+      format.xml  {
+        setup_rows
+        render :xml => @rows
+      }
+      format.csv {
+        setup_rows
+        render_csv(@title + ".csv")
+      }
       format.json {
-        render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @rows.count)
+        setup_rows(true)
+        keys = @fields.map { |field| field[:field] }
+        @rows = @rows.all
+        puts "Calculating row count"
+        if not @allow_pagination
+          @row_count = @rows.count
+        end
+        puts "Calculated"
+        render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @row_count)
       }
     end
   end

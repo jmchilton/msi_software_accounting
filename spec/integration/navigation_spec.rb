@@ -1,4 +1,4 @@
-require 'spec/spec_helper'
+require 'spec_helper'
 
 feature "Index Page", %q{
   In order to navigate the site

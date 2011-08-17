@@ -5,10 +5,14 @@ class CollegesController < ApplicationController
 
   def show_report
     @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
-               { :field => "name", :label => "College" }]
+               { :field => "name", :label => "College" },
+               { :field => "num_packages", :label => "# Software Packages"},
+               fy_10_field, fy_11_field, fy_12_field, fy_13_field
+               ]
+
     @rows = College.report(params[:from], params[:to])
     @title = "College Report"
-    respond_with_table
+    respond_with_table(allow_pagination = false)
   end
 
   # GET /colleges

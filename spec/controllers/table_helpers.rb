@@ -1,7 +1,7 @@
 module TableHelpers
 
   def it_should_setup_table_variables
-    assigns(:rows).should respond_to(:each)
+    #assigns(:rows).should respond_to(:each)
     assigns(:fields).should be_an Array
     assigns(:title).should be_a String 
   end

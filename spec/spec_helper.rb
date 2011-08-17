@@ -2,6 +2,9 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rails'
+require 'capybara/dsl'
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -30,9 +33,6 @@ RSpec.configure do |config|
 
   config.global_fixtures = :all
 end
-
-require 'capybara/rails'
-require 'capybara/dsl'
 
 Capybara.add_selector(:data_table_header) do
   xpath { ".//table[id=data_table]/tr[1]" }

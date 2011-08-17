@@ -11,7 +11,7 @@ class Resource < ReadOnlyModel
       joins("INNER JOIN executable on executable.rid = resources.id
              INNER JOIN (#{Event.valid_events(from, to).to_sql}) e on e.feature = executable.identifier
              INNER JOIN users on users.username = e.unam
-             INNER JOIN groups on users.gid = groups.gid").
+             LEFT JOIN groups on users.gid = groups.gid").
       group("resources.id")
   end
 

@@ -60,7 +60,8 @@ module Jqgrid
           :recreateForm        => 'true',
           :customButtons       => [],
           :before_show_form_edit => 'null',
-          :before_show_form_add  => 'null'
+          :before_show_form_add  => 'null',
+          :scroll              => 'false'
         }.merge(options)
       
       # Stringify options values
@@ -523,6 +524,7 @@ module Jqgrid
               #{"sortname: '#{options[:sort_column]}'," unless options[:sort_column].blank?}
               #{"sortorder: '#{options[:sort_order]}'," unless options[:sort_order].blank?}
               gridview: #{options[:gridview]},
+              scroll: #{options[:scroll]},
               scrollrows: true,
               autowidth: #{options[:autowidth]},
               loadui: '#{options[:loadui]}',

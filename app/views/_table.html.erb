@@ -9,7 +9,7 @@
         <td></td>
       <% end%>
     </tr>
-    <% @rows.each do |row| %>
+    <% @rows.all.each do |row| %>
       <tr class="data_table_data_row">
         <% @fields.each do |field| %>
           <td><%= row[field[:field].to_sym] %></td>
@@ -24,9 +24,11 @@
   </table>
 <% else %>
   <%=raw jqgrid(@title, "data_table", url_for(:action => controller.action_name, :format => "json", :to => params[:to], :from => params[:from]), @fields,
-    { :rows_per_page => 20,
+    { :rows_per_page => @rows_per_page,
+      :rowlist => @row_list,
       :autowidth => true,
-      :height => 400
+      :height => 400,
+      :scroll => @scroll
     }
     )
   %>

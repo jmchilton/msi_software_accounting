@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    users = with_pagination_and_ordering(User)
+    users = User
     if perform_search?
       users = @users.where("username like ?", "%#{params[:username]}%")
     end
     @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
                { :field => "username", :label => "Username" }]
-    @rows = users.all
+    @rows = users
     @title = "Users"
     respond_with_table
   end

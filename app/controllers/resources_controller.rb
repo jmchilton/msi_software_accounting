@@ -4,10 +4,8 @@ class ResourcesController < ApplicationController
                      { :field => "name", :label => "Name" },
                      { :field => "num_users", :label => "# Users"},
                      { :field => "num_groups", :label => "# Groups"},
-                     { :field => "fy10", :label => "Cost (FY 2010)"},
-                     { :field => "fy11", :label => "Cost (FY 2011)"},
-                     { :field => "fy12", :label => "Cost (FY 2012)"},
-                     { :field => "fy13", :label => "Cost (FY 2013)"}]
+                     fy_10_field, fy_11_field, fy_12_field, fy_13_field
+                     ]
   @@report_title = "Resources Report"
 
   @@index_fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false }, 
@@ -25,10 +23,10 @@ class ResourcesController < ApplicationController
   def show_report
     from = params[:from]
     to = params[:to]
-    @rows = with_pagination_and_ordering(Resource.report(from, to))
+    @rows = Resource.report(from, to)
     @fields = @@report_fields
     @title = @@report_title
-    respond_with_table
+    respond_with_table(allow_pagination = false)
   end
 
   def usage_report
@@ -38,10 +36,10 @@ class ResourcesController < ApplicationController
     resource_id = params[:id]
     from = params[:from]
     to = params[:to]
-    @rows = with_pagination_and_ordering(User.resource_report(resource_id, from, to))
+    @rows = User.resource_report(resource_id, from, to)
     @title = @@usage_report_title
     @fields = @@usage_report_fields
-    respond_with_table
+    respond_with_table(allow_pagination = false)
   end 
 
   # GET /resources
@@ -49,7 +47,10 @@ class ResourcesController < ApplicationController
   def index
     @fields = @@index_fields
     @title = @@index_title
-    @rows = with_pagination_and_ordering(Resource).all
+    @rows = Resource
+    if perform_search?
+      @rows = @rows.where("name like ?", "%#{params[:name]}%")
+    end
     @view_link = lambda { |row| resource_path(row) }
     respond_with_table
   end
