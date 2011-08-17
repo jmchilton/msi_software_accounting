@@ -508,7 +508,7 @@ module Jqgrid
           var lastsel;
           #{'jQuery(document).ready(function(){' unless options[:omit_ready]=='true'}
           var mygrid = jQuery("##{id}").jqGrid({
-              url:'#{action}?q=1',
+              url:'#{action}#{action.count("?") == 0 ? "?" : "&"}q=1',
               editurl:'#{options[:edit_url]}',
               datatype: "json",
               colNames:#{col_names},
@@ -656,7 +656,7 @@ module JqgridJson
       each do |elem|
         elem.id ||= index(elem)
         json << %Q({"id":"#{elem.id}","cell":[)
-        if elem.is_a? Hash 
+        if elem.is_a? Hash
           couples = elem
         else 
           couples = elem.attributes.symbolize_keys

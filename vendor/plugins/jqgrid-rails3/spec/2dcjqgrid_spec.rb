@@ -99,15 +99,21 @@ end
 
 module JqgridTestHelper
   def jqgrid_shortcut(options = {})
-    jqgrid("Users", "users", "/users",
+    jqgrid_shortcut_for_action("/users", options)
+  end
+
+  def jqgrid_shortcut_for_action(action, options = {}) 
+    jqgrid("Users", "users", action,
             [
-          		{ :field => "id", :label => "ID", :width => 35 },
-          		{ :field => "username", :label => "Username" },
-          		{ :field => "email", :label => "Email" },
-          		{ :field => "password", :label => "Password" }
-          	], options
+             { :field => "id", :label => "ID", :width => 35 },
+             { :field => "username", :label => "Username" },
+             { :field => "email", :label => "Email" },
+             { :field => "password", :label => "Password" }
+            ], options
           )
   end
+
+
 end
 
 describe "jqgrid helper method" do
@@ -130,6 +136,11 @@ describe "jqgrid helper method" do
     it "should set a title and an URL" do
       @grid.include?(%Q(caption: "Users")).should be_true
       @grid.include?(%Q(url:'/users?q=1')).should be_true
+    end
+
+    it "should not start parameter list twice" do
+      @grid = jqgrid_shortcut_for_action("/users?param=foo")
+      @grid.include?(%Q(url:'/users?param=foo&q=1')).should be_true
     end
   
     it "should generate a valid data model" do
