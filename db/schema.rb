@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110809211807) do
+ActiveRecord::Schema.define(:version => 20110817001122) do
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -29,18 +29,14 @@ ActiveRecord::Schema.define(:version => 20110809211807) do
     t.datetime "updated_at"
   end
 
-  create_table "event", :id => false, :force => true do |t|
-    t.integer  "evid"
+  create_table "event", :primary_key => "evid", :force => true do |t|
     t.datetime "ev_date"
     t.string   "vendor"
     t.string   "feature"
     t.string   "unam"
-    t.string   "ugrp"
     t.string   "host"
     t.string   "operation"
     t.string   "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "rid"
   end
 
@@ -70,18 +66,15 @@ ActiveRecord::Schema.define(:version => 20110809211807) do
     t.integer  "dept_id"
   end
 
-  create_table "purchase", :id => false, :force => true do |t|
-    t.integer  "pid"
-    t.integer  "rid"
-    t.string   "os"
-    t.integer  "flexlm"
-    t.integer  "name"
-    t.integer  "fy10"
-    t.integer  "fy11"
-    t.integer  "fy12"
-    t.integer  "fy13"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "purchase", :primary_key => "pid", :force => true do |t|
+    t.integer "rid"
+    t.string  "os"
+    t.integer "flexlm"
+    t.integer "name"
+    t.integer "fy10"
+    t.integer "fy11"
+    t.integer "fy12"
+    t.integer "fy13"
   end
 
   create_table "resources", :id => false, :force => true do |t|

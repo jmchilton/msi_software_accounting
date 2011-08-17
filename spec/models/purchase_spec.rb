@@ -7,4 +7,19 @@ describe Purchase do
     end
 
   end
+
+  describe "factory" do
+    it "should have an id" do
+      purchase = FactoryGirl.create(:purchase)
+      purchase.pid.should_not be_blank
+    end
+
+    specify "created purchases should be able to be found" do
+      purchase = FactoryGirl.create(:purchase)
+      found_purchase = Purchase.find(purchase.pid)
+      found_purchase.should_not be_blank
+      found_purchase.pid.should == purchase.pid
+    end
+  end
+
 end

@@ -32,6 +32,9 @@ FactoryGirl.define do
     readonly
   end
 
+  factory :purchase, :class => Purchase do
+
+  end
 end
 
 
