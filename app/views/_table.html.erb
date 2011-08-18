@@ -3,21 +3,13 @@
   <table id="data_table">
     <tr id="data_table_header">
       <% @fields.each do |field| %>
-        <td><%= field[:label] || field[:field] %></td>
+        <td><%= (field[:label] || field[:field]) unless field[:link] %></td>
       <% end %>
-      <% if not @view_link.blank? %> 
-        <td></td>
-      <% end%>
     </tr>
     <% @rows.all.each do |row| %>
       <tr class="data_table_data_row">
         <% @fields.each do |field| %>
-          <td><%= row[field[:field].to_sym] %></td>
-        <% end %>
-        <% if not @view_link.blank? %>
-          <td>
-            <%= link_to "View", @view_link.call(row) %>
-          </td>
+          <td><%= field[:link] ? (link_to "View", instance_eval("#{field[:link_proc]}(row)")) : row[field[:field].to_sym] %></td>
         <% end %>
       </tr>
     <% end %>

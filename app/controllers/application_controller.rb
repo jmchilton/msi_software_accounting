@@ -2,72 +2,31 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
 
+  DEFAULT_NUM_ROWS_PAGINATE = 20
+  DEFAULT_NUM_ROWS_NO_PAGINATE = 10000
+  ROW_LIST_PAGINATE = '[10,20,100]'
+  ROW_LIST_NO_PAGINATE = '[]'
+
   protected
 
   def self.fy_10_field
-   { :field => "fy10", :label => "Cost (FY 2010)"}
+   fy_field(10)
   end
 
   def self.fy_11_field
-    { :field => "fy11", :label => "Cost (FY 2011)"}
+    fy_field(11)
   end
 
   def self.fy_12_field
-    { :field => "fy12", :label => "Cost (FY 2012)"}
+    fy_field(12)
   end
 
   def self.fy_13_field
-    { :field => "fy13", :label => "Cost (FY 2013)"}
+    fy_field(13)
   end
 
-  def setup_rows(for_json = false)
-    if @allow_pagination
-      @row_count = @rows.count
-      @rows = with_pagination_and_ordering(@rows)
-    end
-    if !@view_link.blank?
-      @fields.push({:field => "link", :hidden => true})
-      if for_json
-        @rows.each { |row| row[:link] = @view_link.call(row) }
-      end
-    end
-  end
-
-
-  def respond_with_table(allow_pagination = true)
-    @allow_pagination = allow_pagination
-    @rows_per_page = allow_pagination ? 50 : 10000
-    @row_list = allow_pagination ? '[10,25,100]' : '[]'
-    @scroll = ! allow_pagination
-    respond_to do |format|
-      format.html {
-        setup_rows
-        render :html => @rows
-      }
-      format.xml  {
-        setup_rows
-        render :xml => @rows
-      }
-      format.csv {
-        setup_rows
-        render_csv(@title + ".csv")
-      }
-      format.json {
-        setup_rows(true)
-        keys = @fields.map { |field| field[:field] }
-        @rows = @rows.all
-        puts "Calculating row count"
-        if not @allow_pagination
-          @row_count = @rows.count
-        end
-        puts "Calculated"
-        render :json => @rows.to_jqgrid_json(keys, params[:page], params[:rows], @row_count)
-      }
-    end
-  end
-
-  def perform_search?
-    params[:_search] == "true"
+  def self.fy_field(year)
+    { :field => "fy"+year.to_s, :label => "Cost (FY 20#{year.to_s})"}
   end
 
   def with_pagination_and_ordering(relation)
@@ -85,6 +44,66 @@ class ApplicationController < ActionController::Base
       relation = relation.reorder(order)
     end
     relation
+  end
+
+  def append_links_to_rows
+    @fields.each do |field|
+      key = field[:field]
+      is_link = field[:link]
+      if is_link
+        @rows.each { |row| row[key] = instance_eval("#{field[:link_proc]}(row)") }
+      end
+    end
+  end
+
+  def process_rows(for_json = false)
+    if for_json and @allow_pagination
+      @row_count = @rows.count
+    end
+    if @allow_pagination
+      @rows = with_pagination_and_ordering(@rows)
+    end
+    if for_json
+      @rows = @rows.all
+      append_links_to_rows
+    end
+
+    if for_json and not @allow_pagination
+        @row_count = @rows.count
+    end
+  end
+
+  def respond_with_table(allow_pagination = true)
+    @allow_pagination = allow_pagination
+    @rows_per_page = allow_pagination ? DEFAULT_NUM_ROWS_PAGINATE : DEFAULT_NUM_ROWS_NO_PAGINATE
+    @row_list = allow_pagination ? ROW_LIST_PAGINATE : ROW_LIST_NO_PAGINATE
+    @scroll = !allow_pagination
+
+    respond_to do |format|
+      format.html {
+        process_rows
+        render :html => @rows
+      }
+      format.csv {
+        process_rows
+        render_csv(@title + ".csv")
+      }
+      format.json {
+        process_rows(true)
+        render :json => get_json
+      }
+    end
+  end
+
+  def perform_search?
+    params[:_search] == "true"
+  end
+
+  def get_json
+    keys = @fields.map { |field| field[:field] }
+    page = params[:page] || 1
+    rows = params[:rows] || @row_count
+    @rows.to_jqgrid_json(keys, page, rows, @row_count)
   end
 
   # http://stackoverflow.com/questions/94502/in-rails-how-to-return-records-as-a-csv-file

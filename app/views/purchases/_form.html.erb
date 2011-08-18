@@ -43,6 +43,9 @@
     <%= f.label :fy13 %><br />
     <%= f.text_field :fy13 %>
   </div>
+  <div class="field">
+    <%=  f.autocomplete_field :rid, autocomplete_resource_name_resources_path %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

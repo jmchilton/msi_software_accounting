@@ -106,6 +106,8 @@ GEM
       activesupport (= 3.0.9)
       bundler (~> 1.0)
       railties (= 3.0.9)
+    rails3-jquery-autocomplete (0.9.1)
+      rails (~> 3.0)
     railties (3.0.9)
       actionpack (= 3.0.9)
       activesupport (= 3.0.9)
@@ -162,6 +164,7 @@ DEPENDENCIES
   pg
   postgres
   rails (= 3.0.9)
+  rails3-jquery-autocomplete
   rb-inotify (>= 0.8.5)
   rcov
   rspec-rails (>= 2)

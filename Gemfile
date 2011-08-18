@@ -10,6 +10,8 @@ gem 'jquery-rails'
 
 gem 'compass'
 
+gem 'rails3-jquery-autocomplete'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

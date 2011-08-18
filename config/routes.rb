@@ -14,7 +14,10 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :events, :only => [:index, :show]
   resources :executables
-  resources :resources, :only => [:index, :show]
+  resources :resources, :only => [:index, :show] do
+    get :autocomplete_resource_name, :on => :collection
+  end
+
   resources :colleges, :only => [:index, :show]
   resources :departments, :only => [:index, :show]
   resources :groups, :only => [:index, :show]
