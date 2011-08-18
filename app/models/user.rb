@@ -17,9 +17,9 @@ class User < ReadOnlyModel
   end
 
   def self.resource_report(resource_id, from = nil, to = nil)
-    select("users.username, g.name as group_name, use_count").
+    select("users.username as username, groups.name as group_name, use_count").
     joins("INNER JOIN (#{resource_counts(resource_id, from, to).to_aliased_sql("iu")}) rc on rc.username = users.username
-           INNER JOIN groups g on g.gid = users.gid")
+           INNER JOIN groups on groups.gid = users.gid")
   end
 
 end

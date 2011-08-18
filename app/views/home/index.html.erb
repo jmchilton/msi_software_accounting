@@ -1,8 +1,29 @@
 <h1>MSI Software Accounting</h1>
+
 <p>
-Welcome to the MSI software accounting web application. Right now this site produces reports of software usage based
-on various FlexLM logs. In the future we hope to aggregate data from other sources and provide a more complete picture
-of software usage at MSI.
+  Welcome to the MSI software accounting web application. Right now this site produces reports of software (resource)
+  usage based on logs from MSI's primary FLEXlm server. In the future we hope to aggregate data from other sources
+  (additional FLEXlm servers, collectl to track UNIX software not utilizing FLEXlm, and yet to be determined sources
+  for licensed Windows software.) This will hopefully allow us to provide a more complete picture of software usage
+  at MSI.
 </p>
 
-<p />
+<p>
+  This site may be navigated using the links on the left side of this page. Each report may be restricted to a specific
+  date range.
+</p>
+<p>
+  The <%= link_to "resources FLEXlm report", resources_report_path %> will produce a table of each tracked resource
+  along with the number of distinct users and groups of this resource along with the per year cost of the resource.
+</p>
+<p>
+  The <%= link_to "college FLEXlm report", colleges_report_path %> will produce a table a table with one row for each
+  college, along with the number of tracked resources used by people from that college, and the
+  total per year cost of the resources used by people from that college.
+</p>
+<p>
+  The <%= link_to "navigate resources", resources_path %> link may be used to select an individual resource.
+  Once a resource has been selected, a report may be generated that contains one row for each user of that resource,
+  along with the user's group, and the number of times the user has checked the resource out of FLEXlm.
+</p>
+

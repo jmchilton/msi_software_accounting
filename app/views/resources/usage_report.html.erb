@@ -1,4 +1,1 @@
-<%= show_report_form_tag(:show_usage_report) do %>
-  <%= render :partial => "/common_report_options" %>
-  <%= submit_tag("Show Usage Report") %>
-<% end %>
+<%= render :partial => "/common_report_options", :locals => {:action => :show_usage_report} %>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SoftwareWebApp</title>
+  <title>MSI Software Accounting (<%= APP_VERSION.strip %>)</title>
   <link rel="shortcut icon" href="http://static.msi.umn.edu/db/favicon.ico" type="image/x-icon" />
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag "jqgrid/themes/smoothness/jquery-ui-1.8.custom.css", 'jqgrid/ui.jqgrid.css' %>
@@ -22,17 +22,24 @@
     <div id="header"></div>
     <div id="sidebar">
       <ul class="link-group">
-        <lh>Reports</lh>
-        <li><%= link_to "Software Report", resources_report_path %></li>
-        <li><%= link_to "College Report", colleges_report_path %></li>
+        <lh>FLEXlm Reports</lh>
+        <li><%= link_to "Resources", resources_report_path %></li>
+        <li><%= link_to "Colleges", colleges_report_path %></li>
       </ul>
       <ul class="link-group">
         <lh>Navigate</lh>
-        <li><%= link_to "View Resources", resources_path %></li>
+        <li><%= link_to "Resources", resources_path %></li>
       </ul>
       <ul class="link-group">
         <lh>MSI</lh>
+        <li><%= link_to "MSI Home", "http://www.msi.umn.edu/" %></li>
+        <li><%= link_to "MSI DB", "https://www.msi.umn.edu/db/" %></li>
         <li><%= link_to "Logout", "https://www.msi.umn.edu/db/logout" %></li>
+      </ul>
+      <ul class="link-group">
+        <lh>Software Accounting</lh>
+        <li><%= link_to "Home", home_index_path %></li>
+        <li><%= link_to "Source Code", "https://github.com/jmchilton/msi_software_accounting" %></li>
       </ul>
     </div>
     <div id="content">
@@ -40,8 +47,6 @@
     </div>
     <div id="footer">
     </div>
-</div>
-
-
+  </div>
 </body>
 </html>

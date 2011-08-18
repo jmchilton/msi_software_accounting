@@ -15,6 +15,7 @@
     <% end %>
   </table>
 <% else %>
+  <div style="width: 95%;">
   <%=raw jqgrid(@title, "data_table", url_for(:action => controller.action_name, :format => "json", :to => params[:to], :from => params[:from]), @fields,
     { :rows_per_page => @rows_per_page,
       :rowlist => @row_list,
@@ -24,6 +25,7 @@
     }
     )
   %>
+ </div>
   <script type="text/javascript">
     $(document).ready(function() {
       configure_data_table($("#data_table"));

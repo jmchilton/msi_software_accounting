@@ -19,7 +19,6 @@ $blueprint-border-color: $dark_gray;
 
 // Import all the default blueprint modules so that we can access their mixins.
 @import "blueprint";
-
 @import "blueprint/liquid";
 
 

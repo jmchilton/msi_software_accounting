@@ -1,7 +1,7 @@
 class CollegesController < ApplicationController
-  @@fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
+  @@fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false },
                { :field => "name", :label => "College" },
-               { :field => "num_packages", :label => "# Software Packages"},
+               { :field => "num_packages", :label => "# Software Packages", :search => false},
                fy_10_field, fy_11_field, fy_12_field, fy_13_field
                ]
 
@@ -12,6 +12,9 @@ class CollegesController < ApplicationController
   def show_report
     @fields = @@fields
     @rows = College.report(params[:from], params[:to])
+    if perform_search?
+      @rows = @rows.where("colleges.name like ?", "%#{params[:name]}%")
+    end
     @title = "College Report"
     respond_with_table(allow_pagination = false)
   end

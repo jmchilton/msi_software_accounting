@@ -17,9 +17,9 @@ class Resource < ReadOnlyModel
 
   def self.report(from = nil, to = nil)
     select("resources.id, resources.name, num_users, num_groups, fy10, fy11, fy12, fy13").
-                joins("left join (#{Purchase.resource_summary.to_sql}) rs on rs.rid = resources.id
-                       inner join (#{Resource.usage_report(from, to).to_aliased_sql('ir')}) ur on ur.id = resources.id").
-                order("resources.name")
+      joins("left join (#{Purchase.resource_summary.to_sql}) rs on rs.rid = resources.id
+             inner join (#{Resource.usage_report(from, to).to_aliased_sql('ir')}) ur on ur.id = resources.id").
+      order("resources.name")
   end
 
 end

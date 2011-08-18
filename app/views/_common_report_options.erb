@@ -1,8 +1,20 @@
-  <p class="form_item">
-    <label for="from">From</label>
-    <%= text_field_tag("from", "", :class=> 'date-selector') %>
-  </p>
-  <p class="form_item">
-    <label for="to">To</label>
-    <%= text_field_tag("to", "", :class=> 'date-selector') %>
-  </p>
+<%= show_report_form_tag(action ||= :show_report) do %>
+  <fieldset>
+    <legend>
+      Report Options
+    </legend>
+    <p>
+      Use the following options to constrain the usage data under consideration to a specific date range, either or
+      both options may be left empty.
+    </p>
+    <p class="form_item">
+      <label for="from">From</label>
+      <%= text_field_tag("from", "", :class=> 'date-selector') %>
+    </p>
+    <p class="form_item">
+      <label for="to">To</label>
+      <%= text_field_tag("to", "", :class=> 'date-selector') %>
+    </p>
+    <%= submit_tag("Build Report") %>
+  </fieldset>
+<% end %>

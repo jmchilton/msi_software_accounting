@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def self.fy_field(year)
-    { :field => "fy"+year.to_s, :label => "Cost (FY 20#{year.to_s})"}
+    { :field => "fy"+year.to_s, :label => "Cost (FY 20#{year.to_s})", :search => false }
   end
 
   def with_pagination_and_ordering(relation)

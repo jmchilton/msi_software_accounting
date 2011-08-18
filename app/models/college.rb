@@ -21,15 +21,16 @@ class College < ReadOnlyModel
 
 
   def self.report(from = nil, to = nil)
-    select("colleges.name,
-            count(*) as num_packages,
-            sum(fy10) as fy10,
-            sum(fy11) as fy11,
-            sum(fy12) as fy12,
-            sum(fy13) as fy13").
-    joins("inner join (#{resources(from, to).to_aliased_sql('ic')}) cr on colleges.id = cr.id
-           left join (#{Purchase.resource_summary.to_sql}) ps on ps.rid = cr.rid").
-    order("colleges.name ASC").
-    group("colleges.name")
+    relation = select("colleges.name,
+                        count(*) as num_packages,
+                        sum(fy10) as fy10,
+                        sum(fy11) as fy11,
+                        sum(fy12) as fy12,
+                        sum(fy13) as fy13").
+               joins("inner join (#{resources(from, to).to_aliased_sql('ic')}) cr on colleges.id = cr.id
+                      left join (#{Purchase.resource_summary.to_sql}) ps on ps.rid = cr.rid").
+               order("colleges.name ASC").
+               group("colleges.name")
+    relation
   end
 end

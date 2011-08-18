@@ -58,6 +58,7 @@ describe ResourcesController do
     specify { response.should be_success }
     specify { it_should_setup_table_variables }
     specify { it_should_not_paginate }
+    specify { assigns(:resource).id.should == 1 }
 
   end
 
