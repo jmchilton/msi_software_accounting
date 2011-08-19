@@ -10,24 +10,30 @@ feature "Index Page", %q{
 
   scenario "Navigate to software report" do
     visit '/'
-    click_link('Software Report')
+    within("#links-flexlm-reports") do
+      click_link('Resources')
+    end
     current_path.should eql(resources_report_path)
   end
 
   scenario "Navigate to college report" do
     visit '/'
-    click_link('College Report')
+    within("#links-flexlm-reports") do
+      click_link('Colleges')
+    end
     current_path.should eql(colleges_report_path)
   end
 
   scenario "Navigate to resources" do
     visit '/'
-    click_link('View Resources')
+    within("#links-navigate") do
+      click_link('Resources')
+    end
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
     click_link('View Usage Report')
-    click_button("Show Usage Report")
+    click_button("Build Report")
     page.should have_content("alice") # Alice uses resource 1
   end
 

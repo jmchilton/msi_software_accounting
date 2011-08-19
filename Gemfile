@@ -20,7 +20,6 @@ gem 'sqlite3'
 group :production do 
   gem 'postgres'
   gem 'pg'
-  gem 'passenger'
 end
 
 # Use unicorn as the web server
