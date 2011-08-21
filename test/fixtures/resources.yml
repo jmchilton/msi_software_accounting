@@ -21,3 +21,8 @@ resource_two:
 rarely_used_resource:
   id: 3
   name: rareapp
+
+med_resource:
+  id: 4
+  name: medapp
+

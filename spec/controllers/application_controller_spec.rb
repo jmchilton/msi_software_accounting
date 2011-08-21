@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe ApplicationController do
 
   describe "shared fields" do

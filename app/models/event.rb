@@ -15,4 +15,15 @@ class Event < ReadOnlyModel
     end
     relation
   end
+
+  def self.demographics_summary_selects
+    "count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups"
+  end
+
+  def self.to_demographics_joins(from = nil, to = nil)
+    "INNER JOIN (#{Event.valid_events(from, to).to_sql}) e on e.feature = executable.identifier
+     INNER JOIN users on users.username = e.unam
+     LEFT JOIN groups on users.gid = groups.gid"
+  end
+
 end

@@ -1,6 +1,9 @@
 require 'spec_helper'
-
+require 'models/model_helpers'
 describe College do
+  include ModelHelpers
+
+  it_should_behave_like "read only model"
 
   describe "resources" do
     let(:college_resources) { College.resources }

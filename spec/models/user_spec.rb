@@ -1,4 +1,13 @@
+require 'spec_helper'
+
 describe User do
+
+  describe "msi_db_link" do
+    specify {
+      user = FactoryGirl.create(:user)
+      user.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/user/#{user.id}/view"
+    }
+  end
 
   describe "resource_report" do
     let(:report1) { User.resource_report(1) }
@@ -32,5 +41,7 @@ describe User do
   def record_for(records, user)
     records.find { |record| record.username == user}
   end
+
+
 
 end

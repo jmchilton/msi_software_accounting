@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Resource do
 
   describe "report" do
@@ -26,6 +28,11 @@ describe Resource do
       Resource.report(nil, "2011-08-04").find_by_id(3).should be_blank
     end
 
+  end
+
+  it "should have msi_db_link" do
+    resource = FactoryGirl.create(:resource)
+    resource.msi_db_link.should == "#{StaticData::MSIDB_CRUD_URL}sw/resource/#{resource.id}/view"
   end
 
 end

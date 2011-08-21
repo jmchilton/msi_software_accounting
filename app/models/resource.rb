@@ -5,13 +5,10 @@ class Resource < ReadOnlyModel
   has_many :executables, :foreign_key => "rid"
   has_many :purchases, :foreign_key => "rid"
 
-  
   def self.usage_report(from = nil, to = nil)
-    select("resources.id, count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups").
-      joins("INNER JOIN executable on executable.rid = resources.id
-             INNER JOIN (#{Event.valid_events(from, to).to_sql}) e on e.feature = executable.identifier
-             INNER JOIN users on users.username = e.unam
-             LEFT JOIN groups on users.gid = groups.gid").
+    select_statement = "resources.id, #{Event.demographics_summary_selects}"
+    select(select_statement).
+      joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(from, to)}").
       group("resources.id")
   end
 
@@ -21,5 +18,10 @@ class Resource < ReadOnlyModel
              inner join (#{Resource.usage_report(from, to).to_aliased_sql('ir')}) ur on ur.id = resources.id").
       order("resources.name")
   end
+
+  def msi_db_link
+    "#{StaticData::MSIDB_CRUD_URL}sw/resource/#{id}/view"
+  end
+
 
 end

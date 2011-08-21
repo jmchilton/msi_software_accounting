@@ -35,8 +35,6 @@
   <%= @resource.module %>
 </p>
 
-<p>
-  <%= link_to "View Usage Report", :action =>  :usage_report, :id => params[:id] %>
-</p>
-
+<%= link_to "View Per User Usage Report", :action =>  :usage_report, :id => params[:id] %>
+<%= link_to "View on MSI DB", @resource.msi_db_link, :id => 'msi_db_link' %>
 <%= link_to 'Back', resources_path %>

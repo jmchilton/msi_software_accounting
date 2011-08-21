@@ -10,5 +10,7 @@
   <%= @user.username %>
 </p>
 
-
-<%= link_to 'Back', users_path %>
+<%= link_to "View Person", person_path(@user.person), :id => "person_link" %>
+<%= link_to "View Group", group_path(@user.group), :id => "group_link" %>
+<%= link_to "View User in MSI DB", @user.msi_db_link, :id => "msi_db_link" %>
+<%= link_to "View User List", users_path %>

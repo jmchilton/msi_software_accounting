@@ -1,3 +1,5 @@
+require 'static_data'
+
 class User < ReadOnlyModel
   set_table_name "users"
   set_primary_key "id"
@@ -17,9 +19,13 @@ class User < ReadOnlyModel
   end
 
   def self.resource_report(resource_id, from = nil, to = nil)
-    select("users.username as username, groups.name as group_name, use_count").
+    select("users.id, users.username as username, groups.name as group_name, use_count").
     joins("INNER JOIN (#{resource_counts(resource_id, from, to).to_aliased_sql("iu")}) rc on rc.username = users.username
            INNER JOIN groups on groups.gid = users.gid")
+  end
+
+  def msi_db_link
+    "#{StaticData::MSIDB_CRUD_URL}people/user/#{id}/view"
   end
 
 end

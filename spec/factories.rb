@@ -16,11 +16,14 @@ FactoryGirl.define do
   end
 
   factory :user, :class => User do
-    username "username"
+    sequence(:username) { |index| "user #{index}"  }
     readonly
   end
 
   factory :event, :class => Event do
+    #sequence(:feature) { |index| "feature #{index}" }
+    #sequence(:vendor) { |index| "vendor #{index}" }
+    operation "OUT"
     readonly
   end
 
@@ -33,8 +36,15 @@ FactoryGirl.define do
   end
 
   factory :purchase, :class => Purchase do
-
   end
+
+  factory :resource, :class => Resource do
+    readonly
+  end
+
+  factory :executable, :class => Executable do
+    sequence(:identifier) { |index| "feature #{index}" }
+    sequence(:comment) { |index| "comment #{index}" }
+  end
+
 end
-
-

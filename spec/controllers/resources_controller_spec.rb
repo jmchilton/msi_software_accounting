@@ -8,10 +8,10 @@ describe ResourcesController do
     before(:each) {
       get :index
     }
+
+    specify { it_should_respond_successfully }
     specify { it_should_setup_table_variables }
     specify { it_should_paginate }
-    specify { response.should be_success }
-
   end
 
   describe "json GET index" do
@@ -24,7 +24,7 @@ describe ResourcesController do
     end
 
     it "should include total" do
-      json_response["total"].to_s.should == "2"
+      json_response["total"].should_not be_blank
     end
 
     it "should include cells" do
@@ -40,7 +40,7 @@ describe ResourcesController do
   describe "GET 'show_usage_report'" do
     before(:each) { put 'show_usage_report', :id => "1" }
 
-    specify { response.should be_success }
+    specify { it_should_respond_successfully }
     specify { it_should_setup_table_variables }
 
   end
@@ -48,17 +48,35 @@ describe ResourcesController do
   describe "GET 'usage_report'" do
     before(:each) { get 'usage_report', :id => "1" }
     
-    specify { response.should be_success }
+    specify { it_should_respond_successfully }
 
   end
 
   describe "GET 'show_usage_report'" do
     before(:each) { get 'show_usage_report', :id => "1" }
 
-    specify { response.should be_success }
+    specify { it_should_respond_successfully }
     specify { it_should_setup_table_variables }
     specify { it_should_not_paginate }
     specify { assigns(:resource).id.should == 1 }
+    specify { it_should_assign_links_with "user_path" }
+  end
+
+  it_should_behave_like "standard GET index"
+
+  describe "GET report" do
+    before(:each) { get 'report' }
+
+    specify { it_should_respond_successfully }
+  end
+
+  describe "GET show_report" do
+    before(:each) { get 'show_report' }
+
+    specify { it_should_respond_successfully }
+    specify { it_should_setup_table_variables }
+    specify { it_should_not_paginate }
+    specify { it_should_assign_links_with "resources_usage_report_path" }
 
   end
 

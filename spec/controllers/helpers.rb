@@ -1,6 +1,17 @@
 module Helpers
 
-  def it_should_respond_successfully_with_template(template = self.class.description.split(" ").last)
+  def action_from_description
+    self.class.description.split(" ").last
+  end
+
+  def it_should_respond_successfully
+    response.should be_success
+  end
+
+  def it_should_respond_successfully_with_template(template = nil)
+    if template.nil?
+      template = action_from_description
+    end
     response.should be_success
     response.should render_template(template)
   end

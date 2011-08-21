@@ -7,19 +7,21 @@ class ResourcesController < ApplicationController
                      { :field => "num_users", :label => "# Users", :search => false },
                      { :field => "num_groups", :label => "# Groups", :search => false},
                      fy_10_field, fy_11_field, fy_12_field, fy_13_field,
+                     link_field(:link_proc => "resources_usage_report_path")
                      ]
   @@report_title = "Resources Report"
 
   @@index_fields =
     [{ :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false },
      { :field => "name", :label => "Name" },
-     { :field => "link", :label => "View", :hidden => true, :link => true, :link_proc => "resource_path", :search => false} ]
+     link_field(:link_proc => "resource_path")]
 
   @@index_title = "Resources"
 
   @@usage_report_fields = [{:field => "username", :label => "Username"},
                            {:field => "group_name", :label=> "Group" },
-                           {:field => "use_count", :label => "Checkouts", :search => false}]
+                           {:field => "use_count", :label => "Checkouts", :search => false},
+                           link_field(:link_proc => "user_path")]
   @@usage_report_title = "Resource Usage"
 
   def report
@@ -64,7 +66,6 @@ class ResourcesController < ApplicationController
     if perform_search?
       @rows = @rows.where("name like ?", "%#{params[:name]}%")
     end
-    # @view_link = lambda { |row| resource_path(row) }
     respond_with_table
   end
 

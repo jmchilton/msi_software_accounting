@@ -32,7 +32,7 @@ feature "Index Page", %q{
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
-    click_link('View Usage Report')
+    click_link('View Per User Usage Report')
     click_button("Build Report")
     page.should have_content("alice") # Alice uses resource 1
   end
