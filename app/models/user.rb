@@ -9,18 +9,18 @@ class User < ReadOnlyModel
 
   has_many :events, :foreign_key => "unam", :primary_key => "username"
   
-  def self.resource_counts(resource_id, from = nil, to = nil)
+  def self.resource_counts(resource_id, report_options = {})
     select("count(*) as use_count, users.username").
-    joins("INNER JOIN (#{Event.valid_events(from, to).to_sql}) e ON e.unam = users.username
+    joins("INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username
                       INNER JOIN executable ex on e.feature = ex.identifier
                       INNER JOIN resources r on ex.rid = r.id").
     where("r.id = ?", resource_id).
     group("users.username")
   end
 
-  def self.resource_report(resource_id, from = nil, to = nil)
+  def self.resource_report(resource_id, report_options = {})
     select("users.id, users.username as username, groups.name as group_name, use_count").
-    joins("INNER JOIN (#{resource_counts(resource_id, from, to).to_aliased_sql("iu")}) rc on rc.username = users.username
+    joins("INNER JOIN (#{resource_counts(resource_id, report_options).to_aliased_sql("iu")}) rc on rc.username = users.username
            INNER JOIN groups on groups.gid = users.gid")
   end
 

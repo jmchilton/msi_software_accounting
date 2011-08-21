@@ -1,19 +1,22 @@
 
-class ResourcesController < ApplicationController
+class ResourcesController < ReportController
   autocomplete :resource, :name
 
-  @@report_fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false },
-                     { :field => "name", :label => "Name" },
-                     { :field => "num_users", :label => "# Users", :search => false },
-                     { :field => "num_groups", :label => "# Groups", :search => false},
-                     fy_10_field, fy_11_field, fy_12_field, fy_13_field,
+  @@report_fields = [id_field,
+                     name_field,
+                     num_users_field,
+                     num_groups_field,
+                     fy_10_field,
+                     fy_11_field,
+                     fy_12_field,
+                     fy_13_field,
                      link_field(:link_proc => "resources_usage_report_path")
                      ]
   @@report_title = "Resources Report"
 
   @@index_fields =
-    [{ :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false },
-     { :field => "name", :label => "Name" },
+    [id_field,
+     name_field,
      link_field(:link_proc => "resource_path")]
 
   @@index_title = "Resources"
@@ -28,15 +31,13 @@ class ResourcesController < ApplicationController
   end
 
   def show_report
-    from = params[:from]
-    to = params[:to]
-    @rows = Resource.report(from, to)
+    @rows = Resource.report(report_options)
     if perform_search?
       @rows = @rows.where("name like ?", "%#{params[:name]}%")
     end
     @fields = @@report_fields
     @title = @@report_title
-    respond_with_table(false)
+    respond_with_report
   end
 
   def usage_report
@@ -44,17 +45,15 @@ class ResourcesController < ApplicationController
  
   def show_usage_report
     resource_id = params[:id]
-    from = params[:from]
-    to = params[:to]
     @resource = Resource.find(resource_id)
-    @rows = User.resource_report(resource_id, from, to)
+    @rows = User.resource_report(resource_id, report_options)
     if perform_search?
       @rows = @rows.where("users.username like ?", "%#{params[:username]}%").
                     where("group_name like ?", "%#{params[:group_name]}%")
     end
     @title = @@usage_report_title
     @fields = @@usage_report_fields
-    respond_with_table(false)
+    respond_with_report
   end 
 
   # GET /resources

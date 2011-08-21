@@ -1,0 +1,2 @@
+module ExecutableUserReportHelper
+end

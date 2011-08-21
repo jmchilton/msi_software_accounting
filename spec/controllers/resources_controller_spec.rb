@@ -40,9 +40,7 @@ describe ResourcesController do
   describe "GET 'show_usage_report'" do
     before(:each) { put 'show_usage_report', :id => "1" }
 
-    specify { it_should_respond_successfully }
-    specify { it_should_setup_table_variables }
-
+    specify { it_should_respond_successfully_with_report }
   end
 
   describe "GET 'usage_report'" do
@@ -55,9 +53,7 @@ describe ResourcesController do
   describe "GET 'show_usage_report'" do
     before(:each) { get 'show_usage_report', :id => "1" }
 
-    specify { it_should_respond_successfully }
-    specify { it_should_setup_table_variables }
-    specify { it_should_not_paginate }
+    specify { it_should_respond_successfully_with_report }
     specify { assigns(:resource).id.should == 1 }
     specify { it_should_assign_links_with "user_path" }
   end
@@ -73,9 +69,7 @@ describe ResourcesController do
   describe "GET show_report" do
     before(:each) { get 'show_report' }
 
-    specify { it_should_respond_successfully }
-    specify { it_should_setup_table_variables }
-    specify { it_should_not_paginate }
+    specify { it_should_respond_successfully_with_report }
     specify { it_should_assign_links_with "resources_usage_report_path" }
 
   end

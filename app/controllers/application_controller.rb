@@ -9,6 +9,22 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def self.name_field
+    { :field => "name", :label => "Name" }
+  end
+
+  def self.num_users_field
+    { :field => "num_users", :label => "# Users", :search => false }
+  end
+
+  def self.num_groups_field
+    { :field => "num_groups", :label => "# Groups", :search => false}
+  end
+
+  def self.id_field
+    { :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false }
+  end
+
   def self.fy_10_field
    fy_field(10)
   end

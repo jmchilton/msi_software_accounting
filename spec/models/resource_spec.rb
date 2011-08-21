@@ -17,15 +17,15 @@ describe Resource do
     end
 
     it "should find records in range" do
-      Resource.report('2011-09-01', '2011-09-02').find_by_id(3).num_users.should == 1
+      Resource.report(:from => '2011-09-01', :to => '2011-09-02').find_by_id(3).num_users.should == 1
     end
 
     it "should not find records for events after range" do
-      Resource.report("2011-09-05", "").find_by_id(3).should be_blank
+      Resource.report(:from => "2011-09-05", :to => "").find_by_id(3).should be_blank
     end
 
     it "should not find records for events before range" do
-      Resource.report(nil, "2011-08-04").find_by_id(3).should be_blank
+      Resource.report(:from => nil, :to => "2011-08-04").find_by_id(3).should be_blank
     end
 
   end

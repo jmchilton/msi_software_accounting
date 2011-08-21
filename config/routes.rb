@@ -16,6 +16,7 @@ SoftwareWebApp::Application.routes.draw do
   resources :executables
   resources :resources, :only => [:index, :show] do
     get :autocomplete_resource_name, :on => :collection
+    resources :executable_user_report, :only => [:new, :index]
   end
 
   resources :colleges, :only => [:index, :show]

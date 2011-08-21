@@ -5,7 +5,10 @@ class Event < ReadOnlyModel
   belongs_to :executable, :foreign_key => "feature", :primary_key => "identifier", :class_name => 'Executable'
   belongs_to :process_user, :class_name => 'User', :foreign_key => "unam", :primary_key => "username"
 
-  def self.valid_events(from, to)
+  def self.valid_events(report_options = {})
+    report_options.reverse_merge!({:from => nil, :to => nil})
+    from = report_options[:from]
+    to = report_options[:to]
     relation = where("OPERATION = 'OUT'")
     unless from.blank?
       relation = relation.where("EV_DATE >= ?", from)
@@ -20,8 +23,8 @@ class Event < ReadOnlyModel
     "count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups"
   end
 
-  def self.to_demographics_joins(from = nil, to = nil)
-    "INNER JOIN (#{Event.valid_events(from, to).to_sql}) e on e.feature = executable.identifier
+  def self.to_demographics_joins(report_options = {})
+    "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e on e.feature = executable.identifier
      INNER JOIN users on users.username = e.unam
      LEFT JOIN groups on users.gid = groups.gid"
   end

@@ -22,17 +22,17 @@ describe User do
     end
 
     it "should find events in date range" do
-      report = User.resource_report(3, '2011-09-01', '2011-09-02')
+      report = User.resource_report(3, {:from => '2011-09-01', :to => '2011-09-02'})
       record_for(report, "shelly").should_not be_blank
     end
 
     it "should not find events before date range" do
-      report = User.resource_report(3, '2011-09-02', '2011-09-03')
+      report = User.resource_report(3, {:from => '2011-09-02', :to => '2011-09-03'})
       record_for(report, "shelly").should be_blank
     end
 
     it "should not find events after date range" do
-      report = User.resource_report(3, '2011-06-02', '2011-07-03')
+      report = User.resource_report(3, {:from => '2011-06-02', :to => '2011-07-03'})
       record_for(report, "shelly").should be_blank
     end
 

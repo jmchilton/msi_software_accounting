@@ -7,10 +7,36 @@ module TableHelpers
     ActiveSupport::JSON.decode(response.body)
   end
 
+  def test_row_for_fields(fields)
+    hash = {}
+    fields.each { |field| hash[field[:field]] = "test" }
+    hash
+  end
+
+  def test_rows_for_fields(fields)
+    (1..2).map { test_row_for_fields(fields)}
+  end
+
+  def test_relation_for_fields(fields)
+    test_rows = test_rows_for_fields(ExecutableUserReportController::EXECUTABLE_USER_REPORT_FIELDS)
+    row_relation = double("row_relation")
+    row_relation.stub(:all).and_return(test_rows)
+    row_relation
+  end
+
   def it_should_setup_table_variables
     #assigns(:rows).should respond_to(:each)
     assigns(:fields).should be_an Array
     assigns(:title).should be_a String 
+  end
+
+  def it_should_assign_field(expected_field)
+    matched_field = assigns(:fields).find { |field| expected_field[:field] == field[:field] }
+    matched_field.should_not be_blank
+  end
+
+  def it_should_assign_fields(expected_fields)
+    expected_fields.each { |expected_field| it_should_assign_field expected_field }
   end
 
   def it_should_set_rows_to(rows)
@@ -20,7 +46,6 @@ module TableHelpers
   def it_should_assign_links_with(procedure_name)
     assigned_link_field[:link_proc].should == procedure_name
   end
-
 
   def assigned_row_with_id(id)
     assigns(:rows).find { |row| row.id == id }
@@ -47,6 +72,43 @@ module TableHelpers
     assigns(:rows_per_page).should be > 100
     assigns(:rows_per_page).should == ApplicationController::DEFAULT_NUM_ROWS_NO_PAGINATE
     assigns(:row_list).should == ApplicationController::ROW_LIST_NO_PAGINATE
+  end
+
+
+  # TODO: Define ReportHelpers for following functions
+  def it_should_respond_successfully_with_report_options
+    it_should_respond_successfully
+
+    response.body.should =~ /build_report_button/
+  end
+
+  def it_should_respond_successfully_with_report
+    it_should_respond_successfully
+    it_should_setup_table_variables
+    it_should_not_paginate
+  end
+
+  def expected_report_options
+    {:from => @from, :to => @to}
+  end
+
+  shared_examples_for "standard report GET index" do
+    let (:row_relation) { test_relation_for_fields(expected_fields) }
+
+    before(:each) {
+      get :index, index_params
+    }
+    specify { it_should_respond_successfully_with_report }
+    specify { it_should_set_rows_to(row_relation) }
+    specify { it_should_assign_fields expected_fields }
+  end
+
+  shared_examples_for "standard report GET new" do
+    before(:each) {
+      get :new, index_params
+    }
+
+    specify { it_should_respond_successfully_with_report_options }
   end
 
 end

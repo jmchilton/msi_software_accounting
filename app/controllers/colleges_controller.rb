@@ -1,4 +1,4 @@
-class CollegesController < ApplicationController
+class CollegesController < ReportController
   @@fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false },
                { :field => "name", :label => "College" },
                { :field => "num_packages", :label => "# Software Packages", :search => false},
@@ -11,12 +11,12 @@ class CollegesController < ApplicationController
 
   def show_report
     @fields = @@fields
-    @rows = College.report(params[:from], params[:to])
+    @rows = College.report(report_options)
     if perform_search?
       @rows = @rows.where("colleges.name like ?", "%#{params[:name]}%")
     end
     @title = "College Report"
-    respond_with_table(allow_pagination = false)
+    respond_with_report
   end
 
   # GET /colleges
