@@ -1,9 +1,9 @@
 class ResourceUserReportController < ReportController
-
-  FIELDS = [{:field => "username", :label => "Username"},
-                           {:field => "group_name", :label=> "Group" },
-                           {:field => "use_count", :label => "Checkouts", :search => false},
-                           link_field(:link_proc => "user_path")]
+  FIELDS = [id_field,
+            {:field => "username", :label => "Username"},
+            {:field => "group_name", :label=> "Group" },
+            {:field => "use_count", :label => "Checkouts", :search => false},
+            link_field(:link_proc => "user_path")]
   TITLE = "Resource Usage"
 
   def new

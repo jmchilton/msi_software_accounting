@@ -3,14 +3,12 @@ require 'controllers/table_helpers'
 
 describe ResourceUserReportController do
   include TableHelpers
-  render_views
 
   before(:each) {
     @resource = FactoryGirl.create(:resource)
   }
 
   let (:index_params) { {:resource_id => @resource.id} }
-  let (:expected_fields) { ResourceUserReportController::FIELDS }
 
   it_should_behave_like "standard report GET new"
 

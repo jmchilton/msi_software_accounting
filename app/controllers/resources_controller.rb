@@ -2,7 +2,7 @@
 class ResourcesController < ReportController
   autocomplete :resource, :name
 
-  @@report_fields = [id_field,
+  FIELDS = [id_field,
                      name_field,
                      num_users_field,
                      num_groups_field,
@@ -10,7 +10,7 @@ class ResourcesController < ReportController
                      fy_11_field,
                      fy_12_field,
                      fy_13_field,
-                     link_field(:link_proc => "resources_usage_report_path")
+                     link_field(:link_proc => "resource_path")
                      ]
   @@report_title = "Resources Report"
 
@@ -30,7 +30,7 @@ class ResourcesController < ReportController
     if perform_search?
       @rows = @rows.where("name like ?", "%#{params[:name]}%")
     end
-    @fields = @@report_fields
+    @fields = FIELDS
     @title = @@report_title
     respond_with_report
   end

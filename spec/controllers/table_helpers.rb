@@ -18,7 +18,7 @@ module TableHelpers
   end
 
   def test_relation_for_fields(fields)
-    test_rows = test_rows_for_fields(ExecutableUserReportController::EXECUTABLE_USER_REPORT_FIELDS)
+    test_rows = test_rows_for_fields(fields)
     row_relation = double("row_relation")
     row_relation.stub(:all).and_return(test_rows)
     row_relation
@@ -56,7 +56,7 @@ module TableHelpers
   end
 
   def assigned_field(key)
-    assigns(:fields).find {|field| field[:field].to_sym == key }
+    subject.class::FIELDS.find {|field| field[:field].to_sym == key }
   end
 
   def it_should_paginate
@@ -93,14 +93,15 @@ module TableHelpers
   end
 
   shared_examples_for "standard report GET index" do
-    let (:row_relation) { test_relation_for_fields(expected_fields) }
+
+    let (:row_relation) { test_relation_for_fields(subject.class::FIELDS) }
 
     before(:each) {
       get :index, index_params
     }
     specify { it_should_respond_successfully_with_report }
     specify { it_should_set_rows_to(row_relation) }
-    specify { it_should_assign_fields expected_fields }
+    specify { it_should_assign_fields subject.class::FIELDS }
   end
 
   shared_examples_for "standard report GET new" do

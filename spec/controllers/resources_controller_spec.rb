@@ -49,8 +49,7 @@ describe ResourcesController do
     before(:each) { get 'show_report' }
 
     specify { it_should_respond_successfully_with_report }
-    specify { it_should_assign_links_with "resources_usage_report_path" }
-
+    specify { it_should_assign_links_with "resource_path" }
   end
 
 end

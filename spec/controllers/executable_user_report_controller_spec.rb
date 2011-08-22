@@ -3,14 +3,12 @@ require 'controllers/table_helpers'
 
 describe ExecutableUserReportController do
   include TableHelpers
-  render_views
 
   before(:each) {
     @resource = FactoryGirl.create(:resource)
   }
 
   let (:index_params) { {:resource_id => @resource.id} }
-  let (:expected_fields) { ExecutableUserReportController::EXECUTABLE_USER_REPORT_FIELDS }
 
   it_should_behave_like "standard report GET new"
 
@@ -23,4 +21,5 @@ describe ExecutableUserReportController do
     it_should_behave_like "standard report GET index"
   end
 
+  specify { it_should_assign_links_with "executable_path" }
 end
