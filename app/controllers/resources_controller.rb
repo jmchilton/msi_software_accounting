@@ -21,11 +21,6 @@ class ResourcesController < ReportController
 
   @@index_title = "Resources"
 
-  @@usage_report_fields = [{:field => "username", :label => "Username"},
-                           {:field => "group_name", :label=> "Group" },
-                           {:field => "use_count", :label => "Checkouts", :search => false},
-                           link_field(:link_proc => "user_path")]
-  @@usage_report_title = "Resource Usage"
 
   def report
   end
@@ -44,17 +39,7 @@ class ResourcesController < ReportController
   end
  
   def show_usage_report
-    resource_id = params[:id]
-    @resource = Resource.find(resource_id)
-    @rows = User.resource_report(resource_id, report_options)
-    if perform_search?
-      @rows = @rows.where("users.username like ?", "%#{params[:username]}%").
-                    where("group_name like ?", "%#{params[:group_name]}%")
-    end
-    @title = @@usage_report_title
-    @fields = @@usage_report_fields
-    respond_with_report
-  end 
+  end
 
   # GET /resources
   # GET /resources.xml

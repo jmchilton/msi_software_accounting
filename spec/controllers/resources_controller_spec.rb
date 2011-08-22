@@ -37,27 +37,6 @@ describe ResourcesController do
 
   end
 
-  describe "GET 'show_usage_report'" do
-    before(:each) { put 'show_usage_report', :id => "1" }
-
-    specify { it_should_respond_successfully_with_report }
-  end
-
-  describe "GET 'usage_report'" do
-    before(:each) { get 'usage_report', :id => "1" }
-    
-    specify { it_should_respond_successfully }
-
-  end
-
-  describe "GET 'show_usage_report'" do
-    before(:each) { get 'show_usage_report', :id => "1" }
-
-    specify { it_should_respond_successfully_with_report }
-    specify { assigns(:resource).id.should == 1 }
-    specify { it_should_assign_links_with "user_path" }
-  end
-
   it_should_behave_like "standard GET index"
 
   describe "GET report" do

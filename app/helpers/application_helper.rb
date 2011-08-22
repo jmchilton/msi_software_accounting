@@ -3,7 +3,7 @@ module ApplicationHelper
   protected
 
   def show_report_form_tag(action)
-    form_tag(url_for({:action => action}), :class => "bp") do
+    form_tag(url_for({:action => action}), :class => "bp", :method => :get) do
       yield
     end
   end

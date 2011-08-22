@@ -8,6 +8,7 @@ describe ExecutableUserReportController do
   before(:each) {
     @resource = FactoryGirl.create(:resource)
   }
+
   let (:index_params) { {:resource_id => @resource.id} }
   let (:expected_fields) { ExecutableUserReportController::EXECUTABLE_USER_REPORT_FIELDS }
 
