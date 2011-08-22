@@ -1,18 +1,6 @@
 
-class ResourcesController < ReportController
+class ResourcesController < ApplicationController
   autocomplete :resource, :name
-
-  FIELDS = [id_field,
-                     name_field,
-                     num_users_field,
-                     num_groups_field,
-                     fy_10_field,
-                     fy_11_field,
-                     fy_12_field,
-                     fy_13_field,
-                     link_field(:link_proc => "resource_path")
-                     ]
-  @@report_title = "Resources Report"
 
   @@index_fields =
     [id_field,
@@ -20,26 +8,6 @@ class ResourcesController < ReportController
      link_field(:link_proc => "resource_path")]
 
   @@index_title = "Resources"
-
-
-  def report
-  end
-
-  def show_report
-    @rows = Resource.report(report_options)
-    if perform_search?
-      @rows = @rows.where("name like ?", "%#{params[:name]}%")
-    end
-    @fields = FIELDS
-    @title = @@report_title
-    respond_with_report
-  end
-
-  def usage_report
-  end
- 
-  def show_usage_report
-  end
 
   # GET /resources
   # GET /resources.xml

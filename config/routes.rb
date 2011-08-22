@@ -3,13 +3,8 @@ SoftwareWebApp::Application.routes.draw do
   resources :event_types
 #, :except => [:new, :create, :delete]
 
-  def add_report_to_controller(controller, prefix = "", with_id = false)
-    match "#{controller}/#{prefix}report#{with_id ? '/:id' : ''}" => "#{controller}##{prefix}report", :as => "#{controller}_#{prefix}report".to_sym
-    match "#{controller}/show_#{prefix}report#{with_id ? '/:id' : ''}(.:format)" => "#{controller}#show_#{prefix}report", :as => "#{controller}_show_#{prefix}report".to_sym
-  end
-
-  add_report_to_controller("resources")
-  add_report_to_controller("colleges")
+  resources :colleges_report, :only => [:new, :index]
+  resources :resources_report, :only => [:new, :index]
 
   resources :events, :only => [:index, :show]
   resources :executables

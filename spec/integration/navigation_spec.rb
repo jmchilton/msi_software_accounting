@@ -13,7 +13,7 @@ feature "Index Page", %q{
     within("#links-flexlm-reports") do
       click_link('Resources')
     end
-    current_path.should eql(resources_report_path)
+    current_path.should eql(new_resources_report_path)
   end
 
   scenario "Navigate to college report" do
@@ -21,7 +21,7 @@ feature "Index Page", %q{
     within("#links-flexlm-reports") do
       click_link('Colleges')
     end
-    current_path.should eql(colleges_report_path)
+    current_path.should eql(new_colleges_report_path)
   end
 
   scenario "Navigate to resources" do

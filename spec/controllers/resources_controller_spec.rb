@@ -39,17 +39,4 @@ describe ResourcesController do
 
   it_should_behave_like "standard GET index"
 
-  describe "GET report" do
-    before(:each) { get 'report' }
-
-    specify { it_should_respond_successfully }
-  end
-
-  describe "GET show_report" do
-    before(:each) { get 'show_report' }
-
-    specify { it_should_respond_successfully_with_report }
-    specify { it_should_assign_links_with "resource_path" }
-  end
-
 end

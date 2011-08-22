@@ -5,7 +5,7 @@ feature "College Report" do
   end
 
   scenario "Default options" do
-    visit '/colleges/report'
+    visit '/colleges_report/new'
     click_button 'Build Report'
     page.find(:data_table_header).should have_content("College")
     page.should have_content("CFANS")

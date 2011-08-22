@@ -1,0 +1,2 @@
+module ResourcesReportHelper
+end

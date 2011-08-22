@@ -10,12 +10,6 @@ describe CollegesController do
     specify { response.should render_template("index") }
   end
 
-  describe "GET report" do
-    before(:each) { get :report }
-    specify { response.should be_success }
-    specify { response.should render_template("report")}
-  end
-
   describe "GET show" do
     let(:college) { FactoryGirl.create(:college) }
     before(:each) {
@@ -27,18 +21,6 @@ describe CollegesController do
     specify { response.should be_success }
     specify { response.should render_template("show")}
     specify { assigns(:college).should == college }
-  end
-
-  describe "POST show_report" do
-
-    describe "default response" do
-      before(:each) { post :show_report }
-
-      specify { response.should be_success }
-      specify { response.should render_template("show_report")}
-      specify { it_should_setup_table_variables }
-    end
-
   end
 
 end
