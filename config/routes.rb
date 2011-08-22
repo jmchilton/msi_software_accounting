@@ -1,25 +1,35 @@
 SoftwareWebApp::Application.routes.draw do
 
-  resources :event_types
-#, :except => [:new, :create, :delete]
-
-  resources :colleges_report, :only => [:new, :index]
-  resources :resources_report, :only => [:new, :index]
-
-  resources :events, :only => [:index, :show]
-  resources :executables
-  resources :resources, :only => [:index, :show] do
-    get :autocomplete_resource_name, :on => :collection
-    resources :executable_user_report, :only => [:new, :index]
-    resources :resource_user_report, :only => [:new, :index]
+  def report_resources(name)
+    resources name, :only => [:new, :index]
   end
 
-  resources :colleges, :only => [:index, :show]
-  resources :departments, :only => [:index, :show]
-  resources :groups, :only => [:index, :show]
-  resources :users, :only => [:index, :show]
-  resources :people, :only => [:index, :show]
+  def readonly_resources(name)
+    resources name, :only => [:show, :index]
+  end
+
+  report_resources :colleges_report
+  report_resources :resources_report
+
+  resources :event_types
+  resources :executables
+
   resources :purchases
+
+  resources :resources, :only => [:index, :show] do
+    get :autocomplete_resource_name, :on => :collection
+    report_resources :executables_report
+    report_resources :resource_user_report
+
+
+  end
+
+  readonly_resources :events
+  readonly_resources :colleges
+  readonly_resources :departments
+  readonly_resources :groups
+  readonly_resources :users
+  readonly_resources :people
 
   get "home/index"
 

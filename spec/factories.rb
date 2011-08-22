@@ -36,7 +36,14 @@ FactoryGirl.define do
   end
 
   factory :purchase, :class => Purchase do
+    fy10 0
+    fy11 0
+    fy12 0
+    fy13 0
+    flexlm '1'
+    os "Linux"
   end
+
 
   factory :resource, :class => Resource do
     readonly

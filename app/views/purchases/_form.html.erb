@@ -1,4 +1,5 @@
-<%= form_for(@purchase) do |f| %>
+<%= form_for(@purchase, :html => { :class => :bp} ) do |f| %>
+  <fieldset>
   <% if @purchase.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
@@ -12,41 +13,40 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :rid %><br />
-    <%= f.text_field :rid %>
+    <%= f.label :os %>
+    <%= select("purchase", "os", Purchase::OPERATING_SYSTEMS, {:include_blank => true}) %>
   </div>
   <div class="field">
-    <%= f.label :os %><br />
-    <%= f.text_field :os %>
+    <%= f.label :flexlm %>
+    <%= f.check_box :flexlm %>
   </div>
   <div class="field">
-    <%= f.label :flexlm %><br />
-    <%= f.text_field :flexlm %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :fy10 %><br />
+    <%= f.label :fy10 %>
     <%= f.text_field :fy10 %>
   </div>
   <div class="field">
-    <%= f.label :fy11 %><br />
+    <%= f.label :fy11 %>
     <%= f.text_field :fy11 %>
   </div>
   <div class="field">
-    <%= f.label :fy12 %><br />
+    <%= f.label :fy12 %>
     <%= f.text_field :fy12 %>
   </div>
   <div class="field">
-    <%= f.label :fy13 %><br />
+    <%= f.label :fy13 %>
     <%= f.text_field :fy13 %>
   </div>
   <div class="field">
-    <%=  f.autocomplete_field :rid, autocomplete_resource_name_resources_path %>
+    <%= f.label "Resource" %>
+    <%= autocomplete_field_tag "resource_name", @purchase.resource.blank? ? '' : @purchase.resource.name, autocomplete_resource_name_resources_path %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+  </fieldset>
+
 <% end %>

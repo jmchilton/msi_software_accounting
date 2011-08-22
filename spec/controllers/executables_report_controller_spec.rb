@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'controllers/table_helpers'
 
-describe ExecutableUserReportController do
+describe ExecutablesReportController do
   include TableHelpers
 
   before(:each) {

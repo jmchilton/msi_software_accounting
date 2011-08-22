@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+
   # GET /purchases
   # GET /purchases.xml
   def index
@@ -40,6 +41,8 @@ class PurchasesController < ApplicationController
   # POST /purchases
   # POST /purchases.xml
   def create
+    rid = Resource.find_by_name(params[:resource_name]).id
+    params[:purchase][:rid] = rid
     @purchase = Purchase.new(params[:purchase])
 
     respond_to do |format|
@@ -57,7 +60,7 @@ class PurchasesController < ApplicationController
   # PUT /purchases/1.xml
   def update
     @purchase = Purchase.find(params[:id])
-
+    params[:purchase][:rid] = Resource.find_by_name(params[:resource_name]).id
     respond_to do |format|
       if @purchase.update_attributes(params[:purchase])
         format.html { redirect_to(@purchase, :notice => 'Purchase was successfully updated.') }
