@@ -1,4 +1,5 @@
-<%= form_for(@event_type) do |f| %>
+<%= form_tag(url_for({:action => "update"}), :class => "bp", :method => :put) do %>
+
   <% if @event_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@event_type.errors.count, "error") %> prohibited this event_type from being saved:</h2>
@@ -11,20 +12,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :feature %><br />
-    <%= f.label @event_type.feature %>
-  </div>
-  <div class="field">
-    <%= f.label :vendor %><br />
-    <%= f.label @event_type.vendor %>
-  </div>
-  <div class="field"> 
-    <%= f.label :resource_name %><br />
-    <%= f.text_field :resource_name %>
-  </div>
+  <%= hidden_field_tag "_method", "put" %>
+  <p class="form_item">
+    ID<br />
+    <%= @event_type.id %>
+  </p>
+
+  <p class="form_item">
+    Feature<br />
+    <%= @event_type.feature %>
+  </p>
+  <p class="form_item">
+    Vendor<br />
+    <%= @event_type.vendor %>
+  </p>
+  <p class="form_item">
+    <label for="resource_name">Resource Name</label>
+    <%= resource_name_field(@event_type.resource_name) %>
+  </p>
  
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag("Update Event Type") %>
   </div>
 <% end %>

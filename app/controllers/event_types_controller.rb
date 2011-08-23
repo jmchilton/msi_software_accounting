@@ -30,9 +30,8 @@ class EventTypesController < ApplicationController
   # PUT /event_types/1.xml
   def update
     @event_type = EventType.find(params[:id])
-
     respond_to do |format|
-      if @event_type.update_resource(params[:resource_id])
+      if @event_type.update_resource(params[:resource_name])
         format.html { redirect_to(@event_type, :notice => 'Event type was successfully updated.') }
         format.xml  { head :ok }
       else

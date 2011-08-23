@@ -42,7 +42,7 @@
   </div>
   <div class="field">
     <%= f.label "Resource" %>
-    <%= autocomplete_field_tag "resource_name", @purchase.resource.blank? ? '' : @purchase.resource.name, autocomplete_resource_name_resources_path %>
+    <%= resource_name_field(@purchase.resource.blank? ? '' : @purchase.resource.name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

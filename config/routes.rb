@@ -11,7 +11,7 @@ SoftwareWebApp::Application.routes.draw do
   report_resources :colleges_report
   report_resources :resources_report
 
-  resources :event_types
+  resources :event_types, :only => [:index, :show, :update, :edit]
   resources :executables
 
   resources :purchases

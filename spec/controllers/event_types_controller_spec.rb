@@ -42,13 +42,13 @@ describe EventTypesController do
       before(:each) { @event_type.should_receive(:update_resource).with(@resource_name).and_return(true) }
 
       it "assigns the requested event_type as @event_type" do
-        put :update, :id => @event_type.id.to_s, :resource_name => '1'
+        put :update, :id => @event_type.id.to_s, :resource_name => @resource_name
         assigns(:event_type).should eq(@event_type)
       end
 
       it "redirects to the event_type" do
-        put :update, :id => @event_type.id.to_s, :resource_name => '1'
-        response.should redirect_to(@event_type)
+        put :update, :id => @event_type.id.to_s, :resource_name => @resource_name
+        response.should redirect_to(:action => 'index')
       end
     end
 
@@ -57,7 +57,7 @@ describe EventTypesController do
 
       it "assigns the event_type as @event_type" do
         # Trigger the behavior that occurs when invalid params are submitted
-        put :update, :id => @event_type.id.to_s, :resource_name =>  '1'
+        put :update, :id => @event_type.id.to_s, :resource_name =>  @resource_name
         assigns(:event_type).should eq(@event_type)
       end
 

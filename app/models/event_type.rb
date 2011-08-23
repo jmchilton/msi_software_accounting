@@ -6,7 +6,7 @@ class EventType
   attr_accessor :id, :feature, :vendor, :resource_name
 
   def self.to_event_type(event)
-    EventType.new({:id => event.evid, :feature => event.feature, :vendor => event.vendor, :resource_nname => event.resource_name})
+    EventType.new({:id => event.evid, :feature => event.feature, :vendor => event.vendor, :resource_name => event.resource_name})
   end
 ``
   def self.all 
@@ -18,7 +18,7 @@ class EventType
   end
 
   def update_resource(new_resource_name)
-    resource_id = Resource.find_by_name new_resource_name
+    resource_id = Resource.find_by_name(new_resource_name).id
     if resource_name.blank?
       executable = Executable.new({:identifier_type => 1, :comment => vendor, :identifier => feature, :rid => resource_id})
       if executable.save
