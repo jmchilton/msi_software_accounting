@@ -18,10 +18,11 @@ describe EventType do
   end
 
   describe "update_resource" do
+
     it "should create an executable" do 
       Executable.find_by_identifier('unmapped_feature').should be_blank
       event_type = EventType.all.find {|x| x.id == 6 } 
-      event_type.update_resource("2")
+      event_type.update_resource("resource_1")
       Executable.find_by_identifier('unmapped_feature').should_not be_blank
     end
   end

@@ -7,11 +7,12 @@ class Purchase < ActiveRecord::Base
 
   belongs_to :resource, :foreign_key => "rid"
 
-  scope :resource_summary, 
+  def self.resource_summary   
     select("rid, sum(fy10) as fy10, 
             sum(fy11) as fy11, sum(fy12) as fy12, 
-            sum(fy13) as fy13").
+            sum(fy13) as fy13, 0 as flexlm"). # TODO: Remve hack 0 as flexlm, need to find a way to indicate these are purchases
     group("rid")
+  end
 
   validates_numericality_of :fy10, :only_integer => true, :greater_than_or_equal_to => 0
   validates_numericality_of :fy11, :only_integer => true, :greater_than_or_equal_to => 0
@@ -19,7 +20,7 @@ class Purchase < ActiveRecord::Base
   validates_numericality_of :fy13, :only_integer => true, :greater_than_or_equal_to => 0
   validates_presence_of :rid
   validates_inclusion_of :os, :in => OPERATING_SYSTEMS, :allow_nil => true
-  #validates_inclusion_of :flexlm, :in => ["0", "1"]
+  #validates_inclusion_of :flexlm, :in => ["0", "1"], 
 
   after_initialize :default_values
 
@@ -29,7 +30,7 @@ class Purchase < ActiveRecord::Base
       self.fy11 ||= 0
       self.fy12 ||= 0
       self.fy13 ||= 0
-      self.flexlm ||= "0"
+      self.flexlm ||= 0
     end
 
 end

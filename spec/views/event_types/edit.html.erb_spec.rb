@@ -16,7 +16,7 @@ describe "event_types/edit.html.erb" do
     assert_select "form", :action => event_types_path(@event_type), :method => "post" do
       #assert_select "input#event_type_id", :name => "event_type[id]"
       #assert_select "input#event_type_feature", :name => "event_type[feature]"
-      assert_select "input#event_type_resource_id", :name => "event_type[resource_id]"
+      assert_select "input#event_type_resource_name", :name => "event_type[resource_name]"
     end
   end
 end
