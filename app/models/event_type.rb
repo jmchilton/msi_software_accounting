@@ -27,8 +27,14 @@ class EventType
         @errors = executable.errors
         false
       end 
-    else 
-      false
+    else
+      executable = Executable.find_by_identifier_and_comment(feature, vendor)
+      if executable.update_attribute(:rid, resource_id)
+        true
+      else
+        @errors = executable.errors
+        false
+      end
     end
   end
 

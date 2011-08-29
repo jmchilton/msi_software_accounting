@@ -1,7 +1,7 @@
 require 'spec_helper'
-
+require 'controllers/table_helpers'
 describe EventTypesController do
-
+  include TableHelpers
 
   before(:each) {
     @resource = FactoryGirl.create(:resource)
@@ -14,30 +14,39 @@ describe EventTypesController do
     {:id => 1, :feature => "Feature", :vendor => "Vendor", :resource_name => @resource_name }
   end
 
-
   describe "GET index" do
-    it "assigns all event_types as @event_types" do
+    before(:each) {
       EventType.stub!(:all).and_return([@event_type])
       get :index
+    }
+
+    it "assigns all event_types as @event_types" do
       assigns(:event_types).should eq([@event_type])
     end
+``
+    specify { it_should_respond_successfully_with_paginating_table }
   end
 
   describe "GET show" do
+
     it "assigns the requested event_type as @event_type" do
       get :show, :id => @event_type.id.to_s
       assigns(:event_type).should eq(@event_type)
     end
+
   end
 
   describe "GET edit" do
+
     it "assigns the requested event_type as @event_type" do
       get :edit, :id => @event_type.id.to_s
       assigns(:event_type).should eq(@event_type)
     end
+
   end
 
   describe "PUT update" do
+
     describe "with valid params" do
       before(:each) { @event_type.should_receive(:update_resource).with(@resource_name).and_return(true) }
 
@@ -50,6 +59,7 @@ describe EventTypesController do
         put :update, :id => @event_type.id.to_s, :resource_name => @resource_name
         response.should redirect_to(:action => 'index')
       end
+
     end
 
     describe "with invalid params" do
@@ -65,7 +75,9 @@ describe EventTypesController do
         put :update, :id => @event_type.id.to_s, :resource_name => @resource_name
         response.should render_template("edit")
       end
+
     end
+
   end
 
 end

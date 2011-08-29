@@ -24,6 +24,7 @@ feature "Index Page", %q{
     current_path.should eql(new_colleges_report_path)
   end
 
+
   scenario "Navigate to resources" do
     visit '/'
     within("#links-navigate") do

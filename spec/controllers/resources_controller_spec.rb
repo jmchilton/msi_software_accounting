@@ -9,9 +9,7 @@ describe ResourcesController do
       get :index
     }
 
-    specify { it_should_respond_successfully }
-    specify { it_should_setup_table_variables }
-    specify { it_should_paginate }
+    specify { it_should_respond_successfully_with_paginating_table }
   end
 
   describe "json GET index" do
