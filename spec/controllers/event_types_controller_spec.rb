@@ -21,9 +21,9 @@ describe EventTypesController do
     }
 
     it "assigns all event_types as @event_types" do
-      assigns(:event_types).should eq([@event_type])
+      assigns(:rows).should eq(EventType)
     end
-``
+
     specify { it_should_respond_successfully_with_paginating_table }
   end
 

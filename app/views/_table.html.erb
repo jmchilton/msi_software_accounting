@@ -1,4 +1,3 @@
-
 <% if params['enable_javascript'] != '1' %>
   <table id="data_table">
     <tr id="data_table_header">
@@ -31,5 +30,5 @@
       configure_data_table($("#data_table"));
     });
   </script>
-
 <% end %>
+<%= link_to "Download CSV", params.merge(:format => :csv) %>

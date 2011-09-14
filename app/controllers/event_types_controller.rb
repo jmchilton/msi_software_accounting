@@ -1,13 +1,26 @@
 class EventTypesController < ApplicationController
+
+  FIELDS =
+    [id_field,
+     { :field => "feature", :label => "Feature", :search => false },
+     { :field => "vendor", :label => "Vendor", :search => false },
+     { :field => "resource_name", :label => "Resource Name", :search => false },
+     link_field(:link_proc => :edit_event_type_path)
+     ]
+  TITLE = "FLEXlm Event Types"
+
   # GET /event_types
   # GET /event_types.xml
   def index
-    @event_types = EventType.all
+    @fields = FIELDS
+    @title = TITLE
+    @rows = EventType
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @event_types }
-    end
+    respond_with_table
+    #respond_to do |format|
+    #  format.html # index.html.erb
+    #  format.xml  { render :xml => @event_types }
+    #end
   end
 
   # GET /event_types/1

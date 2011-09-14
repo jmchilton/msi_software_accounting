@@ -1,25 +1,5 @@
-<h1>Listing event_types</h1>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Feature</th>
-    <th>Vendor</th>
-    <th>Resource Name</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @event_types.each do |event_type| %>
-  <tr>
-    <td><%= event_type.id %></td>
-    <td><%= event_type.feature %></td>
-    <td><%= event_type.vendor %></td>
-    <td><%= event_type.resource_name %></td>
-    <td><%= link_to 'Show', event_type_path(event_type) %></td>
-    <td><%= link_to 'Edit', edit_event_type_path(event_type) %></td>
-  </tr>
+<h1>FLEXlm Event Types</h1>
+<% if use_jqgrid %>
+  <p>Double click a row to edit an event type.</p>
 <% end %>
-</table>
-
-<br />
+<%= render :partial => "/table" %>

@@ -8,7 +8,7 @@ class EventType
   def self.to_event_type(event)
     EventType.new({:id => event.evid, :feature => event.feature, :vendor => event.vendor, :resource_name => event.resource_name})
   end
-``
+
   def self.all 
     event_types.all.map {|event| to_event_type(event) }
   end
@@ -42,6 +42,10 @@ class EventType
     id.to_s
   end
 
+  def [](attribute)
+    #instance_variable_get "@#{attribute}"
+    send attribute
+  end
 
   private
   def self.event_types
