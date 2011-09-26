@@ -44,6 +44,8 @@ GEM
     childprocess (0.2.0)
       ffi (~> 1.0.6)
     chunky_png (1.2.1)
+    ci_reporter (1.6.5)
+      builder (>= 2.1.2)
     compass (0.11.5)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -147,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   basic_model
   capybara
+  ci_reporter
   compass
   factory_girl_rails
   fastercsv

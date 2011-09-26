@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+gem 'ci_reporter'
+
 gem 'rails', '3.0.9'
 
 gem 'fastercsv'

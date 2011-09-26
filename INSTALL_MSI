@@ -1,28 +1,15 @@
-export RUBY_DEPS=~/ruby_deps/            
-mkdir $RUBY_DEPS
-mkdir $RUBY_DEPS/libxml
-wget ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz
-tar -xzvf libxml2-2.7.8.tar.gz
-cd libxml2-2.7.8
-./configure --prefix=$RUBY_DEPS/libxml 
-make
-make install
+export RUBY_DEPS=~/ruby_deps/  ;  mkdir $RUBY_DEPS ; mkdir $RUBY_DEPS/libxml
+
+wget ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz ; tar -xzvf libxml2-2.7.8.tar.gz ; cd libxml2-2.7.8
+./configure --prefix=$RUBY_DEPS/libxml  ; make ; make install
 
 
-cd ..
-mkdir $RUBY_DEPS/libxslt
-wget ftp://xmlsoft.org/libxslt/libxslt-1.1.26.tar.gz
-tar -xzvf libxslt-1.1.26.tar.gz
-cd libxslt-1.1.26
-./configure --prefix=$RUBY_DEPS/libxslt with_libxml_prefix=$RUBY_DEPS/libxml
-make
-make install
+cd .. ; mkdir $RUBY_DEPS/libxslt ; wget ftp://xmlsoft.org/libxslt/libxslt-1.1.26.tar.gz
+tar -xzvf libxslt-1.1.26.tar.gz  ; cd libxslt-1.1.26
+./configure --prefix=$RUBY_DEPS/libxslt with_libxml_prefix=$RUBY_DEPS/libxml ; make ; make install
 
-
+curl -s https://rvm.beginrescueend.com/install/rvm -o rvm-installer ; chmod +x rvm-installer ; ./rvm-installer --version latest
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-. "$HOME/.rvm/scripts/rvm"
-
 rvm install 1.8.7
 
 rvm use 1.8.7 
