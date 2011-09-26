@@ -5,6 +5,15 @@ end
 
 FactoryGirl.define do
 
+  factory :flexlm_app_snapshot do
+    readonly
+  end
+
+  factory :flexlm_user_snapshot do
+
+    readonly
+  end
+
   factory :college do
     sequence(:name) { |index| "College#{index}" }
     readonly

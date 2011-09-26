@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817195209) do
+ActiveRecord::Schema.define(:version => 20110926202810) do
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(:version => 20110817195209) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rid"
+  end
+
+  create_table "flexlm_app_snapshots", :force => true do |t|
+    t.datetime "for_date"
+    t.string   "feature"
+    t.string   "vendor"
+    t.integer  "total_licenses"
+    t.integer  "used_licenses"
+  end
+
+  create_table "flexlm_user_snapshots", :force => true do |t|
+    t.integer  "flexlm_app_snapshot_id"
+    t.string   "username"
+    t.integer  "licenses"
+    t.datetime "start"
+    t.string   "host"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "groups", :primary_key => "gid", :force => true do |t|
