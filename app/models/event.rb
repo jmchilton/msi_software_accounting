@@ -6,17 +6,8 @@ class Event < ReadOnlyModel
   belongs_to :process_user, :class_name => 'User', :foreign_key => "unam", :primary_key => "username"
 
   def self.valid_events(report_options = {})
-    report_options.reverse_merge!({:from => nil, :to => nil})
-    from = report_options[:from]
-    to = report_options[:to]
     relation = where("OPERATION = 'OUT'")
-    unless from.blank?
-      relation = relation.where("EV_DATE >= ?", from)
-    end
-    unless to.blank?
-      relation = relation.where("EV_DATE <= ?", to)
-    end
-    relation
+    DateOptions.handle_date_options(relation, 'EV_DATE', report_options)
   end
 
   def self.demographics_summary_selects
