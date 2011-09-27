@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FlexlmAppSnapshot do
 
-  describe "summarize" do
+  describe "sampling" do
     before(:each) {
       @executable = FactoryGirl.create(:executable)
       @snapshot2 = FactoryGirl.create(:flexlm_app_snapshot, :used_licenses => 1, :for_date => '2011-09-01 01:00:00', :executable => @executable)
@@ -12,21 +12,39 @@ describe FlexlmAppSnapshot do
       @out_snapshot1 = FactoryGirl.create(:flexlm_app_snapshot, :used_licenses => 4, :for_date => '2011-08-29 21:00:00', :executable => @executable)
     }
 
-    it "should sample daily average when specified" do
-      sept_first_record = FlexlmAppSnapshot.summarize_for_executable(@executable.exid, {:sample => :date, :from => '2011-09-01', :to => '2011-09-30'})[0]
-      sept_first_record.sum_avg.should == 3
-      sept_first_record.for_date.should == Time.zone.parse('2011-09-01')
-      FlexlmAppSnapshot.summarize_for_executable(@executable.exid, {:from => '2011-08-01', :to => '2011-08-31'})[0].sum_avg.should == 4
+    describe "daily sampling" do
+      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample => :date, :from => '2011-09-01', :to => '2011-09-30'})[0] }
+
+      it  "should average records by default" do
+        sept_first_record.value.should == 3
+      end
+
+      it "should truncate the date"  do
+         sept_first_record.for_date.should == Time.zone.parse('2011-09-01')
+      end
+
     end
 
-    it "should sample continuously by default" do
-      records = FlexlmAppSnapshot.summarize_for_executable(@executable.exid, {:from => '2011-09-01', :to => '2011-09-30'})
-      snapshot2_record = records.select {|x| x.for_date == Time.zone.parse('2011-09-01 01:00:00 ')}[0]
-      snapshot3_record = records.select {|x| x.for_date == Time.zone.parse('2011-09-01 03:00:00 ')}[0]
-      snapshot2_record.sum_avg.should == 1
-      snapshot3_record.sum_avg.should == 5
+    describe "daily sampling with maximum" do
+      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample_with => :max, :sample => :date, :from => '2011-09-01', :to => '2011-09-30'})[0] }
+
+      it "should take the maximum number of licenses for that day" do
+        sept_first_record.value.should == 5
+      end
     end
+
+    describe "sampling date ranges" do
+      specify { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:from => '2011-08-01', :to => '2011-08-31'})[0].value.should == 4 }
+    end
+
+    describe "continuous sampling" do
+      let(:sept_records) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:from => '2011-09-01', :to => '2011-09-30'}) }
+      let(:snapshot2_record) { sept_records.select {|x| x.for_date == Time.zone.parse('2011-09-01 01:00:00 ')}[0] }
+      let(:snapshot3_record) { sept_records.select {|x| x.for_date == Time.zone.parse('2011-09-01 03:00:00 ')}[0] }
+
+      specify { snapshot2_record.value.should == 1 }
+      specify { snapshot3_record.value.should == 5 }
+    end
+
   end
-
-
 end

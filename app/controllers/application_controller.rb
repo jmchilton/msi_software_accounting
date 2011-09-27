@@ -1,4 +1,6 @@
-class ApplicationController < ActionController::Base 
+require 'time_flot'
+
+class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
 
@@ -7,7 +9,24 @@ class ApplicationController < ActionController::Base
   ROW_LIST_PAGINATE = '[10,20,100]'
   ROW_LIST_NO_PAGINATE = '[]'
 
+  DEFAULT_CHART_ID="chart"
+
   protected
+
+  def set_line_chart_data(data)
+    @chart_data = TimeFlot.new(DEFAULT_CHART_ID) do |f|
+      f.lines
+      f.points
+      f.xaxis :tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]
+      f.yaxis :tickDecimals => false, :min => 0
+      f.grid :hoverable => true
+      f.selection :mode => "xy"
+    end
+    data.each do |dataset|
+      @chart_data.series(nil, dataset)
+    end
+  end
+
 
   def self.name_field
     { :field => "name", :label => "Name" }

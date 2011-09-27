@@ -10,6 +10,43 @@ describe ApplicationController do
 
   end
 
+  describe "set_line_chart_data" do
+    before(:each) {
+      controller.send(:set_line_chart_data, [[[2.days.ago, 5]]])
+    }
+    let (:chart_data) { assigns(:chart_data) }
+    let (:options) { chart_data.options }
+
+    it "should set @chart_data" do
+      chart_data.should_not be_nil
+    end
+
+    it "should describe a line chart" do
+      line_options = options[:lines]
+      line_options[:show].should be_true
+    end
+
+    it "should show points" do
+      options[:points][:show].should be_true
+    end
+
+    it "should specify x-axis as time" do
+      options[:xaxis][:tickDecimals].should be_false
+      options[:xaxis][:mode].should == :time
+      options[:xaxis][:minTickSize].should == [1, "day"]
+    end
+
+    it "should specify whole numbers on y-axis" do
+      options[:yaxis][:tickDecimals].should be_false
+      options[:yaxis][:min].should == 0
+    end
+
+    it "should enable hovering effects" do
+      options[:grid][:hoverable].should == true
+    end
+
+  end
+
 
   describe "with_pagination_and_ordering" do
     let(:relation) {

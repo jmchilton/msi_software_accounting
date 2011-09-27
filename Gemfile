@@ -17,6 +17,7 @@ gem 'rails3-jquery-autocomplete'
 
 gem 'sqlite3'
 
+
 group :production do 
   gem 'postgres'
   gem 'pg'

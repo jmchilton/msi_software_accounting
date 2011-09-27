@@ -32,6 +32,7 @@ SoftwareWebApp::Application.routes.draw do
   readonly_resources :people
 
   get "home/index"
+  get "home/flot_test"
 
   root :to => "home#index"
 

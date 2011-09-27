@@ -1,3 +1,5 @@
+
+
 module ApplicationHelper
 
   protected
@@ -15,6 +17,5 @@ module ApplicationHelper
   def use_jqgrid
     params[:enable_javascript] == "1"
   end
-
 
 end
