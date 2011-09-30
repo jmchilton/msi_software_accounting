@@ -36,5 +36,6 @@
 </p>
 
 <%= link_to "View Per User Usage Report", new_resource_resource_user_report_path(@resource.id) %>
+<%= link_to "View Feature Report", new_resource_executables_report_path(@resource.id) %>
 <%= link_to "View on MSI DB", @resource.msi_db_link, :id => 'msi_db_link' %>
 <%= link_to 'Back', resources_path %>

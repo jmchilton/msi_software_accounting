@@ -18,4 +18,9 @@ module ApplicationHelper
     params[:enable_javascript] == "1"
   end
 
+  def model_field(key, label, value)
+    content_tag(:div, content_tag(:div, label, :class => "model_field_label") + content_tag(:div, value, :class => "model_field_value"),
+                {:class =>"model_field", :id => "model_field_#{key}"})
+  end
+
 end
