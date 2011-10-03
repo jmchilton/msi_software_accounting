@@ -6,6 +6,8 @@ end
 FactoryGirl.define do
 
   factory :flexlm_app_snapshot do
+    for_date Time.now
+    association :executable, :factory => :executable
     readonly
   end
 

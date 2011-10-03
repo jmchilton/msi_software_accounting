@@ -1,0 +1,12 @@
+
+
+<% for i in 1..1000 %>
+
+fas_fix_<%= i %>:
+  id: <%= i %>
+  for_date: <%= (Time.parse("2011-08-03 05:00:00") + i * 5.minutes).strftime('%Y-%m-%d %H:%M:%S')  %>
+  feature: 2
+  total_licenses: 5
+  used_licenses: 3
+
+<% end %>

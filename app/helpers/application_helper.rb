@@ -23,4 +23,17 @@ module ApplicationHelper
                 {:class =>"model_field", :id => "model_field_#{key}"})
   end
 
+  def cell_value(field, row)
+    if field[:link]
+      link_to "View", instance_eval("#{field[:link_proc]}(row)")
+    else
+      field_key = field[:field]
+      if field_key.is_a?(Proc)
+        field_key.call(row)
+      else
+        row[field_key.to_sym]
+      end
+    end
+  end
+
 end

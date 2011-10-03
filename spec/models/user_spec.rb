@@ -16,6 +16,18 @@ describe User do
     it "should have record of user using software" do
       alices_record.should_not be_blank
     end
+
+    it "should have e-mail in the record" do
+      alices_record.email.should == "alice@example.com"
+    end
+
+    it "should have first name in the record" do
+      alices_record.first_name.should == "Alice"
+    end
+
+    it "should have last name in the record" do
+      alices_record.last_name.should == "Albert"
+    end
  
     it "should not have record of users who have not used software" do
       record_for(report1, 'bob').should be_blank

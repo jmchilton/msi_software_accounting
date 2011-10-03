@@ -26,9 +26,9 @@ describe ApplicationController do
       line_options[:show].should be_true
     end
 
-    it "should show points" do
-      options[:points][:show].should be_true
-    end
+    #it "should show points" do
+    #  options[:points][:show].should be_true
+    #end
 
     it "should specify x-axis as time" do
       options[:xaxis][:tickDecimals].should be_false

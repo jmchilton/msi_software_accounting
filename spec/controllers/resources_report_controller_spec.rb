@@ -23,6 +23,4 @@ describe ResourcesReportController do
     specify { it_should_assign_links_with "resource_path" }
   end
 
-
-
 end

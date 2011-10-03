@@ -27,6 +27,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def self.username_field
+    { :field => "username", :label => "Username"}
+  end
+
+  def self.first_name_field
+    { :field => "first_name", :label => "First Name"}
+  end
+
+  def self.last_name_field
+    { :field => "last_name", :label => "Last Name"}
+  end
+
+  def self.group_name_field
+    { :field => "group_name", :label => "Group Name" }
+  end
+
+  def self.email_field
+    { :field => "email", :label => "E-Mail"}
+  end
 
   def self.name_field
     { :field => "name", :label => "Name" }
@@ -108,7 +127,7 @@ class ApplicationController < ActionController::Base
     end
 
     if for_json and not @allow_pagination
-        @row_count = @rows.count
+      @row_count = @rows.count
     end
   end
 
