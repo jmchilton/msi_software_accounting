@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'models/model_helpers'
 
 def setup_medical_resources_and_events
   resource = FactoryGirl.create(:resource)

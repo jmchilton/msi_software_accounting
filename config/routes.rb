@@ -12,7 +12,10 @@ SoftwareWebApp::Application.routes.draw do
   report_resources :resources_report
 
   resources :event_types, :only => [:index, :show, :update, :edit]
-  resources :executables
+
+  resources :executables do 
+    report_resources :executables_plot
+  end
 
   resources :purchases
 
@@ -20,8 +23,6 @@ SoftwareWebApp::Application.routes.draw do
     get :autocomplete_resource_name, :on => :collection
     report_resources :executables_report
     report_resources :resource_user_report
-
-
   end
 
   readonly_resources :events
@@ -32,7 +33,6 @@ SoftwareWebApp::Application.routes.draw do
   readonly_resources :people
 
   get "home/index"
-  get "home/flot_test"
 
   root :to => "home#index"
 

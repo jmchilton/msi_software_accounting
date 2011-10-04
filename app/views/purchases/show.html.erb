@@ -1,50 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Pid:</b>
-  <%= @purchase.pid %>
-</p>
-
-<p>
-  <b>Rid:</b>
-  <%= @purchase.rid %>
-</p>
-
-<p>
-  <b>Os:</b>
-  <%= @purchase.os %>
-</p>
-
-<p>
-  <b>Flexlm:</b>
-  <%= @purchase.flexlm %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @purchase.name %>
-</p>
-
-<p>
-  <b>Fy10:</b>
-  <%= @purchase.fy10 %>
-</p>
-
-<p>
-  <b>Fy11:</b>
-  <%= @purchase.fy11 %>
-</p>
-
-<p>
-  <b>Fy12:</b>
-  <%= @purchase.fy12 %>
-</p>
-
-<p>
-  <b>Fy13:</b>
-  <%= @purchase.fy13 %>
-</p>
-
+<%= model_field('resource_name', "Resource", @purchase.resource.name) %>
+<%= model_field('os', "Operating System", @purchase.os) %>
+<%= model_field('fy10', "FY 2010", @purchase.fy10) %>
+<%= model_field('fy11', "FY 2011", @purchase.fy11) %>
+<%= model_field('fy12', "FY 2012", @purchase.fy12) %>
+<%= model_field('fy13', "FY 2013", @purchase.fy13) %>
 
 <%= link_to 'Edit', edit_purchase_path(@purchase) %> |
 <%= link_to 'Back', purchases_path %>

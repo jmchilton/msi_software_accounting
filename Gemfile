@@ -12,6 +12,7 @@ gem 'compass'
 
 gem 'rails3-jquery-autocomplete'
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -48,6 +49,7 @@ end
 
 group :development, :test do
   gem "rcov"
+  gem "guard"
   gem "guard-rspec"
   if RbConfig::CONFIG['target_os'] =~ /darwin/i
     gem 'rb-fsevent', '>= 0.4.0', :require => false
@@ -59,6 +61,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'assembly_line'
   gem 'factory_girl_rails'
   gem "capybara"
   gem "rspec-rails", ">= 2"

@@ -14,7 +14,7 @@ person_alice:
   id: 2
   first_name: Alice
   middle_name:
-  last_name: 
+  last_name: Albert
   active: true
   email: alice@example.com
   dept_id: 6

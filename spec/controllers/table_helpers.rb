@@ -25,7 +25,7 @@ module TableHelpers
   end
 
   def it_should_setup_table_variables
-    #assigns(:rows).should respond_to(:each)
+    assigns(:rows).should_not be_nil
     assigns(:fields).should be_an Array
     assigns(:title).should be_a String 
   end
@@ -56,7 +56,7 @@ module TableHelpers
   end
 
   def assigned_field(key)
-    subject.class::FIELDS.find {|field| field[:field].to_sym == key }
+    subject.class::FIELDS.find {|field| field[:field].respond_to?(:to_sym) && field[:field].to_sym == key }
   end
 
   def it_should_paginate
@@ -80,11 +80,16 @@ module TableHelpers
     it_should_paginate
   end
 
-  # TODO: Define ReportHelpers for following functions
+
+
   def it_should_respond_successfully_with_report_options
     it_should_respond_successfully
 
     response.body.should =~ /build_report_button/
+  end
+
+  def it_should_respond_successfully_with_model_index
+
   end
 
   def it_should_respond_successfully_with_report
@@ -95,6 +100,14 @@ module TableHelpers
 
   def expected_report_options
     {:from => @from, :to => @to}
+  end
+
+  shared_examples_for "standard model GET index" do
+    before(:each) {
+      get :index
+    }
+
+    specify { it_should_respond_successfully_with_paginating_table }
   end
 
   shared_examples_for "standard report GET index" do

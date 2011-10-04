@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'controllers/table_helpers'
 
 describe PurchasesController do
+  include TableHelpers
 
   before(:each) {
     @resource = FactoryGirl.create(:resource)
@@ -17,11 +19,13 @@ describe PurchasesController do
   end
 
   describe "GET index" do
-    it "assigns all purchases as @purchases" do
+    before(:each) {
       purchase = Purchase.create! valid_attributes
-      get :index
-      assigns(:purchases).should include(purchase)
-    end
+      get 'index'
+    }
+
+    specify { it_should_respond_successfully_with_paginating_table }
+    specify { it_should_assign_links_with "purchase_path" }
   end
 
   describe "GET show" do

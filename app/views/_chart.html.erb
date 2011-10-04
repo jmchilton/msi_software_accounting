@@ -1,5 +1,5 @@
 <%= flot_canvas(ApplicationController::DEFAULT_CHART_ID) %>
-<% flot_graph(ApplicationController::DEFAULT_CHART_ID, @chart_data) do %>
+<%= flot_graph(ApplicationController::DEFAULT_CHART_ID, @chart_data) do %>
 	<%= flot_plot(ApplicationController::DEFAULT_CHART_ID, :dynamic => false, :overview => false) %>
 <% end %>
 

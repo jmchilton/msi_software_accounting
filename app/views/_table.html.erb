@@ -8,7 +8,7 @@
     <% @rows.all.each do |row| %>
       <tr class="data_table_data_row">
         <% @fields.each do |field| %>
-          <td><%= field[:link] ? (link_to "View", instance_eval("#{field[:link_proc]}(row)")) : row[field[:field].to_sym] %></td>
+          <td><%= cell_value(field, row) %></td>
         <% end %>
       </tr>
     <% end %>

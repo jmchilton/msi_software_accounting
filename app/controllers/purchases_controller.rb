@@ -1,14 +1,23 @@
 class PurchasesController < ApplicationController
+  FIELDS = [id_field,
+            {:field => lambda { |purchase| purchase.resource.name }, :label => "Resource"},
+            {:field => "fy10", :label => "FY 2010"},
+            {:field => "fy11", :label => "FY 2011"},
+            {:field => "fy12", :label => "FY 2012"},
+            {:field => "fy13", :label => "FY 2013"},
+            {:field => "os", :label=> "Operating System" },
+            link_field(:link_proc => "purchase_path")]
+  TITLE = "Purchases"
+
 
   # GET /purchases
   # GET /purchases.xml
   def index
-    @purchases = Purchase.all
+    @rows = Purchase
+    @title = TITLE
+    @fields = FIELDS
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @purchases }
-    end
+    respond_with_table(true)
   end
 
   # GET /purchases/1

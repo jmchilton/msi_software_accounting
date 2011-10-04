@@ -4,14 +4,6 @@ require 'controllers/table_helpers'
 describe ResourcesController do
   include TableHelpers
 
-  describe "GET index" do
-    before(:each) {
-      get :index
-    }
-
-    specify { it_should_respond_successfully_with_paginating_table }
-  end
-
   describe "json GET index" do
     before(:each) {
       get :index, :format => :json, :page => 1, :rows => 2
@@ -35,6 +27,6 @@ describe ResourcesController do
 
   end
 
-  it_should_behave_like "standard GET index"
+  it_should_behave_like "standard model GET index"
 
 end

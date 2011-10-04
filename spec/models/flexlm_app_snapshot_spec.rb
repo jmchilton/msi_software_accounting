@@ -13,7 +13,7 @@ describe FlexlmAppSnapshot do
     }
 
     describe "daily sampling" do
-      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample => :date, :from => '2011-09-01', :to => '2011-09-30'})[0] }
+      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample => "date", :from => '2011-09-01', :to => '2011-09-30'})[0] }
 
       it  "should average records by default" do
         sept_first_record.value.should == 3
@@ -26,7 +26,7 @@ describe FlexlmAppSnapshot do
     end
 
     describe "daily sampling with maximum" do
-      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample_with => :max, :sample => :date, :from => '2011-09-01', :to => '2011-09-30'})[0] }
+      let(:sept_first_record) { FlexlmAppSnapshot.sample_for_executable(@executable.exid, {:sample_with => "max", :sample => "date", :from => '2011-09-01', :to => '2011-09-30'})[0] }
 
       it "should take the maximum number of licenses for that day" do
         sept_first_record.value.should == 5

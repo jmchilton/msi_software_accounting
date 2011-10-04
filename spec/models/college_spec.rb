@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'models/model_helpers'
+
 describe College do
   include ModelHelpers
 

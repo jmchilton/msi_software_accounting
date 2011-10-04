@@ -19,6 +19,8 @@ module Helpers
 
   shared_examples_for "standard GET index" do
     before(:each) { get :index }
+
+    specify { it_should_respond_successfully_with_template }
   end
 
   shared_examples_for "standard GET show" do |example_proc|
