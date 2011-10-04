@@ -109,7 +109,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.4)
-    rake (0.8.7)
+    rake (0.9.2)
     rb-inotify (0.8.6)
       ffi (>= 0.5.0)
     rcov (0.9.10)

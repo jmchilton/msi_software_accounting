@@ -19,6 +19,7 @@ RSpec::Core::RakeTask.new do |t|
   t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
   # Put spec opts in a file named .rspec in root
   t.rcov = true
-  t.rcov_opts = ['--exclude "spec/*,gems/*,features/*"']
+  t.rcov_opts = ['--exclude "spec/*,gems/*,features/*" --aggregate coverage/aggregate.data']
+  
 end
 
