@@ -6,6 +6,7 @@ describe "executables_plot/new.html.erb" do
   before(:each) {
     executable = assign(:executable, FactoryGirl.create(:executable))
     params[:executable_id] = executable.exid
+    @data =
     render
   }
 
