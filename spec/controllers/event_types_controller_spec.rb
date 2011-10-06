@@ -24,7 +24,7 @@ describe EventTypesController do
       assigns(:rows).should eq(EventType)
     end
 
-    specify { it_should_respond_successfully_with_paginating_table }
+    specify { it_should_respond_successfully_with_table }
   end
 
   describe "GET show" do

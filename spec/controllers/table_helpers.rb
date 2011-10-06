@@ -74,9 +74,13 @@ module TableHelpers
     assigns(:row_list).should == ApplicationController::ROW_LIST_NO_PAGINATE
   end
 
-  def it_should_respond_successfully_with_paginating_table
+  def it_should_respond_successfully_with_table
     it_should_respond_successfully
     it_should_setup_table_variables
+  end
+
+  def it_should_respond_successfully_with_paginating_table
+    it_should_respond_successfully_with_table
     it_should_paginate
   end
 

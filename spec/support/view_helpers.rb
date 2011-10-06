@@ -11,6 +11,10 @@ module ViewHelpers
     page.find("div#model_field_#{field} > div.model_field_value").should have_content(value)
   end
 
+  def it_should_have_model_link(title, to)
+    page.find(:xpath, "//a[@href='#{to}' and @class='model_link']").should have_content(title)
+  end
+
   def setup_test_chart_data
     chart_data = TimeFlot.new(ApplicationController::DEFAULT_CHART_ID) do |f|
       f.lines

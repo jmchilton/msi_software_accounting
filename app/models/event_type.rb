@@ -1,12 +1,18 @@
 require 'basic_model'
+require 'has_model_like_attributes'
 
 class EventType
   include BasicModel
+  include HasModelLikeAttributes
 
   attr_accessor :id, :feature, :vendor, :resource_name
 
   def self.to_event_type(event)
     EventType.new({:id => event.evid, :feature => event.feature, :vendor => event.vendor, :resource_name => event.resource_name})
+  end
+
+  def self.count
+    event_types.count
   end
 
   def self.all 
@@ -40,11 +46,6 @@ class EventType
 
   def to_param
     id.to_s
-  end
-
-  def [](attribute)
-    #instance_variable_get "@#{attribute}"
-    send attribute
   end
 
   private

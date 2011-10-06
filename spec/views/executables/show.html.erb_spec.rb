@@ -12,4 +12,7 @@ describe "executables/show.html.erb" do
   specify { it_should_have_model_field("identifier", "Feature", "the_feature") }
   specify { it_should_have_model_field("comment", "Vendor", "the_vendor") }
 
+  specify { it_should_have_model_link 'Edit',  edit_executable_path(@executable) }
+  specify { it_should_have_model_link 'Back to Features',  executables_path }
+
 end

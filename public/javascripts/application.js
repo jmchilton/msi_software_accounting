@@ -4,15 +4,19 @@
 $(document).ready(function() {
   var enable_javascript = function(index, href) {
     var contains_enable_javascript = href.indexOf("enable_javascript") != -1;
-    if(!contains_enable_javascript) {
-      return href + (href.indexOf('?') != -1 ? "&enable_javascript=1" : "?enable_javascript=1");
-    } else {
-      return href;
+    if(href[0] == '/' && !contains_enable_javascript) {
+      href = href + (href.indexOf('?') != -1 ? "&enable_javascript=1" : "?enable_javascript=1");
     }
+    //alert("Returning href " + href);
+    return href;
   };
 
   $("a").attr('href', enable_javascript);
-  $("form").attr('action', enable_javascript);
+  $('<input>').attr({
+    type: 'hidden',
+    name: 'enable_javascript',
+    value: '1'
+    }).prependTo("form");
   $(".date-selector").datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, yearRange: 'c-5:c+1' });
 
 });

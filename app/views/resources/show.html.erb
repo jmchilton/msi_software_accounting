@@ -1,41 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Id:</b>
-  <%= @resource.id %>
-</p>
+<%= model_field('name', "Name", @resource.name) %>
+<%= model_field('short_name', "Short Name", @resource.short_name) %>
+<%= model_field('description', "Description", @resource.description) %>
+<%= model_field('documentation', "Documentation", @resource.documentation) %>
+<%= model_field('module', "Module", @resource.module) %>
 
-<p>
-  <b>Name:</b>
-  <%= @resource.name %>
-</p>
-
-<p>
-  <b>Short name:</b>
-  <%= @resource.short_name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @resource.description %>
-</p>
-
-<p>
-  <b>Calendar desc:</b>
-  <%= @resource.calendar_desc %>
-</p>
-
-<p>
-  <b>Documentation:</b>
-  <%= @resource.documentation %>
-</p>
-
-<p>
-  <b>Module:</b>
-  <%= @resource.module %>
-</p>
-
-<%= link_to "View Per User Usage Report", new_resource_resource_user_report_path(@resource.id) %>
-<%= link_to "View Feature Report", new_resource_executables_report_path(@resource.id) %>
-<%= link_to "View on MSI DB", @resource.msi_db_link, :id => 'msi_db_link' %>
-<%= link_to 'Back', resources_path %>
+<%= model_link "View Per User Usage Report", new_resource_resource_user_report_path(@resource.id) %>
+<%= model_link "View Feature Report", new_resource_executables_report_path(@resource.id) %>
+<%= model_link "View on MSI DB", @resource.msi_db_link, :id => 'msi_db_link' %>
+<%= model_link 'Back to Resources', resources_path %>

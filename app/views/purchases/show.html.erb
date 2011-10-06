@@ -7,5 +7,5 @@
 <%= model_field('fy12', "FY 2012", @purchase.fy12) %>
 <%= model_field('fy13', "FY 2013", @purchase.fy13) %>
 
-<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
-<%= link_to 'Back', purchases_path %>
+<%= model_link 'Edit', edit_purchase_path(@purchase) %> |
+<%= model_link 'Back to Purchases', purchases_path %>

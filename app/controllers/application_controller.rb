@@ -109,7 +109,15 @@ class ApplicationController < ActionController::Base
       key = field[:field]
       is_link = field[:link]
       if is_link
-        @rows.each { |row| row[key] = instance_eval("#{field[:link_proc]}(row)") }
+
+        @rows.each do |row|
+          expression = "#{field[:link_proc]}(row)"
+          value = eval(expression)
+          puts value
+
+          row[key] = value
+          puts eval("row[:#{key}]")
+        end
       end
     end
   end

@@ -4,5 +4,5 @@
 <%= model_field('identifier', "Feature", @executable.identifier) %>
 <%= model_field('comment', "Vendor", @executable.comment) %>
 
-<%= link_to 'Edit', edit_executable_path(@executable) %> |
-<%= link_to 'Back', executables_path %>
+<%= model_link 'Edit', edit_executable_path(@executable) %> |
+<%= model_link 'Back to Features', executables_path %>

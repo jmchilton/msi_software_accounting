@@ -17,4 +17,7 @@ describe "purchases/show.html.erb" do
   specify { it_should_have_model_field("fy12", "FY 2012", "300") }
   specify { it_should_have_model_field("fy13", "FY 2013", "400") }
 
+  specify { it_should_have_model_link 'Edit', edit_purchase_path(@purchase) }
+  specify { it_should_have_model_link 'Back to Purchases', purchases_path }
+
 end

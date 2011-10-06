@@ -96,9 +96,34 @@ body .two-column {
     padding-top: 10px;
     @include column(18, true);
 
+    a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
     h1 {
       font-size: 1.4em;
       font-weight: 700;
+    }
+
+    div.model_field {
+      padding-bottom: 15px;
+
+      div.model_field_value {
+        margin-left: 10px;
+      }
+
+      div.model_field_label {
+        width: 100px;
+        font-weight: 900;
+        font-size: 1.1em;
+      }
+
+    }
+
+    .model_link {
+      display: block;
+      padding-bottom: 5px;
     }
 
   }

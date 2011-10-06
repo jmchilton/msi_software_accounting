@@ -5,7 +5,7 @@ class EventTypesController < ApplicationController
      { :field => "feature", :label => "Feature", :search => false },
      { :field => "vendor", :label => "Vendor", :search => false },
      { :field => "resource_name", :label => "Resource Name", :search => false },
-     link_field(:link_proc => :edit_event_type_path)
+     link_field(:link_proc => "edit_event_type_path")
      ]
   TITLE = "FLEXlm Event Types"
 
@@ -16,7 +16,7 @@ class EventTypesController < ApplicationController
     @title = TITLE
     @rows = EventType
 
-    respond_with_table
+    respond_with_table(false)
     #respond_to do |format|
     #  format.html # index.html.erb
     #  format.xml  { render :xml => @event_types }

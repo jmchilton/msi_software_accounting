@@ -23,6 +23,10 @@ module ApplicationHelper
                 {:class =>"model_field", :id => "model_field_#{key}"})
   end
 
+  def model_link(name, options = {}, html_options = {})
+    link_to(name, options, html_options.merge({:class => "model_link"}))
+  end
+
   def cell_value(field, row)
     if field[:link]
       link_to "View", instance_eval("#{field[:link_proc]}(row)")
