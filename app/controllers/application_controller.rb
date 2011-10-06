@@ -13,14 +13,33 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def from_date
+    Date.parse(params[:from]) unless params[:from].blank?
+  end
+
+  def to_date
+    Date.parse(params[:to]) unless params[:to].blank?
+  end
+
   def set_line_chart_data(data)
+
+    xaxis_options= {}
+    unless from_date.blank?
+      xaxis_options.merge! :min => from_date.to_time.to_i * 1000
+    end
+
+    unless to_date.blank?
+      xaxis_options.merge! :max => to_date.to_time.to_i * 1000
+    end
+
     @chart_data = TimeFlot.new(DEFAULT_CHART_ID) do |f|
-      f.lines
-      f.points
-      f.xaxis :tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]
+      f.lines({:show => true, :fill => false, :steps => true})
+
+      #f.points
+      f.xaxis xaxis_options.merge({:tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]})
       f.yaxis :tickDecimals => false, :min => 0
       f.grid :hoverable => true
-      f.selection :mode => "xy"
+      f.selection :mode => "x"
     end
     data.each do |dataset|
       @chart_data.series(nil, dataset)

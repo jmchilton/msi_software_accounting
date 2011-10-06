@@ -859,38 +859,49 @@ body .two-column #content .report_link {
   padding-bottom: 5px;
 }
 /* line 137, ../../app/stylesheets/screen.scss */
+body .two-column div.flot_canvas {
+  width: 600px;
+  height: 300px;
+}
+/* line 138, ../../app/stylesheets/screen.scss */
+body .two-column div.flot_overview {
+  margin-top: 10px;
+  width: 600px;
+  height: 50px;
+}
+/* line 140, ../../app/stylesheets/screen.scss */
 body .two-column div#d_clip_container {
   position: relative;
 }
 
 /* JQUERY-UI + BLUEPRINT CSS CALENDAR FIX */
-/* line 146, ../../app/stylesheets/screen.scss */
+/* line 149, ../../app/stylesheets/screen.scss */
 .ui-datepicker table {
   margin: 0;
 }
 
-/* line 148, ../../app/stylesheets/screen.scss */
+/* line 151, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar thead tr th, .ui-datepicker tbody tr td {
   background: white;
   color: #333;
 }
 
-/* line 150, ../../app/stylesheets/screen.scss */
+/* line 153, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar thead tr th {
   padding: 5px 0;
 }
 
-/* line 152, ../../app/stylesheets/screen.scss */
+/* line 155, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar tbody td {
   padding: 0 2px 2px 0;
 }
 
-/* line 154, ../../app/stylesheets/screen.scss */
+/* line 157, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar tbody td a {
   padding: 0 1px 0 0;
 }
 
-/* line 156, ../../app/stylesheets/screen.scss */
+/* line 159, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar {
   font-size: 0.8em;
 }

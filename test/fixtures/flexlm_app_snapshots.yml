@@ -1,12 +1,33 @@
 
-
-<% for i in 1..1000 %>
-
-fas_fix_<%= i %>:
+<% i = 0 %>
+<% (1..1000).each do  %>
+fas_feature_2_<%= i = i + 1 %>:
   id: <%= i %>
   for_date: <%= (Time.parse("2011-08-03 05:00:00") + i * 5.minutes).strftime('%Y-%m-%d %H:%M:%S')  %>
   feature: 2
   total_licenses: 5
   used_licenses: 3
+<% end %>
 
+<% last = 50 %>
+<% (1..1000).each do %>
+fas_feature_1_<%= i = i + 1 %>:
+  <% last = [[last + (-1 + rand(3)), 100].min, 0].max %>
+  id: <%= i %>
+  for_date: <%= (Time.parse("2011-08-03 05:00:00") + i * 5.minutes).strftime('%Y-%m-%d %H:%M:%S')  %>
+  feature: 1
+  total_licenses: 100
+  used_licenses: <%= last %>
+<% end %>
+
+
+<% last = 50 %>
+<% (1..1000).each do %>
+fas_feature_3_<%= i = i + 1 %>:
+  <% last = [[last + (-1 + rand(3)) * rand(30), 100].min, 0].max %>
+  id: <%= i %>
+  for_date: <%= (Time.parse("2011-08-03 05:00:00") + i * 5.minutes).strftime('%Y-%m-%d %H:%M:%S')  %>
+  feature: med_exec1
+  total_licenses: 100
+  used_licenses: <%= last %>
 <% end %>

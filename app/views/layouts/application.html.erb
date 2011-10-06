@@ -16,7 +16,13 @@
   <%= javascript_include_tag "application" %>
 
   <%=raw jqgrid_javascripts %>
-  <%= flot_includes.html_safe %>
+
+  <!--[if IE]><%= javascript_include_tag 'flotomatic/excanvas.min.js' %></script><![endif]-->
+  <%= javascript_include_tag 'flotomatic/jquery.flot' %>
+  <%= javascript_include_tag 'flotomatic/jquery.flot.selection.min'  %>
+  <%= javascript_include_tag 'flotomatic/flotomatic'  %>
+  <%= javascript_include_tag 'flotomatic/sizzle.min' %>
+
   <%= javascript_include_tag "ZeroClipboard" %>
   <script>
   </script>

@@ -1,5 +1,19 @@
 <%= flot_canvas(ApplicationController::DEFAULT_CHART_ID) %>
+<!-- <h2>Zoom In / Out</h2> -->
+<%= flot_overview %>
+
 <%= flot_graph(ApplicationController::DEFAULT_CHART_ID, @chart_data) do %>
-	<%= flot_plot(ApplicationController::DEFAULT_CHART_ID, :dynamic => false, :overview => false) %>
+	<%= flot_plot(ApplicationController::DEFAULT_CHART_ID, :dynamic => false, :overview => true) %>
+
+    /*
+    $("#chart").bind("plotselected", function (event, ranges) {
+            // do the zooming
+            plot = $.plot($("#chart"), chart_data,
+                          $.extend(true, {}, chart_options, {
+                              xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+                          }));
+    });
+    */
 <% end %>
+
 
