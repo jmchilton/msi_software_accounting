@@ -39,6 +39,7 @@ person_alyssa:
 
 person_shelly:
   id: 5
+  email: shelly@example.com
   first_name: Shelly
   active: true
   dept_id: 4

@@ -21,23 +21,6 @@ $(document).ready(function() {
 
 });
 
-/*
-    ZeroClipboard.setMoviePath( '/swf/ZeroClipboard.swf' );
-    $(document).ready(function() {
-      var clip = new ZeroClipboard.Client();
-      clip.setText("Text To Copy");
-      clip.setHandCursor( true );
-      clip.glue( 'd_clip_button', 'd_clip_container' );
-    });
-
-<div id="d_clip_container" style="position:relative">
-   <div id="d_clip_button">Copy to Clipboard</div>
-</div>
-
-
-
- */
-
 function follow_row_link(data_table, rowId) {
   var data = data_table.getRowData(rowId);
   var link = data["link"];
@@ -66,4 +49,23 @@ function configure_data_table(data_table) {
     return false;
   });
 
+}
+
+function enable_copy_email_link() {
+  $(document).ready(function() {
+    ZeroClipboard.setMoviePath( '/swf/ZeroClipboard.swf' );
+    var clip = new ZeroClipboard.Client();
+    clip.setHandCursor( true );
+    clip.addEventListener( 'mouseDown', function(client) {
+      var all_row_data = $("#data_table").jqGrid('getRowData');
+      var emails = [];
+      for(var index in all_row_data) {
+        emails.push(all_row_data[index]['email']);
+      }
+      var email_str = emails.join(",");
+      clip.setText(email_str);
+    } );
+
+    clip.glue( 'd_clip_button', 'd_clip_container' );
+  });
 }

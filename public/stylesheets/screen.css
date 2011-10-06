@@ -853,35 +853,44 @@ body .two-column #content .model_link {
   display: block;
   padding-bottom: 5px;
 }
+/* line 129, ../../app/stylesheets/screen.scss */
+body .two-column #content .report_link {
+  display: block;
+  padding-bottom: 5px;
+}
+/* line 137, ../../app/stylesheets/screen.scss */
+body .two-column div#d_clip_container {
+  position: relative;
+}
 
 /* JQUERY-UI + BLUEPRINT CSS CALENDAR FIX */
-/* line 136, ../../app/stylesheets/screen.scss */
+/* line 146, ../../app/stylesheets/screen.scss */
 .ui-datepicker table {
   margin: 0;
 }
 
-/* line 138, ../../app/stylesheets/screen.scss */
+/* line 148, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar thead tr th, .ui-datepicker tbody tr td {
   background: white;
   color: #333;
 }
 
-/* line 140, ../../app/stylesheets/screen.scss */
+/* line 150, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar thead tr th {
   padding: 5px 0;
 }
 
-/* line 142, ../../app/stylesheets/screen.scss */
+/* line 152, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar tbody td {
   padding: 0 2px 2px 0;
 }
 
-/* line 144, ../../app/stylesheets/screen.scss */
+/* line 154, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar tbody td a {
   padding: 0 1px 0 0;
 }
 
-/* line 146, ../../app/stylesheets/screen.scss */
+/* line 156, ../../app/stylesheets/screen.scss */
 .ui-datepicker-calendar {
   font-size: 0.8em;
 }

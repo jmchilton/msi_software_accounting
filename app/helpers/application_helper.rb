@@ -23,6 +23,14 @@ module ApplicationHelper
                 {:class =>"model_field", :id => "model_field_#{key}"})
   end
 
+  def copy_email_addresses_link
+    if use_jqgrid
+      content_tag("script", "enable_copy_email_link();") +
+        content_tag("div", content_tag("a", "Copy E-Mail Addresses to Clipboard", {:href => "#", :class => "report_link", :id => "d_clip_button"}),
+                    {:id => "d_clip_container"})
+    end
+  end
+
   def model_link(name, options = {}, html_options = {})
     link_to(name, options, html_options.merge({:class => "model_link"}))
   end

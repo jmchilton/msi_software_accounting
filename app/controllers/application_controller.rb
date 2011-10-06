@@ -113,10 +113,7 @@ class ApplicationController < ActionController::Base
         @rows.each do |row|
           expression = "#{field[:link_proc]}(row)"
           value = eval(expression)
-          puts value
-
           row[key] = value
-          puts eval("row[:#{key}]")
         end
       end
     end
