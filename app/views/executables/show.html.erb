@@ -4,5 +4,6 @@
 <%= model_field('identifier', "Feature", @executable.identifier) %>
 <%= model_field('comment', "Vendor", @executable.comment) %>
 
-<%= model_link 'Edit', edit_executable_path(@executable) %> |
-<%= model_link 'Back to Features', executables_path %>
+<%= model_link 'Edit', edit_executable_path(@executable) %>
+<%= model_link "Back to Resource #{@executable.resource.name}", resource_path(@executable.resource) %>
+<%= model_link 'Back to FLEXlm Feature Index', executables_path %>

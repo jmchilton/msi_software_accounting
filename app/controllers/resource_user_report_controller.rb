@@ -5,6 +5,7 @@ class ResourceUserReportController < ReportController
             last_name_field,
             email_field,
             group_name_field,
+            college_name_field,
             {:field => "use_count", :label => "Checkouts", :search => false},
             link_field(:link_proc => "user_path")]
   TITLE = "Resource Usage"
@@ -20,7 +21,8 @@ class ResourceUserReportController < ReportController
     @rows = User.resource_report(resource_id, report_options)
     if perform_search?
       @rows = @rows.where("users.username like ?", "%#{params[:username]}%").
-                    where("group_name like ?", "%#{params[:group_name]}%")
+                    where("group_name like ?", "%#{params[:group_name]}%").
+                    where("college_name like ?", "%#{params[:college_name]}%")
     end
     @title = TITLE
     @fields = FIELDS

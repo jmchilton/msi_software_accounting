@@ -5,7 +5,7 @@ describe "resource_user_report/new.html.erb" do
 
   before(:each) {
     resource = assign(:resource, FactoryGirl.create(:resource))
-    params[:resource_id] = resource.id
+    path_parameters[:resource_id] = resource.id
     render
   }
 

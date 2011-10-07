@@ -21,29 +21,32 @@ class ApplicationController < ActionController::Base
     Date.parse(params[:to]) unless params[:to].blank?
   end
 
-  def set_line_chart_data(data)
+  def init_chart_data
+    if @chart_data.blank?
+      xaxis_options= {}
+      unless from_date.blank?
+        xaxis_options.merge! :min => from_date.to_time.to_i * 1000
+      end
 
-    xaxis_options= {}
-    unless from_date.blank?
-      xaxis_options.merge! :min => from_date.to_time.to_i * 1000
-    end
+      unless to_date.blank?
+        xaxis_options.merge! :max => to_date.to_time.to_i * 1000
+      end
 
-    unless to_date.blank?
-      xaxis_options.merge! :max => to_date.to_time.to_i * 1000
+      @chart_data = TimeFlot.new(DEFAULT_CHART_ID) do |f|
+        f.lines({:show => true, :fill => false, :steps => true})
+        #f.legend({:container => '#flot_legend', :noColumns => 1 })
+        #f.points
+        f.xaxis xaxis_options.merge({:tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]})
+        f.yaxis :tickDecimals => false, :min => 0
+        f.grid :hoverable => true
+        f.selection :mode => "x"
+      end
     end
+  end
 
-    @chart_data = TimeFlot.new(DEFAULT_CHART_ID) do |f|
-      f.lines({:show => true, :fill => false, :steps => true})
-
-      #f.points
-      f.xaxis xaxis_options.merge({:tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]})
-      f.yaxis :tickDecimals => false, :min => 0
-      f.grid :hoverable => true
-      f.selection :mode => "x"
-    end
-    data.each do |dataset|
-      @chart_data.series(nil, dataset)
-    end
+  def add_line_chart_data(data, label = nil, options = {})
+    init_chart_data
+    @chart_data.series(label, data, options)
   end
 
   def self.username_field
@@ -60,6 +63,10 @@ class ApplicationController < ActionController::Base
 
   def self.group_name_field
     { :field => "group_name", :label => "Group Name" }
+  end
+
+  def self.college_name_field
+    { :field => "college_name", :label => "College" }
   end
 
   def self.email_field

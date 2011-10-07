@@ -121,6 +121,14 @@ body .two-column {
 
     }
 
+    .legend table {
+      width: 1px;
+    }
+
+    .legendLabel {
+      white-space:nowrap;
+    }
+
     .model_link {
       display: block;
       padding-bottom: 5px;

@@ -19,9 +19,10 @@ describe ExecutablesController do
 
   describe "GET show" do
     it "assigns the requested executable as @executable" do
-      executable = Executable.create! valid_attributes
+      resource = FactoryGirl.create(:resource)
+      executable = FactoryGirl.create(:executable, :resource => resource)
       get :show, :id => executable.id.to_s
-      assigns(:executable).should eq(executable)
+        assigns(:executable).should eq(executable)
     end
   end
 

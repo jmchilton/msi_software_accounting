@@ -28,6 +28,10 @@ module ViewHelpers
     assign(:chart_data, chart_data)
   end
 
+  def path_parameters
+    controller.request.path_parameters
+  end
+
 
   def it_should_render_report_options
     page.find("input[name=from]").should_not be_nil
@@ -36,6 +40,7 @@ module ViewHelpers
 
   def it_should_render_a_chart
     rendered.should match /.*chart_data.*/
+    page.find_link("Back to Chart Options")[:href].ends_with?("/new").should be_true
   end
 
 end

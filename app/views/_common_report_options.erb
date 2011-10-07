@@ -1,4 +1,4 @@
-<%= show_report_form_tag(action ||= :index, options ||= {}) do %>
+<%= show_report_form_tag(action ||= :index) do %>
   <fieldset>
     <legend>
       Report Options
@@ -7,14 +7,7 @@
       Use the following options to constrain the usage data under consideration to a specific date range, either or
       both options may be left empty.
     </p>
-    <p class="form_item">
-      <label for="from">From</label>
-      <%= text_field_tag("from", session[:last_from], :class=> 'date-selector') %>
-    </p>
-    <p class="form_item">
-      <label for="to">To</label>
-      <%= text_field_tag("to", session[:last_to], :class=> 'date-selector') %>
-    </p>
+    <%= render :partial => '/date_options' %>
     <%= submit_tag("Build Report", :id => 'build_report_button') %>
   </fieldset>
 <% end %>

@@ -8,8 +8,8 @@ module ApplicationHelper
     autocomplete_field_tag "resource_name", value, autocomplete_resource_name_resources_path
   end
 
-  def show_report_form_tag(action, options = {})
-    form_tag(url_for(options.merge({:action => action})), :class => "bp", :method => :get) do
+  def show_report_form_tag(action = 'index')
+    form_tag(url_for({:action => action}), :class => "bp", :method => :get) do
       yield
     end
   end
@@ -22,6 +22,7 @@ module ApplicationHelper
     content_tag(:div, content_tag(:div, label, :class => "model_field_label") + content_tag(:div, value, :class => "model_field_value"),
                 {:class =>"model_field", :id => "model_field_#{key}"})
   end
+
 
   def copy_email_addresses_link
     if use_jqgrid

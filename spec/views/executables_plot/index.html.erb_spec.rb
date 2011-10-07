@@ -6,6 +6,7 @@ describe "executables_plot/index.html.erb" do
   before(:each) {
     executable = assign(:executable, FactoryGirl.create(:executable))
     params[:executable_id] = executable.exid
+    path_parameters[:executable_id] = executable.exid
     setup_test_chart_data
     render
   }

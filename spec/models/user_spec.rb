@@ -28,6 +28,10 @@ describe User do
     it "should have last name in the record" do
       alices_record.last_name.should == "Albert"
     end
+
+    it "should have college in the record" do
+      alices_record.college_name.should == "CPH"
+    end
  
     it "should not have record of users who have not used software" do
       record_for(report1, 'bob').should be_blank

@@ -3,14 +3,22 @@ class ExecutablesPlotController < ReportController
   end
 
   def plot_options
-    report_options.merge({:sample => params[:sample], :sample_with => params[:sample_with] })
+    report_options.merge({:sample => params[:sample], :sample_with => "max" })
+  end
+
+  def collect_chart_data(samples, field = :value)
+    samples.collect { |sample| [sample[:for_date], sample[field]] }
   end
 
   def index
-    samples = FlexlmAppSnapshot.sample_for_executable(params[:executable_id], plot_options)
-    used_data = samples.collect { |sample| [sample.for_date, sample.value] }
-    total_data = samples.collect { |sample|  [sample.for_date, sample.total_licenses] }
-    set_line_chart_data([total_data, used_data])
+    max_samples = FlexlmAppSnapshot.sample_for_executable(params[:executable_id], plot_options)
+    add_line_chart_data collect_chart_data(max_samples, :total_licenses), "Available"
+
+    add_line_chart_data collect_chart_data(max_samples), "Max in Use"
+    if params[:sample] == "date"
+      add_line_chart_data collect_chart_data(FlexlmAppSnapshot.sample_for_executable(params[:executable_id], plot_options.merge(:sample_with => "avg"))), "Average in Use"
+    end
+
   end
 
 end

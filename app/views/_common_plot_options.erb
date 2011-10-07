@@ -1,0 +1,17 @@
+<%= show_report_form_tag(action ||= :index) do %>
+  <fieldset>
+    <legend>
+      Chart Options
+    </legend>
+    <p>
+      Use the following options to constrain the chart data under consideration to a specific date range, either or
+      both options may be left empty.
+    </p>
+    <%= render :partial => '/date_options' %>
+    <p class="form_item">
+      <label for="sample" style="display:inline">Use Daily Subsamples</label>
+      <%= check_box_tag "sample", "date", :checked => true  %>
+    </p>
+    <%= submit_tag("Build Chart", :id => 'build_chart_button') %>
+  </fieldset>
+<% end %>
