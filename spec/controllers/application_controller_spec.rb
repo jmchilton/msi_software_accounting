@@ -14,7 +14,7 @@ describe ApplicationController do
     before(:each) {
       controller.params[:from] = "2011-01-03"
       controller.params[:to] = "2011-01-06"
-      controller.send(:set_line_chart_data, [[[2.days.ago, 5]]])
+      controller.send(:add_line_chart_data, [[2.days.ago, 5]])
     }
 
     let(:chart_data) { assigns(:chart_data) }
@@ -32,7 +32,7 @@ describe ApplicationController do
 
   describe "set_line_chart_data" do
     before(:each) {
-      controller.send(:set_line_chart_data, [[[2.days.ago, 5]]])
+      controller.send(:add_line_chart_data, [[2.days.ago, 5]])
     }
 
     let(:chart_data) { assigns(:chart_data) }

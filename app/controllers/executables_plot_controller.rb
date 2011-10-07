@@ -11,7 +11,9 @@ class ExecutablesPlotController < ReportController
   end
 
   def index
-    max_samples = FlexlmAppSnapshot.sample_for_executable(params[:executable_id], plot_options)
+    executable_id = params[:executable_id]
+    @executable = Executable.find(executable_id)
+    max_samples = FlexlmAppSnapshot.sample_for_executable(executable_id, plot_options)
     add_line_chart_data collect_chart_data(max_samples, :total_licenses), "Available"
 
     add_line_chart_data collect_chart_data(max_samples), "Max in Use"

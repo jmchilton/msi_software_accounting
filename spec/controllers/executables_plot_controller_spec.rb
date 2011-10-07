@@ -28,6 +28,7 @@ describe ExecutablesPlotController do
 
     specify { it_should_chart_point DUMMY_DATE, 5 }
     specify { it_should_chart_point DUMMY_DATE, 10 }
+    specify { assigns(:executable) == @executable }
 
   end
 
