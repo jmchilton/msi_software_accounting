@@ -1,4 +1,5 @@
 <%= form_tag(url_for({:action => "update"}), :class => "bp", :method => :put) do %>
+  <fieldset>
 
   <% if @event_type.errors.any? %>
     <div id="error_explanation">
@@ -13,25 +14,16 @@
   <% end %>
 
   <%= hidden_field_tag "_method", "put" %>
-  <p class="form_item">
-    ID<br />
-    <%= @event_type.id %>
-  </p>
+  <%= model_field :feature, "Feature", @event_type.feature %>
+  <%= model_field :vendor, "Vendor", @event_type.vendor %>
 
-  <p class="form_item">
-    Feature<br />
-    <%= @event_type.feature %>
-  </p>
-  <p class="form_item">
-    Vendor<br />
-    <%= @event_type.vendor %>
-  </p>
-  <p class="form_item">
-    <label for="resource_name">Resource Name</label>
+  <p class="field">
+    <label for="resource_name">Resource</label>
     <%= resource_name_field(@event_type.resource_name) %>
   </p>
  
-  <div class="actions">
+  <div class="field">
     <%= submit_tag("Update Event Type") %>
   </div>
+  </fieldset>
 <% end %>

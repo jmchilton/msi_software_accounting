@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <%= model_field('resource_name', "Resource", @purchase.resource.name) %>
 <%= model_field('os', "Operating System", @purchase.os) %>
 <%= model_field('fy10', "FY 2010", @purchase.fy10) %>
@@ -7,5 +5,5 @@
 <%= model_field('fy12', "FY 2012", @purchase.fy12) %>
 <%= model_field('fy13', "FY 2013", @purchase.fy13) %>
 
-<%= model_link 'Edit', edit_purchase_path(@purchase) %> |
+<%= model_link 'Edit Purchase', edit_purchase_path(@purchase) %>
 <%= model_link 'Back to Purchases', purchases_path %>

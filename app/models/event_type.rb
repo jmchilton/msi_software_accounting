@@ -24,22 +24,27 @@ class EventType
   end
 
   def update_resource(new_resource_name)
-    resource_id = Resource.find_by_name(new_resource_name).id
-    if resource_name.blank?
-      executable = Executable.new({:identifier_type => 1, :comment => vendor, :identifier => feature, :rid => resource_id})
-      if executable.save
-        true
-      else 
-        @errors = executable.errors
-        false
-      end 
+    resource = Resource.find_by_name(new_resource_name)
+    if resource.nil?
+      raise ActiveRecord::RecordNotFound
     else
-      executable = Executable.find_by_identifier_and_comment(feature, vendor)
-      if executable.update_attribute(:rid, resource_id)
-        true
+      resource_id = Resource.find_by_name(new_resource_name).id
+      if resource_name.blank?
+        executable = Executable.new({:identifier_type => 1, :comment => vendor, :identifier => feature, :rid => resource_id})
+        if executable.save
+          true
+        else
+          @errors = executable.errors
+          false
+        end
       else
-        @errors = executable.errors
-        false
+        executable = Executable.find_by_identifier_and_comment(feature, vendor)
+        if executable.update_attribute(:rid, resource_id)
+          true
+        else
+          @errors = executable.errors
+          false
+        end
       end
     end
   end

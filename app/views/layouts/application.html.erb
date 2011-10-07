@@ -58,6 +58,12 @@
       </ul>
     </div>
     <div id="content">
+      <% unless notice.blank? %>
+        <div class="notice" id="notice"><%= notice %></div>
+      <% end %>
+      <% unless alert.blank? %>
+        <div class="error" id="error"><%= alert %></div>
+      <% end %>
       <%= yield %>
     </div>
     <div id="footer">

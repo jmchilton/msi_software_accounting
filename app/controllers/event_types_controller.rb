@@ -1,4 +1,5 @@
 class EventTypesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, :with => :resource_not_found
 
   FIELDS =
     [id_field,
@@ -52,6 +53,13 @@ class EventTypesController < ApplicationController
         format.xml  { render :xml => @event_type.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  protected
+
+  def resource_not_found
+    flash[:alert] = "A resource record with the name you specified could not be found."
+    redirect_to event_types_path
   end
 
 end

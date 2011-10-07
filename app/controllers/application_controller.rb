@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
 
+  before_filter :set_enable_javascript
+
   DEFAULT_NUM_ROWS_PAGINATE = 20
   DEFAULT_NUM_ROWS_NO_PAGINATE = 10000
   ROW_LIST_PAGINATE = '[10,20,100]'
@@ -86,7 +88,7 @@ class ApplicationController < ActionController::Base
   end
 
   def self.id_field
-    { :field => "id", :label => "ID", :width => 35, :resizable => false, :search => false }
+    { :field => "id", :label => "ID",  :resizable => false, :search => false, :hidden => true }
   end
 
   def self.fy_10_field
@@ -212,6 +214,14 @@ class ApplicationController < ActionController::Base
     end
 
     render :template => '/spreadsheet', :layout => false
+  end
+
+  def set_enable_javascript
+    if params[:enable_javascript].blank?
+      params[:enable_javascript] = session[:enable_javascript]
+    else
+      session[:enable_javascript] = params[:enable_javascript]
+    end
   end
 
 end
