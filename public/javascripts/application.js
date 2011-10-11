@@ -60,7 +60,10 @@ function enable_copy_email_link() {
       var all_row_data = $("#data_table").jqGrid('getRowData');
       var emails = [];
       for(var index in all_row_data) {
-        emails.push(all_row_data[index]['email']);
+        var email = all_row_data[index]['email'];
+        if($.inArray(email, emails) == -1) {
+          emails.push(email);
+        }
       }
       var email_str = emails.join(",");
       clip.setText(email_str);

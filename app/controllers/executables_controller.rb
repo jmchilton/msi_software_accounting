@@ -1,13 +1,20 @@
 class ExecutablesController < ApplicationController
-  # GET /executables
-  # GET /executables.xml
-  def index
-    @executables = Executable.all
+  FIELDS = [id_field,
+            {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
+            {:field => "identifier", :label => "Feature"},
+            {:field => "comment", :label => "Vendor"},
+            link_field(:link_proc => "executable_path")]
+  TITLE = "FLEXlm Features"
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @executables }
+  def index
+    @fields = FIELDS
+    @title = TITLE
+    @rows = Executable
+    if perform_search?
+      @rows = @rows.where("identifier like ?", "%#{params[:identifier]}%").
+                    where("comment like ?", "%#{params[:comment]}%")
     end
+    respond_with_table
   end
 
   # GET /executables/1

@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'controllers/table_helpers'
 
 describe ExecutablesController do
+  include TableHelpers
 
   # This should return the minimal set of attributes required to create a valid
   # Executable. As you add validations to Executable, be sure to
@@ -9,13 +11,8 @@ describe ExecutablesController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all executables as @executables" do
-      executable = Executable.create! valid_attributes
-      get :index
-      assigns(:executables).should include(executable)
-    end
-  end
+  it_should_behave_like "standard model GET index"
+
 
   describe "GET show" do
     it "assigns the requested executable as @executable" do

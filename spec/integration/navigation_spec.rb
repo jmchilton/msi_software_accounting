@@ -33,9 +33,17 @@ feature "Index Page", %q{
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
-    click_link('View Per User Usage Report')
+    click_link('Build Per User FLEXlm Usage Report')
     click_button("Build Report")
     page.should have_content("alice") # Alice uses resource 1
+  end
+
+  scenario "Navigate to FLEXlm Features" do
+    visit '/'
+    within("#links-navigate") do
+      click_link('FLEXlm Features')
+    end
+    current_path.should eql(executables_path)
   end
 
   specify "Navigate to add purchase" do
@@ -56,7 +64,7 @@ feature "Index Page", %q{
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
-    click_link('View Feature Report')
+    click_link('Build FLEXlm Feature Report')
     current_path.should eql(new_resource_executables_report_path(1))
     click_button("Build Report")
     current_path.should eql(resource_executables_report_index_path(1))

@@ -10,11 +10,12 @@ describe "executables/show.html.erb" do
     render
   end
 
-
+  specify { it_should_have_title_text("FLEXlm Feature the_feature") }
+  specify { it_should_have_model_field("resource", "Resource", "The Resource Name") }
   specify { it_should_have_model_field("identifier", "Feature", "the_feature") }
   specify { it_should_have_model_field("comment", "Vendor", "the_vendor") }
 
-  specify { it_should_have_model_link 'Edit',  edit_executable_path(@executable) }
+  specify { it_should_have_model_link 'Plot Feature Usage',  new_executable_executables_plot_path(@executable) }
   specify { it_should_have_model_link 'Back to Resource The Resource Name',  resource_path(@resource) }
   specify { it_should_have_model_link 'Back to FLEXlm Feature Index',  executables_path }
 

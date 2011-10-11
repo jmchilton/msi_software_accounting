@@ -32,6 +32,9 @@ module ViewHelpers
     controller.request.path_parameters
   end
 
+  def it_should_have_title_text(text)
+    page.find("h1").text.should eql(text)
+  end
 
   def it_should_render_report_options
     page.find("input[name=from]").should_not be_nil

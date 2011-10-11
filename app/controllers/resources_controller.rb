@@ -2,18 +2,14 @@
 class ResourcesController < ApplicationController
   autocomplete :resource, :name
 
-  @@index_fields =
-    [id_field,
-     name_field,
-     link_field(:link_proc => "resource_path")]
+  FIELDS = [id_field,
+            name_field,
+            link_field(:link_proc => "resource_path")]
+  TITLE = "Resources"
 
-  @@index_title = "Resources"
-
-  # GET /resources
-  # GET /resources.xml
   def index
-    @fields = @@index_fields
-    @title = @@index_title
+    @fields = FIELDS
+    @title = TITLE
     @rows = Resource
     if perform_search?
       @rows = @rows.where("name like ?", "%#{params[:name]}%")
@@ -21,8 +17,6 @@ class ResourcesController < ApplicationController
     respond_with_table
   end
 
-  # GET /resources/1
-  # GET /resources/1.xml
   def show
     @resource = Resource.find(params[:id])
 

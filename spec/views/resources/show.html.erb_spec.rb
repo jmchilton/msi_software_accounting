@@ -9,15 +9,16 @@ describe "resources/show.html.erb" do
     render
   end
 
+  specify { it_should_have_title_text("Resource Gaussian") }
   specify { it_should_have_model_field("name", "Name", "Gaussian") }
   specify { it_should_have_model_field("short_name", "Short Name", "gaus") }
   specify { it_should_have_model_field("description", "Description", "chemistry something or other") }
   specify { it_should_have_model_field("documentation", "Documentation", "howto") }
   specify { it_should_have_model_field("module", "Module", "gaus2011") }
 
-  specify { it_should_have_model_link "View Per User Usage Report", new_resource_resource_user_report_path(@resource.id) }
-  specify { it_should_have_model_link "View Feature Report", new_resource_executables_report_path(@resource.id) }
+  specify { it_should_have_model_link "Build Per User FLEXlm Usage Report", new_resource_resource_user_report_path(@resource.id) }
+  specify { it_should_have_model_link "Build FLEXlm Feature Report", new_resource_executables_report_path(@resource.id) }
   specify { it_should_have_model_link "View on MSI DB", @resource.msi_db_link }
-  specify { it_should_have_model_link 'Back to Resources', resources_path  }
+  specify { it_should_have_model_link "Back to Resource Index", resources_path  }
 
 end

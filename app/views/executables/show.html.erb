@@ -1,9 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<%= model_field('exid', "ID", @executable.exid) %>
+<h1>FLEXlm Feature <%= @executable.identifier %></h1>
 <%= model_field('identifier', "Feature", @executable.identifier) %>
 <%= model_field('comment', "Vendor", @executable.comment) %>
+<%= model_field('resource', "Resource", @executable.resource.blank? ? "Not mapped to a resource" : @executable.resource.name) %>
 
-<%= model_link 'Edit', edit_executable_path(@executable) %>
+<%= model_link "Plot Feature Usage", new_executable_executables_plot_path(@executable) %>
 <%= model_link "Back to Resource #{@executable.resource.name}", resource_path(@executable.resource) %>
 <%= model_link 'Back to FLEXlm Feature Index', executables_path %>

@@ -10,7 +10,7 @@ def setup_medical_resources_and_events
   user2 = FactoryGirl.create(:user, :group => group1)
   user3 = FactoryGirl.create(:user, :group => group2)
 
-  exec1 = FactoryGirl.create(:executable, :resource => resource)
+  exec1 = FactoryGirl.create(:executable, :identifier => "id1",  :resource => resource)
   exec2 = FactoryGirl.create(:executable, :resource => resource)
   exec_unused = FactoryGirl.create(:executable, :resource => resource)
 
@@ -50,7 +50,7 @@ describe Executable do
     end
 
     it "should have feature name" do
-      @record1[:identifier].should == @record1.identifier
+      @record1[:name].should == "id1"
     end
 
   end
