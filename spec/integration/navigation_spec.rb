@@ -24,6 +24,15 @@ feature "Index Page", %q{
     current_path.should eql(new_colleges_report_path)
   end
 
+  scenario "Navigate to departments report" do
+    visit '/'
+    within("#links-flexlm-reports") do
+      click_link('Departments')
+    end
+    current_path.should eql(new_departments_report_path)
+  end
+
+
 
   scenario "Navigate to resources" do
     visit '/'

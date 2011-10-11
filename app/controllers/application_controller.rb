@@ -15,6 +15,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def handle_search_criteria(field)
+    if perform_search?
+      @rows = @rows.where("#{field.to_s} like ?", "%#{params[field]}%")
+    end
+  end
+
   def from_date
     Date.parse(params[:from]) unless params[:from].blank?
   end

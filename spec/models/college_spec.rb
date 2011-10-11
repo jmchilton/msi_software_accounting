@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'report_test_data'
 
 describe College do
   include ModelHelpers
@@ -19,7 +20,7 @@ describe College do
   end
 
   # TODO: Extract to_aliased_sql code into a plugin
-  describe "to_aliased_sql" do 
+  describe "to_aliased_sql" do
     let(:aliased_sql) { College.resources.to_aliased_sql("cool_bean") }
 
     it "should be equivalent to normal sql" do

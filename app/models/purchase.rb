@@ -1,4 +1,5 @@
 class Purchase < ActiveRecord::Base
+  REPORT_SELECT_FIELDS = "count(*) as num_packages, sum(fy10) as fy10, sum(fy11) as fy11, sum(fy12) as fy12, sum(fy13) as fy13"
   OPERATING_SYSTEMS = ["Linux/Windows", "Windows", "Linux"]
   FLEXLM = {"0" => "No", "1" => "Yes"}
 
@@ -12,6 +13,10 @@ class Purchase < ActiveRecord::Base
             sum(fy11) as fy11, sum(fy12) as fy12, 
             sum(fy13) as fy13, 0 as flexlm"). # TODO: Remve hack 0 as flexlm, need to find a way to indicate these are purchases
     group("rid")
+  end
+
+  def self.summary_left_join(resource_identifier)
+    "left join (#{Purchase.resource_summary.to_sql}) ps on ps.rid = #{resource_identifier}"
   end
 
   validates_numericality_of :fy10, :only_integer => true, :greater_than_or_equal_to => 0

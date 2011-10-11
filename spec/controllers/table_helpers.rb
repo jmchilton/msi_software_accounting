@@ -134,4 +134,9 @@ module TableHelpers
     specify { it_should_respond_successfully_with_report_options }
   end
 
+
+  def stub_report_method(klazz, method)
+    klazz.stub(method).with(expected_report_options).and_return(row_relation)
+  end
+
 end

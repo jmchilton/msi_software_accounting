@@ -11,24 +11,15 @@ class College < ReadOnlyModel
   def self.resources(report_options = {})
     select("colleges.id, ex.rid").
     joins("INNER JOIN department_colleges dc ON dc.college_id = colleges.id
-           INNER JOIN departments d ON d.id = dc.dept_id
-           INNER JOIN persons person ON person.dept_id = d.id
-           INNER JOIN users u ON u.person_id = person.id
-           INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = u.username
-           INNER JOIN executable ex on e.feature = ex.identifier").
+           INNER JOIN departments ON departments.id = dc.dept_id
+           #{Department.persons_to_executables_joins(report_options)}").
     group("colleges.id, ex.rid")
   end
 
-
   def self.report(report_options = {})
-    relation = select("colleges.name,
-                        count(*) as num_packages,
-                        sum(fy10) as fy10,
-                        sum(fy11) as fy11,
-                        sum(fy12) as fy12,
-                        sum(fy13) as fy13").
+    relation = select("colleges.name, #{Purchase::REPORT_SELECT_FIELDS}").
                joins("inner join (#{resources(report_options).to_aliased_sql('ic')}) cr on colleges.id = cr.id
-                      left join (#{Purchase.resource_summary.to_sql}) ps on ps.rid = cr.rid").
+                      #{Purchase.summary_left_join("cr.rid")}").
                order("colleges.name ASC").
                group("colleges.name")
     relation
