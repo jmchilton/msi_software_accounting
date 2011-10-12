@@ -16,23 +16,25 @@ feature "Index Page", %q{
     current_path.should eql(new_resources_report_path)
   end
 
-  scenario "Navigate to college report" do
+  def can_visit_models_report(link_name, model_name)
     visit '/'
-    within("#links-flexlm-reports") do
-      click_link('Colleges')
+    within('#links-flexlm-reports') do
+      click_link(link_name)
     end
-    current_path.should eql(new_colleges_report_path)
+    current_path.should eql(eval("new_#{model_name}s_report_path"))
+  end
+
+  scenario "Navigate to college report" do
+    can_visit_models_report "Colleges", "college"
   end
 
   scenario "Navigate to departments report" do
-    visit '/'
-    within("#links-flexlm-reports") do
-      click_link('Departments')
-    end
-    current_path.should eql(new_departments_report_path)
+    can_visit_models_report "Departments", "department"
   end
 
-
+  scenario "Navigate to groups report" do
+    can_visit_models_report "Groups", "group"
+  end
 
   scenario "Navigate to resources" do
     visit '/'

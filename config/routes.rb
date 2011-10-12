@@ -10,12 +10,14 @@ SoftwareWebApp::Application.routes.draw do
 
   report_resources :colleges_report
   report_resources :departments_report
+  report_resources :groups_report
   report_resources :resources_report
 
   resources :event_types, :only => [:index, :show, :update, :edit]
 
   resources :executables do 
     report_resources :executables_plot
+    report_resources :executable_user_report
   end
 
   resources :purchases
@@ -25,6 +27,8 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :executables_report
     report_resources :resource_user_report
   end
+
+
 
   readonly_resources :events
   readonly_resources :colleges

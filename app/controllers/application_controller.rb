@@ -57,6 +57,10 @@ class ApplicationController < ActionController::Base
     @chart_data.series(label, data, options)
   end
 
+  def self.checkouts_field
+    {:field => "use_count", :label => "Checkouts", :search => false}
+  end
+
   def self.username_field
     { :field => "username", :label => "Username"}
   end
@@ -183,7 +187,7 @@ class ApplicationController < ActionController::Base
       }
       format.csv {
         process_rows
-        render_csv(@title + ".csv")
+        render_csv(@title)
       }
       format.json {
         process_rows(true)

@@ -3,6 +3,16 @@ require 'controllers/helpers'
 module TableHelpers
   include Helpers
 
+  def setup_parent_resource
+    self.class.let(:resource ) { FactoryGirl.create(:resource)}
+    self.class.let(:index_params) { {:resource_id => resource.id} }
+  end
+
+  def setup_parent_executable
+    self.class.let(:executable) { FactoryGirl.create(:executable)}
+    self.class.let(:index_params) { {:executable_id => executable.id} }
+  end
+
   def json_response
     ActiveSupport::JSON.decode(response.body)
   end
@@ -119,16 +129,20 @@ module TableHelpers
     let (:row_relation) { test_relation_for_fields(subject.class::FIELDS) }
 
     before(:each) {
-      get :index, index_params
+      get :index, index_params_if_set
     }
     specify { it_should_respond_successfully_with_report }
     specify { it_should_set_rows_to(row_relation) }
     specify { it_should_assign_fields subject.class::FIELDS }
   end
 
+  def index_params_if_set
+    respond_to?(:index_params) ? index_params : {}
+  end
+
   shared_examples_for "standard report GET new" do
     before(:each) {
-      get :new, index_params
+      get :new, index_params_if_set
     }
 
     specify { it_should_respond_successfully_with_report_options }

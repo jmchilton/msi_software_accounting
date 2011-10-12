@@ -11,7 +11,7 @@ class ReportController < ApplicationController
     {:from => params[:from], :to => params[:to]}
   end
 
-  private
+  protected
 
   def self.purchase_fields
     [{ :field => "num_packages", :label => "# Software Packages", :search => false},
@@ -31,6 +31,18 @@ class ReportController < ApplicationController
     end
 
   end
+
+  def set_resource
+    resource_id = params[:resource_id]
+    @resource = Resource.find(resource_id)
+  end
+
+  def set_executable
+    @executable = Executable.find(params[:executable_id])
+  end
+
+
+
 
 
 end

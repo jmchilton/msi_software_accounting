@@ -1,6 +1,8 @@
 class ReportTestData
   DEPARTMENT_ONE_NAME = "dept1"
+  GROUP_ONE_NAME = "group1"
   DEPARTMENT_NO_USE = "deptnouse"
+  GROUP_NO_USE = "groupnouse"
 
   def self.setup_medical_resources_and_events
     resource_1 = FactoryGirl.create(:resource)
@@ -8,9 +10,9 @@ class ReportTestData
     purchase1_1 = FactoryGirl.create(:purchase, :fy10 => 100, :resource => resource_1)
     purchase1_2 = FactoryGirl.create(:purchase, :fy10 => 100, :fy11 => 300, :resource => resource_1)
 
-    group1 = FactoryGirl.create(:group)
+    group1 = FactoryGirl.create(:group, :name => GROUP_ONE_NAME)
     group2 = FactoryGirl.create(:group)
-    group_no_use = FactoryGirl.create(:group)
+    group_no_use = FactoryGirl.create(:group, :name => GROUP_NO_USE)
 
     department1 = FactoryGirl.create(:department, :name => DEPARTMENT_ONE_NAME)
     department2 = FactoryGirl.create(:department, :name => "dept2")

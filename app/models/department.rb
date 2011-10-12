@@ -11,10 +11,7 @@ class Department < ReadOnlyModel
   has_many :people, :foreign_key => "dept_id"
 
   def self.persons_to_executables_joins(report_options, departments_alias = "departments")
-    "INNER JOIN persons person ON person.dept_id = #{departments_alias}.id
-     INNER JOIN users u ON u.person_id = person.id
-     INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = u.username
-     INNER JOIN executable ex on e.feature = ex.identifier"
+    "INNER JOIN persons person ON person.dept_id = #{departments_alias}.id #{User.user_to_executables_joins "person_id = person.id", report_options}"
   end
 
   def self.resources(report_options = {})

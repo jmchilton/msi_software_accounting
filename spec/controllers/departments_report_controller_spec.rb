@@ -4,8 +4,6 @@ require 'controllers/table_helpers'
 describe DepartmentsReportController do
   include TableHelpers
 
-  let (:index_params) { {} }
-
   it_should_behave_like "standard report GET new"
 
   describe "report GET index" do

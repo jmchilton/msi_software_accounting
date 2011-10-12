@@ -9,6 +9,16 @@ describe User do
     }
   end
 
+  describe "executable_report" do
+     let(:report1) { User.executable_report(1) }
+     let(:alices_record) { record_for(report1, 'alice') }
+
+     it "should have record of user using feature" do
+       alices_record.should_not be_blank
+     end
+
+  end
+
   describe "resource_report" do
     let(:report1) { User.resource_report(1) }
     let(:alices_record) { record_for(report1, 'alice') }
