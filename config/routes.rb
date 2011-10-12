@@ -18,6 +18,7 @@ SoftwareWebApp::Application.routes.draw do
   resources :executables do 
     report_resources :executables_plot
     report_resources :executable_user_report
+    report_resources :executable_group_report
   end
 
   resources :purchases
@@ -26,6 +27,7 @@ SoftwareWebApp::Application.routes.draw do
     get :autocomplete_resource_name, :on => :collection
     report_resources :executables_report
     report_resources :resource_user_report
+    report_resources :resource_group_report
   end
 
 

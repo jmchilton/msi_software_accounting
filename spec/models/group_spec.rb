@@ -2,9 +2,12 @@ require "spec_helper"
 require 'report_test_data'
 
 describe Group do
+  before(:each) {
+    ReportTestData.setup_medical_resources_and_events
+  }
+
   describe "report" do
     before(:each) {
-      ReportTestData.setup_medical_resources_and_events
       relation = Group.report()
       @records = relation.all
       @record1 = group_record ReportTestData::GROUP_ONE_NAME
@@ -20,9 +23,30 @@ describe Group do
     end
 
     def group_record(group_name)
-      @records.find { |record| record.name == group_name }
+      find_record { |record| record.name == group_name }
     end
 
+  end
+
+  describe "resource_report" do
+    before(:each) {
+      test_resource = Resource.find_by_name ReportTestData::RESOURCE_NAME_1
+      relation = Group.resource_report(test_resource.id)
+      @records = relation.all
+    }
+
+    it "should have record for group using resource" do
+      find_record { |record| record.group_name == ReportTestData::GROUP_ONE_NAME }
+    end
+
+    it "should not have record for group not using resource" do
+      find_record { |record| record.group_name == ReportTestData::GROUP_NO_USE }
+    end
+
+  end
+
+  def find_record(&block)
+    @records.find &block
   end
 
 end

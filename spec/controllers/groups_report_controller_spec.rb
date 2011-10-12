@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
 
 describe GroupsReportController do
   include TableHelpers

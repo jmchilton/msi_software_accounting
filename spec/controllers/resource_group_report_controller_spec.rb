@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ResourceUserReportController do
+describe ResourceGroupReportController do
   include TableHelpers
   include UsageReportHelpers
 

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
 
 describe CollegesReportController do
   include TableHelpers

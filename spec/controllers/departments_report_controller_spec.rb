@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
 
 describe DepartmentsReportController do
   include TableHelpers

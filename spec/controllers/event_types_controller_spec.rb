@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
+
 describe EventTypesController do
   include TableHelpers
 

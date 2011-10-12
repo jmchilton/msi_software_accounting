@@ -3,9 +3,11 @@ class ReportTestData
   GROUP_ONE_NAME = "group1"
   DEPARTMENT_NO_USE = "deptnouse"
   GROUP_NO_USE = "groupnouse"
+  EXECUTABLE_IDENTIFIER_1 = "id1"
+  RESOURCE_NAME_1 = "resource1"
 
   def self.setup_medical_resources_and_events
-    resource_1 = FactoryGirl.create(:resource)
+    resource_1 = FactoryGirl.create(:resource, :name => RESOURCE_NAME_1)
 
     purchase1_1 = FactoryGirl.create(:purchase, :fy10 => 100, :resource => resource_1)
     purchase1_2 = FactoryGirl.create(:purchase, :fy10 => 100, :fy11 => 300, :resource => resource_1)
@@ -31,7 +33,7 @@ class ReportTestData
 
     user_no_use = FactoryGirl.create(:user, :group => group_no_use, :person => person_no_use)
 
-    exec1 = FactoryGirl.create(:executable, :identifier => "id1",  :resource => resource_1)
+    exec1 = FactoryGirl.create(:executable, :identifier => EXECUTABLE_IDENTIFIER_1,  :resource => resource_1)
     exec2 = FactoryGirl.create(:executable, :resource => resource_1)
     exec_unused = FactoryGirl.create(:executable, :resource => resource_1)
 

@@ -8,7 +8,7 @@ class ResourceUserReportController < ReportController
             college_name_field,
             checkouts_field,
             link_field(:link_proc => "user_path")]
-  TITLE = "Resource Usage"
+  TITLE = "FLEXlm Resource Usage"
 
   before_filter :set_resource
 

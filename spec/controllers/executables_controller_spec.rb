@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
 
 describe ExecutablesController do
   include TableHelpers

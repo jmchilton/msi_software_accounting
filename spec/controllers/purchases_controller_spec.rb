@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'controllers/table_helpers'
 
 describe PurchasesController do
   include TableHelpers
