@@ -2,10 +2,13 @@ require "spec_helper"
 require 'report_test_data'
 
 describe Department do
+  include ModelHelpers
+
+  before(:each) { setup_test_report_data }
+  let(:records) { relation.all }
 
   describe "report" do
-     before(:each) {
-      ReportTestData.setup_medical_resources_and_events
+    before(:each) {
       relation = Department.report()
       @records = relation.all
       @record1 = department_record ReportTestData::DEPARTMENT_ONE_NAME
@@ -26,8 +29,21 @@ describe Department do
     def department_record(department_name)
       @records.find { |record| record.name == department_name }
     end
+
   end
 
+  describe "resource_report" do
+    let(:relation) { Department.resource_report(report_test_resource.id) }
+
+    it "should have record for group using resource" do
+      find_record { |record| record.name == ReportTestData::DEPARTMENT_ONE_NAME }.should_not be_nil
+    end
+
+    it "should not have record for group not using resource" do
+      find_record { |record| record.name == ReportTestData::DEPARTMENT_NO_USE }.should be_nil
+    end
+
+  end
 
 
 

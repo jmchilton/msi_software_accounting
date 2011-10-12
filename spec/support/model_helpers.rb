@@ -1,3 +1,5 @@
+require 'report_test_data'
+
 module ModelHelpers
   share_examples_for "read only model" do
     it "should prevent deletion" do
@@ -13,4 +15,18 @@ module ModelHelpers
     end
 
   end
+
+
+  def find_record(&block)
+    records.find &block
+  end
+
+  def report_test_resource
+    Resource.find_by_name ReportTestData::RESOURCE_NAME_1
+  end
+
+  def setup_test_report_data
+    ReportTestData.setup_medical_resources_and_events
+  end
+
 end

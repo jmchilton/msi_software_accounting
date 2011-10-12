@@ -19,6 +19,7 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :executables_plot
     report_resources :executable_user_report
     report_resources :executable_group_report
+    report_resources :executable_department_report
   end
 
   resources :purchases
@@ -28,6 +29,7 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :executables_report
     report_resources :resource_user_report
     report_resources :resource_group_report
+    report_resources :resource_department_report
   end
 
 

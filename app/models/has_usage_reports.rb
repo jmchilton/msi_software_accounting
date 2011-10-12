@@ -22,6 +22,14 @@ module HasUsageReports
     select(self::USAGE_REPORT_FIELDS)
   end
 
+  def select_counts
+    select("count(*) as use_count, #{table_name}.#{primary_key} as id").group("#{table_name}.#{primary_key}")
+  end
+
+  def build_report_for_counts(counts_sql)
+    select_report_fields.joins("INNER JOIN (#{counts_sql}) counts on counts.id = #{table_name}.#{primary_key} #{demographic_joins}")
+  end
+
   def demographic_joins
     if self.const_defined? :USAGE_REPORT_DEMOGRAPHICS_JOINS
       self::USAGE_REPORT_DEMOGRAPHICS_JOINS

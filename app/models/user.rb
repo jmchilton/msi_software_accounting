@@ -11,14 +11,6 @@ class User < ReadOnlyModel
 
   has_many :events, :foreign_key => "unam", :primary_key => "username"
 
-  def self.build_report_for_counts(counts_sql)
-    select_report_fields.joins("INNER JOIN (#{counts_sql}) counts on counts.username = users.username #{demographic_joins}")
-  end
-
-  def self.select_counts
-    select("count(*) as use_count, users.username").group("users.username")
-  end
-
   USAGE_REPORT_FIELDS = "users.id, users.username as username, groups.name as group_name, persons.first_name, persons.last_name, persons.email, colleges.name as college_name, use_count"
   USAGE_REPORT_DEMOGRAPHICS_JOINS = "LEFT JOIN persons on users.person_id = persons.id
                                      LEFT JOIN groups on groups.gid = users.gid

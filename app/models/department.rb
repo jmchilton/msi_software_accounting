@@ -1,4 +1,6 @@
 class Department < ReadOnlyModel
+  include HasUsageReports
+
   set_table_name "departments"
   set_primary_key "id"
 
@@ -9,6 +11,18 @@ class Department < ReadOnlyModel
                           :class_name => 'College'
 
   has_many :people, :foreign_key => "dept_id"
+
+  USAGE_REPORT_FIELDS = "departments.id, departments.name, use_count"
+  USAGE_REPORT_DEMOGRAPHICS_JOINS = "LEFT JOIN department_colleges on department_colleges.dept_id = departments.id
+                                     LEFT JOIN colleges on colleges.id = department_colleges.college_id"
+
+  def self.join_executables_sql(report_options)
+    "INNER JOIN persons on persons.dept_id = departments.id
+     INNER JOIN users on users.person_id = persons.id
+     INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username
+     INNER JOIN executable ex on e.feature = ex.identifier"
+  end
+
 
   def self.persons_to_executables_joins(report_options, departments_alias = "departments")
     "INNER JOIN persons person ON person.dept_id = #{departments_alias}.id #{User.user_to_executables_joins "person_id = person.id", report_options}"
