@@ -35,5 +35,8 @@ class College < ReadOnlyModel
     relation
   end
 
+  def msi_db_link
+    "#{StaticData::MSIDB_CRUD_URL}people/college/#{id}/view"
+  end
 
 end

@@ -1,14 +1,15 @@
 class GroupsController < ApplicationController
-  # GET /groups
-  # GET /groups.xml
-  def index
-    @groups = Group.all
+  TITLE = "Groups"
+  FIELDS = [id_field, name_field]
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @groups }
-    end
+  def index
+    @fields = FIELDS
+    @title = TITLE
+    @rows = Group
+    handle_search_criteria :name
+    respond_with_table
   end
+
 
   # GET /groups/1
   # GET /groups/1.xml

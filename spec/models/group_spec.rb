@@ -42,4 +42,12 @@ describe Group do
 
   end
 
+  describe "msi_db_link" do
+    specify {
+      group = FactoryGirl.create(:group)
+      group.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/group/#{group.id}/view"
+    }
+  end
+
+
 end

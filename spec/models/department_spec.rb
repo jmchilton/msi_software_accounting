@@ -47,6 +47,12 @@ describe Department do
 
   end
 
+  describe "msi_db_link" do
+    specify {
+      department = FactoryGirl.create(:department)
+      department.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/department/#{department.id}/view"
+    }
+  end
 
 
 end

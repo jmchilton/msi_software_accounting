@@ -6,6 +6,12 @@ describe College do
 
   it_should_behave_like "read only model"
 
+  describe "msi_db_link" do
+    specify {
+      college = FactoryGirl.create(:college)
+      college.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/college/#{college.id}/view"
+    }
+  end
 
   describe "resource_report" do
     before(:each) { setup_test_report_data }

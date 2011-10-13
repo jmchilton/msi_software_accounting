@@ -1,15 +1,15 @@
 class CollegesController < ReportController
+  TITLE = "Colleges"
+  FIELDS = [id_field, name_field]
 
-  # GET /colleges
-  # GET /colleges.xml
   def index
-    @colleges = College.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @colleges }
-    end
+    @fields = FIELDS
+    @title = TITLE
+    @rows = College
+    handle_search_criteria :name
+    respond_with_table
   end
+
 
   # GET /colleges/1
   # GET /colleges/1.xml

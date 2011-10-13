@@ -44,4 +44,8 @@ class Department < ReadOnlyModel
     relation
   end
 
+  def msi_db_link
+    "#{StaticData::MSIDB_CRUD_URL}people/department/#{id}/view"
+  end
+
 end

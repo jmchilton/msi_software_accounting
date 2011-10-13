@@ -3,6 +3,24 @@ require 'controllers/helpers'
 module TableHelpers
   include Helpers
 
+  module ClassMethods
+    def before_each_setup_parent
+      before(:each) {
+        dynamic_setup_parent
+      }
+    end
+  end
+
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+
+  def dynamic_setup_parent
+    subject_class_name = subject.class.name
+    parent_model = /^(Resource|Executable|User|Group|Department|College)(.*)(Report)?Controller/.match(subject_class_name)[1]
+    eval("setup_parent '#{parent_model.downcase}'")
+  end
+
   def setup_parent_resource
     setup_parent "resource"
     #self.class.let(:resource ) { FactoryGirl.create(:resource)}

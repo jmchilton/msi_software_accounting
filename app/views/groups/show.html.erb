@@ -1,14 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1>Group <%= @group.name %></h1>
+<%= model_field :name, "Name", @group.name %>
 
-<p>
-  <b>Gid:</b>
-  <%= @group.gid %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @group.name %>
-</p>
-
-
-<%= link_to 'Back', groups_path %>
+<%= model_link "View Group on MSI DB", @group.msi_db_link, :id => "msi_db_link" %>
+<%= model_link "Back to Group Index", groups_path %>

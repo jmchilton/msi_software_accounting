@@ -3,15 +3,6 @@ module UsageReportHelpers
 
   module ClassMethods
 
-    def before_each_setup_parent
-      before(:each) {
-        subject_class_name = subject.class.name
-        parent_model = /^(Resource|Executable|User|Group|Department|College)(.*)ReportController/.match(subject_class_name)[1]
-        eval("setup_parent '#{parent_model.downcase}'")
-      }
-    end
-
-
     def before_each_stub_usage_report
       before(:each) {
         subject_class_name = subject.class.name

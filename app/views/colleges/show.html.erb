@@ -1,14 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1>College <%= @college.name %></h1>
+<%= model_field :name, "Name", @college.name %>
 
-<p>
-  <b>Id:</b>
-  <%= @college.id %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @college.name %>
-</p>
-
-
-<%= link_to 'Back', colleges_path %>
+<%= model_link "View College on MSI DB", @college.msi_db_link, :id => "msi_db_link" %>
+<%= model_link "Back to College Index", colleges_path %>

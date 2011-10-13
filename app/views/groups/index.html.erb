@@ -1,20 +1,2 @@
-<h1>Listing groups</h1>
-
-<table>
-  <tr>
-    <th>Gid</th>
-    <th>Name</th>
-    <th></th>
-  </tr>
-
-<% @groups.each do |group| %>
-  <tr>
-    <td><%= group.gid %></td>
-    <td><%= group.name %></td>
-    <td><%= link_to 'Show', group %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
+<h1><%= @title %></h1>
+<%= render :partial => "/table" %>

@@ -1,13 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1>Department <%= @department.name %></h1>
+<%= model_field :name, "Name", @department.name %>
 
-<p>
-  <b>Id:</b>
-  <%= @department.id %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @department.name %>
-</p>
-
-<%= link_to 'Back', departments_path %>
+<%= model_link "View Department on MSI DB", @department.msi_db_link, :id => "msi_db_link" %>
+<%= model_link "Back to Department Index", departments_path %>

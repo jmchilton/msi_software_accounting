@@ -25,4 +25,8 @@ class Group < ReadOnlyModel
     "INNER JOIN users ON users.gid = groups.gid #{User.join_executables_sql(report_options)}"
   end
 
+  def msi_db_link
+    "#{StaticData::MSIDB_CRUD_URL}people/group/#{gid}/view"
+  end
+
 end

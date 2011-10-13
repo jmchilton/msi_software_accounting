@@ -1,13 +1,13 @@
 class DepartmentsController < ApplicationController
-  # GET /departments
-  # GET /departments.xml
-  def index
-    @departments = Department.all
+  TITLE = "Departments"
+  FIELDS = [id_field, name_field]
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @departments }
-    end
+  def index
+    @fields = FIELDS
+    @title = TITLE
+    @rows = Department
+    handle_search_criteria :name
+    respond_with_table
   end
 
   # GET /departments/1
