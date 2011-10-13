@@ -175,6 +175,12 @@ class ApplicationController < ActionController::Base
   end
 
   def respond_with_table(allow_pagination = true)
+    unless instance_variable_defined? :@title
+      @title = self.class::TITLE
+    end
+    unless instance_variable_defined? :@fields
+      @fields = self.class::FIELDS
+    end
     @allow_pagination = allow_pagination
     @rows_per_page = allow_pagination ? DEFAULT_NUM_ROWS_PAGINATE : DEFAULT_NUM_ROWS_NO_PAGINATE
     @row_list = allow_pagination ? ROW_LIST_PAGINATE : ROW_LIST_NO_PAGINATE
