@@ -10,7 +10,7 @@ class College < ReadOnlyModel
                           :association_foreign_key => :dept_id,
                           :class_name => 'Department'
 
-  USAGE_REPORT_FIELDS = "colleges.name, use_count"
+  USAGE_REPORT_FIELDS = "colleges.id, colleges.name, use_count"
 
   def self.join_executables_sql(report_options)
     "INNER JOIN department_colleges on department_colleges.college_id = colleges.id

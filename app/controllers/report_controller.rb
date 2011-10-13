@@ -20,7 +20,7 @@ class ReportController < ApplicationController
 
 
   def self.resource_field
-    { :field => "resource", :label => "Resources", :search => true }
+    { :field => "resource", :label => "Resource", :search => true }
   end
 
   def self.identifier_field

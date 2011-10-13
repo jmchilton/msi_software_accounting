@@ -9,7 +9,7 @@ class Executable < ActiveRecord::Base
     select("executable.exid, executable.exid as id, executable.identifier as name, #{Event.demographics_summary_selects}").
       joins(Event.to_demographics_joins(report_options)).
       where("executable.rid = ?", resource_id).
-      group("executable.exid")
+      group("executable.exid, executable.identifier")
   end
 
 end
