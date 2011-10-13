@@ -4,7 +4,7 @@ class Group < ReadOnlyModel
   set_table_name "groups"
   set_primary_key "gid"
 
-  USAGE_REPORT_FIELDS = "groups.gid as id, groups.name as group_name, use_count"
+  USAGE_REPORT_FIELDS = "groups.gid as gid, groups.name as group_name, use_count"
 
   def self.resources(report_options)
     select("groups.gid, ex.rid").

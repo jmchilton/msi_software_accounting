@@ -97,8 +97,8 @@ class ApplicationController < ActionController::Base
     { :field => "num_groups", :label => "# Groups", :search => false}
   end
 
-  def self.id_field
-    { :field => "id", :label => "ID",  :resizable => false, :search => false, :hidden => true }
+  def self.id_field(name = "id")
+    { :field => name, :label => "ID",  :resizable => false, :search => false, :hidden => true }
   end
 
   def self.fy_10_field
