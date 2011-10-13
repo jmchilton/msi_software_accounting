@@ -27,11 +27,11 @@ class College < ReadOnlyModel
   end
 
   def self.report(report_options = {})
-    relation = select("colleges.name, #{Purchase::REPORT_SELECT_FIELDS}").
+    relation = select("colleges.id, colleges.name, #{Purchase::REPORT_SELECT_FIELDS}").
                joins("inner join (#{resources(report_options).to_aliased_sql('ic')}) cr on colleges.id = cr.id
                       #{Purchase.summary_left_join("cr.rid")}").
                order("colleges.name ASC").
-               group("colleges.name")
+               group("colleges.id, colleges.name")
     relation
   end
 

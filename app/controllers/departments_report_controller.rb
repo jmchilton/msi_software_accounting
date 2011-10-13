@@ -1,5 +1,5 @@
 class DepartmentsReportController < ReportController
-  FIELDS = [id_field,  { :field => "name", :label => "Department" }] + purchase_fields
+  FIELDS = [id_field,  { :field => "name", :label => "Department" }, link_field(:link_proc => "department_path")] + purchase_fields
   TITLE = "Department Report"
 
   def new

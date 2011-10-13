@@ -1,5 +1,5 @@
 class GroupsReportController < ReportController
-  FIELDS = [id_field,  { :field => "name", :label => "Group" }] + purchase_fields
+  FIELDS = [id_field,  { :field => "name", :label => "Group" }, link_field(:link_proc => "group_path")] + purchase_fields
   TITLE = "Groups Report"
 
   def new

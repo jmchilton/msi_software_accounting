@@ -1,6 +1,6 @@
 class UsersController < ReportController
   TITLE = "Users"
-  FIELDS = [id_field, username_field]
+  FIELDS = [id_field, username_field, link_field(:link_proc => "user_path")]
 
   # TODO: Join people information
   def index

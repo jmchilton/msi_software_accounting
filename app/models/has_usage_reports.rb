@@ -7,9 +7,9 @@ module HasUsageReports
                     where("r.id = ?", resource_id)
     end
 
-  def join_resources_sql(report_options)
-    "#{join_executables_sql(report_options)} INNER JOIN resources r on ex.rid = r.id"
-  end
+    def join_resources_sql(report_options)
+      "#{join_executables_sql(report_options)} INNER JOIN resources r on ex.rid = r.id"
+    end
 
 
   def executable_counts(executable_id, report_options = {})

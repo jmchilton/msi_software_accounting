@@ -12,7 +12,7 @@ class Department < ReadOnlyModel
 
   has_many :people, :foreign_key => "dept_id"
 
-  USAGE_REPORT_FIELDS = "departments.id, departments.name, use_count"
+  USAGE_REPORT_FIELDS = "departments.id, departments.name"
   USAGE_REPORT_DEMOGRAPHICS_JOINS = "LEFT JOIN department_colleges on department_colleges.dept_id = departments.id
                                      LEFT JOIN colleges on colleges.id = department_colleges.college_id"
 
