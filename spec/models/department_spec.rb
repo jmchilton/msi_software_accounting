@@ -4,6 +4,8 @@ require 'report_test_data'
 describe Department do
   include ModelHelpers
 
+  it_should_behave_like "read only model"
+
   before(:each) { setup_test_report_data }
   let(:records) { relation.all }
 

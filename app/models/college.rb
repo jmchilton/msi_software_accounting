@@ -1,4 +1,6 @@
 class College < ReadOnlyModel
+  include HasUsageReports
+
   set_table_name "colleges"
   set_primary_key "id"
 
@@ -7,6 +9,14 @@ class College < ReadOnlyModel
                           :foreign_key => :college_id,
                           :association_foreign_key => :dept_id,
                           :class_name => 'Department'
+
+  USAGE_REPORT_FIELDS = "colleges.name, use_count"
+
+  def self.join_executables_sql(report_options)
+    "INNER JOIN department_colleges on department_colleges.college_id = colleges.id
+     INNER JOIN departments on departments.id = department_colleges.dept_id
+     #{Department.join_executables_sql(report_options)}"
+  end
 
   def self.resources(report_options = {})
     select("colleges.id, ex.rid").
@@ -24,4 +34,6 @@ class College < ReadOnlyModel
                group("colleges.name")
     relation
   end
+
+
 end

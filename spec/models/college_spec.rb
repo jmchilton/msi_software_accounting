@@ -6,6 +6,24 @@ describe College do
 
   it_should_behave_like "read only model"
 
+
+  describe "resource_report" do
+    before(:each) { setup_test_report_data }
+    let(:records) { relation.all }
+    let(:relation) { College.resource_report(report_test_resource.id) }
+
+    it "should have record for group using resource" do
+      find_record { |record| record.name == ReportTestData::COLLEGE_ONE_NAME }.should_not be_nil
+    end
+
+    it "should not have record for group not using resource" do
+      find_record { |record| record.name == ReportTestData::COLLEGE_NO_USE }.should be_nil
+    end
+
+  end
+
+
+
   describe "resources" do
     let(:college_resources) { College.resources }
     
@@ -101,11 +119,6 @@ describe College do
 
 
   end
-  
-  it "should be readonly" do 
-    college = FactoryGirl.create(:college)
-    lambda {college.destroy}.should raise_error(ActiveRecord::ReadOnlyRecord)
-  end  
-  
+
 end
 

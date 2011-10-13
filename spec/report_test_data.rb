@@ -6,6 +6,9 @@ class ReportTestData
   EXECUTABLE_IDENTIFIER_1 = "id1"
   RESOURCE_NAME_1 = "resource1"
 
+  COLLEGE_ONE_NAME = "college1"
+  COLLEGE_NO_USE = "collegenouse"
+
   def self.setup_medical_resources_and_events
     resource_1 = FactoryGirl.create(:resource, :name => RESOURCE_NAME_1)
 
@@ -16,7 +19,10 @@ class ReportTestData
     group2 = FactoryGirl.create(:group)
     group_no_use = FactoryGirl.create(:group, :name => GROUP_NO_USE)
 
-    department1 = FactoryGirl.create(:department, :name => DEPARTMENT_ONE_NAME)
+    college1 = FactoryGirl.create(:college, :name => COLLEGE_ONE_NAME)
+    college_no_use = FactoryGirl.create(:college, :name => COLLEGE_NO_USE)
+
+    department1 = FactoryGirl.create(:department, :name => DEPARTMENT_ONE_NAME, :colleges => [college1])
     department2 = FactoryGirl.create(:department, :name => "dept2")
     department3 = FactoryGirl.create(:department, :name => "dept3")
 
