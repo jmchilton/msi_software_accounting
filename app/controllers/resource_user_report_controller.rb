@@ -16,8 +16,6 @@ class ResourceUserReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = User.resource_report(@resource.id, report_options)
     handle_search_criteria :username
     handle_search_criteria :group_name

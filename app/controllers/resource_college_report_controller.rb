@@ -11,8 +11,6 @@ class ResourceCollegeReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = College.resource_report(@resource.id, report_options)
     handle_search_criteria :name
     respond_with_report

@@ -11,8 +11,6 @@ class ExecutableGroupReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = Group.executable_report(@executable.id, report_options)
     handle_search_criteria :group_name
     respond_with_report

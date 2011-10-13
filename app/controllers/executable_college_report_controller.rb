@@ -11,8 +11,6 @@ class ExecutableCollegeReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = College.executable_report(@executable.id, report_options)
     handle_search_criteria :name
     respond_with_report

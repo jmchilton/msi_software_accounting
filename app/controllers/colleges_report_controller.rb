@@ -6,8 +6,6 @@ class CollegesReportController < ReportController
   end
 
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = College.report(report_options)
     handle_search_criteria :name
     respond_with_report

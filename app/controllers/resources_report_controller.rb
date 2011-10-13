@@ -15,8 +15,6 @@ class ResourcesReportController < ReportController
   end
 
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = Resource.report(report_options)
     handle_search_criteria :name
     respond_with_report

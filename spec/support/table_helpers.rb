@@ -63,6 +63,7 @@ module TableHelpers
   def it_should_setup_table_variables
     assigns(:rows).should_not be_nil
     assigns(:fields).should be_an Array
+    assigns(:fields).each { |field| field.should be_a Hash }
     assigns(:title).should be_a String 
   end
 

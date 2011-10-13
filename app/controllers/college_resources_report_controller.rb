@@ -8,8 +8,6 @@ class CollegeResourcesReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = @college.resources_report(report_options)
     handle_search_criteria :resource
     respond_with_report

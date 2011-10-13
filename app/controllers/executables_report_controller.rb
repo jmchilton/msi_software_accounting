@@ -1,5 +1,4 @@
 class ExecutablesReportController < ReportController
-
   FIELDS = [self.id_field,
             self.name_field,
             self.num_users_field,
@@ -8,7 +7,6 @@ class ExecutablesReportController < ReportController
 
   def index
     @resource = Resource.find(params[:resource_id])
-    @fields = FIELDS
     @rows = Executable.flexlm_report_for_resource(@resource.id, report_options)
     @title = "FLEXlm Feature Report for #{@resource.name}"
     respond_with_report

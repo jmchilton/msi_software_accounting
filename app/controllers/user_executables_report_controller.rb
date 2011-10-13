@@ -8,8 +8,6 @@ class UserExecutablesReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = @user.executables_report(report_options)
     handle_executables_search_criteria
     respond_with_report

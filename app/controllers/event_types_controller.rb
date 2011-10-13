@@ -10,22 +10,11 @@ class EventTypesController < ApplicationController
      ]
   TITLE = "FLEXlm Event Types"
 
-  # GET /event_types
-  # GET /event_types.xml
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = EventType
-
     respond_with_table(false)
-    #respond_to do |format|
-    #  format.html # index.html.erb
-    #  format.xml  { render :xml => @event_types }
-    #end
   end
 
-  # GET /event_types/1
-  # GET /event_types/1.xml
   def show
     @event_type = EventType.find(params[:id])
 
@@ -35,13 +24,10 @@ class EventTypesController < ApplicationController
     end
   end
 
-  # GET /event_types/1/edit
   def edit
     @event_type = EventType.find(params[:id])
   end
 
-  # PUT /event_types/1
-  # PUT /event_types/1.xml
   def update
     @event_type = EventType.find(params[:id])
     respond_to do |format|

@@ -9,19 +9,11 @@ class PurchasesController < ApplicationController
             link_field(:link_proc => "purchase_path")]
   TITLE = "Purchases"
 
-
-  # GET /purchases
-  # GET /purchases.xml
   def index
     @rows = Purchase
-    @title = TITLE
-    @fields = FIELDS
-
     respond_with_table(true)
   end
 
-  # GET /purchases/1
-  # GET /purchases/1.xml
   def show
     @purchase = Purchase.find(params[:id])
 

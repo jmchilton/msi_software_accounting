@@ -8,8 +8,6 @@ class GroupResourcesReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = @group.resources_report(report_options)
     handle_search_criteria :resource
     respond_with_report

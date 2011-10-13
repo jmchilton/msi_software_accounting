@@ -16,8 +16,6 @@ class ExecutableUserReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = User.executable_report(@executable.id, report_options)
     handle_search_criteria :username
     handle_search_criteria :group_name

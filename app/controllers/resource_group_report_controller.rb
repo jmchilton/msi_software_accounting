@@ -12,8 +12,6 @@ class ResourceGroupReportController < ReportController
   end
 
   def index
-    @title = TITLE
-    @fields = FIELDS
     @rows = Group.resource_report(@resource.id, report_options)
     handle_search_criteria :group_name
     respond_with_report

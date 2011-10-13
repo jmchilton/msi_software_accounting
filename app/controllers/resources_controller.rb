@@ -8,12 +8,8 @@ class ResourcesController < ApplicationController
   TITLE = "Resources"
 
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = Resource
-    if perform_search?
-      @rows = @rows.where("name like ?", "%#{params[:name]}%")
-    end
+    handle_search_criteria :name
     respond_with_table
   end
 

@@ -4,11 +4,8 @@ class UsersController < ReportController
 
   # TODO: Join people information
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = User
     handle_search_criteria :username
-
     respond_with_table
   end
 

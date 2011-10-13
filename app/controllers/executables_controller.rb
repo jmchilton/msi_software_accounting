@@ -7,8 +7,6 @@ class ExecutablesController < ApplicationController
   TITLE = "FLEXlm Features"
 
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = Executable
     if perform_search?
       @rows = @rows.where("identifier like ?", "%#{params[:identifier]}%").

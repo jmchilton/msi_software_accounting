@@ -6,8 +6,6 @@ class DepartmentsReportController < ReportController
   end
 
   def index
-    @fields = FIELDS
-    @title = TITLE
     @rows = Department.report(report_options)
     handle_search_criteria :name
     respond_with_report
