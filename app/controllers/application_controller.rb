@@ -240,4 +240,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def find_and_show(model_class)
+    instance_variable_name = "@#{model_class.name.downcase}".to_sym
+    object = model_class.find(params[:id])
+    instance_variable_set instance_variable_name, object
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => object }
+    end
+  end
+
 end

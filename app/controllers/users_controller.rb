@@ -10,12 +10,7 @@ class UsersController < ReportController
   end
 
   def show
-    @user = User.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
+    find_and_show User
   end
 
 end

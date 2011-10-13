@@ -10,12 +10,7 @@ class GroupsController < ApplicationController
 
 
   def show
-    @group = Group.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @group }
-    end
+    find_and_show Group
   end
 
 end

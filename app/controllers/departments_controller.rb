@@ -10,15 +10,8 @@ class DepartmentsController < ApplicationController
     respond_with_table
   end
 
-  # GET /departments/1
-  # GET /departments/1.xml
   def show
-    @department = Department.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @department }
-    end
+    find_and_show Department
   end
 
 end

@@ -14,12 +14,7 @@ class ResourcesController < ApplicationController
   end
 
   def show
-    @resource = Resource.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @resource }
-    end
+    find_and_show Resource
   end
 
 end

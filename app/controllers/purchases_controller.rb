@@ -15,12 +15,7 @@ class PurchasesController < ApplicationController
   end
 
   def show
-    @purchase = Purchase.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @purchase }
-    end
+    find_and_show Purchase
   end
 
   # GET /purchases/new
