@@ -1,4 +1,4 @@
-class ExecutableUserReportController < ReportController
+class ExecutableUserReportController < TableController
   FIELDS = [id_field,
             username_field,
             first_name_field,

@@ -1,4 +1,4 @@
-class UserExecutablesReportController < ReportController
+class UserExecutablesReportController < TableController
   FIELDS = executable_fields
   TITLE = "FLEXlm Feature Usage"
 

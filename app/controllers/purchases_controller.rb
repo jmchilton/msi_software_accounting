@@ -18,8 +18,6 @@ class PurchasesController < ApplicationController
     find_and_show Purchase
   end
 
-  # GET /purchases/new
-  # GET /purchases/new.xml
   def new
     @purchase = Purchase.new
 
@@ -29,13 +27,10 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # GET /purchases/1/edit
   def edit
     @purchase = Purchase.find(params[:id])
   end
 
-  # POST /purchases
-  # POST /purchases.xml
   def create
     rid = Resource.find_by_name(params[:resource_name]).id
     params[:purchase][:rid] = rid
@@ -52,8 +47,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # PUT /purchases/1
-  # PUT /purchases/1.xml
   def update
     @purchase = Purchase.find(params[:id])
     params[:purchase][:rid] = Resource.find_by_name(params[:resource_name]).id
@@ -68,8 +61,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # DELETE /purchases/1
-  # DELETE /purchases/1.xml
   def destroy
     @purchase = Purchase.find(params[:id])
     @purchase.destroy
@@ -79,4 +70,5 @@ class PurchasesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

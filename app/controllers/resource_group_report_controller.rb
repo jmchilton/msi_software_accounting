@@ -1,4 +1,4 @@
-class ResourceGroupReportController < ReportController
+class ResourceGroupReportController < TableController
   FIELDS = [id_field("gid"),
             id_field,
             group_name_field,

@@ -1,4 +1,4 @@
-class ExecutablesPlotController < ReportController
+class ExecutablesPlotController < TableController
   def new
     set_executable
   end

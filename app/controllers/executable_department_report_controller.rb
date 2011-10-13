@@ -1,4 +1,4 @@
-class ExecutableDepartmentReportController < ReportController
+class ExecutableDepartmentReportController < TableController
   FIELDS = [id_field,
             name_field,
             checkouts_field,

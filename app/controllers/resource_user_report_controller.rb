@@ -1,4 +1,4 @@
-class ResourceUserReportController < ReportController
+class ResourceUserReportController < TableController
   FIELDS = [id_field,
             username_field,
             first_name_field,

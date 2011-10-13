@@ -1,4 +1,4 @@
-class ExecutableCollegeReportController < ReportController
+class ExecutableCollegeReportController < TableController
   FIELDS = [id_field,
             name_field,
             checkouts_field,

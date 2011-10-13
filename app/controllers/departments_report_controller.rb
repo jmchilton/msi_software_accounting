@@ -1,4 +1,4 @@
-class DepartmentsReportController < ReportController
+class DepartmentsReportController < TableController
   FIELDS = [id_field,  { :field => "name", :label => "Department" }, link_field(:link_proc => "department_path")] + purchase_fields
   TITLE = "Department Report"
 

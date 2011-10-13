@@ -1,4 +1,4 @@
-class ExecutableGroupReportController < ReportController
+class ExecutableGroupReportController < TableController
   FIELDS = [id_field,
             group_name_field,
             checkouts_field,

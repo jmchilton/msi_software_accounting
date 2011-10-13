@@ -1,4 +1,4 @@
-class GroupsReportController < ReportController
+class GroupsReportController < TableController
   FIELDS = [id_field,  { :field => "name", :label => "Group" }, link_field(:link_proc => "group_path")] + purchase_fields
   TITLE = "Groups Report"
 

@@ -1,4 +1,4 @@
-class ReportController < ApplicationController
+class TableController < ApplicationController
   before_filter :set_last_date_range
 
   protected

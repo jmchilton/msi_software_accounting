@@ -1,4 +1,4 @@
-class UsersController < ReportController
+class UsersController < TableController
   TITLE = "Users"
   FIELDS = [id_field, username_field, link_field(:link_proc => "user_path")]
 

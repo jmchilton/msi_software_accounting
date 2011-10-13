@@ -1,4 +1,4 @@
-class CollegeResourcesReportController < ReportController
+class CollegeResourcesReportController < TableController
   FIELDS = resources_fields
   TITLE = "FLEXlm Resource Usage"
 

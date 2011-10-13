@@ -1,4 +1,4 @@
-class ExecutablesReportController < ReportController
+class ExecutablesReportController < TableController
   FIELDS = [self.id_field,
             self.name_field,
             self.num_users_field,

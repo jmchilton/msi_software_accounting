@@ -1,4 +1,4 @@
-class ResourceDepartmentReportController < ReportController
+class ResourceDepartmentReportController < TableController
   FIELDS = [id_field,
             name_field,
             checkouts_field,
