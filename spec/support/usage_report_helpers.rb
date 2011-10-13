@@ -6,11 +6,8 @@ module UsageReportHelpers
     def before_each_setup_parent
       before(:each) {
         subject_class_name = subject.class.name
-        if subject_class_name.starts_with? "Resource"
-          setup_parent_resource
-        else
-          setup_parent_executable
-        end
+        parent_model = /^(Resource|Executable|User|Group|Department|College)(.*)ReportController/.match(subject_class_name)[1]
+        eval("setup_parent '#{parent_model.downcase}'")
       }
     end
 
@@ -18,11 +15,24 @@ module UsageReportHelpers
     def before_each_stub_usage_report
       before(:each) {
         subject_class_name = subject.class.name
-        report_model = /(Resource|Executable)(.*)ReportController/.match(subject_class_name)[2]
-        if subject_class_name.starts_with? "Resource"
-          stub_resource_report_method(eval(report_model))
+        usage_controller_pattern = /^(Resource|Executable)(.*)ReportController$/
+        object_usage_controller_pattern = /^(User|Group|College|Department)(Resources|Executables)ReportController$/
+        usage_match = usage_controller_pattern.match(subject_class_name)
+        if not usage_match.nil?
+          report_model = usage_match[2]
+          if subject_class_name.starts_with? "Resource"
+            stub_resource_report_method(eval(report_model))
+          else
+            stub_executable_report_method(eval(report_model))
+            end
         else
-          stub_executable_report_method(eval(report_model))
+          object_usage_match = object_usage_controller_pattern.match(subject_class_name)
+          object_class_name = object_usage_match[1]
+          object_class = eval(object_class_name)
+          type = object_usage_match[2].downcase
+          method = (type + "_report").to_sym
+
+          object_class.any_instance.stub(method).with(expected_report_options).and_return(row_relation)
         end
       }
     end
@@ -41,13 +51,10 @@ module UsageReportHelpers
     klazz.stub(:executable_report).with(executable.id, expected_report_options).and_return(row_relation)
   end
 
-
   shared_examples_for "standard usage report GET index" do
     before_each_stub_usage_report
 
     it_should_behave_like "standard report GET index"
   end
-
-
 
 end

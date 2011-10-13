@@ -1,12 +1,32 @@
 require 'spec_helper'
 
 describe User do
+  include ModelHelpers
 
   describe "msi_db_link" do
     specify {
       user = FactoryGirl.create(:user)
       user.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/user/#{user.id}/view"
     }
+  end
+
+  describe "executables_report" do
+    before(:each) { setup_test_report_data }
+    let(:records) { relation.all }
+    let(:relation) { User.find_by_username(ReportTestData::USERNAME_1).executables_report() }
+
+    it "should have record for executable used" do
+      should_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }
+    end
+
+    it "should not have record for unused executables" do
+      should_not_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_NO_USE }
+    end
+
+    it "should have resource" do
+      find_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }.resource.should eql(ReportTestData::RESOURCE_NAME_1)
+    end
+
   end
 
   describe "executable_report" do

@@ -4,13 +4,21 @@ module TableHelpers
   include Helpers
 
   def setup_parent_resource
-    self.class.let(:resource ) { FactoryGirl.create(:resource)}
-    self.class.let(:index_params) { {:resource_id => resource.id} }
+    setup_parent "resource"
+    #self.class.let(:resource ) { FactoryGirl.create(:resource)}
+    #self.class.let(:index_params) { {:resource_id => resource.id} }
   end
 
   def setup_parent_executable
-    self.class.let(:executable) { FactoryGirl.create(:executable)}
-    self.class.let(:index_params) { {:executable_id => executable.id} }
+    setup_parent "executable"
+    #self.class.let(:executable) { FactoryGirl.create(:executable)}
+    #self.class.let(:index_params) { {:executable_id => executable.id} }
+  end
+
+  def setup_parent(type)
+    type_as_symbol = type.to_sym
+    self.class.let(type_as_symbol) { FactoryGirl.create(type_as_symbol)}
+    self.class.let(:index_params) { {(type.to_s + '_id').to_sym => eval(type).id } }
   end
 
   def json_response

@@ -21,6 +21,14 @@ module ModelHelpers
     records.find &block
   end
 
+  def should_have_record(&block)
+    find_record(&block).should_not be_nil
+  end
+
+  def should_not_have_record(&block)
+    find_record(&block).should be_nil
+  end
+
   def report_test_resource
     Resource.find_by_name ReportTestData::RESOURCE_NAME_1
   end

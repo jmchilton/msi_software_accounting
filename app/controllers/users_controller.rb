@@ -1,20 +1,17 @@
-class UsersController < ApplicationController
-  # GET /users
-  # GET /users.xml
+class UsersController < ReportController
+  TITLE = "Users"
+  FIELDS = [id_field, username_field]
+
+  # TODO: Join people information
   def index
-    users = User
-    if perform_search?
-      users = @users.where("username like ?", "%#{params[:username]}%")
-    end
-    @fields = [{ :field => "id", :label => "ID", :width => 35, :resizable => false },
-               { :field => "username", :label => "Username" }]
-    @rows = users
-    @title = "Users"
+    @fields = FIELDS
+    @title = TITLE
+    @rows = User
+    handle_search_criteria :username
+
     respond_with_table
   end
 
-  # GET /users/1
-  # GET /users/1.xml
   def show
     @user = User.find(params[:id])
 

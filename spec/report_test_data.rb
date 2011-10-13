@@ -1,9 +1,11 @@
 class ReportTestData
+  USERNAME_1 = "username1"
   DEPARTMENT_ONE_NAME = "dept1"
   GROUP_ONE_NAME = "group1"
   DEPARTMENT_NO_USE = "deptnouse"
   GROUP_NO_USE = "groupnouse"
   EXECUTABLE_IDENTIFIER_1 = "id1"
+  EXECUTABLE_IDENTIFIER_NO_USE = "idunsed"
   RESOURCE_NAME_1 = "resource1"
 
   COLLEGE_ONE_NAME = "college1"
@@ -33,7 +35,7 @@ class ReportTestData
     person3 = FactoryGirl.create(:person, :department => department2)
     person_no_use = FactoryGirl.create(:person, :department => department_no_use)
 
-    user1 = FactoryGirl.create(:user, :username => "username1", :group => group1, :person => person1)
+    user1 = FactoryGirl.create(:user, :username => USERNAME_1, :group => group1, :person => person1)
     user2 = FactoryGirl.create(:user, :username => "username2", :group => group1, :person => person2)
     user3 = FactoryGirl.create(:user, :username => "username3", :group => group2, :person => person3)
 
@@ -41,7 +43,7 @@ class ReportTestData
 
     exec1 = FactoryGirl.create(:executable, :identifier => EXECUTABLE_IDENTIFIER_1,  :resource => resource_1)
     exec2 = FactoryGirl.create(:executable, :resource => resource_1)
-    exec_unused = FactoryGirl.create(:executable, :resource => resource_1)
+    exec_unused = FactoryGirl.create(:executable, :identifier => EXECUTABLE_IDENTIFIER_NO_USE, :resource => resource_1)
 
     event1_1 = FactoryGirl.create(:event, :process_user => user1, :executable => exec1)
     event1_2 = FactoryGirl.create(:event, :process_user => user2, :executable => exec1)

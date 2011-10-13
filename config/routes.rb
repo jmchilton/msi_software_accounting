@@ -5,7 +5,9 @@ SoftwareWebApp::Application.routes.draw do
   end
 
   def readonly_resources(name)
-    resources name, :only => [:show, :index]
+    resources name, :only => [:show, :index] do
+      yield if block_given?
+    end
   end
 
   report_resources :colleges_report
@@ -25,8 +27,9 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :purchases
 
-  resources :resources, :only => [:index, :show] do
+  readonly_resources :resources do
     get :autocomplete_resource_name, :on => :collection
+
     report_resources :executables_report
     report_resources :resource_user_report
     report_resources :resource_group_report
@@ -34,13 +37,25 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :resource_college_report
   end
 
-
   readonly_resources :events
-  readonly_resources :colleges
-  readonly_resources :departments
-  readonly_resources :groups
-  readonly_resources :users
   readonly_resources :people
+
+  readonly_resources :colleges do
+    report_resources :college_executables_report
+    report_resources :college_resources_report
+  end
+  readonly_resources :departments do
+    report_resources :department_executables_report
+    report_resources :department_resources_report
+  end
+  readonly_resources :groups do
+    report_resources :group_executables_report
+    report_resources :group_resources_report
+  end
+  readonly_resources :users do
+    report_resources :user_executables_report
+    report_resources :user_resources_report
+  end
 
   get "home/index"
 

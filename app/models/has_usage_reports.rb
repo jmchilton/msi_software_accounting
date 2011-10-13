@@ -1,10 +1,16 @@
 module HasUsageReports
 
   module ClassMethods
-  def resource_counts(resource_id, report_options = {})
-    select_counts.joins("#{join_executables_sql(report_options)} INNER JOIN resources r on ex.rid = r.id").
-                  where("r.id = ?", resource_id)
+
+    def resource_counts(resource_id, report_options = {})
+      select_counts.joins(join_resources_sql(report_options)).
+                    where("r.id = ?", resource_id)
+    end
+
+  def join_resources_sql(report_options)
+    "#{join_executables_sql(report_options)} INNER JOIN resources r on ex.rid = r.id"
   end
+
 
   def executable_counts(executable_id, report_options = {})
     select_counts.joins(join_executables_sql(report_options)).where("ex.exid = ?", executable_id)
@@ -44,6 +50,23 @@ module HasUsageReports
 
   def self.included(base)
     base.extend(ClassMethods)
+  end
+
+  def executables_report(report_options = {})
+    isolate_instance_and_join_resources(self.class.select("ex.exid as id, ex.identifier, ex.comment, r.name as resource, count(*) as use_count").
+          group("ex.exid, ex.identifier, ex.comment, r.name"), report_options)
+  end
+
+  def resources_report(report_options = {})
+    isolate_instance_and_join_resources(self.class.select("r.id, r.name as resource, count(*) as use_count").
+          group("r.id, r.name"), report_options)
+  end
+
+  private
+
+  def isolate_instance_and_join_resources(relation, report_options)
+    relation.joins(self.class.join_resources_sql(report_options)).
+             where("#{self.class.table_name}.#{self.class.primary_key} = ?", eval("#{self.class.primary_key}"))
   end
 
 

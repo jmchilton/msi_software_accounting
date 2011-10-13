@@ -1,16 +1,9 @@
-<p id="notice"><%= notice %></p>
+<h1>User <%= @user.username %></h1>
+<%= model_field :username, "Username", @user.username %>
 
-<p>
-  <b>Id:</b>
-  <%= @user.id %>
-</p>
-
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
-
-<%= link_to "View Person", person_path(@user.person), :id => "person_link" %>
-<%= link_to "View Group", group_path(@user.group), :id => "group_link" %>
-<%= link_to "View User in MSI DB", @user.msi_db_link, :id => "msi_db_link" %>
-<%= link_to "View User List", users_path %>
+<%= #model_link "View Person", person_path(@user.person), :id => "person_link"
+%>
+<%= #model_link "View Group", group_path(@user.group), :id => "group_link"
+%>
+<%= model_link "View User on MSI DB", @user.msi_db_link, :id => "msi_db_link" %>
+<%= model_link "Back to User Index", users_path %>

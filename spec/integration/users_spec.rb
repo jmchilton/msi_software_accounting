@@ -14,11 +14,11 @@ describe "User navigation" do
 
     specify { it_should_have_msi_db_link_for(@user) }
 
-    it "should allow navigation to person" do
+    pending "should allow navigation to person" do
       page.find_link("person_link")[:href].should == person_path(@person)
     end
 
-    it "should allow navigation to group" do
+    pending "should allow navigation to group" do
       page.find_link("group_link")[:href].should == group_path(@group)
     end
 
