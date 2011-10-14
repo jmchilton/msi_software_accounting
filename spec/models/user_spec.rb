@@ -3,11 +3,37 @@ require 'spec_helper'
 describe User do
   include ModelHelpers
 
+  INDEX_TEST_PERSON_LAST_NAME = "index TEST LAST NAME"
+  INDEX_TEST_PERSON_FIRST_NAME = "index TEST FIRST NAME"
+  INDEX_TEST_GROUP_NAME = "index group name"
+  INDEX_TEST_USERNAME = "testuserindex"
+  INDEX_TEST_EMAIL = "index test email"
+
   describe "msi_db_link" do
     specify {
       user = FactoryGirl.create(:user)
       user.msi_db_link.should == "https://www.msi.umn.edu/db/rdgc/people/user/#{user.id}/view"
     }
+  end
+
+  describe "index" do
+    before(:each) {
+      person = FactoryGirl.create(:person, :last_name => INDEX_TEST_PERSON_LAST_NAME,
+                                           :first_name => INDEX_TEST_PERSON_FIRST_NAME,
+                                           :email => INDEX_TEST_EMAIL)
+      group = FactoryGirl.create(:group, :name => INDEX_TEST_GROUP_NAME)
+      FactoryGirl.create(:user, :username => INDEX_TEST_USERNAME, :person => person, :group => group)
+    }
+
+    let(:records) { User.index}
+    let(:test_record) { record_for records, INDEX_TEST_USERNAME }
+
+    specify { test_record.email.should eql(INDEX_TEST_EMAIL) }
+    specify { test_record.last_name.should eql(INDEX_TEST_PERSON_LAST_NAME) }
+    specify { test_record.first_name.should eql(INDEX_TEST_PERSON_FIRST_NAME) }
+    specify { test_record.username.should eql(INDEX_TEST_USERNAME) }
+    specify { test_record.group_name.should eql(INDEX_TEST_GROUP_NAME)}
+
   end
 
   describe "executables_report" do
@@ -84,8 +110,8 @@ describe User do
 
   end
 
-  def record_for(records, user)
-    records.find { |record| record.username == user}
+  def record_for(records, username)
+    records.find { |record| record.username == username}
   end
 
 

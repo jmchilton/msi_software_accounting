@@ -18,6 +18,10 @@ class User < ReadOnlyModel
                                      LEFT JOIN department_colleges on department_colleges.dept_id = departments.id
                                      LEFT JOIN colleges on colleges.id = department_colleges.college_id"
 
+  def self.index
+    select("users.id, users.username, persons.first_name, persons.last_name, persons.email, groups.name as group_name").joins("LEFT JOIN persons on users.person_id = persons.id LEFT JOIN groups on groups.gid = users.gid")
+  end
+
   def self.join_executables_sql(report_options)
     "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username
      INNER JOIN executable ex on e.feature = ex.identifier"

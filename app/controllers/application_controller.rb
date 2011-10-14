@@ -17,7 +17,10 @@ class ApplicationController < ActionController::Base
 
   def handle_search_criteria(field)
     if perform_search?
-      @rows = @rows.where("#{field.to_s} like ?", "%#{params[field]}%")
+      field_str = field.to_s
+      unless params[field].blank?
+        @rows = @rows.where("#{field_str} like ?", "%#{params[field]}%")
+      end
     end
   end
 
@@ -159,7 +162,12 @@ class ApplicationController < ActionController::Base
 
   def process_rows(for_json = false)
     if for_json and @allow_pagination
-      @row_count = @rows.count
+      if @rows.is_a? ActiveRecord::Relation
+        @row_count = ActiveRecord::Base.connection.select_one("SELECT COUNT(*) as count FROM (#{@rows.to_sql})").count
+      else
+        @row_count = @rows.count
+      end
+      #@row_count = @rows.count
     end
     if @allow_pagination
       @rows = with_pagination_and_ordering(@rows)
