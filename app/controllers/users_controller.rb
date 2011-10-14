@@ -1,6 +1,6 @@
 class UsersController < TableController
   TITLE = "Users"
-  FIELDS = [id_field, username_field, link_field(:link_proc => "user_path")]
+  FIELDS = [i d_field, username_field, link_field(:link_proc => "user_path")]
 
   # TODO: Join people information
   def index

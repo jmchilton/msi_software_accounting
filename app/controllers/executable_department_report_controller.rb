@@ -5,8 +5,6 @@ class ExecutableDepartmentReportController < ReportController
             link_field(:link_proc => "department_path")]
   TITLE = "FLEXlm Feature Usage"
 
-  before_filter :set_executable
-
   protected
 
   def build_rows

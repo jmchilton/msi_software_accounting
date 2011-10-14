@@ -2,8 +2,6 @@ class GroupResourcesReportController < ReportController
   FIELDS = resources_fields
   TITLE = "FLEXlm Resource Usage"
 
-  before_filter :set_group
-
   protected
 
   def build_rows

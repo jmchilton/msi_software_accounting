@@ -6,8 +6,6 @@ class ResourceGroupReportController < ReportController
             link_field(:link_proc => "group_path")]
   TITLE = "FLEXlm Resource Usage"
 
-  before_filter :set_resource
-
   protected
 
   def build_rows

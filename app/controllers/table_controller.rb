@@ -58,6 +58,23 @@ class TableController < ApplicationController
 
   end
 
+  before_filter :set_parent
+
+  protected
+
+  def set_parent
+    [User, Resource, Executable, Department, Group, College].each do |parent_type|
+      parent_type_name = parent_type.name
+      parent_var_name = parent_type_name.downcase
+
+      id_param = "#{parent_type_name.downcase}_id".to_sym
+      parent_id = params[id_param]
+      unless parent_id.blank?
+        instance_variable_set "@#{parent_var_name}".to_sym, parent_type.find(parent_id)
+      end
+    end
+  end
+
   def set_user
     user_id = params[:user_id]
     @user = User.find(user_id)

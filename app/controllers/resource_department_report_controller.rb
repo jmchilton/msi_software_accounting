@@ -5,8 +5,6 @@ class ResourceDepartmentReportController < ReportController
             link_field(:link_proc => "department_path")]
   TITLE = "FLEXlm Resource Usage"
 
-  before_filter :set_resource
-
   protected
 
   def build_rows

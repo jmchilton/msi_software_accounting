@@ -5,8 +5,6 @@ class ExecutablesReportController < ReportController
             self.num_groups_field,
             link_field(:link_proc => "executable_path")]
 
-  before_filter :set_resource
-
   protected
 
   def build_rows

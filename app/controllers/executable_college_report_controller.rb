@@ -5,8 +5,6 @@ class ExecutableCollegeReportController < ReportController
             link_field(:link_proc => "college_path")]
   TITLE = "FLEXlm Feature Usage"
 
-  before_filter :set_executable
-
   protected
 
   def build_rows
