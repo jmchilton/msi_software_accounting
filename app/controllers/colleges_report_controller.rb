@@ -1,14 +1,12 @@
-class CollegesReportController < TableController
+class CollegesReportController < ReportController
   FIELDS = [id_field,  { :field => "name", :label => "College" }, link_field(:link_proc => "college_path")] + purchase_fields
   TITLE = "College Report"
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = College.report(report_options)
     handle_search_criteria :name
-    respond_with_report
   end
 
 end

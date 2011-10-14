@@ -1,4 +1,4 @@
-class ResourceGroupReportController < TableController
+class ResourceGroupReportController < ReportController
   FIELDS = [id_field("gid"),
             id_field,
             group_name_field,
@@ -8,13 +8,11 @@ class ResourceGroupReportController < TableController
 
   before_filter :set_resource
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = Group.resource_report(@resource.id, report_options)
     handle_search_criteria :group_name
-    respond_with_report
   end
 
 

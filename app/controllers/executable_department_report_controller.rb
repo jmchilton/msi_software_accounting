@@ -1,4 +1,4 @@
-class ExecutableDepartmentReportController < TableController
+class ExecutableDepartmentReportController < ReportController
   FIELDS = [id_field,
             name_field,
             checkouts_field,
@@ -7,13 +7,11 @@ class ExecutableDepartmentReportController < TableController
 
   before_filter :set_executable
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = Department.executable_report(@executable.id, report_options)
     handle_search_criteria :name
-    respond_with_report
   end
 
 end

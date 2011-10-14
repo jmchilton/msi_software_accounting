@@ -1,4 +1,4 @@
-class ResourcesReportController < TableController
+class ResourcesReportController < ReportController
   FIELDS = [id_field,
                      name_field,
                      num_users_field,
@@ -11,13 +11,11 @@ class ResourcesReportController < TableController
                      ]
   TITLE = "Resources Report"
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = Resource.report(report_options)
     handle_search_criteria :name
-    respond_with_report
   end
 
 end

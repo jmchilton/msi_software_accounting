@@ -1,15 +1,14 @@
-class DepartmentResourcesReportController < TableController
+class DepartmentResourcesReportController < ReportController
   FIELDS = resources_fields
   TITLE = "FLEXlm Resource Usage"
 
   before_filter :set_department
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = @department.resources_report(report_options)
     handle_search_criteria :resource
-    respond_with_report
   end
+
 end

@@ -1,4 +1,4 @@
-class ExecutableUserReportController < TableController
+class ExecutableUserReportController < ReportController
   FIELDS = [id_field,
             username_field,
             first_name_field,
@@ -12,15 +12,13 @@ class ExecutableUserReportController < TableController
 
   before_filter :set_executable
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = User.executable_report(@executable.id, report_options)
     handle_search_criteria :username
     handle_search_criteria :group_name
     handle_search_criteria :college_name
-    respond_with_report
   end
 
 

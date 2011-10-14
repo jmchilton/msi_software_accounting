@@ -1,4 +1,4 @@
-class ResourceUserReportController < TableController
+class ResourceUserReportController < ReportController
   FIELDS = [id_field,
             username_field,
             first_name_field,
@@ -12,15 +12,13 @@ class ResourceUserReportController < TableController
 
   before_filter :set_resource
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = User.resource_report(@resource.id, report_options)
     handle_search_criteria :username
     handle_search_criteria :group_name
     handle_search_criteria :college_name
-    respond_with_report
   end
 
 

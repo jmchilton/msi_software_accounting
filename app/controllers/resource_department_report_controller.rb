@@ -1,4 +1,4 @@
-class ResourceDepartmentReportController < TableController
+class ResourceDepartmentReportController < ReportController
   FIELDS = [id_field,
             name_field,
             checkouts_field,
@@ -7,13 +7,11 @@ class ResourceDepartmentReportController < TableController
 
   before_filter :set_resource
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = Department.resource_report(@resource.id, report_options)
     handle_search_criteria :name
-    respond_with_report
   end
 
 

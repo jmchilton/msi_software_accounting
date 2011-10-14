@@ -8,10 +8,8 @@ class ExecutablesController < ApplicationController
 
   def index
     @rows = Executable
-    if perform_search?
-      @rows = @rows.where("identifier like ?", "%#{params[:identifier]}%").
-                    where("comment like ?", "%#{params[:comment]}%")
-    end
+    handle_search_criteria :identifier
+    handle_search_criteria :comment
     respond_with_table
   end
 

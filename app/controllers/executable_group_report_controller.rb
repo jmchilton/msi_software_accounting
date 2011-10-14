@@ -1,4 +1,4 @@
-class ExecutableGroupReportController < TableController
+class ExecutableGroupReportController < ReportController
   FIELDS = [id_field,
             group_name_field,
             checkouts_field,
@@ -7,13 +7,11 @@ class ExecutableGroupReportController < TableController
 
   before_filter :set_executable
 
-  def new
-  end
+  protected
 
-  def index
+  def build_rows
     @rows = Group.executable_report(@executable.id, report_options)
     handle_search_criteria :group_name
-    respond_with_report
   end
 
 end
