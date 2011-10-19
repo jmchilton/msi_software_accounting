@@ -8,38 +8,57 @@ describe Group do
   let(:records) { relation.all }
 
   describe "report" do
-    let(:relation) { Group.report() }
+    let(:relation) { Group.report(report_options) }
 
-    before(:each) {
-      @record1 = group_record ReportTestData::GROUP_ONE_NAME
-    }
+    describe "default options" do
+      let(:record1) { record_with_name ReportTestData::GROUP_ONE_NAME }
+      let(:report_options) { {} }
 
-    it "should sum purchase data of used resources" do
-      @record1[:fy10].should eql(200)
+      it "should sum purchase data of used resources" do
+        record1[:fy10].should eql(200)
+      end
+
+      it "not records for unused resources" do
+        group_record_unused = record_with_name ReportTestData::GROUP_NO_USE
+        group_record_unused.should be_nil
+      end
+
     end
 
-    it "should not sum purchases of unused resources" do
-      group_record_unused = group_record ReportTestData::GROUP_NO_USE
-      group_record_unused[:fy10].should be_nil
-    end
 
-    def group_record(group_name)
-      find_record { |record| record.name == group_name }
-    end
+    let(:tech_record) { find_record { |record| record.name == ReportTestData::TECH_GROUP_NAME } }
+    let(:non_tech_record) { find_record { |record| record.name == ReportTestData::NON_TECH_GROUP_NAME } }
 
+    it_should_behave_like "report that can exclude employees"
   end
 
+
+  let(:tech_record) { find_record { |record| record.group_name == ReportTestData::TECH_GROUP_NAME } }
+  let(:non_tech_record) { find_record { |record| record.group_name == ReportTestData::NON_TECH_GROUP_NAME } }
+
   describe "resource_report" do
-    let(:relation) { Group.resource_report(report_test_resource.id) }
+    let(:relation) { Group.resource_report(resource_id, report_options) }
 
-    it "should have record for group using resource" do
-      find_record { |record| record.group_name == ReportTestData::GROUP_ONE_NAME }.should_not be_nil
+    describe "default options" do
+      let(:resource_id) { report_test_resource.id }
+      let(:report_options) { {} }
+
+      it "should have record for group using resource" do
+        should_have_record  { |record| record.group_name == ReportTestData::GROUP_ONE_NAME }
+      end
+
+      it "should not have record for group not using resource" do
+        should_not_have_record { |record| record.group_name == ReportTestData::GROUP_NO_USE }
+      end
     end
 
-    it "should not have record for group not using resource" do
-      find_record { |record| record.group_name == ReportTestData::GROUP_NO_USE }.should be_nil
-    end
+    it_should_behave_like "report that can exclude employees"
+  end
 
+  describe "executable_report" do
+    let(:relation) { Group.executable_report(executable_id, report_options) }
+
+    it_should_behave_like "report that can exclude employees"
   end
 
   describe "msi_db_link" do

@@ -54,8 +54,9 @@ class EventType
   end
 
   private
+
   def self.event_types
-    Event.select("feature, vendor, min(evid) as evid, (select name from resources inner join executable on executable.rid = resources.id where identifier = feature) as resource_name").group("feature, vendor").order("evid")
+    Event.select("feature, vendor, min(evid) as evid, (select name from resources inner join executable on executable.rid = resources.id where identifier = feature) as resource_name").group("feature, vendor").order("vendor, feature")
   end
 
 

@@ -37,25 +37,43 @@ describe User do
   end
 
   describe "executables_report" do
-    before(:each) { setup_test_report_data }
-    let(:records) { relation.all }
-    let(:relation) { User.find_by_username(ReportTestData::USERNAME_1).executables_report() }
 
-    it "should have record for executable used" do
-      should_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }
-    end
+    describe "default options" do
+      before(:each) { setup_test_report_data }
+      let(:relation) { User.find_by_username(ReportTestData::USERNAME_1).executables_report() }
 
-    it "should not have record for unused executables" do
-      should_not_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_NO_USE }
-    end
+      it "should have record for executable used" do
+        should_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }
+      end
 
-    it "should have resource" do
-      find_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }.resource.should eql(ReportTestData::RESOURCE_NAME_1)
+      it "should not have record for unused executables" do
+        should_not_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_NO_USE }
+      end
+
+      it "should have resource" do
+        find_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }.resource.should eql(ReportTestData::RESOURCE_NAME_1)
+      end
+
     end
 
   end
 
+  let(:tech_record) { find_record { |record| record.username == ReportTestData::TECH_USERNAME } }
+  let(:non_tech_record) { find_record { |record| record.username == ReportTestData::NON_TECH_USERNAME } }
+
   describe "executable_report" do
+    let(:relation) { User.executable_report(executable_id, report_options) }
+
+    it_should_behave_like "report that can exclude employees"
+  end
+
+  describe "resource_report" do
+    let(:relation) { User.resource_report(resource_id, report_options) }
+
+    it_should_behave_like "report that can exclude employees"
+  end
+
+  describe "executable_report with fixtures" do # deprecated
      let(:report1) { User.executable_report(1) }
      let(:alices_record) { record_for(report1, 'alice') }
 
@@ -65,7 +83,7 @@ describe User do
 
   end
 
-  describe "resource_report" do
+  describe "resource_report with fixtures" do # deprecated
     let(:report1) { User.resource_report(1) }
     let(:alices_record) { record_for(report1, 'alice') }
 

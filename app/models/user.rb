@@ -19,17 +19,25 @@ class User < ReadOnlyModel
                                      LEFT JOIN colleges on colleges.id = department_colleges.college_id"
 
   def self.index
-    select("users.id, users.username, persons.first_name, persons.last_name, persons.email, groups.name as group_name").joins("LEFT JOIN persons on users.person_id = persons.id LEFT JOIN groups on groups.gid = users.gid")
+    select("users.id, users.username, persons.first_name, persons.last_name, persons.email, groups.name as group_name").
+      joins("LEFT JOIN persons on users.person_id = persons.id LEFT JOIN groups on groups.gid = users.gid")
   end
 
   def self.join_executables_sql(report_options)
-    "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username
+    "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username #{join_groups_str(report_options)}
      INNER JOIN executable ex on e.feature = ex.identifier"
   end
 
+  def self.join_groups_str(report_options, users_alias = "users")
+    join_groups_str = "" # By default no need to join groups
+    if report_options[:exclude_employees]
+      join_groups_str = "INNER JOIN groups ig on (ig.gid = #{users_alias}.gid and ig.name not in #{Group::EMPLOYEE_GROUPS})"
+    end
+    join_groups_str
+  end
 
   def self.user_to_executables_joins(join_users_on, report_options = {})
-    "INNER JOIN users u ON u.#{join_users_on}
+    "INNER JOIN users u ON u.#{join_users_on} #{join_groups_str(report_options, 'u')}
      INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = u.username
      INNER JOIN executable ex on e.feature = ex.identifier"
   end

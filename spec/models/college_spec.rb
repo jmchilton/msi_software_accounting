@@ -13,24 +13,57 @@ describe College do
     }
   end
 
+  let(:tech_record) { record_with_name ReportTestData::TECH_COLLEGE_NAME  }
+  let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_COLLEGE_NAME  }
+
   describe "resource_report" do
-    before(:each) { setup_test_report_data }
-    let(:records) { relation.all }
-    let(:relation) { College.resource_report(report_test_resource.id) }
+    let(:relation) { College.resource_report(resource_id, report_options) }
 
-    it "should have record for group using resource" do
-      find_record { |record| record.name == ReportTestData::COLLEGE_ONE_NAME }.should_not be_nil
+    describe "default options" do
+      before(:each) { setup_test_report_data }
+      let(:resource_id) { report_test_resource.id }
+      let(:report_options) { { } }
+
+
+      it "should have record for group using resource" do
+        should_have_record_with_name ReportTestData::COLLEGE_ONE_NAME
+      end
+
+      it "should not have record for group not using resource" do
+        should_not_have_record_with_name ReportTestData::COLLEGE_NO_USE
+      end
+
     end
 
-    it "should not have record for group not using resource" do
-      find_record { |record| record.name == ReportTestData::COLLEGE_NO_USE }.should be_nil
-    end
+    it_should_behave_like "report that can exclude employees"
 
+  end
+
+  describe "excutable_report" do
+    let(:relation) { College.executable_report(executable_id, report_options) }
+
+    it_should_behave_like "report that can exclude employees"
+
+  end
+
+  describe "resources_report" do
+    let(:relation) { College.find_by_name(ReportTestData::TECH_COLLEGE_NAME).resources_report(report_options) }
+    let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
+
+    it_should_behave_like "resource report that can exclude employees"
+  end
+
+  describe "executables_report" do
+    let(:relation) { College.find_by_name(ReportTestData::TECH_COLLEGE_NAME).executables_report(report_options) }
+    let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
+
+    it_should_behave_like "resource report that can exclude employees"
   end
 
 
 
-  describe "resources" do
+
+  describe "resources" do #deprecated
     let(:college_resources) { College.resources }
     
     specify "cfans should use 1 resource" do
@@ -61,8 +94,24 @@ describe College do
 
   end
 
+  describe "report" do
+    describe "excluding_employees_option" do
+      let(:relation) { College.report( report_options ) }
 
-  describe "reports" do
+      let(:tech_record) { college_record(ReportTestData::TECH_COLLEGE_NAME) }
+      let(:non_tech_record) { college_record(ReportTestData::NON_TECH_COLLEGE_NAME) }
+
+      it_should_behave_like "report that can exclude employees"
+
+    end
+
+  end
+
+  def college_record(name)
+    record_with_name name
+  end
+
+  describe "reports with fixtures" do # Deprecated
 
     describe "cfans report" do 
       let(:cfans_report) { College.report.first }

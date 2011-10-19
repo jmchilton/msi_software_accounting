@@ -15,11 +15,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def handle_search_criteria(field)
+  def handle_search_criteria(field, sql_column = nil)
+    if sql_column.nil?
+      sql_column = field.to_s
+    end
     if perform_search?
-      field_str = field.to_s
-      unless params[field].blank?
-        @rows = @rows.where("#{field_str} like ?", "%#{params[field]}%")
+      query = params[field]
+      unless query.blank?
+        @rows = @rows.where("#{sql_column} like ?", "%#{query}%")
       end
     end
   end
@@ -150,24 +153,37 @@ class ApplicationController < ActionController::Base
       key = field[:field]
       is_link = field[:link]
       if is_link
-
         @rows.each do |row|
-          expression = "#{field[:link_proc]}(row)"
-          value = eval(expression)
-          row[key] = value
+          row_id = row.id
+          if row_id.nil?
+            puts "Warning: Null row id for row #{row}"
+          else
+            expression = "#{field[:link_proc]}('#{row_id}')"
+            value = eval(expression)
+            row[key] = value
+          end
         end
       end
     end
   end
 
+  def get_relation_record_count(relation)
+    sql = "SELECT COUNT(*) as record_count FROM (#{@rows.to_sql}) as tmp" # postgres requires subselect to have alias
+    active_record_result = ActiveRecord::Base.connection.select_one(sql)
+    active_record_result["record_count"].to_i
+  end
+
+  def set_record_count
+    if @rows.is_a? ActiveRecord::Relation
+      @row_count = get_relation_record_count(@rows)
+    else
+      @row_count = @rows.count
+    end
+  end
+
   def process_rows(for_json = false)
     if for_json and @allow_pagination
-      if @rows.is_a? ActiveRecord::Relation
-        @row_count = ActiveRecord::Base.connection.select_one("SELECT COUNT(*) as count FROM (#{@rows.to_sql})").count
-      else
-        @row_count = @rows.count
-      end
-      #@row_count = @rows.count
+      set_record_count
     end
     if @allow_pagination
       @rows = with_pagination_and_ordering(@rows)
@@ -176,9 +192,8 @@ class ApplicationController < ActionController::Base
       @rows = @rows.all
       append_links_to_rows
     end
-
     if for_json and not @allow_pagination
-      @row_count = @rows.count
+      set_record_count
     end
   end
 

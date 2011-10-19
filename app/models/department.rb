@@ -17,8 +17,12 @@ class Department < ReadOnlyModel
                                      LEFT JOIN colleges on colleges.id = department_colleges.college_id"
 
   def self.join_executables_sql(report_options)
+    join_groups_str = "" # By default no need to join groups
+    if report_options[:exclude_employees]
+      join_groups_str = "INNER JOIN groups ig on (ig.gid = users.gid and ig.name not in #{Group::EMPLOYEE_GROUPS})"
+    end
     "INNER JOIN persons on persons.dept_id = departments.id
-     INNER JOIN users on users.person_id = persons.id
+     INNER JOIN users on users.person_id = persons.id  #{join_groups_str}
      INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username
      INNER JOIN executable ex on e.feature = ex.identifier"
   end
@@ -29,18 +33,19 @@ class Department < ReadOnlyModel
   end
 
   def self.resources(report_options = {})
-    select("departments.id, ex.rid").
-      joins(Department.persons_to_executables_joins(report_options)).
-      group("departments.id, ex.rid")
+    relation = select("departments.id, ex.rid").
+                 joins(Department.persons_to_executables_joins(report_options)).
+                 group("departments.id, ex.rid")
+    relation
   end
 
 
   def self.report(report_options = {})
-    relation = select("departments.name, #{Purchase::REPORT_SELECT_FIELDS}").
-               joins("left join (#{resources(report_options).to_aliased_sql('ic')}) dr on departments.id = dr.id
+    relation = select("departments.id, departments.name, #{Purchase::REPORT_SELECT_FIELDS}").
+               joins("inner join (#{resources(report_options).to_aliased_sql('ic')}) dr on departments.id = dr.id
                       #{Purchase.summary_left_join("dr.rid")}").
                order("departments.name ASC").
-               group("departments.name")
+               group("departments.id, departments.name")
     relation
   end
 

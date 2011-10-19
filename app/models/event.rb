@@ -15,9 +15,13 @@ class Event < ReadOnlyModel
   end
 
   def self.to_demographics_joins(report_options = {})
+    group_join_condition = "users.gid = groups.gid"
+    if report_options[:exclude_employees]
+      group_join_condition = "(#{group_join_condition} and groups.name not in #{Group::EMPLOYEE_GROUPS})"
+    end
     "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e on e.feature = executable.identifier
      INNER JOIN users on users.username = e.unam
-     LEFT JOIN groups on users.gid = groups.gid"
+     INNER JOIN groups on #{group_join_condition}"
   end
 
 end

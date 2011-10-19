@@ -9,7 +9,7 @@ class UsersController < TableController
     handle_search_criteria :first_name
     handle_search_criteria :last_name
     handle_search_criteria :email
-    handle_search_criteria :group_name
+    handle_search_criteria :group_name, "groups.name"
     respond_with_table
   end
 

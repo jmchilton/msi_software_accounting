@@ -1,8 +1,27 @@
 require 'spec_helper'
 
 describe Resource do
+  include ModelHelpers
+
+  it_should_behave_like "read only model"
 
   describe "report" do
+    let(:relation) { Resource.report(report_options) }
+
+    describe "excludes_employees option" do
+      before(:each) { ReportTestData.setup_two_resources }
+
+      let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_RESOURCE_NAME }
+      let(:tech_record) { record_with_name ReportTestData::TECH_RESOURCE_NAME }
+
+      it_should_behave_like "report that excludes employees"
+      it_should_behave_like "report that does not exclude employees"
+    end
+
+  end
+
+
+  describe "report with fixtures" do #deprecated
     let(:record1) { Resource.report.find_by_id(1)  }
 
     it "should include correct purchase totals" do

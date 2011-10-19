@@ -5,6 +5,7 @@ class Group < ReadOnlyModel
   set_primary_key "gid"
 
   USAGE_REPORT_FIELDS = "groups.gid as gid, groups.gid as id, groups.name as group_name, use_count"
+  EMPLOYEE_GROUPS = "('tech', 'support', 'swinst')"
 
   def self.resources(report_options)
     select("groups.gid, ex.rid").
@@ -14,7 +15,7 @@ class Group < ReadOnlyModel
 
   def self.report(report_options = {})
     relation = select("groups.name, groups.gid, #{Purchase::REPORT_SELECT_FIELDS}").
-               joins("left join (#{resources(report_options).to_aliased_sql('ic')}) gr on groups.gid = gr.gid
+               joins("inner join (#{resources(report_options).to_aliased_sql('ic')}) gr on groups.gid = gr.gid
                       #{Purchase.summary_left_join("gr.rid")}").
                order("groups.name ASC").
                group("groups.name, groups.gid")
