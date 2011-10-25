@@ -251,7 +251,7 @@ class ApplicationController < ActionController::Base
       headers["Content-Type"] ||= 'text/csv'
       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
     end
-
+    @csv_fields = @fields.find_all { |field| field[:field] != "link" }
     render :template => '/spreadsheet', :layout => false
   end
 

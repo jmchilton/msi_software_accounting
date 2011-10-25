@@ -1,7 +1,9 @@
 <% require 'faster_csv' %>
-<%= @fields.map{ |field| field[:label] }.join(",") %>
+<%= @csv_fields.map{ |field| field[:label] }.join(",") %>
 <%= FasterCSV.generate do |csv|
     @rows.each do |row|
-      csv << @fields.map { |field| cell_value(field, row) }
+      csv << @csv_fields.map do |field|
+         cell_value(field, row)
+      end
     end
 end %>

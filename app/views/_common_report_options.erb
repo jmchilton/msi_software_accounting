@@ -8,6 +8,10 @@
       both options may be left empty.
     </p>
     <%= render :partial => '/date_options' %>
+    <p class="form_item">
+      <label for="exclude_employees">Exclude Employees (tech, support, and swinst groups)</label>
+      <%= check_box_tag("exclude_employees", value = "1", checked = session[:exclude_employees] || false) %>
+    </p>
     <%= submit_tag("Build Report", :id => 'build_report_button') %>
   </fieldset>
 <% end %>

@@ -8,7 +8,8 @@ class TableController < ApplicationController
   end
 
   def report_options
-    {:from => params[:from], :to => params[:to]}
+    exclude_employees = !(params[:exclude_employees].blank? or params[:exclude_employees].to_i.zero?)
+    {:from => params[:from], :to => params[:to], :exclude_employees => exclude_employees }
   end
 
   def handle_executables_search_criteria
