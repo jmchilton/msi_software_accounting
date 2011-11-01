@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/nicksieger/ci_reporter.git
+  revision: af8674c7bddc338fad228c566a03e3b8188d8a22
+  specs:
+    ci_reporter (1.6.5)
+      builder (>= 2.1.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -45,8 +52,6 @@ GEM
     childprocess (0.2.0)
       ffi (~> 1.0.6)
     chunky_png (1.2.1)
-    ci_reporter (1.6.5)
-      builder (>= 2.1.2)
     compass (0.11.5)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -151,7 +156,7 @@ DEPENDENCIES
   assembly_line
   basic_model
   capybara
-  ci_reporter
+  ci_reporter!
   compass
   factory_girl_rails
   fastercsv

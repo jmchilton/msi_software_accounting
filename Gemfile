@@ -65,5 +65,5 @@ group :test do
   gem 'factory_girl_rails'
   gem "capybara"
   gem "rspec-rails", ">= 2"
-  gem "ci_reporter"
+  gem "ci_reporter", :git => "git://github.com/nicksieger/ci_reporter.git"
 end
