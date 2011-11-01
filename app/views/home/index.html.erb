@@ -4,26 +4,27 @@
   Welcome to the MSI software accounting web application. Right now this site produces reports of software (resource)
   usage based on logs from MSI's primary FLEXlm server. In the future we hope to aggregate data from other sources
   (additional FLEXlm servers, collectl to track UNIX software not utilizing FLEXlm, and yet to be determined sources
-  for licensed Windows software.) This will hopefully allow us to provide a more complete picture of software usage
+  for licensed Windows software). This will hopefully allow us to provide a more complete picture of software usage
   at MSI.
 </p>
 
 <p>
-  This site may be navigated using the links on the left side of this page. Each report may be restricted to a specific
-  date range.
+  This site may be navigated using the links on the left side of this page.
 </p>
 <p>
   The <%= link_to "resources FLEXlm report", new_resources_report_path %> will produce a table of each tracked resource
   along with the number of distinct users and groups of this resource along with the per year cost of the resource.
 </p>
 <p>
-  The <%= link_to "college FLEXlm report", new_colleges_report_path %> will produce a table a table with one row for each
-  college, along with the number of tracked resources used by people from that college, and the
-  total per year cost of the resources used by people from that college.
+  The <%= link_to "colleges", new_colleges_report_path %>, <%= link_to "departments", new_departments_report_path %>, and
+  <%= link_to "groups", new_groups_report_path %> FLEXlm reports will produce a table a table with one row for each
+  college, department or group respectively, along with the number of tracked resources used by people from that unit,
+  and the total per year cost of the resources used.
 </p>
 <p>
   The <%= link_to "navigate resources", resources_path %> link may be used to select an individual resource.
-  Once a resource has been selected, a report may be generated that contains one row for each user of that resource,
-  along with the user's group, and the number of times the user has checked the resource out of FLEXlm.
+  Once a resource has been selected, a report may be generated that describes the users, groups, departments, or colleges
+  that are using that resource. You can also <%= link_to "navigate FLEXlm features", executables_path %> to build these
+  reports for a particular FLEXlm feature instead of a resource.
 </p>
 

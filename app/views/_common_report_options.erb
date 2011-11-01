@@ -3,21 +3,17 @@
     <legend>
       Report Options
     </legend>
-    <p>
-      Use the following options to constrain the usage data under consideration to a specific date range, either or
-      both options may be left empty.
-    </p>
     <%= render :partial => '/date_options' %>
     <% if local_assigns[:exclude_employees_option].nil? or local_assigns[:exclude_employees_option] %>
-    <p class="form_item">
-      <label for="exclude_employees">Exclude Employees (tech, support, and swinst groups)</label>
-      <%= check_box_tag("exclude_employees", value = "1", checked = session[:exclude_employees] || false) %>
+    <p class="form_item"  title="Exclude users belonging to the tech, support, and swinst groups from this report.">
+      <label for="exclude_employees">Exclude Employees</label>
+      <%= check_box_tag("exclude_employees", value = "1", checked = session[:last_exclude_employees] || false) %>
     </p>
     <% end %>
     <% if not (local_assigns[:limit_users_option].nil?) and (local_assigns[:limit_users_option]) %>
-    <p class="form_item">
-      <label for="limit_users">Limit Users (specify usernames to consider)</label>
-      <%= text_area_tag("limit_users", value = session[:limit_users] || "") %>
+    <p class="form_item"  title="Limit report to the specified users with the specified usernames (if any).">
+      <label for="limit_users">Limit Users</label>
+      <%= text_area_tag("limit_users", value = session[:last_limit_users] || "") %>
     </p>
     <% end %>
     <%= submit_tag("Build Report", :id => 'build_report_button') %>

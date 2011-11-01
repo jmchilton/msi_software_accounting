@@ -1,5 +1,5 @@
 class TableController < ApplicationController
-  before_filter :set_last_date_range
+  before_filter :save_report_options
 
   protected
 
@@ -55,15 +55,16 @@ class TableController < ApplicationController
       fy_13_field]
   end
 
-  def set_last_date_range
-    if not params[:from].nil?
-      session[:last_from] = params[:from]
+  def save_report_option(option)
+    if not params[option].nil?
+      session["last_#{option}".to_sym] = params[option]
     end
+  end
 
-    if not params[:to].nil?
-      session[:last_to] = params[:to]
+  def save_report_options
+    [:from, :to, :exclude_employees, :limit_users].each do |option|
+      save_report_option option
     end
-
   end
 
   before_filter :set_parent
