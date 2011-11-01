@@ -25,11 +25,11 @@ describe College do
       let(:report_options) { { } }
 
 
-      it "should have record for group using resource" do
+      it "has record for groups using resource" do
         should_have_record_with_name ReportTestData::COLLEGE_ONE_NAME
       end
 
-      it "should not have record for group not using resource" do
+      it "has no record for group not using resource" do
         should_not_have_record_with_name ReportTestData::COLLEGE_NO_USE
       end
 

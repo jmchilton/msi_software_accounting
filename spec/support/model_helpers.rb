@@ -60,7 +60,30 @@ module ModelHelpers
       specify { tech_record.should be_nil }
       specify { non_tech_record.should_not be_nil }
     end
+  end
 
+  shared_examples_for "report that can limit users" do
+
+    it_should_behave_like "report that limits users"
+    it_should_behave_like "report that does not limit users"
+  end
+
+  shared_examples_for "report that limits users" do
+    describe "limits to tech" do
+      let(:report_options) { { :limit_users =>  [ReportTestData::TECH_USERNAME] } }
+
+      specify { tech_record.should_not be_nil }
+      specify { non_tech_record.should be_nil }
+    end
+  end
+
+  shared_examples_for "report that does not limit users" do
+    describe "does not limit" do
+      let(:report_options) { { :limit_users => nil } }
+
+      specify { tech_record.should_not be_nil }
+      specify { non_tech_record.should_not be_nil }
+    end
   end
 
 

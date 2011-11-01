@@ -4,9 +4,7 @@ describe "resource_user_report/new.html.erb" do
   include ViewHelpers
 
   before(:each) {
-    resource = assign(:resource, FactoryGirl.create(:resource))
-    path_parameters[:resource_id] = resource.id
-    render
+    render_mock :resource
   }
 
   specify { it_should_render_report_options }

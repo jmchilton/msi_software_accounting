@@ -84,11 +84,29 @@ class ReportTestData
     resource_tech = FactoryGirl.create(:resource, :name => TECH_RESOURCE_NAME)
     resource_non_tech = FactoryGirl.create(:resource, :name => NON_TECH_RESOURCE_NAME)
 
-    user_non_tech = quick_user(NON_TECH_USERNAME, NON_TECH_GROUP_NAME, NON_TECH_DEPARTMENT_NAME, NON_TECH_COLLEGE_NAME)
-    user_tech = quick_user(TECH_USERNAME, TECH_GROUP_NAME, TECH_DEPARTMENT_NAME, TECH_COLLEGE_NAME)
+    user_non_tech, user_tech = setup_tech_and_non_tech_users
 
     exec_tech = FactoryGirl.create(:executable,  :resource => resource_tech, :identifier => TECH_EXECUTABLE_IDENTIFIER)
     exec_non_tech = FactoryGirl.create(:executable,  :resource => resource_non_tech, :identifier => NON_TECH_EXECUTABLE_IDENTIFIER)
+
+    FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec_non_tech)
+    FactoryGirl.create(:event, :process_user => user_tech, :executable => exec_tech)
+  end
+
+
+  def self.setup_tech_and_non_tech_users
+    user_non_tech = quick_user(NON_TECH_USERNAME, NON_TECH_GROUP_NAME, NON_TECH_DEPARTMENT_NAME, NON_TECH_COLLEGE_NAME)
+    user_tech = quick_user(TECH_USERNAME, TECH_GROUP_NAME, TECH_DEPARTMENT_NAME, TECH_COLLEGE_NAME)
+    return user_non_tech, user_tech
+  end
+
+  def self.setup_two_executables # Creates a resource with two executables, one that is used by user in tech group and one by user in non-tech group
+    resource = FactoryGirl.create(:resource, :name => USED_TWICE_RESOURCE_NAME)
+
+    user_non_tech, user_tech = setup_tech_and_non_tech_users
+
+    exec_tech = FactoryGirl.create(:executable,  :resource => resource, :identifier => TECH_EXECUTABLE_IDENTIFIER)
+    exec_non_tech = FactoryGirl.create(:executable,  :resource => resource, :identifier => NON_TECH_EXECUTABLE_IDENTIFIER)
 
     FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec_non_tech)
     FactoryGirl.create(:event, :process_user => user_tech, :executable => exec_tech)

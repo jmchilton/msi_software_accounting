@@ -9,5 +9,5 @@ describe "executables_plot/new.html.erb" do
     render
   }
 
-  specify { it_should_render_report_options }
+  specify { it_should_render_plot_options }
 end

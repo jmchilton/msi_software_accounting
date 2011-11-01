@@ -13,9 +13,18 @@ describe Executable do
 
       it_should_behave_like "resource report that can exclude employees"
 
-
     end
 
+    describe "limit_users option" do
+      let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME) }
+
+      let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_EXECUTABLE_IDENTIFIER }
+      let(:tech_record) { record_with_name ReportTestData::TECH_EXECUTABLE_IDENTIFIER }
+
+      before(:each) { ReportTestData.setup_two_executables }
+
+      it_should_behave_like "report that can limit users"
+    end
 
     describe "default options" do
       let(:report_options) { {} }
@@ -51,4 +60,6 @@ describe Executable do
     end
 
   end
+
+
 end

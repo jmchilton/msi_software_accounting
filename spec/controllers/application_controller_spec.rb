@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe ApplicationController do
 
+
   describe "shared fields" do
 
     specify { ApplicationController.fy_10_field[:field].should == "fy10" }

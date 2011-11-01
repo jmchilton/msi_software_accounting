@@ -15,6 +15,12 @@ module ViewHelpers
     page.find(:xpath, "//a[@href='#{to}' and @class='model_link']").should have_content(title)
   end
 
+  def render_mock(type)
+    object = assign(type, FactoryGirl.create(type))
+    path_parameters["#{type}_id".to_sym] = object.id
+    render
+  end
+
   def setup_test_chart_data
     chart_data = TimeFlot.new(ApplicationController::DEFAULT_CHART_ID) do |f|
       f.lines
@@ -36,9 +42,29 @@ module ViewHelpers
     page.find("h1").text.should eql(text)
   end
 
-  def it_should_render_report_options
+  def it_should_render_date_options
     page.find("input[name=from]").should_not be_nil
     page.find("input[name=to]").should_not be_nil
+  end
+
+  def it_should_render_report_options(optional_args = {})
+    it_should_render_date_options
+    optional_args.reverse_merge!({:exclude_employees => true, :limit_users => false})
+    should_find(optional_args[:exclude_employees], "input[name=exclude_employees]")
+    should_find(optional_args[:limit_users], "textarea[name=limit_users]")
+  end
+
+  def should_find(whether_should_find, css_selector)
+    if whether_should_find
+      page.find(css_selector).should_not be_nil
+    else
+      lambda { page.find(css_selector) }.should raise_error
+    end
+
+  end
+
+  def it_should_render_plot_options(optional_args = {})
+    it_should_render_date_options
   end
 
   def it_should_render_a_chart

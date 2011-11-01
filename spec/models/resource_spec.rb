@@ -8,14 +8,18 @@ describe Resource do
   describe "report" do
     let(:relation) { Resource.report(report_options) }
 
+    let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_RESOURCE_NAME }
+    let(:tech_record) { record_with_name ReportTestData::TECH_RESOURCE_NAME }
+
+    before(:each) { ReportTestData.setup_two_resources }
+
     describe "excludes_employees option" do
-      before(:each) { ReportTestData.setup_two_resources }
-
-      let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_RESOURCE_NAME }
-      let(:tech_record) { record_with_name ReportTestData::TECH_RESOURCE_NAME }
-
       it_should_behave_like "report that excludes employees"
       it_should_behave_like "report that does not exclude employees"
+    end
+
+    describe "limit_users options" do
+      it_should_behave_like "report that can limit users"
     end
 
   end
