@@ -1,5 +1,4 @@
 class FlexlmAppSnapshot < ReadOnlyModel
-
   set_table_name "flexlm_app_snapshots"
 
   belongs_to :executable, :foreign_key => "feature", :primary_key => "identifier", :class_name => 'Executable'

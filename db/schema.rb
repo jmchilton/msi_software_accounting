@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110926202810) do
+ActiveRecord::Schema.define(:version => 20111102170451) do
+
+  create_table "collectl_executions", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "pid"
+    t.string   "host"
+    t.integer  "executable_id"
+    t.integer  "user_id"
+  end
 
   create_table "colleges", :force => true do |t|
     t.string   "name"
@@ -93,6 +102,15 @@ ActiveRecord::Schema.define(:version => 20110926202810) do
     t.integer "fy11"
     t.integer "fy12"
     t.integer "fy13"
+  end
+
+  create_table "raw_collectl_executions", :force => true do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "pid"
+    t.integer  "uid"
+    t.string   "executable"
+    t.string   "host"
   end
 
   create_table "resources", :force => true do |t|
