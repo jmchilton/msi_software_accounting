@@ -2,11 +2,10 @@ require 'spec_helper'
 
 describe Indexer do
   describe "index_raw_records" do
-    it "should not fail" do
+    it "should not index collectl records" do
+      CollectlExecution.should_receive(:index_raw_records)
       Indexer.index_raw_records
     end
-
-    pending "put actual test in here"
 
   end
 end

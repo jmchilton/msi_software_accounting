@@ -10,15 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111102170451) do
+ActiveRecord::Schema.define(:version => 20111103204833) do
+
+  create_table "collectl_executables", :force => true do |t|
+    t.string  "name"
+    t.integer "resource_id"
+  end
 
   create_table "collectl_executions", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "pid"
     t.string   "host"
-    t.integer  "executable_id"
     t.integer  "user_id"
+    t.integer  "collectl_executable_id"
   end
 
   create_table "colleges", :force => true do |t|
@@ -130,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20111102170451) do
     t.datetime "updated_at"
     t.integer  "person_id"
     t.integer  "gid"
+    t.integer  "uid"
   end
 
 end

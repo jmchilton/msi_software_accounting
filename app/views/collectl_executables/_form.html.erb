@@ -1,0 +1,21 @@
+<%= form_for(@colleclt_executable) do |f| %>
+  <% if @collectl_executable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collectl_executable.errors.count, "error") %> prohibited this executable from being saved:</h2>
+
+      <ul>
+      <% @collectl_executable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

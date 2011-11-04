@@ -141,7 +141,7 @@ module TableHelpers
 
   shared_examples_for "standard model GET index" do
     before(:each) {
-      get :index
+      get :index, index_params_if_set
     }
 
     specify { it_should_respond_successfully_with_paginating_table }

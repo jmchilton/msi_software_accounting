@@ -5,6 +5,15 @@ end
 
 FactoryGirl.define do
 
+  factory :raw_collectl_execution do
+    start_time Time.now - 1.day
+    end_time Time.now - 2.days
+    sequence(:host) { |index| "Host#{index}"}
+    sequence(:pid) { |index| 1000 + index }
+
+    readonly
+  end
+
   factory :flexlm_app_snapshot do
     for_date Time.now
     association :executable, :factory => :executable
@@ -63,6 +72,10 @@ FactoryGirl.define do
   factory :executable, :class => Executable do
     sequence(:identifier) { |index| "feature #{index}" }
     sequence(:comment) { |index| "comment #{index}" }
+  end
+
+  factory :collectl_executable, :class => CollectlExecutable do
+    sequence(:name) { |index| "exectuable_#{index}" }
   end
 
 end
