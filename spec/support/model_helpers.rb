@@ -16,7 +16,7 @@ module ModelHelpers
 
   end
 
-  share_examples_for "resource report that can exclude employees" do
+  share_examples_for "flexlm resource report that can exclude employees" do
     before(:each) { ReportTestData.setup_two_resources }
 
       describe "excluding employees" do
@@ -33,27 +33,44 @@ module ModelHelpers
       end
   end
 
-  shared_examples_for "report that can exclude employees" do
-    before(:each) { setup_test_used_twice_data }
+  shared_examples_for "collectl report that can exclude employees" do
+    before(:each) { setup_test_used_twice_data(:flexlm => false) }
+    let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME).id }
+    let(:collectl_executable_id) { CollectlExecutable.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
+
+    it_should_behave_like "collectl report that does not exclude employees"
+  end
+
+  shared_examples_for "collectl report that does not exclude employees" do
+    describe "not excluding employees" do
+      let(:report_options) { {:data_source => :collectl, :exclude_employees => false } }
+
+      specify { tech_record.should_not be_nil }
+      specify { non_tech_record.should_not be_nil }
+    end
+  end
+
+
+  shared_examples_for "flexlm report that can exclude employees" do
+    before(:each) { setup_test_used_twice_data(:collectl => false) }
     let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME).id }
     let(:executable_id) { Executable.find_by_identifier(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).exid }
 
-    it_should_behave_like "report that excludes employees"
-    it_should_behave_like "report that does not exclude employees"
+    it_should_behave_like "flexlm report that excludes employees"
+    it_should_behave_like "flexlm report that does not exclude employees"
 
   end
 
-  shared_examples_for "report that does not exclude employees" do
+  shared_examples_for "flexlm report that does not exclude employees" do
     describe "not excluding employees" do
       let(:report_options) { { :exclude_employees => false } }
 
       specify { tech_record.should_not be_nil }
       specify { non_tech_record.should_not be_nil }
     end
-
   end
 
-  shared_examples_for "report that excludes employees" do
+  shared_examples_for "flexlm report that excludes employees" do
     describe "excluding employees" do
       let(:report_options) { { :exclude_employees => true } }
 
@@ -62,13 +79,13 @@ module ModelHelpers
     end
   end
 
-  shared_examples_for "report that can limit users" do
+  shared_examples_for "flexlm report that can limit users" do
 
-    it_should_behave_like "report that limits users"
-    it_should_behave_like "report that does not limit users"
+    it_should_behave_like "flexlm report that limits users"
+    it_should_behave_like "flexlm report that does not limit users"
   end
 
-  shared_examples_for "report that limits users" do
+  shared_examples_for "flexlm report that limits users" do
     describe "limits to tech" do
       let(:report_options) { { :limit_users =>  [ReportTestData::TECH_USERNAME] } }
 
@@ -77,7 +94,7 @@ module ModelHelpers
     end
   end
 
-  shared_examples_for "report that does not limit users" do
+  shared_examples_for "flexlm report that does not limit users" do
     describe "does not limit" do
       let(:report_options) { { :limit_users => nil } }
 
@@ -137,8 +154,8 @@ module ModelHelpers
     ReportTestData.setup_medical_resources_and_events
   end
 
-  def setup_test_used_twice_data
-    ReportTestData.setup_used_twice_resource
+  def setup_test_used_twice_data(*args)
+    ReportTestData.setup_used_twice_resource(*args)
   end
 
 end

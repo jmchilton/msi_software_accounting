@@ -24,8 +24,13 @@ class User < ReadOnlyModel
   end
 
   def self.join_executables_sql(report_options)
-    "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username #{join_groups_str(report_options)}
-     INNER JOIN executable ex on e.feature = ex.identifier"
+    if report_options[:data_source] == :collectl
+      "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e ON e.user_id = users.id #{join_groups_str(report_options)}
+       INNER JOIN collectl_executables ex on e.collectl_executable_id = ex.id"
+    else
+      "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username #{join_groups_str(report_options)}
+       INNER JOIN executable ex on e.feature = ex.identifier"
+    end
   end
 
   def self.join_groups_str(report_options, users_alias = "users")

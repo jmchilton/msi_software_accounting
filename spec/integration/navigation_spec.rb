@@ -1,15 +1,18 @@
 require 'spec_helper'
+require 'integration/integration_helpers'
 
 feature "Index Page", %q{
   In order to navigate the site
   As any user
   I want to see links for relevant sections
 } do
+  include IntegrationHelpers
+
   background do
   end
 
   scenario "Navigate to software report" do
-    visit '/'
+    visit_home
     within("#links-flexlm-reports") do
       click_link('Resources')
     end
@@ -17,7 +20,7 @@ feature "Index Page", %q{
   end
 
   def can_visit_models_report(link_name, model_name)
-    visit '/'
+    visit_home
     within('#links-flexlm-reports') do
       click_link(link_name)
     end
@@ -37,20 +40,17 @@ feature "Index Page", %q{
   end
 
   scenario "Navigate to resources" do
-    visit '/'
-    within("#links-navigate") do
-      click_link('Resources')
-    end
+    visit_navigate_resources
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
     click_link('Build Per User FLEXlm Usage Report')
-    click_button("Build Report")
+    build_report
     page.should have_content("alice") # Alice uses resource 1
   end
 
   scenario "Navigate to FLEXlm Features" do
-    visit '/'
+    visit_home
     within("#links-navigate") do
       click_link('FLEXlm Features')
     end
@@ -58,7 +58,7 @@ feature "Index Page", %q{
   end
 
   specify "Navigate to add purchase" do
-    visit '/'
+    visit_home
     within('#links-manage') do
       click_link('Purchases')
     end
@@ -68,21 +68,18 @@ feature "Index Page", %q{
   end
 
   specify "Navigate to feature report" do
-    visit '/'
-    within("#links-navigate") do
-      click_link('Resources')
-    end
+    visit_navigate_resources
     current_path.should eql(resources_path)
     click_link('View')
     current_path.should eql(resource_path(1))
     click_link('Build FLEXlm Feature Report')
     current_path.should eql(new_resource_executables_report_path(1))
-    click_button("Build Report")
+    build_report
     current_path.should eql(resource_executables_report_index_path(1))
   end
 
   specify "Navigate to edit flexlm mapping" do
-    visit '/'
+    visit_home
     within('#links-manage') do
       click_link('FLEXlm Mapping')
     end
@@ -93,7 +90,7 @@ feature "Index Page", %q{
     visit new_resources_report_path
     fill_in('From', :with => '12-05-2011')
     fill_in('To', :with => '12-05-2012')
-    click_button("Build Report")
+    build_report
     visit new_colleges_report_path
     find_field('From').value.should == '12-05-2011'
     find_field('To').value.should == '12-05-2012'

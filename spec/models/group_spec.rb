@@ -29,7 +29,7 @@ describe Group do
     let(:tech_record) { find_record { |record| record.name == ReportTestData::TECH_GROUP_NAME } }
     let(:non_tech_record) { find_record { |record| record.name == ReportTestData::NON_TECH_GROUP_NAME } }
 
-    it_should_behave_like "report that can exclude employees"
+    it_should_behave_like "flexlm report that can exclude employees"
   end
 
 
@@ -52,13 +52,13 @@ describe Group do
       end
     end
 
-    it_should_behave_like "report that can exclude employees"
+    it_should_behave_like "flexlm report that can exclude employees"
   end
 
   describe "executable_report" do
     let(:relation) { Group.executable_report(executable_id, report_options) }
 
-    it_should_behave_like "report that can exclude employees"
+    it_should_behave_like "flexlm report that can exclude employees"
   end
 
   describe "msi_db_link" do

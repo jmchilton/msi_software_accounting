@@ -2,36 +2,42 @@
 
 user_bob:
   id: 1
+  uid: 1001
   username: bob
   person_id: 1
   gid: 1
 
 user_alice:
   id: 2
+  uid: 1002
   username: alice
   person_id: 2
   gid: 2
 
 user_carl:
   id: 3
+  uid: 1003
   username: carl
   person_id: 3
   gid: 2
 
 user_carl2: # Second user for same person
   id: 4
+  uid: 1004
   username: carl2
   person_id: 3
   gid: 3
 
 user_alyssa: 
   id: 5
+  uid: 1005
   username: alyssa
   person_id: 4
   gid: 4
 
 user_shelly: # Uses only rareapp
   id: 6
+  uid: 1006
   username: shelly
   person_id: 5
   gid: 5

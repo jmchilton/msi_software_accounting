@@ -1,4 +1,4 @@
-SoftwareWebApp::Application.routes.draw do
+  SoftwareWebApp::Application.routes.draw do
 
   def report_resources(name)
     resources name, :only => [:new, :index]

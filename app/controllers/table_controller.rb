@@ -16,7 +16,16 @@ class TableController < ApplicationController
     else
       limit_users_list = nil
     end
-    {:from => params[:from], :to => params[:to], :exclude_employees => exclude_employees, :limit_users => limit_users_list }
+    data_source = :flexlm
+    if (!params[:data_source].blank?) and params[:data_source] == "collectl"
+      data_source = :collectl
+    end
+    {:from => params[:from],
+     :to => params[:to],
+     :exclude_employees => exclude_employees,
+     :limit_users => limit_users_list,
+     :data_source => data_source
+    }
   end
 
   def handle_executables_search_criteria

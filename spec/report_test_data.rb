@@ -110,18 +110,31 @@ class ReportTestData
 
     FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec_non_tech)
     FactoryGirl.create(:event, :process_user => user_tech, :executable => exec_tech)
+
+
   end
 
-  def self.setup_used_twice_resource # one used by tech, one used by non tech
+  def self.setup_used_twice_resource(options = {}) # one used by tech, one used by non tech
+    options.reverse_merge!({:collectl => true, :flexlm => true})
     resource_1 = FactoryGirl.create(:resource, :name => USED_TWICE_RESOURCE_NAME)
 
     user_non_tech = quick_user(NON_TECH_USERNAME, NON_TECH_GROUP_NAME, NON_TECH_DEPARTMENT_NAME, NON_TECH_COLLEGE_NAME)
     user_tech = quick_user(TECH_USERNAME, TECH_GROUP_NAME, TECH_DEPARTMENT_NAME, TECH_COLLEGE_NAME)
 
-    exec1 = FactoryGirl.create(:executable,  :resource => resource_1, :identifier => USED_TWICE_EXECUTABLE_IDENTIFIER)
+    unless not options[:flexlm]
+      exec1 = FactoryGirl.create(:executable,  :resource => resource_1, :identifier => USED_TWICE_EXECUTABLE_IDENTIFIER)
 
-    FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec1)
-    FactoryGirl.create(:event, :process_user => user_tech, :executable => exec1)
+      FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec1)
+      FactoryGirl.create(:event, :process_user => user_tech, :executable => exec1)
+    end
+
+    unless not options[:collectl]
+      collectl_executable = FactoryGirl.create(:collectl_executable, :resource => resource_1, :name => USED_TWICE_EXECUTABLE_IDENTIFIER)
+
+      FactoryGirl.create(:collectl_execution, :user => user_non_tech, :collectl_executable => collectl_executable)
+      FactoryGirl.create(:collectl_execution, :user => user_tech, :collectl_executable => collectl_executable)
+    end
+
   end
 
 end

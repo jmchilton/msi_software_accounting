@@ -13,35 +13,19 @@ class ExecutablesController < ApplicationController
     respond_with_table
   end
 
-  # GET /executables/1
-  # GET /executables/1.xml
   def show
-    @executable = Executable.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @executable }
-    end
+    find_and_show(Executable)
   end
 
-  # GET /executables/new
-  # GET /executables/new.xml
   def new
     @executable = Executable.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @executable }
-    end
+    show_object(@executable)
   end
 
-  # GET /executables/1/edit
   def edit
     @executable = Executable.find(params[:id])
   end
 
-  # POST /executables
-  # POST /executables.xml
   def create
     @executable = Executable.new(params[:executable])
 
@@ -56,8 +40,6 @@ class ExecutablesController < ApplicationController
     end
   end
 
-  # PUT /executables/1
-  # PUT /executables/1.xml
   def update
     @executable = Executable.find(params[:id])
 
@@ -72,8 +54,6 @@ class ExecutablesController < ApplicationController
     end
   end
 
-  # DELETE /executables/1
-  # DELETE /executables/1.xml
   def destroy
     @executable = Executable.find(params[:id])
     @executable.destroy

@@ -18,6 +18,7 @@ describe "resources/show.html.erb" do
 
   specify { it_should_have_model_link "Build Per User FLEXlm Usage Report", new_resource_resource_user_report_path(@resource.id) }
   specify { it_should_have_model_link "Build FLEXlm Feature Report", new_resource_executables_report_path(@resource.id) }
+  specify { it_should_have_model_link "Manage Collectl Executables",resource_collectl_executables_path(@resource.id) }
   specify { it_should_have_model_link "View on MSI DB", @resource.msi_db_link }
   specify { it_should_have_model_link "Back to Resource Index", resources_path  }
 

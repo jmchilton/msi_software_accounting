@@ -3,4 +3,12 @@ class CollectlExecutable < ActiveRecord::Base
 
   belongs_to :resource, :foreign_key => "resource_id"
 
+  after_save :index
+
+  private
+
+  def index
+    CollectlExecution.index_raw_records(self.id)
+  end
+
 end

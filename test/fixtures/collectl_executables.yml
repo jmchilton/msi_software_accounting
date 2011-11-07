@@ -1,0 +1,4 @@
+collectl_executable_1:
+  id: 1
+  name: resource1.exe
+  resource_id: 1

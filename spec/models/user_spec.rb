@@ -64,14 +64,16 @@ describe User do
   describe "executable_report" do
     let(:relation) { User.executable_report(executable_id, report_options) }
 
-    it_should_behave_like "report that can exclude employees"
+    it_should_behave_like "flexlm report that can exclude employees"
   end
 
   describe "resource_report" do
     let(:relation) { User.resource_report(resource_id, report_options) }
 
-    it_should_behave_like "report that can exclude employees"
+    it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "collectl report that can exclude employees"
   end
+
 
   describe "executable_report with fixtures" do # deprecated
      let(:report1) { User.executable_report(1) }

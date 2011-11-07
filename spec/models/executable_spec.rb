@@ -11,7 +11,7 @@ describe Executable do
       let(:resource_id) { Resource.find_by_name(ReportTestData::TECH_RESOURCE_NAME).id }
       let(:tech_record) { record_with_name ReportTestData::TECH_EXECUTABLE_IDENTIFIER }
 
-      it_should_behave_like "resource report that can exclude employees"
+      it_should_behave_like "flexlm resource report that can exclude employees"
 
     end
 
@@ -23,7 +23,7 @@ describe Executable do
 
       before(:each) { ReportTestData.setup_two_executables }
 
-      it_should_behave_like "report that can limit users"
+      it_should_behave_like "flexlm report that can limit users"
     end
 
     describe "default options" do

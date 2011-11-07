@@ -5,6 +5,15 @@ end
 
 FactoryGirl.define do
 
+  factory :collectl_execution do
+    start_time Time.now - 1.day
+    end_time Time.now - 2.days
+    sequence(:host) { |index| "Host#{index}"}
+    sequence(:pid) { |index| 1000 + index }
+
+    readonly
+  end
+
   factory :raw_collectl_execution do
     start_time Time.now - 1.day
     end_time Time.now - 2.days
@@ -37,6 +46,7 @@ FactoryGirl.define do
 
   factory :user, :class => User do
     sequence(:username) { |index| "user #{index}"  }
+    sequence(:uid) { |index| 20000 + index }
     readonly
   end
 

@@ -14,12 +14,12 @@ describe Resource do
     before(:each) { ReportTestData.setup_two_resources }
 
     describe "excludes_employees option" do
-      it_should_behave_like "report that excludes employees"
-      it_should_behave_like "report that does not exclude employees"
+      it_should_behave_like "flexlm report that excludes employees"
+      it_should_behave_like "flexlm report that does not exclude employees"
     end
 
     describe "limit_users options" do
-      it_should_behave_like "report that can limit users"
+      it_should_behave_like "flexlm report that can limit users"
     end
 
   end

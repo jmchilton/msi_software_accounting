@@ -8,41 +8,45 @@ module HasUsageReports
     end
 
     def join_resources_sql(report_options, join_type = "INNER")
-      "#{join_executables_sql(report_options)} #{join_type} JOIN resources r on ex.rid = r.id"
+      if report_options[:data_source] == :collectl
+        resource_field = "resource_id"
+      else
+        resource_field = "rid"
+      end
+      "#{join_executables_sql(report_options)} #{join_type} JOIN resources r on ex.#{resource_field} = r.id"
     end
 
-
-  def executable_counts(executable_id, report_options = {})
-    select_counts.joins(join_executables_sql(report_options)).where("ex.exid = ?", executable_id)
-  end
-
-  def executable_report(executable_id, report_options = {})
-    build_report_for_counts(executable_counts(executable_id, report_options).to_aliased_sql("iu"))
-  end
-
-  def resource_report(resource_id, report_options = {})
-    build_report_for_counts(resource_counts(resource_id, report_options).to_aliased_sql("iu"))
-  end
-
-  def select_report_fields
-    select(self::USAGE_REPORT_FIELDS)
-  end
-
-  def select_counts
-    select("count(*) as use_count, #{table_name}.#{primary_key} as id").group("#{table_name}.#{primary_key}")
-  end
-
-  def build_report_for_counts(counts_sql)
-    select_report_fields.joins("INNER JOIN (#{counts_sql}) counts on counts.id = #{table_name}.#{primary_key} #{demographic_joins}")
-  end
-
-  def demographic_joins
-    if self.const_defined? :USAGE_REPORT_DEMOGRAPHICS_JOINS
-      self::USAGE_REPORT_DEMOGRAPHICS_JOINS
-    else
-      ""
+    def executable_counts(executable_id, report_options = {})
+      select_counts.joins(join_executables_sql(report_options)).where("ex.exid = ?", executable_id)
     end
-  end
+
+    def executable_report(executable_id, report_options = {})
+      build_report_for_counts(executable_counts(executable_id, report_options).to_aliased_sql("iu"))
+    end
+
+    def resource_report(resource_id, report_options = {})
+      build_report_for_counts(resource_counts(resource_id, report_options).to_aliased_sql("iu"))
+    end
+
+    def select_report_fields
+      select(self::USAGE_REPORT_FIELDS)
+    end
+
+    def select_counts
+      select("count(*) as use_count, #{table_name}.#{primary_key} as id").group("#{table_name}.#{primary_key}")
+    end
+
+    def build_report_for_counts(counts_sql)
+      select_report_fields.joins("INNER JOIN (#{counts_sql}) counts on counts.id = #{table_name}.#{primary_key} #{demographic_joins}")
+    end
+
+    def demographic_joins
+      if self.const_defined? :USAGE_REPORT_DEMOGRAPHICS_JOINS
+        self::USAGE_REPORT_DEMOGRAPHICS_JOINS
+      else
+        ""
+      end
+    end
 
   end
 

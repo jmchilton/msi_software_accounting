@@ -12,7 +12,6 @@ describe ExecutablesController do
 
   it_should_behave_like "standard model GET index"
 
-
   describe "GET show" do
     it "assigns the requested executable as @executable" do
       resource = FactoryGirl.create(:resource)
