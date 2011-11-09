@@ -53,4 +53,12 @@ module ApplicationHelper
     end
   end
 
+  def clean_fields(fields)
+    fields.collect do |hash|
+      hash_copy = hash.clone
+      hash_copy.delete :link_proc
+      hash_copy
+    end
+  end
+
 end

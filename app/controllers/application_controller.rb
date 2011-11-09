@@ -158,13 +158,19 @@ class ApplicationController < ActionController::Base
           if row_id.nil?
             puts "Warning: Null row id for row #{row}"
           else
-            expression = "#{field[:link_proc]}('#{row_id}')"
-            value = eval(expression)
+            link_proc = field[:link_proc]
+            if link_proc.is_a? String
+              expression = "#{field[:link_proc]}('#{row_id}')"
+              value = eval(expression)
+            else
+              value = link_proc.call(row_id)
+            end
             row[key] = value
           end
         end
       end
     end
+
   end
 
   def get_relation_record_count(relation)

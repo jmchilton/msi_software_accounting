@@ -1,4 +1,4 @@
-class CollectlExecution < ReadOnlyModel
+class CollectlExecution < ActiveRecord::Base
   set_table_name "collectl_executions"
 
   belongs_to :user

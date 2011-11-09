@@ -11,7 +11,7 @@ class CollectlExecutablesController < ApplicationController
     @fields << ApplicationController.link_field(:link_proc => lambda  { |collectl_executable_id| resource_collectl_executable_path(@resource.id, collectl_executable_id) })
 
     @title = "Collectl Executables for Resource #{@resource.name}"
-    @rows = CollectlExecutable.where "resource_id = #{@resource.id}"
+    @rows = CollectlExecutable.where "resource_id = ?", @resource.id
     handle_search_criteria :name
     respond_with_table
   end

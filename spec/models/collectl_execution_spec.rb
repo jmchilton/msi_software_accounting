@@ -10,7 +10,7 @@ UID = 10245
 describe CollectlExecution do
   include ModelHelpers
 
-  it_should_behave_like "read only model"
+  # it_should_behave_like "read only model"
 
   describe "index_raw_records" do
     let(:user) { FactoryGirl.create(:user, :uid => UID) }
