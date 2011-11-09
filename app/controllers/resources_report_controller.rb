@@ -1,6 +1,6 @@
 class ResourcesReportController < ReportController
   FIELDS = [id_field,
-                     name_field,
+                     resource_name_field,
                      num_users_field,
                      num_groups_field,
                      fy_10_field,

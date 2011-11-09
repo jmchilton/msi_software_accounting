@@ -8,9 +8,10 @@ class Group < ReadOnlyModel
   EMPLOYEE_GROUPS = "('tech', 'support', 'swinst')"
 
   def self.resources(report_options)
-    select("groups.gid, ex.rid").
+    resource_id_column = report_options[:data_source] == :collectl ? "resource_id" : "rid"
+    select("groups.gid, ex.#{resource_id_column} as rid").
       joins(User.user_to_executables_joins "gid = groups.gid", report_options).
-      group("groups.gid, ex.rid")
+      group("groups.gid, ex.#{resource_id_column}")
   end
 
   def self.report(report_options = {})

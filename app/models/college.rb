@@ -19,11 +19,12 @@ class College < ReadOnlyModel
   end
 
   def self.resources(report_options = {})
-    select("colleges.id, ex.rid").
+    resource_id_column = report_options[:data_source] == :collectl ? "resource_id" : "rid"
+    select("colleges.id, ex.#{resource_id_column} as rid").
     joins("INNER JOIN department_colleges dc ON dc.college_id = colleges.id
            INNER JOIN departments ON departments.id = dc.dept_id
            #{Department.persons_to_executables_joins(report_options)}").
-    group("colleges.id, ex.rid")
+    group("colleges.id, ex.#{resource_id_column}")
   end
 
   def self.report(report_options = {})

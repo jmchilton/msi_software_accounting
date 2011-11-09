@@ -4,6 +4,7 @@ module ApplicationHelper
 
   protected
 
+
   def resource_name_field(value)
     autocomplete_field_tag "resource_name", value, autocomplete_resource_name_resources_path
   end

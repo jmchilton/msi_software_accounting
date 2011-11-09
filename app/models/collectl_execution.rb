@@ -25,4 +25,19 @@ class CollectlExecution < ActiveRecord::Base
                             END_TIME   = (select rce.END_TIME   from raw_collectl_executions rce where rce.id = collectl_executions.id)"
   end
 
+  # TODO: Refactor to combine shared code with Event.to_demographics_joins
+  def self.to_demographics_joins(report_options = {})
+    group_join_condition = "users.gid = groups.gid"
+    users_join_condition = "users.id = e.user_id"
+    unless report_options[:limit_users].nil?
+      users_join_condition = "(#{users_join_condition} and users.username in #{Event.sql_user_list(report_options[:limit_users])} )"
+    end
+    if report_options[:exclude_employees]
+      group_join_condition = "(#{group_join_condition} and groups.name not in #{Group::EMPLOYEE_GROUPS})"
+    end
+    "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e on e.collectl_executable_id = collectl_executables.id
+     INNER JOIN users on #{users_join_condition}
+     INNER JOIN groups on #{group_join_condition} "
+  end
+
 end

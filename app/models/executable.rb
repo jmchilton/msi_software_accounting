@@ -6,7 +6,7 @@ class Executable < ActiveRecord::Base
   has_many :events, :foreign_key => "feature", :primary_key => "identifier"
 
   def self.flexlm_report_for_resource(resource_id, report_options = {})
-    select("executable.exid, executable.exid as id, executable.identifier as name, #{Event.demographics_summary_selects}").
+    select("executable.exid, executable.exid as id, executable.identifier as name, #{Resource.demographics_summary_selects}").
       joins(Event.to_demographics_joins(report_options)).
       where("executable.rid = ?", resource_id).
       group("executable.exid, executable.identifier")

@@ -24,13 +24,7 @@ class User < ReadOnlyModel
   end
 
   def self.join_executables_sql(report_options)
-    if report_options[:data_source] == :collectl
-      "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e ON e.user_id = users.id #{join_groups_str(report_options)}
-       INNER JOIN collectl_executables ex on e.collectl_executable_id = ex.id"
-    else
-      "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = users.username #{join_groups_str(report_options)}
-       INNER JOIN executable ex on e.feature = ex.identifier"
-    end
+    join_executables(report_options, "users", join_groups_str(report_options))
   end
 
   def self.join_groups_str(report_options, users_alias = "users")
@@ -41,14 +35,26 @@ class User < ReadOnlyModel
     join_groups_str
   end
 
+
+
   def self.user_to_executables_joins(join_users_on, report_options = {})
-    "INNER JOIN users u ON u.#{join_users_on} #{join_groups_str(report_options, 'u')}
-     INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = u.username
-     INNER JOIN executable ex on e.feature = ex.identifier"
+    "INNER JOIN users u ON u.#{join_users_on} #{join_groups_str(report_options, 'u')} #{join_executables(report_options, "u")}"
   end
 
   def msi_db_link
     "#{StaticData::MSIDB_CRUD_URL}people/user/#{id}/view"
+  end
+
+  private
+
+  def self.join_executables(report_options, users_alias, on_str = "")
+     if report_options[:data_source] == :collectl
+      "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e ON e.user_id = #{users_alias}.id #{on_str}
+       INNER JOIN collectl_executables ex on e.collectl_executable_id = ex.id"
+    else
+      "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = #{users_alias}.username #{on_str}
+       INNER JOIN executable ex on e.feature = ex.identifier"
+    end
   end
 
 end

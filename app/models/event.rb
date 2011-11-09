@@ -10,9 +10,8 @@ class Event < ReadOnlyModel
     DateOptions.handle_date_options(relation, 'EV_DATE', report_options)
   end
 
-  def self.demographics_summary_selects
-    "count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups"
-  end
+  # TODO: Move
+
 
   def self.sql_user_list(list)
     sanitize_sql_array(["(#{(list.map{|x| "?"}).join(",")})"] + list)

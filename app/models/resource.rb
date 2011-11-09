@@ -6,10 +6,15 @@ class Resource < ReadOnlyModel
   has_many :purchases, :foreign_key => "rid"
 
   def self.usage_report(report_options = {})
-    select_statement = "resources.id, #{Event.demographics_summary_selects}"
-    select(select_statement).
-      joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}").
-      group("resources.id")
+    if report_options[:data_source] == :collectl
+      Resource.collectl_usage_report(report_options)
+    else
+      Resource.flexlm_usage_report(report_options)
+    end
+  end
+
+  def self.demographics_summary_selects
+    "count(distinct users.id) as num_users, count(distinct groups.gid) as num_groups"
   end
 
   def self.report(report_options = {})
@@ -23,5 +28,21 @@ class Resource < ReadOnlyModel
     "#{StaticData::MSIDB_CRUD_URL}sw/resource/#{id}/view"
   end
 
+  private
+
+  def self.flexlm_usage_report(report_options)
+    select_statement = "resources.id, #{Resource.demographics_summary_selects}"
+    select(select_statement).
+      joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}").
+      group("resources.id")
+  end
+
+  # TODO: Refactor common usage report
+  def self.collectl_usage_report(report_options)
+    select_statement = "resources.id, #{Resource.demographics_summary_selects}"
+    select(select_statement).
+      joins("INNER JOIN collectl_executables on collectl_executables.resource_id = resources.id #{CollectlExecution.to_demographics_joins(report_options)}").
+      group("resources.id")
+  end
 
 end

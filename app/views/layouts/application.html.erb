@@ -38,15 +38,21 @@
         <li><%= link_to "Departments", new_departments_report_path %></li>
         <li><%= link_to "Groups", new_groups_report_path %></li>
       </ul>
+      <ul class="link-group" id="links-collectl-reports">
+        <lh>Collectl Reports</lh>
+        <li><%= link_to "Resources", new_resources_report_path(:data_source => :collectl) %></li>
+        <li><%= link_to "Colleges", new_colleges_report_path(:data_source => :collectl) %></li>
+        <li><%= link_to "Departments", new_departments_report_path(:data_source => :collectl) %></li>
+        <li><%= link_to "Groups", new_groups_report_path(:data_source => :collectl) %></li>
+      </ul>
       <ul class="link-group" id="links-navigate">
         <lh>Navigate</lh>
         <li><%= link_to "Resources", resources_path %></li>
-        <li><%= link_to "FLEXlm Features", executables_path %></li>
         <li><%= link_to "Users", users_path %></li>
         <li><%= link_to "Groups", groups_path %></li>
         <li><%= link_to "Departments", departments_path %></li>
         <li><%= link_to "Colleges", colleges_path %></li>
-
+        <li><%= link_to "FLEXlm Features", executables_path %></li>
       </ul>
       <ul class="link-group" id="links-manage">
         <lh>Manage</lh>

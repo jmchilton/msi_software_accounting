@@ -11,15 +11,31 @@ describe Resource do
     let(:non_tech_record) { record_with_name ReportTestData::NON_TECH_RESOURCE_NAME }
     let(:tech_record) { record_with_name ReportTestData::TECH_RESOURCE_NAME }
 
-    before(:each) { ReportTestData.setup_two_resources }
+    describe "flexlm version" do
+      before(:each) { ReportTestData.setup_two_resources(:collectl => false) }
 
-    describe "excludes_employees option" do
-      it_should_behave_like "flexlm report that excludes employees"
-      it_should_behave_like "flexlm report that does not exclude employees"
+      describe "excludes_employees option" do
+        it_should_behave_like "flexlm report that excludes employees"
+        it_should_behave_like "flexlm report that does not exclude employees"
+      end
+
+      describe "limit_users options" do
+        it_should_behave_like "flexlm report that can limit users"
+      end
     end
 
-    describe "limit_users options" do
-      it_should_behave_like "flexlm report that can limit users"
+    describe "collectl version" do
+      before(:each) { ReportTestData.setup_two_resources(:flexlm => false) }
+
+      describe "excludes_employees option" do
+        it_should_behave_like "collectl report that excludes employees"
+        it_should_behave_like "collectl report that does not exclude employees"
+      end
+
+      describe "limit_users options" do
+        it_should_behave_like "collectl report that can limit users"
+      end
+
     end
 
   end

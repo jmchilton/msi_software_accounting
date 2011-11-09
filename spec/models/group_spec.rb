@@ -53,6 +53,16 @@ describe Group do
     end
 
     it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "collectl report that can exclude employees"
+
+  end
+
+  describe "resources_report" do
+    let(:relation) { Group.find_by_name(ReportTestData::TECH_GROUP_NAME).resources_report(report_options) }
+    let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
+
+    it_should_behave_like "flexlm resource report that can exclude employees"
+    it_should_behave_like "collectl resource report that can exclude employees"
   end
 
   describe "executable_report" do

@@ -1,2 +1,0 @@
-module ExecutablesHelper
-end

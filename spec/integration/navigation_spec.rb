@@ -20,11 +20,13 @@ feature "Index Page", %q{
   end
 
   def can_visit_models_report(link_name, model_name)
-    visit_home
-    within('#links-flexlm-reports') do
-      click_link(link_name)
+    report_types = [:flexlm, :collectl]
+    report_types.each do |report_type|
+      visit_home
+      click_report_link report_type, link_name
+      current_path.should eql(eval("new_#{model_name}s_report_path"))
+      build_and_verify_report
     end
-    current_path.should eql(eval("new_#{model_name}s_report_path"))
   end
 
   scenario "Navigate to college report" do

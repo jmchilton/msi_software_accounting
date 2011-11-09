@@ -36,6 +36,7 @@ describe College do
     end
 
     it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "collectl report that can exclude employees"
 
   end
 
@@ -51,6 +52,7 @@ describe College do
     let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
 
     it_should_behave_like "flexlm resource report that can exclude employees"
+    it_should_behave_like "collectl resource report that can exclude employees"
   end
 
   describe "executables_report" do
@@ -102,6 +104,7 @@ describe College do
       let(:non_tech_record) { college_record(ReportTestData::NON_TECH_COLLEGE_NAME) }
 
       it_should_behave_like "flexlm report that can exclude employees"
+      it_should_behave_like "collectl report that can exclude employees"
 
     end
 

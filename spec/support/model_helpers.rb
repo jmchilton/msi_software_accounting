@@ -17,7 +17,7 @@ module ModelHelpers
   end
 
   share_examples_for "flexlm resource report that can exclude employees" do
-    before(:each) { ReportTestData.setup_two_resources }
+    before(:each) { ReportTestData.setup_two_resources(:collectl => false) }
 
       describe "excluding employees" do
         let(:report_options) { { :exclude_employees => true }}
@@ -33,12 +33,40 @@ module ModelHelpers
       end
   end
 
+  share_examples_for "collectl resource report that can exclude employees" do
+    before(:each) { ReportTestData.setup_two_resources(:flexlm => false) }
+
+      describe "excluding employees" do
+        let(:report_options) { { :exclude_employees => true, :data_source => :collectl }}
+
+        specify { tech_record.should be_nil }
+
+      end
+
+      describe "not excluding employees" do
+        let(:report_options) { { :exclude_employees => false, :data_source => :collectl }}
+
+        specify { tech_record.should_not be_nil }
+      end
+  end
+
+
   shared_examples_for "collectl report that can exclude employees" do
     before(:each) { setup_test_used_twice_data(:flexlm => false) }
     let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME).id }
     let(:collectl_executable_id) { CollectlExecutable.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
 
     it_should_behave_like "collectl report that does not exclude employees"
+    it_should_behave_like "collectl report that excludes employees"
+  end
+
+  shared_examples_for "collectl report that excludes employees" do
+    describe "not excluding employees" do
+      let(:report_options) { {:data_source => :collectl, :exclude_employees => true } }
+
+      specify { tech_record.should be_nil }
+      specify { non_tech_record.should_not be_nil }
+    end
   end
 
   shared_examples_for "collectl report that does not exclude employees" do
@@ -80,7 +108,6 @@ module ModelHelpers
   end
 
   shared_examples_for "flexlm report that can limit users" do
-
     it_should_behave_like "flexlm report that limits users"
     it_should_behave_like "flexlm report that does not limit users"
   end
@@ -103,6 +130,28 @@ module ModelHelpers
     end
   end
 
+  shared_examples_for "collectl report that can limit users" do
+    it_should_behave_like "collectl report that limits users"
+    it_should_behave_like "collectl report that does not limit users"
+  end
+
+  shared_examples_for "collectl report that limits users" do
+    describe "limits to tech" do
+      let(:report_options) { { :limit_users =>  [ReportTestData::TECH_USERNAME], :data_source => :collectl } }
+
+      specify { tech_record.should_not be_nil }
+      specify { non_tech_record.should be_nil }
+    end
+  end
+
+  shared_examples_for "collectl report that does not limit users" do
+    describe "does not limit" do
+      let(:report_options) { { :limit_users => nil, :data_source => :collectl  } }
+
+      specify { tech_record.should_not be_nil }
+      specify { non_tech_record.should_not be_nil }
+    end
+  end
 
   def records
     relation.all
