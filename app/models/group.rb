@@ -7,6 +7,10 @@ class Group < ReadOnlyModel
   USAGE_REPORT_FIELDS = "groups.gid as gid, groups.gid as id, groups.name as group_name, use_count"
   EMPLOYEE_GROUPS = "('tech', 'support', 'swinst')"
 
+  def id
+    gid
+  end
+
   def self.resources(report_options)
     resource_id_column = report_options[:data_source] == :collectl ? "resource_id" : "rid"
     select("groups.gid, ex.#{resource_id_column} as rid").

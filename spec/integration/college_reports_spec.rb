@@ -22,11 +22,16 @@ feature "College Reports" do
     page.should have_content "CFANS"
   end
 
-  it_should_behave_like "model instance's resource report" do
+
+end
+
+feature "a colleges resources report" do
+  include IntegrationHelpers
+
+  it_should_behave_like "model with resource reports" do
     let(:model_title) { "College" }
     let(:model_instance) {
-      ReportTestData.setup_used_twice_resource(:data_source => data_source)
-      College.find_by_name ReportTestData::TECH_COLLEGE_NAME
+      College.find_by_name ReportTestData::NON_TECH_COLLEGE_NAME
     }
   end
 

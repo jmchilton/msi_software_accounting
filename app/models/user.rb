@@ -36,6 +36,10 @@ class User < ReadOnlyModel
   end
 
 
+  def name  # To provide common interface with department/college/group
+    username
+  end
+
 
   def self.user_to_executables_joins(join_users_on, report_options = {})
     "INNER JOIN users u ON u.#{join_users_on} #{join_groups_str(report_options, 'u')} #{join_executables(report_options, "u")}"

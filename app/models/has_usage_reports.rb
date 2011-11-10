@@ -62,7 +62,7 @@ module HasUsageReports
   end
 
   def resources_report(report_options = {})
-    isolate_instance_and_join_resources(self.class.select("r.id as id, r.name as resource, count(*) as use_count").
+    isolate_instance_and_join_resources(self.class.select("r.id as #{self.class.primary_key}, r.name as resource, count(*) as use_count").
           group("r.id, r.name"), "LEFT", report_options)
   end
 

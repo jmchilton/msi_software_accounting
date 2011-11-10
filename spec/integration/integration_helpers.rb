@@ -81,35 +81,84 @@ module IntegrationHelpers
 
   end
 
-  shared_examples_for "model instance's resource report" do
-    shared_examples_for "data_source report with default options" do
-      scenario "default options" do
-        #pending "fix this"
+
+
+  shared_examples_for "model instance's data_source report with default options" do
+    scenario "default options" do
       navigate model_title
-      pending "fix this"
       view_row_with_content model_instance.name
       click_link "Build #{data_source_title} Resource Usage Report"
       report_title = "#{data_source_title} Resources Report for #{model_title} #{model_instance.name}"
       page_should_have_header report_title
       build_and_verify_report
       page_should_have_header report_title
-      end
-      end
+      view_row_with_content ReportTestData::USED_TWICE_RESOURCE_NAME
+    end
+  end
 
-    it_should_behave_like "data_source report with default options" do
+  #deprecated
+  shared_examples_for "model instance's resource report" do
+
+    before(:each) do
+      visit_home
+      ReportTestData.setup_used_twice_resource(:data_source => data_source)
+    end
+
+
+    it_should_behave_like "model instance's data_source report with default options" do
       let(:data_source) { :flexlm }
       let(:data_source_title) { "FLEXlm" }
     end
 
-    it_should_behave_like "data_source report with default options" do
+    it_should_behave_like "model instance's data_source report with default options" do
       let(:data_source) { :collectl }
       let(:data_source_title) { "Collectl" }
-
     end
 
 
   end
 
+  shared_examples_for "model's data_source report with default options" do
+    scenario "default options" do
+      visit_navigate_resources
+      resource_name = ReportTestData::USED_TWICE_RESOURCE_NAME
+      view_row_with_content resource_name
+      click_link "Build Per #{model_title} #{data_source_title} Usage Report"
+      report_title = "#{data_source_title} #{model_title} Report for #{resource_name}"
+      page_should_have_header report_title
+      build_and_verify_report
+      page_should_have_header report_title
+      view_row_with_content model_instance.name
+    end
+  end
+
+  shared_examples_for "model with resource reports" do
+   before(:each) do
+      visit_home
+      ReportTestData.setup_used_twice_resource(:data_source => data_source)
+    end
+
+    it_should_behave_like "model's data_source report with default options" do
+      let(:data_source) { :flexlm }
+      let(:data_source_title) { "FLEXlm" }
+    end
+
+    it_should_behave_like "model's data_source report with default options" do
+      let(:data_source) { :collectl }
+      let(:data_source_title) { "Collectl" }
+    end
+
+   it_should_behave_like "model instance's data_source report with default options" do
+     let(:data_source) { :flexlm }
+     let(:data_source_title) { "FLEXlm" }
+   end
+
+   it_should_behave_like "model instance's data_source report with default options" do
+     let(:data_source) { :collectl }
+     let(:data_source_title) { "Collectl" }
+   end
+
+  end
 
 
 end

@@ -14,3 +14,16 @@ feature "Group Reports" do
   end
 
 end
+
+
+feature "a groups resources report" do
+  include IntegrationHelpers
+
+  it_should_behave_like "model with resource reports" do
+    let(:model_title) { "Group" }
+    let(:model_instance) {
+      Group.find_by_name ReportTestData::NON_TECH_GROUP_NAME
+    }
+  end
+
+end

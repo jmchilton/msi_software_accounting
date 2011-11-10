@@ -15,3 +15,15 @@ feature "Department Reports" do
 
 
 end
+
+feature "a departments resources report" do
+  include IntegrationHelpers
+
+  it_should_behave_like "model with resource reports" do
+    let(:model_title) { "Department" }
+    let(:model_instance) {
+      Department.find_by_name ReportTestData::NON_TECH_DEPARTMENT_NAME
+    }
+  end
+
+end

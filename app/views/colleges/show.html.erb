@@ -3,5 +3,7 @@
 
 <%= model_link "Build FLEXlm Resource Usage Report", new_college_college_resources_report_path(@college) %>
 <%= model_link "Build FLEXlm Feature Usage Report", new_college_college_executables_report_path(@college) %>
+
+<%= model_link "Build Collectl Resource Usage Report", new_college_college_resources_report_path(@college, :data_source => :collectl) %>
 <%= model_link "View College on MSI DB", @college.msi_db_link, :id => "msi_db_link" %>
 <%= model_link "Back to College Index", colleges_path %>
