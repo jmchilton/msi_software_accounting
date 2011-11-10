@@ -91,6 +91,7 @@ module IntegrationHelpers
       report_title = "#{data_source_title} Resources Report for #{model_title} #{model_instance.name}"
       page_should_have_header report_title
       build_and_verify_report
+      table_should_have_column (data_source == :collectl ? "Executions" : "Checkouts")
       page_should_have_header report_title
       view_row_with_content ReportTestData::USED_TWICE_RESOURCE_NAME
     end
@@ -128,6 +129,7 @@ module IntegrationHelpers
       page_should_have_header report_title
       build_and_verify_report
       page_should_have_header report_title
+      table_should_have_column (data_source == :collectl ? "Executions" : "Checkouts")
       view_row_with_content model_instance.name
     end
   end

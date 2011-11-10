@@ -1,4 +1,4 @@
-class PurchasesController < ApplicationController
+class PurchasesController < TableController
   FIELDS = [id_field,
             {:field => lambda { |purchase| purchase.resource.name }, :label => "Resource"},
             {:field => "fy10", :label => "FY 2010"},

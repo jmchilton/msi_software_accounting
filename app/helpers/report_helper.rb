@@ -14,16 +14,20 @@ module ReportHelper
     else
       limit_users_list = nil
     end
-    data_source = :flexlm
-    if (!params[:data_source].blank?) and params[:data_source] == "collectl"
-      data_source = :collectl
-    end
     {:from => params[:from],
      :to => params[:to],
      :exclude_employees => exclude_employees,
      :limit_users => limit_users_list,
      :data_source => data_source
     }
+  end
+
+  def data_source
+    data_source = :flexlm
+    if (!params[:data_source].blank?) and params[:data_source] == "collectl"
+      data_source = :collectl
+    end
+    data_source
   end
 
 end

@@ -1,4 +1,4 @@
-class GroupsController < ApplicationController
+class GroupsController < TableController
   FIELDS = [id_field, name_field, link_field(:link_proc => "group_path")]
 
   def index

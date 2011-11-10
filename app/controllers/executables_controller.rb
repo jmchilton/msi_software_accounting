@@ -1,4 +1,4 @@
-class ExecutablesController < ApplicationController
+class ExecutablesController < TableController
   FIELDS = [id_field,
             {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "identifier", :label => "Feature"},

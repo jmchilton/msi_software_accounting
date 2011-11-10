@@ -1,4 +1,4 @@
-class EventTypesController < ApplicationController
+class EventTypesController < TableController
   rescue_from ActiveRecord::RecordNotFound, :with => :resource_not_found
 
   FIELDS =

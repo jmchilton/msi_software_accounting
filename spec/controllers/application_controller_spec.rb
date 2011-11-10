@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe ApplicationController do
 
-
-  describe "shared fields" do
-
-    specify { ApplicationController.fy_10_field[:field].should == "fy10" }
-    specify { ApplicationController.fy_11_field[:label].should == "Cost (FY 2011)"}
-
-  end
-
   describe "set_line_chart_data wit date" do
     before(:each) {
       controller.params[:from] = "2011-01-03"

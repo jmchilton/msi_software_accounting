@@ -40,8 +40,14 @@ module TableHelpers
   end
 
   def test_row_for_fields(fields)
-    hash = {}
-    fields.each { |field| hash[field[:field]] = "test" }
+    if fields.nil?
+      hash = mock()
+      hash.should_receive(:[]).with(anything()).any_number_of_times.and_return "test"
+
+    else
+      hash = {}
+      fields.each { |field| hash[field[:field]] = "test" }
+    end
     hash
   end
 
@@ -69,7 +75,9 @@ module TableHelpers
   end
 
   def it_should_assign_fields(expected_fields)
-    expected_fields.each { |expected_field| it_should_assign_field expected_field }
+    unless expected_fields.nil?
+      expected_fields.each { |expected_field| it_should_assign_field expected_field }
+    end
   end
 
   def it_should_set_rows_to(rows)
@@ -89,7 +97,11 @@ module TableHelpers
   end
 
   def assigned_field(key)
-    subject.class::FIELDS.find {|field| field[:field].respond_to?(:to_sym) && field[:field].to_sym == key }
+    if subject.class.const_defined? :FIELDS
+      subject.class::FIELDS.find {|field| field[:field].respond_to?(:to_sym) && field[:field].to_sym == key }
+    else
+      nil
+    end
   end
 
   def it_should_paginate
@@ -149,14 +161,18 @@ module TableHelpers
 
   shared_examples_for "standard report GET index" do
 
-    let (:row_relation) { test_relation_for_fields(subject.class::FIELDS) }
+    let (:row_relation) { test_relation_for_fields(subject_fields) }
 
     before(:each) {
       get :index, index_params_if_set
     }
     specify { it_should_respond_successfully_with_report }
     specify { it_should_set_rows_to(row_relation) }
-    specify { it_should_assign_fields subject.class::FIELDS }
+    specify { it_should_assign_fields subject_fields }
+  end
+
+  def subject_fields
+    subject.class.const_defined?(:FIELDS) ? subject.class::FIELDS : nil
   end
 
   def index_params_if_set

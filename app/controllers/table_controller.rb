@@ -1,4 +1,9 @@
+require 'fields'
+
 class TableController < ApplicationController
+  extend Fields
+  include Fields
+
   before_filter :save_report_options
 
   protected
@@ -13,37 +18,6 @@ class TableController < ApplicationController
     handle_search_criteria :comment
   end
 
-  def self.resource_name_field
-    { :field => "name", :label => "Resource", :search => true }
-  end
-
-  def self.resource_field
-    { :field => "resource", :label => "Resource", :search => true }
-  end
-
-  def self.identifier_field
-    { :field => "identifier", :label => "Feature", :search => true }
-  end
-
-  def self.vendor_field
-    { :field => "comment", :label => "Vendor", :search => true }
-  end
-
-  def self.resources_fields
-    [id_field, resource_field, checkouts_field, link_field(:link_proc => "resource_path")]
-  end
-
-  def self.executable_fields
-    [id_field, identifier_field, vendor_field, resource_field, checkouts_field, link_field(:link_proc => "executable_path")]
-  end
-
-  def self.purchase_fields
-    [{ :field => "num_packages", :label => "# Software Packages", :search => false},
-      fy_10_field,
-      fy_11_field,
-      fy_12_field,
-      fy_13_field]
-  end
 
   def save_report_option(option)
     if not params[option].nil?

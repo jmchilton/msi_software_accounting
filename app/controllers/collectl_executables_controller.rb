@@ -1,4 +1,4 @@
-class CollectlExecutablesController < ApplicationController
+class CollectlExecutablesController < TableController
   FIELDS = [id_field,
             {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "name", :label => "Name"}]
@@ -7,7 +7,7 @@ class CollectlExecutablesController < ApplicationController
 
   def index
     @fields = Array.new(FIELDS)
-    @fields << ApplicationController.link_field(:link_proc => lambda  { |collectl_executable_id| resource_collectl_executable_path(@resource.id, collectl_executable_id) })
+    @fields << link_field(:link_proc => lambda  { |collectl_executable_id| resource_collectl_executable_path(@resource.id, collectl_executable_id) })
 
     @rows = CollectlExecutable.where "resource_id = ?", @resource.id
     handle_search_criteria :name

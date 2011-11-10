@@ -1,5 +1,5 @@
 
-class ResourcesController < ApplicationController
+class ResourcesController < TableController
   autocomplete :resource, :name
 
   FIELDS = [id_field,

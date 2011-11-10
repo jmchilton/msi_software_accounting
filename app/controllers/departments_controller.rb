@@ -1,4 +1,4 @@
-class DepartmentsController < ApplicationController
+class DepartmentsController < TableController
   FIELDS = [id_field, name_field, link_field(:link_proc => "department_path")]
 
   def index
