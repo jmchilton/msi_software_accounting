@@ -8,7 +8,6 @@ class ExecutableUserReportController < ReportController
             college_name_field,
             checkouts_field,
             link_field(:link_proc => "user_path")]
-  TITLE = "FLEXlm Feature Usage"
 
   protected
 

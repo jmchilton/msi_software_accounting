@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
             {:field => "fy13", :label => "FY 2013"},
             {:field => "os", :label=> "Operating System" },
             link_field(:link_proc => "purchase_path")]
-  TITLE = "Purchases"
+
 
   def index
     @rows = Purchase

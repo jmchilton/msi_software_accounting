@@ -15,7 +15,7 @@
   </table>
 <% else %>
   <div style="width: 95%;">
-  <%=raw jqgrid(@title, "data_table", url_for({:action => controller.action_name, :format => "json"}.reverse_merge(params)), clean_fields(@fields),
+  <%=raw jqgrid(nil, "data_table", url_for({:action => controller.action_name, :format => "json"}.reverse_merge(params)), clean_fields(@fields),
     { :rows_per_page => @rows_per_page,
       :rowlist => @row_list,
       :autowidth => true,

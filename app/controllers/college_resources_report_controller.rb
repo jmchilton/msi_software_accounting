@@ -1,6 +1,5 @@
 class CollegeResourcesReportController < ReportController
   FIELDS = resources_fields
-  TITLE = "FLEXlm Resource Usage"
 
   protected
 

@@ -2,7 +2,6 @@ class CollectlExecutablesController < ApplicationController
   FIELDS = [id_field,
             {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "name", :label => "Name"}]
-  #TITLE = "Collectl Executables"
 
   before_filter :set_resource
 
@@ -10,7 +9,6 @@ class CollectlExecutablesController < ApplicationController
     @fields = Array.new(FIELDS)
     @fields << ApplicationController.link_field(:link_proc => lambda  { |collectl_executable_id| resource_collectl_executable_path(@resource.id, collectl_executable_id) })
 
-    @title = "Collectl Executables for Resource #{@resource.name}"
     @rows = CollectlExecutable.where "resource_id = ?", @resource.id
     handle_search_criteria :name
     respond_with_table

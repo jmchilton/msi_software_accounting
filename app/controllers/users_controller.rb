@@ -1,8 +1,6 @@
 class UsersController < TableController
-  TITLE = "Users"
   FIELDS = [id_field, username_field, first_name_field, last_name_field, email_field, group_name_field, link_field(:link_proc => "user_path")]
 
-  # TODO: Join people information
   def index
     @rows = User.index
     handle_search_criteria :username

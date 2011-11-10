@@ -3,7 +3,6 @@ class ResourceDepartmentReportController < ReportController
             name_field,
             checkouts_field,
             link_field(:link_proc => "department_path")]
-  TITLE = "FLEXlm Resource Usage"
 
   protected
 

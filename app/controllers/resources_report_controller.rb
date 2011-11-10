@@ -9,7 +9,6 @@ class ResourcesReportController < ReportController
                      fy_13_field,
                      link_field(:link_proc => "resource_path")
                      ]
-  TITLE = "Resources Report"
 
   protected
 

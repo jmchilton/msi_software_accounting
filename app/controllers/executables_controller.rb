@@ -4,7 +4,6 @@ class ExecutablesController < ApplicationController
             {:field => "identifier", :label => "Feature"},
             {:field => "comment", :label => "Vendor"},
             link_field(:link_proc => "executable_path")]
-  TITLE = "FLEXlm Features"
 
   def index
     @rows = Executable

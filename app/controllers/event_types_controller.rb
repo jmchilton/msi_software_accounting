@@ -8,7 +8,6 @@ class EventTypesController < ApplicationController
      { :field => "resource_name", :label => "Resource Name", :search => false },
      link_field(:link_proc => "edit_event_type_path")
      ]
-  TITLE = "FLEXlm Event Types"
 
   def index
     @rows = EventType

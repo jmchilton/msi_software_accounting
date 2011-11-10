@@ -9,7 +9,6 @@ class ExecutablesReportController < ReportController
 
   def build_rows
     @rows = Executable.flexlm_report_for_resource(@resource.id, report_options)
-    @title = "FLEXlm Feature Report for #{@resource.name}"
   end
 
 end

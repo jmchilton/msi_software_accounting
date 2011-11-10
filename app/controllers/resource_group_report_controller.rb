@@ -4,7 +4,6 @@ class ResourceGroupReportController < ReportController
             group_name_field,
             checkouts_field,
             link_field(:link_proc => "group_path")]
-  TITLE = "FLEXlm Resource Usage"
 
   protected
 

@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-  TITLE = "Groups"
   FIELDS = [id_field, name_field, link_field(:link_proc => "group_path")]
 
   def index

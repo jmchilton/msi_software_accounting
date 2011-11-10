@@ -204,9 +204,6 @@ class ApplicationController < ActionController::Base
   end
 
   def respond_with_table(allow_pagination = true)
-    unless instance_variable_defined? :@title
-      @title = self.class::TITLE
-    end
     unless instance_variable_defined? :@fields
       @fields = self.class::FIELDS
     end
@@ -222,7 +219,7 @@ class ApplicationController < ActionController::Base
       }
       format.csv {
         process_rows
-        render_csv(@title)
+        render_csv()
       }
       format.json {
         process_rows(true)

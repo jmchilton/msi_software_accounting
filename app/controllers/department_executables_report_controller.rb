@@ -1,6 +1,5 @@
 class DepartmentExecutablesReportController < ReportController
   FIELDS = executable_fields
-  TITLE = "FLEXlm Feature Usage"
 
   protected
 

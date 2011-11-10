@@ -60,7 +60,7 @@ module TableHelpers
     assigns(:rows).should_not be_nil
     assigns(:fields).should be_an Array
     assigns(:fields).each { |field| field.should be_a Hash }
-    assigns(:title).should be_a String 
+    #assigns(:title).should be_a String
   end
 
   def it_should_assign_field(expected_field)
