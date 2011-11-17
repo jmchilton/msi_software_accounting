@@ -1,6 +1,7 @@
 require 'fields'
 
 class TableController < ApplicationController
+  include TableHelper
   extend Fields
   include Fields
 

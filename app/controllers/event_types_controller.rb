@@ -30,7 +30,7 @@ class EventTypesController < TableController
   def update
     @event_type = EventType.find(params[:id])
     respond_to do |format|
-      if @event_type.update_resource(params[:resource_name])
+      if @event_type.update_resource(selected_resource)
         format.html { redirect_to(@event_type, :notice => 'Event type was successfully updated.') }
         format.xml  { head :ok }
       else

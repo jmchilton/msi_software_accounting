@@ -4,6 +4,8 @@ gem 'rails', '3.0.10'
 
 gem 'fastercsv'
 
+gem 'zippy'
+
 gem 'basic_model'
 
 gem 'jquery-rails'

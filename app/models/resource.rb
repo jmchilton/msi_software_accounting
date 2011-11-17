@@ -5,6 +5,14 @@ class Resource < ReadOnlyModel
   has_many :executables, :foreign_key => "rid"
   has_many :purchases, :foreign_key => "rid"
 
+  def escaped_name
+    name.gsub /,/, "\\,"
+  end
+
+  def self.unescape_name escaped_name
+
+  end
+
   def self.usage_report(report_options = {})
     if report_options[:data_source] == :collectl
       Resource.collectl_usage_report(report_options)

@@ -1,6 +1,6 @@
 
 class ResourcesController < TableController
-  autocomplete :resource, :name
+  autocomplete :resource, :name, :display_value => :escaped_name
 
   FIELDS = [id_field,
             name_field,

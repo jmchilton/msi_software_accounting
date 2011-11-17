@@ -4,7 +4,7 @@ describe PurchasesController do
   include TableHelpers
 
   before(:each) {
-    @resource = FactoryGirl.create(:resource)
+    @resource = FactoryGirl.create(:resource, :name => "test_resource_for_purchase")
   }
 
   def valid_attributes

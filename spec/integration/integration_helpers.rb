@@ -1,5 +1,10 @@
 module IntegrationHelpers
 
+
+  def it_should_download_file_named filename
+    page.response_headers['Content-Disposition'].should include("filename=\"#{filename}\"")
+  end
+
   def it_should_have_msi_db_link_for(object)
     page.find_link("msi_db_link")[:href].should == object.msi_db_link
   end
@@ -134,8 +139,19 @@ module IntegrationHelpers
     end
   end
 
+  shared_examples_for "model's data_source batch resource report" do
+    scenario "default options" do
+      navigate model_title
+      click_link "Build #{data_source_title} #{model_title} Reports for Multiple Resources"
+      report_title = "#{data_source_title} #{model_title} Reports for Multiple Resources"
+      page_should_have_header report_title
+      build_report
+      it_should_download_file_named "#{model_title.downcase}_reports.zip"
+    end
+  end
+
   shared_examples_for "model with resource reports" do
-   before(:each) do
+    before(:each) do
       visit_home
       ReportTestData.setup_used_twice_resource(:data_source => data_source)
     end
@@ -150,17 +166,29 @@ module IntegrationHelpers
       let(:data_source_title) { "Collectl" }
     end
 
-   it_should_behave_like "model instance's data_source report with default options" do
-     let(:data_source) { :flexlm }
-     let(:data_source_title) { "FLEXlm" }
-   end
+    it_should_behave_like "model instance's data_source report with default options" do
+      let(:data_source) { :flexlm }
+      let(:data_source_title) { "FLEXlm" }
+    end
 
-   it_should_behave_like "model instance's data_source report with default options" do
-     let(:data_source) { :collectl }
-     let(:data_source_title) { "Collectl" }
-   end
+    it_should_behave_like "model instance's data_source report with default options" do
+      let(:data_source) { :collectl }
+      let(:data_source_title) { "Collectl" }
+    end
+
+    it_should_behave_like "model's data_source batch resource report" do
+      let(:data_source) { :flexlm }
+      let(:data_source_title) { "FLEXlm" }
+    end
+
+    it_should_behave_like "model's data_source batch resource report" do
+      let(:data_source) { :collectl }
+      let(:data_source_title) { "Collectl" }
+    end
 
   end
+
+
 
 
 end

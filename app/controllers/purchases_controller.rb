@@ -32,7 +32,7 @@ class PurchasesController < TableController
   end
 
   def create
-    rid = Resource.find_by_name(params[:resource_name]).id
+    rid = selected_resource.id
     params[:purchase][:rid] = rid
     @purchase = Purchase.new(params[:purchase])
 
@@ -49,7 +49,7 @@ class PurchasesController < TableController
 
   def update
     @purchase = Purchase.find(params[:id])
-    params[:purchase][:rid] = Resource.find_by_name(params[:resource_name]).id
+    params[:purchase][:rid] = selected_resource.id
     respond_to do |format|
       if @purchase.update_attributes(params[:purchase])
         format.html { redirect_to(@purchase, :notice => 'Purchase was successfully updated.') }

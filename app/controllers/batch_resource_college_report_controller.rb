@@ -1,0 +1,3 @@
+class BatchResourceCollegeReportController < BatchResourceReportController
+  include ResourceCollegeReportGenerator
+end

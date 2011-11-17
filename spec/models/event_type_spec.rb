@@ -30,7 +30,7 @@ describe EventType do
   describe "update_resource creates new Exectuable" do
     before(:each) {
       Executable.find_by_identifier('the_feature').should be_blank
-      event_type.update_resource(resource.name)
+      event_type.update_resource(resource)
     }
 
     it "should create an executable" do
@@ -51,7 +51,7 @@ describe EventType do
     let(:resource2) { FactoryGirl.create(:resource, :name => "the_second_resource_name") }
     before(:each) {
       @executable = FactoryGirl.create(:executable, :rid => resource.id, :comment => event.vendor, :identifier => event.feature)
-      event_type.update_resource(resource2.name)
+      event_type.update_resource(resource2)
     }
 
     it "should update rid of executable" do

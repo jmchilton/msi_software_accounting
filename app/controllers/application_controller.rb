@@ -15,18 +15,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def handle_search_criteria(field, sql_column = nil)
-    if sql_column.nil?
-      sql_column = field.to_s
-    end
-    if perform_search?
-      query = params[field]
-      unless query.blank?
-        @rows = @rows.where("#{sql_column} like ?", "%#{query}%")
-      end
-    end
-  end
-
   def from_date
     Date.parse(params[:from]) unless params[:from].blank?
   end
@@ -172,23 +160,40 @@ class ApplicationController < ActionController::Base
     @rows.to_jqgrid_json(keys, page, rows, @row_count)
   end
 
+  def render_report_to_str(report_name, *args)
+    fields, rows = send(report_name, *args)
+    render_csv_to_string fields, rows
+  end
+
+  def render_csv_to_string(fields, rows)
+    csv_fields = filter_fields_for_csv fields
+    [csv_header(csv_fields), csv_contents(rows, csv_fields)].join "\n"
+  end
+
+  def filter_fields_for_csv(fields)
+    fields.find_all { |field| field[:field] != "link" && (field[:hidden].blank? || !field[:hidden]) }
+  end
+
   # http://stackoverflow.com/questions/94502/in-rails-how-to-return-records-as-a-csv-file
   def render_csv(filename = nil)
     filename ||= params[:action]
     filename += '.csv'
 
+    set_filename filename
     if request.env['HTTP_USER_AGENT'] =~ /msie/i
       headers['Pragma'] = 'public'
       headers["Content-type"] = "text/plain" 
       headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
       headers['Expires'] = "0" 
     else
       headers["Content-Type"] ||= 'text/csv'
-      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
     end
-    @csv_fields = @fields.find_all { |field| field[:field] != "link" }
+    @csv_fields = filter_fields_for_csv @fields
     render :template => '/spreadsheet', :layout => false
+  end
+
+  def set_filename filename
+    headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
   end
 
   def set_enable_javascript
@@ -213,6 +218,25 @@ class ApplicationController < ActionController::Base
       format.html
       format.xml  { render :xml => object }
     end
+  end
+
+  def selected_resources
+    param_resource_names.collect { |resource_name| Resource.find_by_name resource_name }
+  end
+
+  def selected_resource(resource_name = params[:resource_name])
+    if resource_name.blank?
+      nil
+    else
+      unescaped_resource_name = (resource_name.gsub /\\,/, ",")
+      Resource.find_by_name unescaped_resource_name
+    end
+  end
+
+  def param_resource_names
+    resource_names = params[:resource_name]
+    resource_names.gsub! /\\,/, "COMMA" # Replace escaped comma, so we can split on comma
+    resource_names.split(",").collect { |escaped_name| escaped_name.gsub /COMMA/, ","}
   end
 
 end

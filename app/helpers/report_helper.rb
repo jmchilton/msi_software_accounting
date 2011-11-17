@@ -30,4 +30,18 @@ module ReportHelper
     data_source
   end
 
+
+
+  def render_report_zip(name = "reports")
+    set_filename "#{name}.zip"
+    render :template => '/reports.zip', :layout => false
+  end
+
+  def build_zip_for_resources report
+    @zip_files = {}
+    selected_resources.each do |resource|
+      @zip_files[resource.name] = render_report_to_str report, resource
+    end
+  end
+
 end

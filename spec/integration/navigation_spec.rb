@@ -59,6 +59,14 @@ feature "Index Page", %q{
     current_path.should eql(executables_path)
   end
 
+  scenario "Build FLEXlm Mapping CSV" do
+    visit_home
+    within "#links-manage" do
+      click_link 'FLEXlm Mappings'
+    end
+    click_link 'Download CSV'
+  end
+
   specify "Navigate to add purchase" do
     visit_home
     within('#links-manage') do

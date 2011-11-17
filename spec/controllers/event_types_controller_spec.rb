@@ -4,7 +4,7 @@ describe EventTypesController do
   include TableHelpers
 
   before(:each) {
-    @resource = FactoryGirl.create(:resource)
+    @resource = FactoryGirl.create(:resource, :name => 'test_resource_namex')
     @resource_name = @resource.name
     @event_type = EventType.new valid_attributes
     EventType.stub!(:find).with("1").and_return(@event_type)
@@ -48,7 +48,7 @@ describe EventTypesController do
   describe "PUT update" do
 
     describe "with valid params" do
-      before(:each) { @event_type.should_receive(:update_resource).with(@resource_name).and_return(true) }
+      before(:each) { @event_type.should_receive(:update_resource).with(@resource).and_return(true) }
 
       it "assigns the requested event_type as @event_type" do
         put :update, :id => @event_type.id.to_s, :resource_name => @resource_name
@@ -63,7 +63,7 @@ describe EventTypesController do
     end
 
     describe "with invalid params" do
-      before(:each) { EventType.any_instance.stub(:update_resource).with(@resource_name).and_return(false) }
+      before(:each) { EventType.any_instance.stub(:update_resource).with(@resource).and_return(false) }
 
       it "assigns the event_type as @event_type" do
         # Trigger the behavior that occurs when invalid params are submitted

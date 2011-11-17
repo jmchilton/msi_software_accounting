@@ -15,7 +15,6 @@ feature "Group Reports" do
 
 end
 
-
 feature "a groups resources report" do
   include IntegrationHelpers
 
@@ -27,3 +26,25 @@ feature "a groups resources report" do
   end
 
 end
+
+#feature "batch resource group report" do
+#  include IntegrationHelpers
+#
+#  background do
+#    visit_home
+#  end
+#
+#  let(:data_source) { :flexlm }
+#  let(:data_source_title) { "FLEXlm" }
+#  let(:model_title) { "Group" }
+#
+#  it "should have batch resource report" do
+#    navigate model_title
+#    click_link "Build #{data_source_title} #{model_title} Reports for Multiple Resources"
+#    report_title = "#{data_source_title} #{model_title} Reports for Multiple Resources"
+#    page_should_have_header report_title
+#    build_report
+#    it_should_download_file_named "group_reports.zip"
+#  end
+#
+#end

@@ -22,22 +22,6 @@ $blueprint-border-color: $dark_gray;
 @import "blueprint/liquid";
 
 
-// To generate css equivalent to the blueprint css but with your
-// configuration applied, uncomment:
-// @include blueprint
-
-// If you are doing a lot of stylesheet concatenation, it is suggested
-// that you scope your blueprint styles, so that you can better control
-// what pages use blueprint when stylesheets are concatenated together.
-body.bp {
-  @include blueprint-typography(true);
-  @include blueprint-utilities;
-  @include blueprint-debug;
-  @include blueprint-interaction;
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
-}
-
 form.bp {
   @include blueprint-form;
   // You'll probably want to remove the scaffolding once you start styling your site.
@@ -53,14 +37,37 @@ body.bp {
   @include blueprint-utilities;
   @include blueprint-debug;
   @include blueprint-interaction;
+}
 
+#announcements {
+
+  h2 {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .news_item {
+    .title { font-weight: bold; }
+    .date { font-style: italic; }
+  }
+
+}
+
+.red-top {
   border-top: 2px solid $dark_red;
 }
+
+//html, body, div,
 
 body .two-column {
   @include container;
   width: 94%;
-
+  height: 100%;
   #header, #footer {
     @include column(24);
   }
@@ -93,6 +100,7 @@ body .two-column {
   }
 
   #content {
+    height: 100%;
     padding-top: 10px;
     @include column(18, true);
 
@@ -120,6 +128,17 @@ body .two-column {
       }
 
     }
+
+    #home {
+      @include column(12);
+      @include colborder;
+    }
+
+    #news {
+      height: 100%;
+      @include column(11, true);
+    }
+
 
     .legend table {
       width: 1px;
@@ -174,3 +193,6 @@ body .two-column {
 .ui-datepicker-calendar {
   font-size:0.8em; }
 
+html, body { margin:0; padding:0; height:100%; }
+iframe { margin:0; padding:0; height:100%; }
+iframe { display:block; width:100%; border:none; }

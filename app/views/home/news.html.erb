@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag 'screen.css', :media => 'screen, projection' %>
+  <%= stylesheet_link_tag 'print.css', :media => 'print' %>
+</head>
+<body class="bp">
+<div id="announcements">
+<h2>
+  <%= link_to "Announcements", @rss.link.href %>
+</h2>
+<% @rss.items.take(5).each do |rss_item| %>
+   <div class="news_item">
+     <div class="title"><%= rss_item.title.content %></div>
+     <div class="date"><%= rss_item.updated.content.to_date.to_s %></div>
+     <div class="content"><%= raw rss_item.content.to_s %></div>
+   </div>
+<% end %>
+</div>
+</body>
+</html>
