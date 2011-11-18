@@ -53,4 +53,27 @@ class CollectlExecution < ActiveRecord::Base
      INNER JOIN groups on #{group_join_condition} "
   end
 
+  # http://richtextblog.blogspot.com/2007/09/mysql-temporary-tables-and-rails.html
+  def self.sample_for_executable(collectl_executable_id, report_options)
+    begin
+      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
+      connection.execute("CREATE TEMPORARY TABLE interval_timestamps(sample_date timestamp)")
+      from = Time.parse report_options[:from]
+      to = Time.parse report_options[:to]
+      timestamps = (from..to).step(15 * 60).collect { |timestamp| "INSERT INTO interval_timestamps (sample_date) VALUES ('#{timestamp.to_formatted_s(:db)}');" }
+      timestamps.each { |insert| connection.execute insert }
+
+      connection.select_all "SELECT max(sample_count) as value, date(timestamp) as for_date
+                               FROM
+                                 (SELECT it.sample_date as timestamp, count(*) as sample_count from collectl_executions ce inner join interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
+                                   WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
+                                   GROUP BY it.sample_date)
+                               GROUP BY date(timestamp)"
+    ensure
+      # this drop is here to help keep the size of the data base down
+      # between calls to this method
+      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
+    end
+  end
+
 end

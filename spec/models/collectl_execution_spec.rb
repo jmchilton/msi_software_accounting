@@ -71,5 +71,38 @@ describe CollectlExecution do
   end
 
 
+  describe "sample_for_executable" do
+
+    before(:each) {
+      @user1 = FactoryGirl.create(:user)
+      @user2 = FactoryGirl.create(:user)
+      puts "Creating executable1"
+      @collectl_executable1 = FactoryGirl.create(:collectl_executable)
+      @collectl_executable2 = FactoryGirl.create(:collectl_executable)
+      @execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:00:00', :end_time => '2011-09-01 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
+      @execution2 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:15:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable1, :user => @user2)
+      @execution3 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 00:25:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable2, :user => @user1)
+
+      @next_day_execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-02 01:00:00', :end_time => '2011-09-01 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
+    }
+
+
+
+    describe "sampling with" do
+
+      describe "max" do
+
+        it "should register 2 uses" do
+          sample = CollectlExecution.sample_for_executable(@collectl_executable1.id, {:sample => "date", :sample_with => "max", :from => '2011-09-01', :to => '2011-09-03'})[0]
+          sample["value"].should eql(2)
+        end
+
+      end
+
+    end
+
+  end
+
+
 
 end
