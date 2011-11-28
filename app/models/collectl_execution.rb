@@ -63,12 +63,26 @@ class CollectlExecution < ActiveRecord::Base
       timestamps = (from..to).step(15 * 60).collect { |timestamp| "INSERT INTO interval_timestamps (sample_date) VALUES ('#{timestamp.to_formatted_s(:db)}');" }
       timestamps.each { |insert| connection.execute insert }
 
-      connection.select_all "SELECT max(sample_count) as value, date(timestamp) as for_date
-                               FROM
-                                 (SELECT it.sample_date as timestamp, count(*) as sample_count from collectl_executions ce inner join interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
-                                   WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
-                                   GROUP BY it.sample_date)
-                               GROUP BY date(timestamp)"
+      sample_with = "max"
+      if report_options[:sample_with] == "avg"
+        sample_with = "avg"
+      end
+
+      sample_by = report_options[:sample]
+      case sample_by
+        when "date"
+          group_by_date_expression = "DATE(timestamp)"
+        else
+          group_by_date_expression = "timestamp"
+      end
+
+      samples = connection.select_all "SELECT #{sample_with}(sample_count) as value, #{group_by_date_expression} as for_date
+                                            FROM
+                                             (SELECT it.sample_date as timestamp, count(*) as sample_count from collectl_executions ce inner join interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
+                                                WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
+                                                GROUP BY it.sample_date)
+                                                GROUP BY #{group_by_date_expression}"
+      samples.collect { |row| row.symbolize_keys! }
     ensure
       # this drop is here to help keep the size of the data base down
       # between calls to this method

@@ -8,7 +8,7 @@ describe CollectlExecutablesController do
   }
 
   def valid_attributes
-    {:name => "Moo"}
+    {:name => "Moo", :resource_id => resource.id}
   end
 
   it_should_behave_like "standard model GET index"
@@ -47,7 +47,7 @@ describe CollectlExecutablesController do
 
       it "redirects to the created executable" do
         do_post
-        response.should redirect_to(resource_collectl_executables_path(resource))
+        response.should redirect_to(collectl_executables_path(:resource_id => resource.id))
       end
     end
 
@@ -90,7 +90,7 @@ describe CollectlExecutablesController do
 
     it "redirects to the executables list" do
       do_destroy
-      response.should redirect_to(resource_collectl_executables_path(resource))
+      response.should redirect_to(collectl_executables_path(:resource_id => resource.id))
     end
   end
 

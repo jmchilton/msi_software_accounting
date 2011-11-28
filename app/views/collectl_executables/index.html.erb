@@ -1,6 +1,6 @@
-<h1>Collectl Executables for Resource @resource.name</h1>
+<h1>Collectl Executables for Resource <%= @resource.name %></h1>
 <% if use_jqgrid %>
   <p>Double click a row to view more options for that collectl executable.</p>
 <% end %>
 <%= render :partial => "/table" %>
-<%= link_to 'New Executable', new_resource_collectl_executable_path(@resource.id) %>
+<%= link_to 'New Executable', new_collectl_executable_path(:resource_id => @resource.id) %>

@@ -1,4 +1,4 @@
-<%= form_for([@collectl_executable.resource, @collectl_executable]) do |f| %>
+<%= form_for(@collectl_executable, :url => {:action => :create, :resource_id => @resource.id }) do |f| %>
   <% if @collectl_executable.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@collectl_executable.errors.count, "error") %> prohibited this executable from being saved:</h2>
@@ -10,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+  <%= f.hidden_field :resource_id %>
 
   <div class="field">
     <%= f.label :name %><br />

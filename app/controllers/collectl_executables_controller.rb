@@ -1,13 +1,13 @@
 class CollectlExecutablesController < TableController
   FIELDS = [id_field,
-            {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
+#            {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "name", :label => "Name"}]
 
   before_filter :set_resource
 
   def index
     @fields = Array.new(FIELDS)
-    @fields << link_field(:link_proc => lambda  { |collectl_executable_id| resource_collectl_executable_path(@resource.id, collectl_executable_id) })
+    @fields << link_field(:link_proc => lambda  { |collectl_executable_id| collectl_executable_path(collectl_executable_id, :resource_id => @resource.id) })
 
     @rows = CollectlExecutable.where "resource_id = ?", @resource.id
     handle_search_criteria :name
@@ -24,10 +24,10 @@ class CollectlExecutablesController < TableController
   end
 
   def create
-    @collectl_executable = CollectlExecutable.new(:name => params[:collectl_executable][:name], :resource => @resource)
+    @collectl_executable = CollectlExecutable.new(:name => params[:collectl_executable][:name], :resource => Resource.find(params[:collectl_executable][:resource_id]))
     respond_to do |format|
       if @collectl_executable.save
-        format.html { redirect_to(resource_collectl_executables_path(@resource), :notice => 'Collectl Executable was successfully created.') }
+        format.html { redirect_to(collectl_executables_path(:resource_id => @resource.id), :notice => 'Collectl Executable was successfully created.') }
       else
         format.html { render :action => "new" }
       end
@@ -39,7 +39,7 @@ class CollectlExecutablesController < TableController
     @collectl_executable.destroy
 
     respond_to do |format|
-      format.html { redirect_to(resource_collectl_executables_url(@resource)) }
+      format.html { redirect_to(collectl_executables_url(:resource_id => @resource.id)) }
     end
 
   end
@@ -50,8 +50,6 @@ class CollectlExecutablesController < TableController
   def set_resource
     @resource = Resource.find params[:resource_id]
   end
-
-
 
 end
 

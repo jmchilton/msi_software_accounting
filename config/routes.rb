@@ -27,10 +27,14 @@
 
   resources :purchases
 
+  resources :collectl_executables do
+    report_resources :collectl_executables_plot
+  end
+
   readonly_resources :resources do
     get :autocomplete_resource_name, :on => :collection
 
-    resources :collectl_executables
+
 
     report_resources :executables_report
     report_resources :resource_user_report

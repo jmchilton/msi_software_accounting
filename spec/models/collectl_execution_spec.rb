@@ -76,32 +76,59 @@ describe CollectlExecution do
     before(:each) {
       @user1 = FactoryGirl.create(:user)
       @user2 = FactoryGirl.create(:user)
-      puts "Creating executable1"
       @collectl_executable1 = FactoryGirl.create(:collectl_executable)
       @collectl_executable2 = FactoryGirl.create(:collectl_executable)
       @execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:00:00', :end_time => '2011-09-01 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
-      @execution2 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:15:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable1, :user => @user2)
+      @execution2 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:25:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable1, :user => @user2)
       @execution3 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 00:25:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable2, :user => @user1)
 
       @next_day_execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-02 01:00:00', :end_time => '2011-09-01 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
     }
 
 
+    let(:samples) { CollectlExecution.sample_for_executable(@collectl_executable1.id, {:sample => sample_grouping, :sample_with => sample_with, :from => '2011-09-01', :to => '2011-09-03'}) }
+    let(:sample) { samples[0] }
 
-    describe "sampling with" do
+    describe "sampling date with" do
+      let(:sample_grouping) { "date" }
 
       describe "max" do
+        let(:sample_with) { "max" }
 
         it "should register 2 uses" do
-          sample = CollectlExecution.sample_for_executable(@collectl_executable1.id, {:sample => "date", :sample_with => "max", :from => '2011-09-01', :to => '2011-09-03'})[0]
-          sample["value"].should eql(2)
+          sample[:value].should eql(2)
         end
+
+        it "should have associated date field" do
+          sample[:for_date].should eql('2011-09-01')
+        end
+
+      end
+
+      describe "avg" do
+        let(:sample_with) { "avg" }
+
+        it "should have less than max usage, but greater than 0" do
+          sample[:value].should be < 2
+          sample[:value].should be > 0
+        end
+
 
       end
 
     end
 
+    describe "sampling continously" do
+      let(:sample_grouping) { "" }
+      let(:sample_with) { "max" }
+
+      specify { sample[:value].should == 1 }
+      specify { samples.find { |x| x[:for_date] == '2011-09-01 01:30:00'}[:value].should == 2 }
+
+    end
+
   end
+
 
 
 

@@ -2,6 +2,8 @@
 <%= model_field('name', "Name", @collectl_executable.name) %>
 <%= model_field('resource', "Resource", @collectl_executable.resource.blank? ? "Not mapped to a resource" : @collectl_executable.resource.name) %>
 
-<%= model_link "Delete Executable", resource_collectl_executable_path(@resource, @collectl_executable.resource), :method => :delete %>
+<%= model_link "Plot Feature Usage", new_collectl_executable_collectl_executables_plot_path(@collectl_executable) %>
+
+<%= model_link "Delete Executable", collectl_executable_path(@collectl_executable), :method => :delete %>
 <%= model_link "Back to Resource #{@collectl_executable.resource.name}", resource_path(@collectl_executable.resource) %>
 
