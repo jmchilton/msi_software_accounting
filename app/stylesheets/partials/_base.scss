@@ -8,3 +8,31 @@ $blueprint-grid-margin: 10px;
 // Use this to calculate the width based on the total width.
 // Or you can set $blueprint-grid-width to a fixed value and unset $blueprint-container-size -- it will be calculated for you.
 $blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin;
+
+$blueprint_grid_width: 40px;
+
+// Colors from MSI DB site
+$dark_red: #7a0019;
+$dark_gray: #808080;
+$medium_gray: #cccccc;
+$light_gray: #f5f5f5;
+
+$link-color: $dark_red;
+$link-hover-color: $dark_gray;
+
+$blueprint-border-color: $dark_gray;
+
+// This import applies a global reset to any page that imports this stylesheet.
+@import "blueprint/reset";
+
+// Import all the default blueprint modules so that we can access their mixins.
+@import "blueprint";
+@import "blueprint/liquid";
+
+
+@mixin blueprint-body {
+  @include blueprint-typography(true);
+  @include blueprint-utilities;
+  @include blueprint-debug;
+  @include blueprint-interaction;
+}

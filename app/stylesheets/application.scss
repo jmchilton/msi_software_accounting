@@ -1,0 +1,125 @@
+// To configure blueprint, edit the partials/base.sass file.
+@import "partials/base";
+@import "partials/jqueryuifixes";
+
+form {
+  @include blueprint-form;
+
+  label {
+    width: 50px;
+    display: block;
+  }
+
+}
+
+body {
+  @include blueprint-body;
+
+  border-top: 2px solid $dark_red;
+}
+
+#page {
+  @include container;
+  width: 94%;
+  height: 100%;
+
+  #header, #footer {
+    @include column(24);
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  #sidebar {
+    padding-top: 10px;
+    @include column(4);
+    @include colborder;
+
+    .link-group {
+      list-style-type: none;
+
+      lh {
+        font-weight: 700;
+        font-size: 1.05em;
+      }
+
+      li {
+        padding-left: 8px;
+      }
+    }
+  }
+
+  #content {
+    height: 100%;
+    padding-top: 10px;
+    @include column(18, true);
+
+    h1 {
+      font-size: 1.4em;
+      font-weight: 700;
+    }
+
+    .model_field {
+      padding-bottom: 15px;
+
+      div.model_field_value {
+        margin-left: 10px;
+      }
+
+      .model_field_label {
+        width: 100px;
+        font-weight: 900;
+        font-size: 1.1em;
+      }
+
+    }
+
+    #home {
+      @include column(12);
+      @include colborder;
+    }
+
+    #news {
+      height: 100%;
+      @include column(11, true);
+    }
+
+    .legend table {
+      width: 1px;
+    }
+
+    .legendLabel {
+      white-space: nowrap;
+    }
+
+    .model_link {
+      display: block;
+      padding-bottom: 5px;
+    }
+
+    .report_link {
+      display: block;
+      padding-bottom: 5px;
+    }
+
+    .form_item {
+      label {
+        width: 100%;
+      }
+
+    }
+
+
+  }
+
+  div.flot_canvas {width:600px; height:300px}
+  div.flot_overview {margin-top: 10px; width:600px; height:50px}
+
+  div#d_clip_container {
+    position: relative;
+  }
+
+}
+

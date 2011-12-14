@@ -57,135 +57,12 @@ a img {
   border: none;
 }
 
-/* JQUERY-UI + BLUEPRINT CSS CALENDAR FIX */
-/* line 4, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker table {
-  margin: 0;
-}
-
-/* line 6, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker-calendar thead tr th, .ui-datepicker tbody tr td {
-  background: white;
-  color: #333;
-}
-
-/* line 8, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker-calendar thead tr th {
-  padding: 5px 0;
-}
-
-/* line 10, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker-calendar tbody td {
-  padding: 0 2px 2px 0;
-}
-
-/* line 12, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker-calendar tbody td a {
-  padding: 0 1px 0 0;
-}
-
-/* line 14, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-.ui-datepicker-calendar {
-  font-size: 0.8em;
-}
-
-/* line 17, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* line 18, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-iframe {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-/* line 19, ../../app/stylesheets/partials/_jqueryuifixes.scss */
-iframe {
-  display: block;
-  width: 100%;
-  border: none;
-}
-
-/* line 18, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form label {
-  font-weight: bold;
-}
-/* line 19, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form fieldset {
-  padding: 1.4em;
-  margin: 0 0 1.5em 0;
-}
-/* line 20, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form legend {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-/* line 26, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form input.text, form input.title, form input[type=email], form input[type=text], form input[type=password] {
-  margin: 0.5em 0;
-  background-color: white;
-  padding: 5px;
-}
-/* line 27, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form input.title {
-  font-size: 1.5em;
-}
-/* line 29, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form textarea {
-  margin: 0.5em 0;
-  padding: 5px;
-}
-/* line 30, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form select {
-  margin: 0.5em 0;
-}
-/* line 55, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form fieldset {
-  border: 1px solid #cccccc;
-}
-/* line 58, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form input.text, form input.title, form input[type=email], form input[type=text], form input[type=password],
-form textarea {
-  background-color: #fff;
-  border: 1px solid #bbbbbb;
-}
-/* line 61, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form input.text:focus, form input.title:focus, form input[type=email]:focus, form input[type=text]:focus, form input[type=password]:focus,
-form textarea:focus {
-  border-color: #666666;
-}
-/* line 65, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form select {
-  background-color: #fff;
-  border-width: 1px;
-  border-style: solid;
-}
-/* line 44, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form input.text, form input.title, form input[type=email], form input[type=text], form input[type=password] {
-  width: 300px;
-}
-/* line 46, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_form.scss */
-form textarea {
-  width: 390px;
-  height: 250px;
-}
-/* line 8, ../../app/stylesheets/application.scss */
-form label {
-  width: 50px;
-  display: block;
-}
-
-/* line 15, ../../app/stylesheets/application.scss */
+/* line 4, ../../app/stylesheets/announcements.scss */
 body {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   color: #333333;
   font-size: 75%;
-  border-top: 2px solid #7a0019;
 }
 /* line 51, ../../../../../../../../home/msi/chilton/.rvm/gems/ruby-1.8.7-p352/gems/compass-0.11.5/frameworks/blueprint/stylesheets/blueprint/_typography.scss */
 body h1, body h2, body h3, body h4, body h5, body h6 {
@@ -501,137 +378,21 @@ body .removed {
   color: white;
 }
 
-/* line 21, ../../app/stylesheets/application.scss */
-#page {
-  min-width: 950px;
-  width: 80%;
-  margin: 0 auto;
-  overflow: hidden;
-  *zoom: 1;
-  width: 94%;
-  height: 100%;
+/* line 10, ../../app/stylesheets/announcements.scss */
+#announcements h2 {
+  font-size: 1.2em;
+  line-height: 1;
 }
-/* line 26, ../../app/stylesheets/application.scss */
-#page #header, #page #footer {
-  display: inline;
-  float: left;
-  overflow: hidden;
-  width: 99.974%;
-  margin-right: 1.042%;
-}
-/* line 30, ../../app/stylesheets/application.scss */
-#page a {
+/* line 15, ../../app/stylesheets/announcements.scss */
+#announcements a {
   text-decoration: none;
   font-weight: 700;
 }
-/* line 35, ../../app/stylesheets/application.scss */
-#page #sidebar {
-  padding-top: 10px;
-  display: inline;
-  float: left;
-  overflow: hidden;
-  width: 15.794%;
-  margin-right: 1.042%;
-  padding-right: 2.084%;
-  margin-right: 2.084%;
-  border-right: 1px solid #eeeeee;
+/* line 21, ../../app/stylesheets/announcements.scss */
+#announcements .news_item .title {
+  font-weight: bold;
 }
-/* line 40, ../../app/stylesheets/application.scss */
-#page #sidebar .link-group {
-  list-style-type: none;
-}
-/* line 43, ../../app/stylesheets/application.scss */
-#page #sidebar .link-group lh {
-  font-weight: 700;
-  font-size: 1.05em;
-}
-/* line 48, ../../app/stylesheets/application.scss */
-#page #sidebar .link-group li {
-  padding-left: 8px;
-}
-/* line 54, ../../app/stylesheets/application.scss */
-#page #content {
-  height: 100%;
-  padding-top: 10px;
-  display: inline;
-  float: left;
-  overflow: hidden;
-  width: 74.72%;
-  margin-right: 0;
-}
-/* line 59, ../../app/stylesheets/application.scss */
-#page #content h1 {
-  font-size: 1.4em;
-  font-weight: 700;
-}
-/* line 64, ../../app/stylesheets/application.scss */
-#page #content .model_field {
-  padding-bottom: 15px;
-}
-/* line 67, ../../app/stylesheets/application.scss */
-#page #content .model_field div.model_field_value {
-  margin-left: 10px;
-}
-/* line 71, ../../app/stylesheets/application.scss */
-#page #content .model_field .model_field_label {
-  width: 100px;
-  font-weight: 900;
-  font-size: 1.1em;
-}
-/* line 79, ../../app/stylesheets/application.scss */
-#page #content #home {
-  display: inline;
-  float: left;
-  overflow: hidden;
-  width: 49.466%;
-  margin-right: 1.042%;
-  padding-right: 2.084%;
-  margin-right: 2.084%;
-  border-right: 1px solid #eeeeee;
-}
-/* line 84, ../../app/stylesheets/application.scss */
-#page #content #news {
-  height: 100%;
-  display: inline;
-  float: left;
-  overflow: hidden;
-  width: 45.257%;
-  margin-right: 0;
-}
-/* line 89, ../../app/stylesheets/application.scss */
-#page #content .legend table {
-  width: 1px;
-}
-/* line 93, ../../app/stylesheets/application.scss */
-#page #content .legendLabel {
-  white-space: nowrap;
-}
-/* line 97, ../../app/stylesheets/application.scss */
-#page #content .model_link {
-  display: block;
-  padding-bottom: 5px;
-}
-/* line 102, ../../app/stylesheets/application.scss */
-#page #content .report_link {
-  display: block;
-  padding-bottom: 5px;
-}
-/* line 108, ../../app/stylesheets/application.scss */
-#page #content .form_item label {
-  width: 100%;
-}
-/* line 117, ../../app/stylesheets/application.scss */
-#page div.flot_canvas {
-  width: 600px;
-  height: 300px;
-}
-/* line 118, ../../app/stylesheets/application.scss */
-#page div.flot_overview {
-  margin-top: 10px;
-  width: 600px;
-  height: 50px;
-}
-/* line 120, ../../app/stylesheets/application.scss */
-#page div#d_clip_container {
-  position: relative;
+/* line 22, ../../app/stylesheets/announcements.scss */
+#announcements .news_item .date {
+  font-style: italic;
 }

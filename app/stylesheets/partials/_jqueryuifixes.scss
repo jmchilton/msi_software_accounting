@@ -1,0 +1,19 @@
+
+// http://stackoverflow.com/questions/444842/altering-jquery-datepicker-to-work-with-blueprint-css
+/* JQUERY-UI + BLUEPRINT CSS CALENDAR FIX */
+.ui-datepicker table{
+  margin: 0; }
+.ui-datepicker-calendar thead tr th , .ui-datepicker tbody tr td {
+  background:white; color:#333;  }
+.ui-datepicker-calendar thead tr th{
+  padding: 5px 0; }
+.ui-datepicker-calendar tbody td{
+  padding:0 2px 2px 0; }
+.ui-datepicker-calendar tbody td a{
+  padding:0 1px 0 0; }
+.ui-datepicker-calendar {
+  font-size:0.8em; }
+
+html, body { margin:0; padding:0; height:100%; }
+iframe { margin:0; padding:0; height:100%; }
+iframe { display:block; width:100%; border:none; }

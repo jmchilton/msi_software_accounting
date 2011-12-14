@@ -1,0 +1,25 @@
+// To configure blueprint, edit the partials/base.sass file.
+@import "partials/base";
+
+body {
+  @include blueprint-body;
+}
+
+#announcements {
+
+  h2 {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .news_item {
+    .title { font-weight: bold; }
+    .date { font-style: italic; }
+  }
+
+}
