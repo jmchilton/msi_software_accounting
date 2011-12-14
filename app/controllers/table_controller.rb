@@ -37,11 +37,11 @@ class TableController < ApplicationController
   protected
 
   def set_parent
-    [User, Resource, Executable, Department, Group, College].each do |parent_type|
+    [User, Resource, Executable, Department, Group, College, CollectlExecutable].each do |parent_type|
       parent_type_name = parent_type.name
-      parent_var_name = parent_type_name.downcase
+      parent_var_name = parent_type_name.gsub(/(.)([A-Z])/,'\1_\2').downcase
 
-      id_param = "#{parent_type_name.downcase}_id".to_sym
+      id_param = "#{parent_var_name}_id".to_sym
       parent_id = params[id_param]
       unless parent_id.blank?
         instance_variable_set "@#{parent_var_name}".to_sym, parent_type.find(parent_id)

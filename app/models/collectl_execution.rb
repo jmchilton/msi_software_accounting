@@ -78,7 +78,9 @@ class CollectlExecution < ActiveRecord::Base
 
       samples = connection.select_all "SELECT #{sample_with}(sample_count) as value, #{group_by_date_expression} as for_date
                                             FROM
-                                             (SELECT it.sample_date as timestamp, count(*) as sample_count from collectl_executions ce inner join interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
+                                             (SELECT it.sample_date as timestamp, count(*) as sample_count
+                                                FROM collectl_executions ce
+                                                  INNER JOIN interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
                                                 WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
                                                 GROUP BY it.sample_date)
                                                 GROUP BY #{group_by_date_expression}"
