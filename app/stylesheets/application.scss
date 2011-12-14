@@ -56,9 +56,14 @@ body {
     padding-top: 10px;
     @include column(18, true);
 
-    h1 {
-      font-size: 1.4em;
-      font-weight: 700;
+    #home {
+      @include column(12);
+      @include colborder;
+    }
+
+    #news {
+      height: 100%;
+      @include column(11, true);
     }
 
     .model_field {
@@ -76,14 +81,9 @@ body {
 
     }
 
-    #home {
-      @include column(12);
-      @include colborder;
-    }
-
-    #news {
-      height: 100%;
-      @include column(11, true);
+    h1 {
+      font-size: 1.4em;
+      font-weight: 700;
     }
 
     .legend table {
@@ -110,7 +110,6 @@ body {
       }
 
     }
-
 
   }
 
