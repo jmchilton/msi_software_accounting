@@ -26,6 +26,7 @@
   end
 
   resources :executable_overview, :only => [:show]
+  resources :collectl_executable_overview, :only => [:show]
 
   resources :purchases
 

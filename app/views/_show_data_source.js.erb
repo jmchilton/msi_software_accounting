@@ -1,0 +1,2 @@
+$("#<%= local_assigns[:data_source] %>-overview").addClass("overview_box");
+$("#<%= local_assigns[:data_source] %>-overview").html("<%= escape_javascript render(:partial => "#{local_assigns[:data_source]}_overview/fields") %>");

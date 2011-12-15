@@ -1,7 +1,8 @@
 <h1>Collectl Executable <%= @collectl_executable.name %></h1>
 <%= model_field('name', "Name", @collectl_executable.name) %>
 <%= model_field('resource', "Resource", @collectl_executable.resource.blank? ? "Not mapped to a resource" : @collectl_executable.resource.name) %>
-
+<%= link_to("Collectl Data Summary",  collectl_executable_overview_path(@collectl_executable), :class => "model_link", :remote => true ) %>
+<div id="collectl-overview"></div>
 <%= model_link "Plot Executable Usage", new_collectl_executable_collectl_executables_plot_path(@collectl_executable) %>
 <%= model_link "Delete Executable", collectl_executable_path(@collectl_executable), :method => :delete %>
 <%= model_link "Back to Resource #{@collectl_executable.resource.name}", resource_path(@collectl_executable.resource) %>

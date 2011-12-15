@@ -3,29 +3,18 @@ require 'report_test_data'
 
 describe Executable do
   include ModelHelpers
+  include HasSummary
 
   describe "summarize" do
-    let(:executable) { FactoryGirl.create(:executable) }
-    let(:summary) { executable.summarize }
+    let(:instance) { FactoryGirl.create(:executable) }
 
     before(:each) {
-      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-05 12:10:38')
-      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-06 12:10:38')
-      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-07 12:10:38')
+      FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-05 12:10:38')
+      FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-06 12:10:38')
+      FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-07 12:10:38')
     }
 
-    specify "summary should contain count" do
-      summary[:count].should eql(3)
-    end
-
-    specify "summary should contain first date" do
-      Date.parse(summary[:first]).should eql(Date.parse('2011-08-05 12:10:38'))
-    end
-
-    specify "summary should contain last date" do
-      Date.parse(summary[:last]).should eql(Date.parse('2011-08-07 12:10:38'))
-    end
-
+    it_should_behave_like "has summary"
   end
 
   describe "report" do

@@ -12,6 +12,11 @@ form {
 
 }
 
+.overview_box {
+  border: 1px solid $dark_gray;
+  padding: 10px;
+}
+
 body {
   @include blueprint-body;
 
@@ -74,7 +79,6 @@ body {
       }
 
       .model_field_label {
-        width: 400px;
         font-weight: 900;
         font-size: 1.1em;
       }

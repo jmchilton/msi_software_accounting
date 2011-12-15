@@ -6,6 +6,10 @@ class CollectlExecutable < ActiveRecord::Base
 
   after_save :index
 
+  def summarize
+    CollectlExecutable.select("count(*) as count, min(start_time) as first, max(start_time) as last").joins("inner join collectl_executions on collectl_executions.collectl_executable_id = collectl_executables.id").where("collectl_executables.id = ?", id).first
+  end
+
   private
 
   def index

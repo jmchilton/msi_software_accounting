@@ -180,6 +180,12 @@ form label {
 }
 
 /* line 15, ../../app/stylesheets/application.scss */
+.overview_box {
+  border: 1px solid gray;
+  padding: 10px;
+}
+
+/* line 20, ../../app/stylesheets/application.scss */
 body {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -501,7 +507,7 @@ body .removed {
   color: white;
 }
 
-/* line 21, ../../app/stylesheets/application.scss */
+/* line 26, ../../app/stylesheets/application.scss */
 #page {
   min-width: 950px;
   width: 80%;
@@ -511,7 +517,7 @@ body .removed {
   width: 94%;
   height: 100%;
 }
-/* line 26, ../../app/stylesheets/application.scss */
+/* line 31, ../../app/stylesheets/application.scss */
 #page #header, #page #footer {
   display: inline;
   float: left;
@@ -519,12 +525,12 @@ body .removed {
   width: 99.974%;
   margin-right: 1.042%;
 }
-/* line 30, ../../app/stylesheets/application.scss */
+/* line 35, ../../app/stylesheets/application.scss */
 #page a {
   text-decoration: none;
   font-weight: 700;
 }
-/* line 35, ../../app/stylesheets/application.scss */
+/* line 40, ../../app/stylesheets/application.scss */
 #page #sidebar {
   padding-top: 10px;
   display: inline;
@@ -536,20 +542,20 @@ body .removed {
   margin-right: 2.084%;
   border-right: 1px solid #eeeeee;
 }
-/* line 40, ../../app/stylesheets/application.scss */
+/* line 45, ../../app/stylesheets/application.scss */
 #page #sidebar .link-group {
   list-style-type: none;
 }
-/* line 43, ../../app/stylesheets/application.scss */
+/* line 48, ../../app/stylesheets/application.scss */
 #page #sidebar .link-group lh {
   font-weight: 700;
   font-size: 1.05em;
 }
-/* line 48, ../../app/stylesheets/application.scss */
+/* line 53, ../../app/stylesheets/application.scss */
 #page #sidebar .link-group li {
   padding-left: 8px;
 }
-/* line 54, ../../app/stylesheets/application.scss */
+/* line 59, ../../app/stylesheets/application.scss */
 #page #content {
   height: 100%;
   padding-top: 10px;
@@ -559,7 +565,7 @@ body .removed {
   width: 74.72%;
   margin-right: 0;
 }
-/* line 59, ../../app/stylesheets/application.scss */
+/* line 64, ../../app/stylesheets/application.scss */
 #page #content #home {
   display: inline;
   float: left;
@@ -570,7 +576,7 @@ body .removed {
   margin-right: 2.084%;
   border-right: 1px solid #eeeeee;
 }
-/* line 64, ../../app/stylesheets/application.scss */
+/* line 69, ../../app/stylesheets/application.scss */
 #page #content #news {
   height: 100%;
   display: inline;
@@ -579,59 +585,58 @@ body .removed {
   width: 45.257%;
   margin-right: 0;
 }
-/* line 69, ../../app/stylesheets/application.scss */
+/* line 74, ../../app/stylesheets/application.scss */
 #page #content .model_field {
   padding-bottom: 15px;
 }
-/* line 72, ../../app/stylesheets/application.scss */
+/* line 77, ../../app/stylesheets/application.scss */
 #page #content .model_field div.model_field_value {
   margin-left: 10px;
 }
-/* line 76, ../../app/stylesheets/application.scss */
+/* line 81, ../../app/stylesheets/application.scss */
 #page #content .model_field .model_field_label {
-  width: 400px;
   font-weight: 900;
   font-size: 1.1em;
 }
-/* line 84, ../../app/stylesheets/application.scss */
+/* line 88, ../../app/stylesheets/application.scss */
 #page #content h1 {
   font-size: 1.4em;
   font-weight: 700;
 }
-/* line 89, ../../app/stylesheets/application.scss */
+/* line 93, ../../app/stylesheets/application.scss */
 #page #content .legend table {
   width: 1px;
 }
-/* line 93, ../../app/stylesheets/application.scss */
+/* line 97, ../../app/stylesheets/application.scss */
 #page #content .legendLabel {
   white-space: nowrap;
 }
-/* line 97, ../../app/stylesheets/application.scss */
+/* line 101, ../../app/stylesheets/application.scss */
 #page #content .model_link {
   display: block;
   padding-bottom: 5px;
 }
-/* line 102, ../../app/stylesheets/application.scss */
+/* line 106, ../../app/stylesheets/application.scss */
 #page #content .report_link {
   display: block;
   padding-bottom: 5px;
 }
-/* line 108, ../../app/stylesheets/application.scss */
+/* line 112, ../../app/stylesheets/application.scss */
 #page #content .form_item label {
   width: 100%;
 }
-/* line 116, ../../app/stylesheets/application.scss */
+/* line 120, ../../app/stylesheets/application.scss */
 #page div.flot_canvas {
   width: 600px;
   height: 300px;
 }
-/* line 117, ../../app/stylesheets/application.scss */
+/* line 121, ../../app/stylesheets/application.scss */
 #page div.flot_overview {
   margin-top: 10px;
   width: 600px;
   height: 50px;
 }
-/* line 119, ../../app/stylesheets/application.scss */
+/* line 123, ../../app/stylesheets/application.scss */
 #page div#d_clip_container {
   position: relative;
 }
