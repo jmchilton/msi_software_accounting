@@ -27,6 +27,10 @@ class EventType
     to_event_type(event_types.find_by_evid(id))
   end
 
+  def self.reorder(*args)
+    event_types.reorder(*args)
+  end
+
   def update_resource(new_resource)
     resource_id = new_resource.id
     if resource_name.blank?

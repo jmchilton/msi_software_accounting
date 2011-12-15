@@ -25,6 +25,8 @@
     report_resources :executable_college_report
   end
 
+  resources :executable_overview, :only => [:show]
+
   resources :purchases
 
   resources :collectl_executables do

@@ -4,8 +4,33 @@ require 'report_test_data'
 describe Executable do
   include ModelHelpers
 
+  describe "summarize" do
+    let(:executable) { FactoryGirl.create(:executable) }
+    let(:summary) { executable.summarize }
+
+    before(:each) {
+      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-05 12:10:38')
+      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-06 12:10:38')
+      FactoryGirl.create(:event, :feature => executable.identifier, :ev_date => '2011-08-07 12:10:38')
+    }
+
+    specify "summary should contain count" do
+      summary[:count].should eql(3)
+    end
+
+    specify "summary should contain first date" do
+      Date.parse(summary[:first]).should eql(Date.parse('2011-08-05 12:10:38'))
+    end
+
+    specify "summary should contain last date" do
+      Date.parse(summary[:last]).should eql(Date.parse('2011-08-07 12:10:38'))
+    end
+
+  end
+
   describe "report" do
     let(:relation) { Executable.flexlm_report_for_resource(resource_id,  report_options) }
+
 
     describe "excludes_employees option" do
       let(:resource_id) { Resource.find_by_name(ReportTestData::TECH_RESOURCE_NAME).id }

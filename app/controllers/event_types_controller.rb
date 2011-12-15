@@ -10,7 +10,7 @@ class EventTypesController < TableController
      ]
 
   def index
-    @rows = EventType
+    @rows = handle_ordering(EventType)
     respond_with_table(false)
   end
 

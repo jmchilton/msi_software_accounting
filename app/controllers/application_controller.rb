@@ -51,6 +51,20 @@ class ApplicationController < ActionController::Base
     @chart_data.series(label, data, options)
   end
 
+  def handle_ordering(relation)
+    if order_specified
+      order = params[:sidx]
+      unless params[:sord].blank?
+        order = order + " " + params[:sord]
+      end
+      relation = relation.reorder(order)
+    end
+    relation
+  end
+
+  def order_specified
+    not params[:sidx].blank?
+  end
 
   def with_pagination_and_ordering(relation)
     unless params[:page].blank? or params[:rows].blank?
@@ -59,14 +73,7 @@ class ApplicationController < ActionController::Base
       offset = (page.to_i - 1) * rows.to_i
       relation = relation.offset(offset).limit(rows)
     end
-    unless params[:sidx].blank?
-      order = params[:sidx]
-      unless params[:sord].blank?
-        order = order + " " + params[:sord]
-      end
-      relation = relation.reorder(order)
-    end
-    relation
+    handle_ordering(relation)
   end
 
   def append_links_to_rows

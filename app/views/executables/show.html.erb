@@ -3,6 +3,8 @@
 <%= model_field('comment', "Vendor", @executable.comment) %>
 <%= model_field('resource', "Resource", @executable.resource.blank? ? "Not mapped to a resource" : @executable.resource.name) %>
 
+<%= model_link "FLEXlm Data Summary", executable_overview_path(@executable) %>
+
 <%= model_link "Plot Feature Usage", new_executable_executables_plot_path(@executable) %>
 <%= model_link "Build Per User FLEXlm Usage Report", new_executable_executable_user_report_path(@executable.id) %>
 <%= model_link "Build Per Group FLEXlm Usage Report", new_executable_executable_group_report_path(@executable.id) %>

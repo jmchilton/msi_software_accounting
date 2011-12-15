@@ -560,25 +560,6 @@ body .removed {
   margin-right: 0;
 }
 /* line 59, ../../app/stylesheets/application.scss */
-#page #content h1 {
-  font-size: 1.4em;
-  font-weight: 700;
-}
-/* line 64, ../../app/stylesheets/application.scss */
-#page #content .model_field {
-  padding-bottom: 15px;
-}
-/* line 67, ../../app/stylesheets/application.scss */
-#page #content .model_field div.model_field_value {
-  margin-left: 10px;
-}
-/* line 71, ../../app/stylesheets/application.scss */
-#page #content .model_field .model_field_label {
-  width: 100px;
-  font-weight: 900;
-  font-size: 1.1em;
-}
-/* line 79, ../../app/stylesheets/application.scss */
 #page #content #home {
   display: inline;
   float: left;
@@ -589,7 +570,7 @@ body .removed {
   margin-right: 2.084%;
   border-right: 1px solid #eeeeee;
 }
-/* line 84, ../../app/stylesheets/application.scss */
+/* line 64, ../../app/stylesheets/application.scss */
 #page #content #news {
   height: 100%;
   display: inline;
@@ -597,6 +578,25 @@ body .removed {
   overflow: hidden;
   width: 45.257%;
   margin-right: 0;
+}
+/* line 69, ../../app/stylesheets/application.scss */
+#page #content .model_field {
+  padding-bottom: 15px;
+}
+/* line 72, ../../app/stylesheets/application.scss */
+#page #content .model_field div.model_field_value {
+  margin-left: 10px;
+}
+/* line 76, ../../app/stylesheets/application.scss */
+#page #content .model_field .model_field_label {
+  width: 400px;
+  font-weight: 900;
+  font-size: 1.1em;
+}
+/* line 84, ../../app/stylesheets/application.scss */
+#page #content h1 {
+  font-size: 1.4em;
+  font-weight: 700;
 }
 /* line 89, ../../app/stylesheets/application.scss */
 #page #content .legend table {
@@ -620,18 +620,18 @@ body .removed {
 #page #content .form_item label {
   width: 100%;
 }
-/* line 117, ../../app/stylesheets/application.scss */
+/* line 116, ../../app/stylesheets/application.scss */
 #page div.flot_canvas {
   width: 600px;
   height: 300px;
 }
-/* line 118, ../../app/stylesheets/application.scss */
+/* line 117, ../../app/stylesheets/application.scss */
 #page div.flot_overview {
   margin-top: 10px;
   width: 600px;
   height: 50px;
 }
-/* line 120, ../../app/stylesheets/application.scss */
+/* line 119, ../../app/stylesheets/application.scss */
 #page div#d_clip_container {
   position: relative;
 }
