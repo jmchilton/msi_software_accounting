@@ -28,4 +28,8 @@ class FlexlmAppSnapshot < ReadOnlyModel
     DateOptions.handle_date_options(relation, 'FOR_DATE', report_options)
   end
 
+  def self.index_raw_records
+    # Doesn't do anything right now, someday may want to copy raw_* data over like we are doing with collectl data
+  end
+
 end

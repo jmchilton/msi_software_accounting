@@ -11,31 +11,41 @@ class CollectlExecution < ActiveRecord::Base
 
   def self.index_raw_records(executable_id = nil)
     if executable_id.nil?
-        connection.execute "insert into collectl_executions (ID, START_TIME, END_TIME, HOST, PID, USER_ID, COLLECTL_EXECUTABLE_ID)
-                              select rce.ID, rce.START_TIME, rce.END_TIME, rce.HOST, rce.PID, u.id, ex.id
-                              from raw_collectl_executions rce
-                                inner join users u on u.uid = rce.uid
-                                inner join collectl_executables ex on ex.name = substr(rce.executable, -length(ex.name))
-                              where 1 not in (select 1 from collectl_executions ce where ce.ID = rce.ID)"
-        connection.execute "update collectl_executions
-                              set START_TIME = (select rce.START_TIME from raw_collectl_executions rce where rce.id = collectl_executions.id),
-                                  END_TIME   = (select rce.END_TIME   from raw_collectl_executions rce where rce.id = collectl_executions.id)"
+      index_all_raw_records
     else
-      collectl_executable = CollectlExecutable.find(executable_id)
-      name = collectl_executable.name
-      sanitized_executable_id = sanitize_sql(executable_id)
-      connection.execute "insert into collectl_executions (ID, START_TIME, END_TIME, HOST, PID, USER_ID, COLLECTL_EXECUTABLE_ID)
-                            select rce.ID, rce.START_TIME, rce.END_TIME, rce.HOST, rce.PID, u.id, '#{sanitized_executable_id}'
-                            from raw_collectl_executions rce
-                              inner join users u on u.uid = rce.uid
-                              left join collectl_executions ce on ce.id = rce.id
-                            where substr(rce.executable, -#{name.length}) = '#{sanitize_sql(name)}' and ce.id is NULL"
-      connection.execute "update collectl_executions
-                            set START_TIME = (select rce.START_TIME from raw_collectl_executions rce where rce.id = collectl_executions.id),
-                                END_TIME   = (select rce.END_TIME   from raw_collectl_executions rce where rce.id = collectl_executions.id)
-                            where collectl_executable_id = '#{sanitized_executable_id}'"
+      index_raw_record_for_executable executable_id
     end
 
+  end
+
+  private
+
+  UPDATE_EXECUTION_SQL = "update collectl_executions
+                            set START_TIME = (select rce.START_TIME from raw_collectl_executions rce where rce.id = collectl_executions.id),
+                                END_TIME   = (select rce.END_TIME   from raw_collectl_executions rce where rce.id = collectl_executions.id)"
+  COLLECTL_EXECUTION_COLUMNS_SQL = "(ID, START_TIME, END_TIME, HOST, PID, USER_ID, COLLECTL_EXECUTABLE_ID)"
+
+  def self.execute_index_insert(id_sql, execution_joins, where_clause)
+    connection.execute "insert into collectl_executions #{COLLECTL_EXECUTION_COLUMNS_SQL}
+                          select rce.ID, rce.START_TIME, rce.END_TIME, rce.HOST, rce.PID, u.id, #{id_sql}
+                            from raw_collectl_executions rce
+                              inner join users u on u.uid = rce.uid
+                              #{execution_joins}
+                            where #{where_clause}"
+  end
+
+
+  def self.index_all_raw_records
+    execute_index_insert "ex.id", "inner join collectl_executables ex on ex.name = substr(rce.executable, -length(ex.name))", "1 not in (select 1 from collectl_executions ce where ce.ID = rce.ID)"
+    connection.execute UPDATE_EXECUTION_SQL
+  end
+
+  def self.index_raw_record_for_executable(executable_id)
+    collectl_executable = CollectlExecutable.find(executable_id)
+    name = collectl_executable.name
+    sanitized_executable_id = sanitize_sql(executable_id)
+    execute_index_insert "'#{sanitized_executable_id}'", "left join collectl_executions ce on ce.id = rce.id", "substr(rce.executable, -#{name.length}) = '#{sanitize_sql(name)}' and ce.id is NULL"
+    connection.execute "#{UPDATE_EXECUTION_SQL} where collectl_executable_id = '#{sanitized_executable_id}'"
   end
 
   # TODO: Refactor to combine shared code with Event.to_demographics_joins
