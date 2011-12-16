@@ -9,6 +9,14 @@ class Resource < ReadOnlyModel
     name.gsub /,/, "\\,"
   end
 
+  def summarize(data_source)
+    if data_source == "collectl"
+      CollectlExecutable.summary_select.where("collectl_executables.resource_id = ?", id).first
+    else
+      Executable.summary_select.where("executable.rid = ?", id).first
+    end
+  end
+
   def self.unescape_name escaped_name
 
   end

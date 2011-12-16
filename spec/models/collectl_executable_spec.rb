@@ -20,11 +20,10 @@ describe CollectlExecutable do
 
   describe "summarize" do
     let(:instance) { FactoryGirl.create(:collectl_executable, :name => "bowtie") }
+    let(:summary) { instance.summarize }
 
     before(:each) {
-      FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-05 12:10:38')
-      FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-06 12:10:38')
-      FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-07 12:10:38')
+      setup_collectl_executions(instance)
     }
 
     it_should_behave_like "has summary"

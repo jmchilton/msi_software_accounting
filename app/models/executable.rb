@@ -13,7 +13,11 @@ class Executable < ActiveRecord::Base
   end
 
   def summarize
-    Executable.select("count(*) as count, min(ev_date) as first, max(ev_date) as last").joins("inner join Event on identifier = feature").where("executable.exid = ?", exid).first
+    Executable.summary_select.where("executable.exid = ?", exid).first
+  end
+
+  def self.summary_select
+    select("count(*) as count, min(ev_date) as first, max(ev_date) as last").joins("inner join Event on identifier = feature")
   end
 
 end

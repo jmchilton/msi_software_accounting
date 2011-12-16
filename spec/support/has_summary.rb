@@ -1,7 +1,6 @@
 module HasSummary
 
   share_examples_for "has summary" do
-    let(:summary) { instance.summarize }
 
     specify "summary should contain count" do
       summary[:count].should eql(3)
@@ -15,6 +14,19 @@ module HasSummary
       Date.parse(summary[:last]).should eql(Date.parse('2011-08-07 12:10:38'))
     end
 
+  end
+
+
+  def setup_collectl_executions(instance)
+    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-05 12:10:38')
+    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-06 12:10:38')
+    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-07 12:10:38')
+  end
+
+  def setup_flexlm_events(instance)
+    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-05 12:10:38')
+    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-06 12:10:38')
+    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-07 12:10:38')
   end
 
 end

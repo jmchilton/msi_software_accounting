@@ -41,6 +41,10 @@ module ApplicationHelper
     link_to(name, options, html_options.merge({:class => "model_link"}))
   end
 
+  def data_source_summary_link(name, path, data_source)
+    model_link(name, path, {:remote => true}) + content_tag("div", "", {:id =>  "#{data_source}-overview"})
+  end
+
   def cell_value(field, row)
     if field[:link]
       link_to "View", instance_eval("#{field[:link_proc]}(row)")

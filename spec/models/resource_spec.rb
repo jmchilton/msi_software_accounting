@@ -2,8 +2,37 @@ require 'spec_helper'
 
 describe Resource do
   include ModelHelpers
+  include HasSummary
 
   it_should_behave_like "read only model"
+
+  describe "summarize" do
+    describe "collectl" do
+      let(:instance) { FactoryGirl.create(:resource)}
+      let(:collectl_executable) { FactoryGirl.create(:collectl_executable, :name => "bowtie", :resource => instance) }
+      let(:summary) { instance.summarize("collectl") }
+
+      before(:each) {
+        setup_collectl_executions(collectl_executable)
+      }
+
+      it_should_behave_like "has summary"
+
+    end
+
+    describe "flexlm" do
+      let(:instance) { FactoryGirl.create(:resource)}
+      let(:executable) { FactoryGirl.create(:executable, :identifier => "bowtie", :resource => instance) }
+      let(:summary) { instance.summarize("flexlm") }
+
+      before(:each) {
+        setup_flexlm_events(executable)
+      }
+
+      it_should_behave_like "has summary"
+    end
+
+  end
 
   describe "report" do
     let(:relation) { Resource.report(report_options) }
