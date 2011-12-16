@@ -1,4 +1,6 @@
 class CollectlExecution < ActiveRecord::Base
+  include JoinsDemographics
+
   set_table_name "collectl_executions"
 
   belongs_to :user
@@ -15,6 +17,60 @@ class CollectlExecution < ActiveRecord::Base
     else
       index_raw_record_for_executable executable_id
     end
+
+  end
+
+  def self.join_users_on
+    "users.id = e.user_id"
+  end
+
+  def self.to_demographics_joins(report_options = {})
+    "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e on e.collectl_executable_id = collectl_executables.id #{join_valid_users_and_groups(report_options)}"
+  end
+
+  # http://richtextblog.blogspot.com/2007/09/mysql-temporary-tables-and-rails.html
+  def self.sample_for_executable(collectl_executable_id, report_options)
+    with_interval_timestamps_table(report_options[:from], report_options[:to]) do
+      sample_with = "max"
+      if report_options[:sample_with] == "avg"
+        sample_with = "avg"
+      end
+
+      sample_by = report_options[:sample]
+      case sample_by
+        when "date"
+          group_by_date_expression = "DATE(timestamp)"
+        else
+          group_by_date_expression = "timestamp"
+      end
+
+      samples = connection.select_all "SELECT #{sample_with}(sample_count) as value, #{group_by_date_expression} as for_date
+                                            FROM
+                                             (SELECT it.sample_date as timestamp, count(*) as sample_count
+                                                FROM collectl_executions ce
+                                                  INNER JOIN interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
+                                                WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
+                                                GROUP BY it.sample_date)
+                                                GROUP BY #{group_by_date_expression}"
+      samples.collect { |row| row.symbolize_keys! }
+    end
+  end
+
+  def self.with_interval_timestamps_table(from, to, step = 15 * 60)
+    begin
+      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
+      connection.execute("CREATE TEMPORARY TABLE interval_timestamps(sample_date timestamp)")
+      from = Time.parse from
+      to = Time.parse to
+      timestamps = (from..to).step(15 * 60).collect { |timestamp| "INSERT INTO interval_timestamps (sample_date) VALUES ('#{timestamp.to_formatted_s(:db)}');" }
+      timestamps.each { |insert| connection.execute insert }
+      yield
+    ensure
+      # this drop is here to help keep the size of the database down
+      # between calls to this method
+      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
+    end
+
 
   end
 
@@ -46,60 +102,6 @@ class CollectlExecution < ActiveRecord::Base
     sanitized_executable_id = sanitize_sql(executable_id)
     execute_index_insert "'#{sanitized_executable_id}'", "left join collectl_executions ce on ce.id = rce.id", "substr(rce.executable, -#{name.length}) = '#{sanitize_sql(name)}' and ce.id is NULL"
     connection.execute "#{UPDATE_EXECUTION_SQL} where collectl_executable_id = '#{sanitized_executable_id}'"
-  end
-
-  # TODO: Refactor to combine shared code with Event.to_demographics_joins
-  def self.to_demographics_joins(report_options = {})
-    group_join_condition = "users.gid = groups.gid"
-    users_join_condition = "users.id = e.user_id"
-    unless report_options[:limit_users].nil?
-      users_join_condition = "(#{users_join_condition} and users.username in #{Event.sql_user_list(report_options[:limit_users])} )"
-    end
-    if report_options[:exclude_employees]
-      group_join_condition = "(#{group_join_condition} and groups.name not in #{Group::EMPLOYEE_GROUPS})"
-    end
-    "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e on e.collectl_executable_id = collectl_executables.id
-     INNER JOIN users on #{users_join_condition}
-     INNER JOIN groups on #{group_join_condition} "
-  end
-
-  # http://richtextblog.blogspot.com/2007/09/mysql-temporary-tables-and-rails.html
-  def self.sample_for_executable(collectl_executable_id, report_options)
-    begin
-      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
-      connection.execute("CREATE TEMPORARY TABLE interval_timestamps(sample_date timestamp)")
-      from = Time.parse report_options[:from]
-      to = Time.parse report_options[:to]
-      timestamps = (from..to).step(15 * 60).collect { |timestamp| "INSERT INTO interval_timestamps (sample_date) VALUES ('#{timestamp.to_formatted_s(:db)}');" }
-      timestamps.each { |insert| connection.execute insert }
-
-      sample_with = "max"
-      if report_options[:sample_with] == "avg"
-        sample_with = "avg"
-      end
-
-      sample_by = report_options[:sample]
-      case sample_by
-        when "date"
-          group_by_date_expression = "DATE(timestamp)"
-        else
-          group_by_date_expression = "timestamp"
-      end
-
-      samples = connection.select_all "SELECT #{sample_with}(sample_count) as value, #{group_by_date_expression} as for_date
-                                            FROM
-                                             (SELECT it.sample_date as timestamp, count(*) as sample_count
-                                                FROM collectl_executions ce
-                                                  INNER JOIN interval_timestamps it on it.sample_date between ce.start_time and ce.end_time
-                                                WHERE ce.collectl_executable_id = '#{sanitize_sql(collectl_executable_id)}'
-                                                GROUP BY it.sample_date)
-                                                GROUP BY #{group_by_date_expression}"
-      samples.collect { |row| row.symbolize_keys! }
-    ensure
-      # this drop is here to help keep the size of the data base down
-      # between calls to this method
-      connection.execute("DROP TABLE IF EXISTS interval_timestamps")
-    end
   end
 
 end
