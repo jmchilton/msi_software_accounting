@@ -107,16 +107,16 @@ module TableHelpers
   def it_should_paginate
     assigns(:allow_pagination).should == true
     assigns(:scroll).should == false
-    assigns(:rows_per_page).should == ApplicationController::DEFAULT_NUM_ROWS_PAGINATE
-    assigns(:row_list).should == ApplicationController::ROW_LIST_PAGINATE
+    assigns(:rows_per_page).should == TableHelper::DEFAULT_NUM_ROWS_PAGINATE
+    assigns(:row_list).should == TableHelper::ROW_LIST_PAGINATE
   end
 
   def it_should_not_paginate
     assigns(:allow_pagination).should == false
     assigns(:scroll).should == true
     assigns(:rows_per_page).should be > 100
-    assigns(:rows_per_page).should == ApplicationController::DEFAULT_NUM_ROWS_NO_PAGINATE
-    assigns(:row_list).should == ApplicationController::ROW_LIST_NO_PAGINATE
+    assigns(:rows_per_page).should == TableHelper::DEFAULT_NUM_ROWS_NO_PAGINATE
+    assigns(:row_list).should == TableHelper::ROW_LIST_NO_PAGINATE
   end
 
   def it_should_respond_successfully_with_table

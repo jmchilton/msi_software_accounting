@@ -32,47 +32,73 @@ class TableController < ApplicationController
     end
   end
 
-  before_filter :set_parent
 
-  protected
 
-  def set_parent
-    [User, Resource, Executable, Department, Group, College, CollectlExecutable].each do |parent_type|
-      parent_type_name = parent_type.name
-      parent_var_name = parent_type_name.gsub(/(.)([A-Z])/,'\1_\2').downcase
-
-      id_param = "#{parent_var_name}_id".to_sym
-      parent_id = params[id_param]
-      unless parent_id.blank?
-        instance_variable_set "@#{parent_var_name}".to_sym, parent_type.find(parent_id)
-      end
+  def clean_fields(fields)
+    fields.collect do |hash|
+      hash_copy = hash.clone
+      hash_copy.delete :link_proc
+      hash_copy
     end
   end
 
-  def set_user
-    user_id = params[:user_id]
-    @user = User.find(user_id)
+  def get_relation_record_count(relation)
+    sql = "SELECT COUNT(*) as record_count FROM (#{@rows.to_sql}) as tmp" # postgres requires subselect to have alias
+    active_record_result = ActiveRecord::Base.connection.select_one(sql)
+    active_record_result["record_count"].to_i
   end
 
-  def set_resource
-    resource_id = params[:resource_id]
-    @resource = Resource.find(resource_id)
+  def set_record_count
+    if @rows.is_a? ActiveRecord::Relation
+      @row_count = get_relation_record_count(@rows)
+    else
+      @row_count = @rows.count
+    end
   end
 
-  def set_executable
-    @executable = Executable.find(params[:executable_id])
+
+  def perform_search?
+    params[:_search] == "true"
   end
 
-  def set_department
-    @department = Department.find(params[:department_id])
+  def get_json
+    keys = @fields.map { |field| field[:field] }
+    page = params[:page] || 1
+    rows = params[:rows] || @row_count
+    @rows.to_jqgrid_json(keys, page, rows, @row_count)
   end
 
-  def set_group
-    @group = Group.find(params[:group_id])
+  def render_report_to_str(report_name, *args)
+    fields, rows = send(report_name, *args)
+    render_csv_to_string fields, rows
   end
 
-  def set_college
-    @college = College.find(params[:college_id])
+  def render_csv_to_string(fields, rows)
+    csv_fields = filter_fields_for_csv fields
+    [csv_header(csv_fields), csv_contents(rows, csv_fields)].join "\n"
   end
+
+  def filter_fields_for_csv(fields)
+    fields.find_all { |field| field[:field] != "link" && (field[:hidden].blank? || !field[:hidden]) }
+  end
+
+  # http://stackoverflow.com/questions/94502/in-rails-how-to-return-records-as-a-csv-file
+  def render_csv(filename = nil)
+    filename ||= params[:action]
+    filename += '.csv'
+
+    set_filename filename
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "text/plain"
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Expires'] = "0"
+    else
+      headers["Content-Type"] ||= 'text/csv'
+    end
+    @csv_fields = filter_fields_for_csv @fields
+    render :template => '/spreadsheet', :layout => false
+  end
+
 
 end

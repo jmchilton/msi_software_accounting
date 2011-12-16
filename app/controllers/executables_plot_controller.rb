@@ -1,4 +1,4 @@
-class ExecutablesPlotController < TableController
+class ExecutablesPlotController < PlotController
   include ReportHelper
 
   def new

@@ -1,6 +1,5 @@
 class CollectlExecutablesController < TableController
   FIELDS = [id_field,
-#            {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "name", :label => "Name"}]
 
   before_filter :set_resource

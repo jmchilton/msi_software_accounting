@@ -22,7 +22,7 @@ module ViewHelpers
   end
 
   def setup_test_chart_data
-    chart_data = TimeFlot.new(ApplicationController::DEFAULT_CHART_ID) do |f|
+    chart_data = TimeFlot.new(PlotController::DEFAULT_CHART_ID) do |f|
       f.lines
       f.points
       f.xaxis :tickDecimals => false, :mode => :time, :minTickSize => [1, "day"]

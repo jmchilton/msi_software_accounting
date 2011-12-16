@@ -1,9 +1,8 @@
-<%= flot_canvas(ApplicationController::DEFAULT_CHART_ID) %>
+<%= flot_canvas(PlotController::DEFAULT_CHART_ID) %>
 <div id="flot_legend" ></div>
 <%= flot_overview %>
-<%= flot_graph(ApplicationController::DEFAULT_CHART_ID, @chart_data) do %>
-	<%= flot_plot(ApplicationController::DEFAULT_CHART_ID, :dynamic => false, :overview => true) %>
+<%= flot_graph(PlotController::DEFAULT_CHART_ID, @chart_data) do %>
+  <%= flot_plot(PlotController::DEFAULT_CHART_ID, :dynamic => false, :overview => true) %>
 <% end %>
-
 <%= model_link("Back to Chart Options", :action => :new) %>
 

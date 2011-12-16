@@ -4,13 +4,12 @@ module ApplicationHelper
 
   protected
 
-
   def resource_name_field(value, options = {})
     autocomplete_field_tag "resource_name", value, autocomplete_resource_name_resources_path, options
   end
 
   def show_report_form_tag(action = 'index')
-    form_tag(url_for({:action => action}), :class => "bp", :method => :get) do
+    form_tag(url_for({:action => action}), :method => :get) do
       yield
     end
   end
@@ -45,25 +44,5 @@ module ApplicationHelper
     model_link(name, path, {:remote => true}) + content_tag("div", "", {:id =>  "#{data_source}-overview"})
   end
 
-  def cell_value(field, row)
-    if field[:link]
-      link_to "View", instance_eval("#{field[:link_proc]}(row)")
-    else
-      field_key = field[:field]
-      if field_key.is_a?(Proc)
-        field_key.call(row)
-      else
-        row[field_key.to_sym]
-      end
-    end
-  end
-
-  def clean_fields(fields)
-    fields.collect do |hash|
-      hash_copy = hash.clone
-      hash_copy.delete :link_proc
-      hash_copy
-    end
-  end
 
 end
