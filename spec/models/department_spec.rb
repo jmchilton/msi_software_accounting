@@ -26,10 +26,7 @@ describe Department do
 
     end
 
-    it_should_behave_like "flexlm report that can exclude employees"
-    it_should_behave_like "collectl report that can exclude employees"
-    it_should_behave_like "module report that can exclude employees"
-
+    it_should_behave_like "report that can exclude employees for any data source"
   end
 
   describe "resources" do
@@ -61,9 +58,7 @@ describe Department do
 
     let(:relation) { Department.resource_report(resource_id, report_options) }
 
-    it_should_behave_like "flexlm report that can exclude employees"
-    it_should_behave_like "collectl report that can exclude employees"
-    it_should_behave_like "module report that can exclude employees"
+    it_should_behave_like "report that can exclude employees for any data source"
 
     describe "default options" do
       before(:each) { setup_test_report_data }
@@ -85,22 +80,21 @@ describe Department do
   describe "excutable_report" do
     let(:relation) { Department.executable_report(executable_id, report_options) }
 
-    it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "report that can exclude employees for any data source"
   end
 
   describe "resources_report" do
     let(:relation) { Department.find_by_name(ReportTestData::TECH_DEPARTMENT_NAME).resources_report(report_options) }
     let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
 
-    it_should_behave_like "flexlm resource report that can exclude employees"
-    it_should_behave_like "collectl resource report that can exclude employees"
+    it_should_behave_like "resource report that can exclude employees for any data source"
   end
 
   describe "executables_report" do
     let(:relation) { Department.find_by_name(ReportTestData::TECH_DEPARTMENT_NAME).executables_report(report_options) }
     let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
 
-    it_should_behave_like "flexlm resource report that can exclude employees"
+    it_should_behave_like "resource report that can exclude employees for any data source"
   end
 
   describe "msi_db_link" do

@@ -35,15 +35,14 @@ describe College do
 
     end
 
-    it_should_behave_like "flexlm report that can exclude employees"
-    it_should_behave_like "collectl report that can exclude employees"
+    it_should_behave_like "report that can exclude employees for any data source"
 
   end
 
   describe "excutable_report" do
     let(:relation) { College.executable_report(executable_id, report_options) }
 
-    it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "report that can exclude employees for any data source"
 
   end
 
@@ -51,15 +50,14 @@ describe College do
     let(:relation) { College.find_by_name(ReportTestData::TECH_COLLEGE_NAME).resources_report(report_options) }
     let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
 
-    it_should_behave_like "flexlm resource report that can exclude employees"
-    it_should_behave_like "collectl resource report that can exclude employees"
+    it_should_behave_like "resource report that can exclude employees for any data source"
   end
 
   describe "executables_report" do
     let(:relation) { College.find_by_name(ReportTestData::TECH_COLLEGE_NAME).executables_report(report_options) }
     let(:tech_record) { record_with_resource ReportTestData::TECH_RESOURCE_NAME }
 
-    it_should_behave_like "flexlm resource report that can exclude employees"
+    it_should_behave_like "resource report that can exclude employees for any data source"
   end
 
 
@@ -103,9 +101,7 @@ describe College do
       let(:tech_record) { college_record(ReportTestData::TECH_COLLEGE_NAME) }
       let(:non_tech_record) { college_record(ReportTestData::NON_TECH_COLLEGE_NAME) }
 
-      it_should_behave_like "flexlm report that can exclude employees"
-      it_should_behave_like "collectl report that can exclude employees"
-
+      it_should_behave_like "report that can exclude employees for any data source"
     end
 
   end

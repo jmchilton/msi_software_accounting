@@ -1,5 +1,14 @@
 module HasUsageReports
 
+  def self.executable_identifier_field(report_options)
+    if report_options[:data_source] == :flexlm
+      identifier_field = "exid"
+    else
+      identifier_field = "id"
+    end
+    identifier_field
+  end
+
   module ClassMethods
 
     def resource_counts(resource_id, report_options = {})
@@ -16,8 +25,8 @@ module HasUsageReports
       "#{join_executables_sql(report_options)} #{join_type} JOIN resources r on ex.#{resource_field} = r.id"
     end
 
-    def executable_counts(executable_id, report_options = {})
-      select_counts.joins(join_executables_sql(report_options)).where("ex.exid = ?", executable_id)
+    def executable_counts(executable_id, report_options)
+      select_counts.joins(join_executables_sql(report_options)).where("ex.#{HasUsageReports.executable_identifier_field(report_options)} = ?", executable_id)
     end
 
     def executable_report(executable_id, report_options = {})
@@ -56,9 +65,28 @@ module HasUsageReports
     base.extend(ClassMethods)
   end
 
+  def executable_summary_fields(report_options)
+    if report_options[:data_source] == :flexlm
+      fields = "ex.exid, ex.identifier, ex.comment"
+    else
+      fields = "ex.id, ex.name"
+    end
+    fields
+  end
+
+  def executable_summary_select_fields(report_options)
+    if report_options[:data_source] == :flexlm
+      fields = "ex.exid as exid, ex.exid as id, ex.identifier, ex.comment"
+    else
+      fields = "ex.id, ex.name"
+    end
+    fields
+  end
+
+
   def executables_report(report_options = {})
-    isolate_instance_and_join_resources(self.class.select("ex.exid as exid, ex.exid as id, ex.identifier, ex.comment, r.name as resource, count(*) as use_count").
-          group("ex.exid, ex.identifier, ex.comment, r.name"), "INNER", report_options)
+    isolate_instance_and_join_resources(self.class.select("#{executable_summary_select_fields(report_options)}, r.name as resource, count(*) as use_count").
+          group("ex.#{executable_summary_fields(report_options)}, r.name"), "INNER", report_options)
   end
 
   def resources_report(report_options = {})

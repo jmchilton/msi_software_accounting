@@ -50,11 +50,25 @@ module ModelHelpers
       end
   end
 
+  share_examples_for "module resource report that can exclude employees" do
+    before(:each) { ReportTestData.setup_two_resources(:module => true) }
+
+      describe "excluding employees" do
+        let(:report_options) { { :exclude_employees => true, :data_source => :module }}
+        specify { tech_record.should be_nil }
+      end
+
+      describe "not excluding employees" do
+        let(:report_options) { { :exclude_employees => false, :data_source => :module }}
+        specify { tech_record.should_not be_nil }
+      end
+  end
+
 
   shared_examples_for "collectl report that can exclude employees" do
     before(:each) { setup_test_used_twice_data(:flexlm => false) }
     let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME).id }
-    let(:collectl_executable_id) { CollectlExecutable.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
+    let(:executable_id) { CollectlExecutable.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
 
     it_should_behave_like "collectl report that does not exclude employees"
     it_should_behave_like "collectl report that excludes employees"
@@ -81,7 +95,7 @@ module ModelHelpers
   shared_examples_for "module report that can exclude employees" do
     before(:each) { setup_test_used_twice_data(:collectl => false, :flexlm => false) }
     let(:resource_id) { Resource.find_by_name(ReportTestData::USED_TWICE_RESOURCE_NAME).id }
-    let(:module_id) { SoftwareModule.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
+    let(:executable_id) { SoftwareModule.find_by_name(ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER).id }
 
     it_should_behave_like "module report that excludes employees"
     it_should_behave_like "module report that does not exclude employees"
@@ -161,6 +175,20 @@ module ModelHelpers
     it_should_behave_like "collectl report that limits users"
     it_should_behave_like "collectl report that does not limit users"
   end
+
+  shared_examples_for "resource report that can exclude employees for any data source" do
+    it_should_behave_like "flexlm resource report that can exclude employees"
+    it_should_behave_like "collectl resource report that can exclude employees"
+    it_should_behave_like "module resource report that can exclude employees"
+
+  end
+
+  shared_examples_for "report that can exclude employees for any data source" do
+    it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "collectl report that can exclude employees"
+    it_should_behave_like "module report that can exclude employees"
+  end
+
 
   shared_examples_for "module report that can limit users" do
     it_should_behave_like "module report that limits users"
