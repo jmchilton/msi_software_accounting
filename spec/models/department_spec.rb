@@ -12,7 +12,7 @@ describe Department do
     describe "default options" do
 
       before(:each) { setup_test_report_data }
-      let(:report_options) { {} }
+      let(:report_options) { {:data_source => :flexlm} }
 
       let(:record1) { department_record ReportTestData::DEPARTMENT_ONE_NAME }
 
@@ -27,6 +27,8 @@ describe Department do
     end
 
     it_should_behave_like "flexlm report that can exclude employees"
+    it_should_behave_like "collectl report that can exclude employees"
+    it_should_behave_like "module report that can exclude employees"
 
   end
 
@@ -36,7 +38,7 @@ describe Department do
 
       before(:each) { setup_test_used_twice_data }
 
-      let(:relation) { Department.resources( { :exclude_employees => true } ) }
+      let(:relation) { Department.resources( { :exclude_employees => true, :data_source => :flexlm } ) }
 
       it "departments with employees should not include usage information for these employees" do
         should_not_have_record { |record| record.id == Department.find_by_name(ReportTestData::TECH_DEPARTMENT_NAME).id }
@@ -61,11 +63,12 @@ describe Department do
 
     it_should_behave_like "flexlm report that can exclude employees"
     it_should_behave_like "collectl report that can exclude employees"
+    it_should_behave_like "module report that can exclude employees"
 
     describe "default options" do
       before(:each) { setup_test_report_data }
       let(:resource_id) { report_test_resource.id }
-      let(:report_options) { {} }
+      let(:report_options) { {:data_source => :flexlm} }
 
       it "should have record for group using resource" do
         should_have_record_with_name ReportTestData::DEPARTMENT_ONE_NAME

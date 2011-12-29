@@ -12,7 +12,7 @@ describe Group do
 
     describe "default options" do
       let(:record1) { record_with_name ReportTestData::GROUP_ONE_NAME }
-      let(:report_options) { {} }
+      let(:report_options) { {:data_source => :flexlm} }
 
       it "should sum purchase data of used resources" do
         record1[:fy10].should eql(200)
@@ -41,7 +41,7 @@ describe Group do
 
     describe "default options" do
       let(:resource_id) { report_test_resource.id }
-      let(:report_options) { {} }
+      let(:report_options) { {:data_source => :flexlm} }
 
       it "should have record for group using resource" do
         should_have_record  { |record| record.group_name == ReportTestData::GROUP_ONE_NAME }

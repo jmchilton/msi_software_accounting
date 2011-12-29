@@ -2,6 +2,6 @@
 class SoftwareModule < ActiveRecord::Base
   set_table_name "modules"
 
-  belongs_to :resource, :foreign_key => "name", :primary_key => "module", :class_name => 'Resource'
+  belongs_to :resource
 
 end

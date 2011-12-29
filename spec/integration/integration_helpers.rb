@@ -78,11 +78,11 @@ module IntegrationHelpers
       build_and_verfiy_report_and_columns
     end
 
-    #scenario "module report with default options" do
-    #  click_report_link :module, model_title
-    #  page_should_have_header "Module Load #{model_title} Report"
-    #  build_and_verfiy_report_and_columns
-    #end
+    scenario "module report with default options" do
+      click_report_link :module, model_title
+      page_should_have_header "Module Load #{model_title} Report"
+      build_and_verfiy_report_and_columns
+    end
 
     def build_and_verfiy_report_and_columns
       build_and_verify_report
@@ -103,10 +103,14 @@ module IntegrationHelpers
       report_title = "#{data_source_title} Resources Report for #{model_title} #{model_instance.name}"
       page_should_have_header report_title
       build_and_verify_report
-      table_should_have_column (data_source == :collectl ? "Executions" : "Checkouts")
+      table_should_have_column data_source_column
       page_should_have_header report_title
       view_row_with_content ReportTestData::USED_TWICE_RESOURCE_NAME
     end
+  end
+
+  def data_source_column
+    {:collectl => "Executions", :flexlm => "Checkouts", :module => "Loads"}[data_source]
   end
 
   #deprecated
@@ -141,7 +145,7 @@ module IntegrationHelpers
       page_should_have_header report_title
       build_and_verify_report
       page_should_have_header report_title
-      table_should_have_column (data_source == :collectl ? "Executions" : "Checkouts")
+      table_should_have_column data_source_column
       view_row_with_content model_instance.name
     end
   end

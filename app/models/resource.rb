@@ -22,11 +22,20 @@ class Resource < ReadOnlyModel
   end
 
   def self.usage_report(report_options = {})
-    if report_options[:data_source] == :collectl
-      Resource.collectl_usage_report(report_options)
+    data_source = report_options[:data_source]
+    if data_source == :collectl
+      usage_report_joins = "INNER JOIN collectl_executables on collectl_executables.resource_id = resources.id #{CollectlExecution.to_demographics_joins(report_options)}"
+    elsif data_source == :flexlm
+      usage_report_joins = "INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}"
+    elsif data_source == :module
+      usage_report_joins = "INNER JOIN modules on modules.resource_id = resources.id #{ModuleLoad.to_demographics_joins(report_options)}"
     else
-      Resource.flexlm_usage_report(report_options)
+      raise ArgumentError
     end
+    select_statement = "resources.id, #{Resource.demographics_summary_selects}"
+    select(select_statement).
+      joins(usage_report_joins).
+      group("resources.id")
   end
 
   def self.demographics_summary_selects
@@ -46,19 +55,19 @@ class Resource < ReadOnlyModel
 
   private
 
-  def self.flexlm_usage_report(report_options)
-    select_statement = "resources.id, #{Resource.demographics_summary_selects}"
-    select(select_statement).
-      joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}").
-      group("resources.id")
-  end
+  #def self.flexlm_usage_report(report_options)
+  #  select_statement = "resources.id, #{Resource.demographics_summary_selects}"
+  #  select(select_statement).
+  #    joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}").
+  #    group("resources.id")
+  #end
 
   # TODO: Refactor common usage report
-  def self.collectl_usage_report(report_options)
-    select_statement = "resources.id, #{Resource.demographics_summary_selects}"
-    select(select_statement).
-      joins("INNER JOIN collectl_executables on collectl_executables.resource_id = resources.id #{CollectlExecution.to_demographics_joins(report_options)}").
-      group("resources.id")
-  end
+  #def self.collectl_usage_report(report_options)
+  #  select_statement = "resources.id, #{Resource.demographics_summary_selects}"
+  #  select(select_statement).
+  #    joins("INNER JOIN collectl_executables on collectl_executables.resource_id = resources.id #{CollectlExecution.to_demographics_joins(report_options)}").
+  #    group("resources.id")
+  #end
 
 end

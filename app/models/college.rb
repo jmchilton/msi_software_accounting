@@ -19,7 +19,7 @@ class College < ReadOnlyModel
   end
 
   def self.resources(report_options = {})
-    resource_id_column = report_options[:data_source] == :collectl ? "resource_id" : "rid"
+    resource_id_column = report_options[:data_source] == :flexlm ? "rid" : "resource_id"
     select("colleges.id, ex.#{resource_id_column} as rid").
     joins("INNER JOIN department_colleges dc ON dc.college_id = colleges.id
            INNER JOIN departments ON departments.id = dc.dept_id

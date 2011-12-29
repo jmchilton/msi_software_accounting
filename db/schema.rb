@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111229145148) do
+ActiveRecord::Schema.define(:version => 20111229184743) do
 
   create_table "collectl_executables", :force => true do |t|
     t.string  "name"
@@ -96,7 +96,8 @@ ActiveRecord::Schema.define(:version => 20111229145148) do
   end
 
   create_table "modules", :force => true do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "resource_id"
   end
 
   create_table "persons", :force => true do |t|

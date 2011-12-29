@@ -40,7 +40,7 @@ describe User do
 
     describe "default options" do
       before(:each) { setup_test_report_data }
-      let(:relation) { User.find_by_username(ReportTestData::USERNAME_1).executables_report() }
+      let(:relation) { User.find_by_username(ReportTestData::USERNAME_1).executables_report( {:data_source => :flexlm} ) }
 
       it "should have record for executable used" do
         should_have_record { |record| record.identifier == ReportTestData::EXECUTABLE_IDENTIFIER_1 }
@@ -76,7 +76,7 @@ describe User do
 
 
   describe "executable_report with fixtures" do # deprecated
-     let(:report1) { User.executable_report(1) }
+     let(:report1) { User.executable_report(1, {:data_source => :flexlm}) }
      let(:alices_record) { record_for(report1, 'alice') }
 
      it "should have record of user using feature" do
@@ -86,7 +86,7 @@ describe User do
   end
 
   describe "resource_report with fixtures" do # deprecated
-    let(:report1) { User.resource_report(1) }
+    let(:report1) { User.resource_report(1, {:data_source => :flexlm}) }
     let(:alices_record) { record_for(report1, 'alice') }
 
     it "should have record of user using software" do
@@ -114,17 +114,17 @@ describe User do
     end
 
     it "should find events in date range" do
-      report = User.resource_report(3, {:from => '2011-09-01', :to => '2011-09-02'})
+      report = User.resource_report(3, {:from => '2011-09-01', :to => '2011-09-02', :data_source => :flexlm})
       record_for(report, "shelly").should_not be_blank
     end
 
     it "should not find events before date range" do
-      report = User.resource_report(3, {:from => '2011-09-02', :to => '2011-09-03'})
+      report = User.resource_report(3, {:from => '2011-09-02', :to => '2011-09-03', :data_source => :flexlm})
       record_for(report, "shelly").should be_blank
     end
 
     it "should not find events after date range" do
-      report = User.resource_report(3, {:from => '2011-06-02', :to => '2011-07-03'})
+      report = User.resource_report(3, {:from => '2011-06-02', :to => '2011-07-03', :data_source => :flexlm})
       record_for(report, "shelly").should be_blank
     end
 

@@ -22,7 +22,7 @@ describe College do
     describe "default options" do
       before(:each) { setup_test_report_data }
       let(:resource_id) { report_test_resource.id }
-      let(:report_options) { { } }
+      let(:report_options) { {:data_source => :flexlm} }
 
 
       it "has record for groups using resource" do
@@ -66,7 +66,7 @@ describe College do
 
 
   describe "resources" do #deprecated
-    let(:college_resources) { College.resources }
+    let(:college_resources) { College.resources({:data_source => :flexlm}) }
     
     specify "cfans should use 1 resource" do
       college_resources.find_by_id("1").should_not be_instance_of Array
@@ -80,10 +80,10 @@ describe College do
 
   # TODO: Extract to_aliased_sql code into a plugin
   describe "to_aliased_sql" do
-    let(:aliased_sql) { College.resources.to_aliased_sql("cool_bean") }
+    let(:aliased_sql) { College.resources({:data_source => :flexlm}).to_aliased_sql("cool_bean") }
 
     it "should be equivalent to normal sql" do
-      College.find_by_sql(aliased_sql).should eql(College.resources.all)
+      College.find_by_sql(aliased_sql).should eql(College.resources(:data_source => :flexlm).all)
     end
 
     it "should specify a name in the from" do
@@ -117,7 +117,7 @@ describe College do
   describe "reports with fixtures" do # Deprecated
 
     describe "cfans report" do 
-      let(:cfans_report) { College.report.first }
+      let(:cfans_report) { College.report(:data_source => :flexlm).first }
 
       it "should be sorted by resource name" do
         cfans_report.name.should eql("CFANS")
@@ -154,7 +154,7 @@ describe College do
     end
 
     describe "it report" do
-      let(:it_report) { College.report.find_by_name("IT") }
+      let(:it_report) { College.report(:data_source => :flexlm).find_by_name("IT") }
   
       it "should have a cost of 10" do
         it_report.fy10.should eql(10)
@@ -163,7 +163,7 @@ describe College do
     end
 
     describe "pub_health report" do
-      let(:cph_report) { College.report.find_by_name("CPH") }
+      let(:cph_report) { College.report(:data_source => :flexlm).find_by_name("CPH") }
 
       it "should have a cost for multiple resources" do
         cph_report.fy11.should eql(30)

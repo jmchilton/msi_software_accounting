@@ -52,12 +52,18 @@ class User < ReadOnlyModel
   private
 
   def self.join_executables(report_options, users_alias, on_str = "")
-     if report_options[:data_source] == :collectl
+     data_source = report_options[:data_source]
+     if data_source == :collectl
       "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e ON e.user_id = #{users_alias}.id #{on_str}
        INNER JOIN collectl_executables ex on e.collectl_executable_id = ex.id"
-    else
+    elsif data_source == :flexlm
       "INNER JOIN (#{Event.valid_events(report_options).to_sql}) e ON e.unam = #{users_alias}.username #{on_str}
        INNER JOIN executable ex on e.feature = ex.identifier"
+    elsif data_source == :module
+       "INNER JOIN (#{ModuleLoad.valid_events(report_options).to_sql}) e on e.username = #{users_alias}.username #{on_str}
+        INNER JOIN modules ex on e.name = ex.name"
+    else
+      raise ArgumentError
     end
   end
 

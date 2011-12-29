@@ -8,10 +8,10 @@ module HasUsageReports
     end
 
     def join_resources_sql(report_options, join_type = "INNER")
-      if report_options[:data_source] == :collectl
-        resource_field = "resource_id"
-      else
+      if report_options[:data_source] == :flexlm
         resource_field = "rid"
+      else
+        resource_field = "resource_id"
       end
       "#{join_executables_sql(report_options)} #{join_type} JOIN resources r on ex.#{resource_field} = r.id"
     end

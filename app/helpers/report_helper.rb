@@ -2,7 +2,7 @@ module ReportHelper
   protected
 
   def report_type_title
-    data_source == :collectl ? "Collectl" : "FLEXlm"
+    {:collectl => "Collectl", :flexlm => "FLEXlm", :module => "Module Load" }[data_source]
   end
 
   def model_type
@@ -28,11 +28,12 @@ module ReportHelper
   end
 
   def data_source
-    data_source = :flexlm
-    if (!params[:data_source].blank?) and params[:data_source] == "collectl"
-      data_source = :collectl
+    if params[:data_source].blank?
+      params[:data_source] = "flexlm"
     end
-    data_source
+    data_source_sym = params[:data_source].to_sym
+    raise ArgumentError, "Unknown data source type #{data_source_sym}" unless [:flexlm, :collectl, :module].index(data_source_sym)
+    data_source_sym
   end
 
 

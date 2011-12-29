@@ -102,7 +102,7 @@ class ReportTestData
   end
 
   def self.setup_used_twice_resource(options = {}) # one used by tech, one used by non tech
-    options.reverse_merge!({:collectl => true, :flexlm => true})
+    options.reverse_merge!({:collectl => true, :flexlm => true, :module => true})
     resource_1 = FactoryGirl.create(:resource, :name => USED_TWICE_RESOURCE_NAME)
 
     user_non_tech = quick_user(NON_TECH_USERNAME, NON_TECH_GROUP_NAME, NON_TECH_DEPARTMENT_NAME, NON_TECH_COLLEGE_NAME)
@@ -122,10 +122,18 @@ class ReportTestData
       FactoryGirl.create(:collectl_execution, :user => user_tech, :collectl_executable => collectl_executable)
     end
 
+    if options[:module]
+      software_module = FactoryGirl.create(:module, :resource => resource_1, :name => USED_TWICE_EXECUTABLE_IDENTIFIER)
+
+      FactoryGirl.create(:module_load, :user => user_non_tech, :module => software_module)
+      FactoryGirl.create(:module_load, :user => user_tech, :module => software_module)
+
+    end
+
   end
 
   def self.setup_two_resources(options = {}) # Creates a resource used once by a user in tech group and once by a non-tech user
-    options.reverse_merge!({:collectl => true, :flexlm => true})
+    options.reverse_merge!({:collectl => true, :flexlm => true, :module => true})
     resource_tech = FactoryGirl.create(:resource, :name => TECH_RESOURCE_NAME)
     resource_non_tech = FactoryGirl.create(:resource, :name => NON_TECH_RESOURCE_NAME)
 
@@ -146,6 +154,14 @@ class ReportTestData
 
       FactoryGirl.create(:collectl_execution, :user => user_non_tech, :collectl_executable => collectl_executable_non_tech)
       FactoryGirl.create(:collectl_execution, :user => user_tech, :collectl_executable => collectl_executable_tech)
+    end
+
+    if options[:module]
+      module_tech = FactoryGirl.create(:module, :resource => resource_tech, :name => TECH_EXECUTABLE_IDENTIFIER)
+      module_non_tech = FactoryGirl.create(:module, :resource => resource_non_tech, :name => NON_TECH_EXECUTABLE_IDENTIFIER)
+
+      FactoryGirl.create(:module_load, :user => user_non_tech, :module => module_non_tech)
+      FactoryGirl.create(:module_load, :user => user_tech, :module => module_tech)
     end
 
   end

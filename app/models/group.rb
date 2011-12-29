@@ -12,7 +12,7 @@ class Group < ReadOnlyModel
   end
 
   def self.resources(report_options)
-    resource_id_column = report_options[:data_source] == :collectl ? "resource_id" : "rid"
+    resource_id_column = report_options[:data_source] == :flexlm ? "rid" : "resource_id"
     select("groups.gid, ex.#{resource_id_column} as rid").
       joins(User.user_to_executables_joins "gid = groups.gid", report_options).
       group("groups.gid, ex.#{resource_id_column}")
