@@ -1,8 +1,8 @@
 <h1>User <%= @user.username %></h1>
 <%= model_field :username, "Username", @user.username %>
 
-<%= model_link "Build FLEXlm Resource Usage Report", new_user_user_resources_report_path(@user) %>
+<%= model_link "Build FLEXlm Resource Usage Report", new_model_resources_report_path(:user_id => @user, :data_source => :flexlm, :model_type => :user) %>
 <%= model_link "Build FLEXlm Feature Usage Report", new_user_user_executables_report_path(@user) %>
-<%= model_link "Build Collectl Resource Usage Report", new_user_user_resources_report_path(@user, :data_source => :collectl) %>
+<%= model_link "Build Collectl Resource Usage Report", new_model_resources_report_path(:user_id => @user, :data_source => :collectl, :model_type => :user) %>
 <%= model_link "View User on MSI DB", @user.msi_db_link, :id => "msi_db_link" %>
 <%= model_link "Back to User Index", users_path %>

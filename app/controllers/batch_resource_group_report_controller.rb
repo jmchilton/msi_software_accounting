@@ -1,3 +1,0 @@
-class BatchResourceGroupReportController < BatchResourceReportController
-  include ResourceGroupReportGenerator
-end

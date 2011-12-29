@@ -10,6 +10,8 @@
     end
   end
 
+  report_resources :model_resources_report
+
   report_resources :colleges_report
   report_resources :departments_report
   report_resources :groups_report
@@ -53,28 +55,24 @@
 
   readonly_resources :colleges do
     report_resources :college_executables_report
-    report_resources :college_resources_report
   end
 
   readonly_resources :departments do
     report_resources :department_executables_report
-    report_resources :department_resources_report
   end
 
   readonly_resources :groups do
     report_resources :group_executables_report
-    report_resources :group_resources_report
   end
 
   readonly_resources :users do
     report_resources :user_executables_report
-    report_resources :user_resources_report
   end
 
-  report_resources :batch_resource_group_report
-  report_resources :batch_resource_department_report
-  report_resources :batch_resource_user_report
-  report_resources :batch_resource_college_report
+  report_resources :batch_resource_report
+  #report_resources :batch_resource_department_report
+  #report_resources :batch_resource_user_report
+  #report_resources :batch_resource_college_report
 
   get "home/index"
   get "home/news"

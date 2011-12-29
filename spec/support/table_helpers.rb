@@ -17,7 +17,11 @@ module TableHelpers
 
   def dynamic_setup_parent
     subject_class_name = subject.class.name
-    parent_model = /^(Resource|Executable|User|Group|Department|College)(.*)(Report)?Controller/.match(subject_class_name)[1]
+    if /^Model.*Controller/.match subject_class_name
+      parent_model = model_class.name
+    else
+      parent_model = /^(Resource|Executable|User|Group|Department|College)(.*)(Report)?Controller/.match(subject_class_name)[1]
+    end
     eval("setup_parent '#{parent_model.downcase}'")
   end
 
@@ -59,6 +63,7 @@ module TableHelpers
     test_rows = test_rows_for_fields(fields)
     row_relation = double("row_relation")
     row_relation.stub(:all).and_return(test_rows)
+    row_relation.stub(:each).and_yield(test_rows[0]).and_yield(test_rows[1])
     row_relation
   end
 
@@ -176,7 +181,7 @@ module TableHelpers
   end
 
   def index_params_if_set
-    respond_to?(:index_params) ? index_params : {}
+    (respond_to?(:index_params) ? index_params : {}).merge(respond_to?(:model_type) ? {:model_type => model_type} : {})
   end
 
   shared_examples_for "standard report GET new" do

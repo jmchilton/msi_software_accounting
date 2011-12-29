@@ -1,8 +1,8 @@
 <h1>Department <%= @department.name %></h1>
 <%= model_field :name, "Name", @department.name %>
 
-<%= model_link "Build FLEXlm Resource Usage Report", new_department_department_resources_report_path(@department) %>
+<%= model_link "Build FLEXlm Resource Usage Report", new_model_resources_report_path(:department_id => @department, :model_type => :department) %>
 <%= model_link "Build FLEXlm Feature Usage Report", new_department_department_executables_report_path(@department) %>
-<%= model_link "Build Collectl Resource Usage Report", new_department_department_resources_report_path(@department, :data_source => :collectl) %>
+<%= model_link "Build Collectl Resource Usage Report", new_model_resources_report_path(:department_id => @department, :data_source => :collectl, :model_type => :department) %>
 <%= model_link "View Department on MSI DB", @department.msi_db_link, :id => "msi_db_link" %>
 <%= model_link "Back to Department Index", departments_path %>

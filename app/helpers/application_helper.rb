@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def show_report_form_tag(action = 'index')
-    form_tag(url_for({:action => action}), :method => :get) do
+    form_tag(url_for({:action => action, :params => params}), :method => :get) do
       yield
     end
   end

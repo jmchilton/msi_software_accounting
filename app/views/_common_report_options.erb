@@ -22,7 +22,9 @@
       <%= resource_name_field("", :"data-delimiter" => ',') %>
     </p>
     <% end %>
-    <%= hidden_field_tag("data_source", params[:data_source]) %>
+    <% [:data_source, :model_type, :user_id, :group_id, :resource_id, :department_id, :college_id].each do |param| %>
+      <%= hidden_field_tag(param.to_s, params[param]) unless params[param].blank? %>
+    <% end %>
     <%= submit_tag("Build Report", :id => 'build_report_button') %>
   </fieldset>
 <% end %>

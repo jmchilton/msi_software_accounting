@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'report_test_data'
 
 COLLECTL_EXECUTABLE = "/usr/bin/bowtie"
-START_TIME = Time.now - 3.days
-END_TIME = Time.now - 5.days
+START_TIME = Time.now.beginning_of_day - 3.days
+END_TIME = Time.now.beginning_of_day - 5.days
 UID = 10245
 
 
@@ -21,6 +21,10 @@ describe CollectlExecution do
     shared_examples_for "indexed executable" do
       it "should create a processed execution with same id as raw" do
         processed_execution1.id.should eql(raw_execution1.id)
+      end
+
+      it "should have a non-nil start time" do
+        processed_execution1.start_time.should_not be_nil
       end
 
       specify { processed_execution1.start_time.should eql(raw_execution1.start_time) }

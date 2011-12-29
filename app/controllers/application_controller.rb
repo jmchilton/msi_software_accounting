@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_enable_javascript
   before_filter :set_parent
 
-
   protected
 
   def from_date

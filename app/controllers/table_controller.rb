@@ -33,15 +33,6 @@ class TableController < ApplicationController
   end
 
 
-
-  def clean_fields(fields)
-    fields.collect do |hash|
-      hash_copy = hash.clone
-      hash_copy.delete :link_proc
-      hash_copy
-    end
-  end
-
   def get_relation_record_count(relation)
     sql = "SELECT COUNT(*) as record_count FROM (#{@rows.to_sql}) as tmp" # postgres requires subselect to have alias
     active_record_result = ActiveRecord::Base.connection.select_one(sql)

@@ -117,7 +117,8 @@ module TableHelper
     respond_to do |format|
       format.html {
         process_rows
-        render :html => @rows
+        #render :html => @rows
+        render :template => table_template
       }
       format.csv {
         process_rows
@@ -130,6 +131,10 @@ module TableHelper
     end
   end
 
+  def table_template
+    "#{controller_name}/#{action_name}"
+  end
+
   def cell_value(field, row)
     if field[:link]
       link_to "View", instance_eval("#{field[:link_proc]}(row)")
@@ -140,6 +145,17 @@ module TableHelper
       else
         row[field_key.to_sym]
       end
+    end
+  end
+
+
+
+
+  def clean_fields(fields)
+    fields.collect do |hash|
+      hash_copy = hash.clone
+      hash_copy.delete :link_proc
+      hash_copy
     end
   end
 
