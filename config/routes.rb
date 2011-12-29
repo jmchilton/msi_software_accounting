@@ -31,6 +31,8 @@
   resources :collectl_executable_overview, :only => [:show]
   resources :resources_overview, :only => [:show]
 
+  resources :module_loads, :only => [:create]
+  resources :modules
   resources :purchases
 
   resources :collectl_executables do

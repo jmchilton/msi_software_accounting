@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103204833) do
+ActiveRecord::Schema.define(:version => 20111229145148) do
 
   create_table "collectl_executables", :force => true do |t|
     t.string  "name"
@@ -85,6 +85,18 @@ ActiveRecord::Schema.define(:version => 20111103204833) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "module_loads", :force => true do |t|
+    t.string   "name"
+    t.datetime "date"
+    t.string   "username"
+    t.string   "version"
+    t.string   "hostname"
+  end
+
+  create_table "modules", :force => true do |t|
+    t.string "name"
   end
 
   create_table "persons", :force => true do |t|

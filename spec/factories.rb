@@ -88,4 +88,12 @@ FactoryGirl.define do
     sequence(:name) { |index| "exectuable_#{index}" }
   end
 
+  factory :module, :class => SoftwareModule do
+
+  end
+
+  factory :module_load, :class => ModuleLoad do
+
+  end
+
 end

@@ -69,15 +69,22 @@ module IntegrationHelpers
     scenario "flexlm report with defualt options" do
       click_report_link :flexlm, model_title
       page_should_have_header "FLEXlm #{model_title} Report"
-      build_and_verify_report
-      expected_columns.each do |expected_column|
-        table_should_have_column expected_column
-      end
+      build_and_verfiy_report_and_columns
     end
 
-    scenario "collectl report with defualt options" do
+    scenario "collectl report with default options" do
       click_report_link :collectl, model_title
       page_should_have_header "Collectl #{model_title} Report"
+      build_and_verfiy_report_and_columns
+    end
+
+    #scenario "module report with default options" do
+    #  click_report_link :module, model_title
+    #  page_should_have_header "Module Load #{model_title} Report"
+    #  build_and_verfiy_report_and_columns
+    #end
+
+    def build_and_verfiy_report_and_columns
       build_and_verify_report
       expected_columns.each do |expected_column|
         table_should_have_column expected_column
