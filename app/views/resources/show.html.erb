@@ -20,6 +20,13 @@
 <%= model_link "Build Per Department Collectl Usage Report", new_resource_resource_department_report_path(@resource.id, :data_source => :collectl) %>
 <%= model_link "Build Per College Collectl Usage Report", new_resource_resource_college_report_path(@resource.id, :data_source => :collectl) %>
 
+
+<%= model_link "Build Per User Module Load Usage Report", new_resource_resource_user_report_path(@resource.id, :data_source => :module) %>
+<%= model_link "Build Per Group Module Load Usage Report", new_resource_resource_group_report_path(@resource.id, :data_source => :module) %>
+<%= model_link "Build Per Department Module Load Usage Report", new_resource_resource_department_report_path(@resource.id, :data_source => :module) %>
+<%= model_link "Build Per College Module Load Usage Report", new_resource_resource_college_report_path(@resource.id, :data_source => :module) %>
+
+
 <%= model_link "Manage Collectl Executables", collectl_executables_path(:resource_id => @resource) %>
 <%= model_link "View on MSI DB", @resource.msi_db_link, :id => 'msi_db_link' %>
 <%= model_link "Back to Resource Index", resources_path %>

@@ -13,6 +13,10 @@ module Fields
     {:field => "use_count", :label => "Executions", :search => false}
   end
 
+  def loads_field
+    {:field => "use_count", :label => "Loads", :search => false}
+  end
+
   def username_field
     { :field => "username", :label => "Username"}
   end
@@ -74,7 +78,13 @@ module Fields
   end
 
   def use_count_field(data_source)
-    data_source == :collectl ? TableController.executions_field  : TableController.checkouts_field
+    if data_source == :collectl
+      TableController.executions_field
+    elsif data_source == :flexlm
+      TableController.checkouts_field
+    elsif data_source == :module
+      TableController.loads_field
+    end
   end
 
   def resource_name_field

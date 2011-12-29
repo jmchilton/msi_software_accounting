@@ -161,12 +161,7 @@ module IntegrationHelpers
     end
   end
 
-  shared_examples_for "model with resource reports" do
-    before(:each) do
-      visit_home
-      ReportTestData.setup_used_twice_resource(:data_source => data_source)
-    end
-
+  shared_examples_for "model's data_source report with default options for each data source" do
     it_should_behave_like "model's data_source report with default options" do
       let(:data_source) { :flexlm }
       let(:data_source_title) { "FLEXlm" }
@@ -176,6 +171,21 @@ module IntegrationHelpers
       let(:data_source) { :collectl }
       let(:data_source_title) { "Collectl" }
     end
+
+    it_should_behave_like "model's data_source report with default options" do
+      let(:data_source) { :module }
+      let(:data_source_title) { "Module Load" }
+    end
+
+  end
+
+  shared_examples_for "model with resource reports" do
+    before(:each) do
+      visit_home
+      ReportTestData.setup_used_twice_resource(:data_source => data_source)
+    end
+
+    it_should_behave_like "model's data_source report with default options for each data source"
 
     it_should_behave_like "model instance's data_source report with default options" do
       let(:data_source) { :flexlm }
