@@ -10,4 +10,10 @@ class ModuleLoad  < ActiveRecord::Base
     DateOptions.handle_date_options(ModuleLoad, 'date', report_options)
   end
 
+  after_initialize :default_values
+
+  private
+    def default_values
+      self.date ||= Time.now
+    end
 end
