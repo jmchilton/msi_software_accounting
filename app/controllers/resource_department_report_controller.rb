@@ -1,4 +1,0 @@
-class ResourceDepartmentReportController < ReportController
-  include ResourceDepartmentReportGenerator
-
-end

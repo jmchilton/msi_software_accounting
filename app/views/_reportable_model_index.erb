@@ -1,0 +1,6 @@
+<h1><%= pluralize(2, local_assigns[:model_title]) %></h1>
+<%= render :partial => "/table" %>
+<%= model_link "Build FLEXlm #{local_assigns[:model_title]} Reports for Multiple Resources", new_batch_resource_report_path(:model_type => local_assigns[:model_type]) %>
+<%= model_link "Build Collectl #{local_assigns[:model_title]} Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :collectl, :model_type => local_assigns[:model_type]) %>
+<%= model_link "Build Module Load #{local_assigns[:model_title]} Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :module, :model_type => local_assigns[:model_type]) %>
+

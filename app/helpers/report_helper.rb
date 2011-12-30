@@ -7,7 +7,12 @@ module ReportHelper
 
   def model_type
     model_type = params[:model_type].to_sym
-    raise ArgumentError unless [:user, :college, :group, :department].find
+    raise ArgumentError unless [:user, :college, :group, :department].find model_type
+    model_type
+  end
+
+  def model_type_title
+    model_type.to_s.titleize
   end
 
   def report_options

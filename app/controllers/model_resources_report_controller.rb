@@ -20,11 +20,4 @@ class ModelResourcesReportController < ReportController
     "#{@model_type}_resources_report/index"
   end
 
-  protected
-
-  def set_granulatiy
-
-  end
-
-
 end

@@ -1,4 +1,1 @@
-<h1>Groups</h1>
-<%= render :partial => "/table" %>
-<%= model_link "Build FLEXlm Group Reports for Multiple Resources", new_batch_resource_report_path(:model_type => :group) %>
-<%= model_link "Build Collectl Group Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :collectl, :model_type => :group) %>
+<%= render :partial => "/reportable_model_index", :locals => {:model_title => "Group", :model_type => :group} %>

@@ -179,6 +179,44 @@ module IntegrationHelpers
 
   end
 
+  shared_examples_for "model instance's data_source report with default options for each data source" do
+    it_should_behave_like "model instance's data_source report with default options" do
+      let(:data_source) { :flexlm }
+      let(:data_source_title) { "FLEXlm" }
+    end
+
+    it_should_behave_like "model instance's data_source report with default options" do
+      let(:data_source) { :collectl }
+      let(:data_source_title) { "Collectl" }
+    end
+
+    it_should_behave_like "model instance's data_source report with default options" do
+      let(:data_source) { :module }
+      let(:data_source_title) { "Module Load" }
+    end
+
+  end
+
+  shared_examples_for "model's data_source batch resource report for each data source"  do
+    it_should_behave_like "model's data_source batch resource report" do
+      let(:data_source) { :flexlm }
+      let(:data_source_title) { "FLEXlm" }
+    end
+
+    it_should_behave_like "model's data_source batch resource report" do
+      let(:data_source) { :collectl }
+      let(:data_source_title) { "Collectl" }
+    end
+
+    it_should_behave_like "model's data_source batch resource report" do
+      let(:data_source) { :module }
+      let(:data_source_title) { "Module Load" }
+    end
+
+  end
+
+
+
   shared_examples_for "model with resource reports" do
     before(:each) do
       visit_home
@@ -186,26 +224,8 @@ module IntegrationHelpers
     end
 
     it_should_behave_like "model's data_source report with default options for each data source"
-
-    it_should_behave_like "model instance's data_source report with default options" do
-      let(:data_source) { :flexlm }
-      let(:data_source_title) { "FLEXlm" }
-    end
-
-    it_should_behave_like "model instance's data_source report with default options" do
-      let(:data_source) { :collectl }
-      let(:data_source_title) { "Collectl" }
-    end
-
-    it_should_behave_like "model's data_source batch resource report" do
-      let(:data_source) { :flexlm }
-      let(:data_source_title) { "FLEXlm" }
-    end
-
-    it_should_behave_like "model's data_source batch resource report" do
-      let(:data_source) { :collectl }
-      let(:data_source_title) { "Collectl" }
-    end
+    it_should_behave_like "model instance's data_source report with default options for each data source"
+    it_should_behave_like "model's data_source batch resource report for each data source"
 
   end
 

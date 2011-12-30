@@ -1,5 +1,2 @@
-<h1>Users</h1>
-<%= render :partial => "/table" %>
-<%= model_link "Build FLEXlm User Reports for Multiple Resources", new_batch_resource_report_path(:model_type => :user) %>
-<%= model_link "Build Collectl User Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :collectl, :model_type => :user) %>
+<%= render :partial => "/reportable_model_index", :locals => {:model_title => "User", :model_type => :user} %>
 

@@ -1,6 +1,42 @@
 
 module UsageReportHelpers
 
+  shared_examples_for "controller with usage reports for each model type" do
+    describe "user reports" do
+      let(:model_class) { User }
+      let(:model_type) { "user" }
+
+      it_should_behave_like "standard report GET new"
+      it_should_behave_like "standard usage report GET index"
+    end
+
+    describe "college reports" do
+      let(:model_class) { College }
+      let(:model_type) { "college" }
+
+      it_should_behave_like "standard report GET new"
+      it_should_behave_like "standard usage report GET index"
+    end
+
+    describe "department reports" do
+      let(:model_class) { Department }
+      let(:model_type) { "department" }
+
+      it_should_behave_like "standard report GET new"
+      it_should_behave_like "standard usage report GET index"
+    end
+
+    describe "group reports" do
+      let(:model_class) { Group }
+      let(:model_type) { "group" }
+
+      it_should_behave_like "standard report GET new"
+      it_should_behave_like "standard usage report GET index"
+    end
+  end
+
+
+
   module ClassMethods
 
     def before_each_stub_usage_report(instance = nil)
@@ -11,6 +47,9 @@ module UsageReportHelpers
         usage_match = usage_controller_pattern.match(subject_class_name)
         if not usage_match.nil?
           report_model = usage_match[3]
+          if report_model == "Model"
+            report_model = model_class.name
+          end
           if subject_class_name.match "Resource"
             stub_resource_report_method(eval(report_model), instance)
           else

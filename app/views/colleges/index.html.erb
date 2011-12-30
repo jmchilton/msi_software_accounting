@@ -1,4 +1,1 @@
-<h1>Colleges</h1>
-<%= render :partial => "/table" %>
-<%= model_link "Build FLEXlm College Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :flexlm, :model_type => :college) %>
-<%= model_link "Build Collectl College Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :collectl, :model_type => :college) %>
+<%= render :partial => "/reportable_model_index", :locals => {:model_title => "College", :model_type => :college} %>

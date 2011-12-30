@@ -16,7 +16,7 @@ describe "resources/show.html.erb" do
   specify { it_should_have_model_field("documentation", "Documentation", "howto") }
   specify { it_should_have_model_field("module", "Module", "gaus2011") }
 
-  specify { it_should_have_model_link "Build Per User FLEXlm Usage Report", new_resource_resource_user_report_path(@resource.id) }
+  specify { it_should_have_model_link "Build Per User FLEXlm Usage Report", new_resource_resource_model_report_path(@resource.id, :model_type => :user) }
   specify { it_should_have_model_link "Build FLEXlm Feature Report", new_resource_executables_report_path(@resource.id) }
   specify { it_should_have_model_link "Manage Collectl Executables", collectl_executables_path(:resource_id => @resource.id) }
   specify { it_should_have_model_link "View on MSI DB", @resource.msi_db_link }

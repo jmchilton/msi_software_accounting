@@ -19,6 +19,12 @@ class TableController < ApplicationController
     handle_search_criteria :comment
   end
 
+  def filter_for_executables(rows)
+    rows = filter_search rows, :resource
+    rows = filter_search rows, :identifier
+    rows = filter_search rows, :comment
+    rows
+  end
 
   def save_report_option(option)
     if not params[option].nil?

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ModelResourcesReportController do
+describe ModelExecutablesReportController do
   include TableHelpers
   include UsageReportHelpers
 

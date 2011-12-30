@@ -1,4 +1,1 @@
-<h1>Departments</h1>
-<%= render :partial => "/table" %>
-<%= model_link "Build FLEXlm Department Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :flexlm, :model_type => :department) %>
-<%= model_link "Build Collectl Department Reports for Multiple Resources", new_batch_resource_report_path(:data_source => :collectl, :model_type => :department) %>
+<%= render :partial => "/reportable_model_index", :locals => {:model_title => "Department", :model_type => :department} %>

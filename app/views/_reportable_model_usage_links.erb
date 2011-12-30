@@ -1,0 +1,6 @@
+<%= model_type = local_assigns[:model_type] %>
+<% path_params = {"#{model_type}_id".to_sym => instance_eval("@#{model_type}"), :model_type => model_type} %>
+<%= model_link "Build FLEXlm Resource Usage Report", new_model_resources_report_path(path_params.merge(:data_source => :flexlm)) %>
+<%= model_link "Build FLEXlm Feature Usage Report", new_model_executables_report_path(path_params.merge(:data_source => :flexlm)) %>
+<%= model_link "Build Collectl Resource Usage Report", new_model_resources_report_path(path_params.merge(:data_source => :collectl)) %>
+<%= model_link "Build Module Load Resource Usage Report", new_model_resources_report_path(path_params.merge(:data_source => :module)) %>
