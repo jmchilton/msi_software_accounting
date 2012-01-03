@@ -6,9 +6,9 @@
 
 <%= data_source_summary_link("FLEXlm Data Summary",  executable_overview_path(@executable), "flexlm") %>
 <%= model_link "Plot Feature Usage", new_executable_executables_plot_path(@executable) %>
-<%= model_link "Build Per User FLEXlm Usage Report", new_executable_executable_user_report_path(@executable.id) %>
-<%= model_link "Build Per Group FLEXlm Usage Report", new_executable_executable_group_report_path(@executable.id) %>
-<%= model_link "Build Per Department FLEXlm Usage Report", new_executable_executable_department_report_path(@executable.id) %>
-<%= model_link "Build Per College FLEXlm Usage Report", new_executable_executable_college_report_path(@executable.id) %>
+<%= model_link "Build Per User FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :user) %>
+<%= model_link "Build Per Group FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :group) %>
+<%= model_link "Build Per Department FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :department) %>
+<%= model_link "Build Per College FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :college) %>
 <%= model_link "Back to Resource #{@executable.resource.name}", resource_path(@executable.resource) %>
 <%= model_link 'Back to FLEXlm Feature Index', executables_path %>

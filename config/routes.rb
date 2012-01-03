@@ -23,10 +23,11 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :executables do 
     report_resources :executables_plot
-    report_resources :executable_user_report
-    report_resources :executable_group_report
-    report_resources :executable_department_report
-    report_resources :executable_college_report
+    #report_resources :executable_user_report
+    #report_resources :executable_group_report
+    #report_resources :executable_department_report
+    #report_resources :executable_college_report
+    report_resources :executable_model_report
   end
 
   resources :executable_overview, :only => [:show]

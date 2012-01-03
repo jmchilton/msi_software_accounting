@@ -150,6 +150,29 @@ module IntegrationHelpers
     end
   end
 
+  shared_examples_for "model's data_source executable report with default options" do
+    let(:data_source_title) { "FLEXlm" }
+    let(:data_source) { :flexlm }
+
+    before(:each) do
+      visit_home
+      ReportTestData.setup_used_twice_resource(:data_source => data_source)
+    end
+
+    scenario "default options" do
+      navigate "FLEXlm Features"
+      executable_name = ReportTestData::USED_TWICE_EXECUTABLE_IDENTIFIER
+      view_row_with_content executable_name
+      click_link "Build Per #{model_title} #{data_source_title} Usage Report"
+      report_title = "#{data_source_title} #{model_title} Report for Feature #{executable_name}"
+      page_should_have_header report_title
+      build_and_verify_report
+      page_should_have_header report_title
+      table_should_have_column data_source_column
+      view_row_with_content model_instance.name
+    end
+  end
+
   shared_examples_for "model's data_source batch resource report" do
     scenario "default options" do
       navigate model_title
@@ -226,7 +249,7 @@ module IntegrationHelpers
     it_should_behave_like "model's data_source report with default options for each data source"
     it_should_behave_like "model instance's data_source report with default options for each data source"
     it_should_behave_like "model's data_source batch resource report for each data source"
-
+    it_should_behave_like "model's data_source executable report with default options"
   end
 
 

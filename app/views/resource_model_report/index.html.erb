@@ -1,2 +1,5 @@
 <h1><%= report_type_title %> <%= model_type_title %> Report for <%= @resource.name %></h1>
 <%= render :partial => "/table" %>
+<% if model_type == :user %>
+<%= copy_email_addresses_link %>
+<% end %>
