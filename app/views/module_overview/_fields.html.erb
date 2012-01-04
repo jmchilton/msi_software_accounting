@@ -1,0 +1,5 @@
+<%= model_field('count', "Number of Module Loads", @summary[:count]) %>
+<% if @summary[:count] > 0 %>
+  <%= model_field('first', "Date of Oldest Recorded Module Load", @summary[:first]) %>
+  <%= model_field('last', "Date of Latest Recorded Module Load", @summary[:last]) %>
+<% end %>

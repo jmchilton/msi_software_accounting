@@ -2,17 +2,16 @@ require 'spec_helper'
 
 
 describe CollectlExecutableOverviewController do
+  include OverviewHelpers
+
   describe "show" do
+    before(:each) {
+        CollectlExecutable.should_receive(:find).with(1).and_return(summary_double("collectl_executable", {:name => "/bin/path"}))
+    }
 
-    describe "as html" do
+    let(:data_source) { "collectl" }
 
-      it "should render earliest data date" do
-        collectl_executable_double = double("collectl_executable", :name => "/bin/path", :summarize => {:count => 5, :first => '2011-08-05 12:10:38', :last => '2011-08-05 12:10:38' })
-        CollectlExecutable.should_receive(:find).with(1).and_return(collectl_executable_double)
-        get :show, :id => 1
-      end
-
-    end
-
+    it_should_behave_like "controller that can show overview"
   end
+
 end

@@ -4,4 +4,12 @@ class SoftwareModule < ActiveRecord::Base
 
   belongs_to :resource
 
+  def summarize
+    SoftwareModule.summary_select.where("modules.name = ?", name).first
+  end
+
+  def self.summary_select
+    SoftwareModule.select("count(*) as count, min(module_loads.date) as first, max(module_loads.date) as last").joins("inner join module_loads on module_loads.name = modules.name")
+  end
+
 end

@@ -16,17 +16,35 @@ module HasSummary
 
   end
 
+  shared_examples_for "has direct summary" do
+    let(:summary) { instance.summarize }
+
+    it_should_behave_like "has summary"
+
+  end
+
+  def setup_module_loads(instance)
+    for_test_times do |date|
+      FactoryGirl.create(:module_load, :module => instance, :date => date)
+    end
+  end
 
   def setup_collectl_executions(instance)
-    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-05 12:10:38')
-    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-06 12:10:38')
-    FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => '2011-08-07 12:10:38')
+    for_test_times do |date|
+      FactoryGirl.create(:collectl_execution, :collectl_executable => instance, :start_time => date)
+    end
   end
 
   def setup_flexlm_events(instance)
-    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-05 12:10:38')
-    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-06 12:10:38')
-    FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => '2011-08-07 12:10:38')
+    for_test_times do |date|
+      FactoryGirl.create(:event, :feature => instance.identifier, :ev_date => date)
+    end
+  end
+
+  private
+
+  def for_test_times(&block)
+    ['2011-08-05 12:10:38', '2011-08-06 12:10:38', '2011-08-07 12:10:38'].each &block
   end
 
 end

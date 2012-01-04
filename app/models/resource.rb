@@ -12,8 +12,12 @@ class Resource < ReadOnlyModel
   def summarize(data_source)
     if data_source == "collectl"
       CollectlExecutable.summary_select.where("collectl_executables.resource_id = ?", id).first
-    else
+    elsif data_source == "flexlm"
       Executable.summary_select.where("executable.rid = ?", id).first
+    elsif data_source == "module"
+      SoftwareModule.summary_select.where("modules.resource_id = ?", id).first
+    else
+      raise ArgumentError, "Unknown data_source #{data_source}"
     end
   end
 
@@ -52,22 +56,5 @@ class Resource < ReadOnlyModel
   def msi_db_link
     "#{StaticData::MSIDB_CRUD_URL}sw/resource/#{id}/view"
   end
-
-  private
-
-  #def self.flexlm_usage_report(report_options)
-  #  select_statement = "resources.id, #{Resource.demographics_summary_selects}"
-  #  select(select_statement).
-  #    joins("INNER JOIN executable on executable.rid = resources.id #{Event.to_demographics_joins(report_options)}").
-  #    group("resources.id")
-  #end
-
-  # TODO: Refactor common usage report
-  #def self.collectl_usage_report(report_options)
-  #  select_statement = "resources.id, #{Resource.demographics_summary_selects}"
-  #  select(select_statement).
-  #    joins("INNER JOIN collectl_executables on collectl_executables.resource_id = resources.id #{CollectlExecution.to_demographics_joins(report_options)}").
-  #    group("resources.id")
-  #end
 
 end

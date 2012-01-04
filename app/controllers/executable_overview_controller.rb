@@ -4,7 +4,8 @@ class ExecutableOverviewController < ApplicationController
     executable = Executable.find(params[:id])
     @name = executable.identifier
     @summary = executable.summarize
-    render :template => 'flexlm_overview/show'
+    @data_source = "flexlm"
+    render :template => 'data_source_overview/show'
   end
 
 end

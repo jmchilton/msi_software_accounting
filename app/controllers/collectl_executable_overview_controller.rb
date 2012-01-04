@@ -4,7 +4,8 @@ class CollectlExecutableOverviewController < ApplicationController
     executable = CollectlExecutable.find(params[:id])
     @name = executable.name
     @summary = executable.summarize
-    render :template => 'collectl_overview/show'
+    @data_source = "collectl"
+    render :template => 'data_source_overview/show'
   end
 
 end

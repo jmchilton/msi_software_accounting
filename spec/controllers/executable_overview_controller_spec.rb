@@ -1,19 +1,17 @@
 require 'spec_helper'
 
-
 describe ExecutableOverviewController do
+  include OverviewHelpers
+
   describe "show" do
-    let(:executable) { FactoryGirl.create(:executable)}
+    before(:each) {
+      Executable.should_receive(:find).and_return(summary_double("executable", :identifier => "Executable Name"))
+    }
 
-    describe "as html" do
+    let(:data_source) { "flexlm"}
 
-      it "should render earliest data date" do
-        executable_double = double("executable", :identifier => "Executable Name", :summarize => {:count => 5, :first => '2011-08-05 12:10:38', :last => '2011-08-05 12:10:38' })
-        Executable.should_receive(:find).and_return(executable_double)
-        get :show, :id => executable.exid
-      end
-
-    end
+    it_should_behave_like "controller that can show overview"
 
   end
+
 end

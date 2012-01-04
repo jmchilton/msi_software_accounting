@@ -8,7 +8,7 @@ describe Resource do
 
   describe "summarize" do
     describe "collectl" do
-      let(:instance) { FactoryGirl.create(:resource)}
+      let(:instance) { FactoryGirl.create(:resource) }
       let(:collectl_executable) { FactoryGirl.create(:collectl_executable, :name => "bowtie", :resource => instance) }
       let(:summary) { instance.summarize("collectl") }
 
@@ -28,6 +28,16 @@ describe Resource do
       before(:each) {
         setup_flexlm_events(executable)
       }
+
+      it_should_behave_like "has summary"
+    end
+
+    describe "modules" do
+      let(:instance) { FactoryGirl.create(:resource) }
+      let(:software_module) { FactoryGirl.create(:module, :resource => instance, :name => "bowtie") }
+      let(:summary) { instance.summarize("module") }
+
+      before(:each) { setup_module_loads(software_module) }
 
       it_should_behave_like "has summary"
     end

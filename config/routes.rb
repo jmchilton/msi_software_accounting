@@ -23,16 +23,13 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :executables do 
     report_resources :executables_plot
-    #report_resources :executable_user_report
-    #report_resources :executable_group_report
-    #report_resources :executable_department_report
-    #report_resources :executable_college_report
     report_resources :executable_model_report
   end
 
-  resources :executable_overview, :only => [:show]
-  resources :collectl_executable_overview, :only => [:show]
-  resources :resources_overview, :only => [:show]
+  # Route overview controllers
+  ["executable", "collectl_executable", "module", "resources"].each do |data_type|
+    resources "#{data_type}_overview".to_sym, :only => [:show]
+  end
 
   resources :module_loads, :only => [:create]
   resources :modules
@@ -48,8 +45,6 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :executables_report
     report_resources :resource_model_report
   end
-
-  #report_resources :resource_model_report
 
   readonly_resources :events
   readonly_resources :people

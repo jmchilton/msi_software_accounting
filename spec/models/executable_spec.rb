@@ -7,13 +7,12 @@ describe Executable do
 
   describe "summarize" do
     let(:instance) { FactoryGirl.create(:executable) }
-    let(:summary) { instance.summarize }
 
     before(:each) {
       setup_flexlm_events(instance)
     }
 
-    it_should_behave_like "has summary"
+    it_should_behave_like "has direct summary"
   end
 
   describe "report" do
