@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CollectlExecutablesController do
+describe ResourceMappablesController do
   include TableHelpers
 
   before(:each) {
@@ -47,7 +47,7 @@ describe CollectlExecutablesController do
 
       it "redirects to the created executable" do
         do_post
-        response.should redirect_to(collectl_executables_path(:resource_id => resource.id))
+        response.should redirect_to(resource_mappables_path(:resource_id => resource.id))
       end
     end
 
@@ -90,7 +90,7 @@ describe CollectlExecutablesController do
 
     it "redirects to the executables list" do
       do_destroy
-      response.should redirect_to(collectl_executables_path(:resource_id => resource.id))
+      response.should redirect_to(resource_mappables_path(:resource_id => resource.id))
     end
   end
 

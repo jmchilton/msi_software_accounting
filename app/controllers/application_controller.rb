@@ -29,18 +29,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_and_show(model_class, instance_variable_name = nil)
+  def find_and_show(model_class, instance_variable_name = nil, render_opts = {})
     if instance_variable_name.nil?
       instance_variable_name = "@#{model_class.name.downcase}".to_sym
     end
     object = model_class.find(params[:id])
     instance_variable_set instance_variable_name, object
-    show_object(object)
+    show_object(object, render_opts)
   end
 
-  def show_object(object)
+  def show_object(object, render_opts = {})
     respond_to do |format|
-      format.html
+      format.html { render render_opts }
       format.xml  { render :xml => object }
     end
   end

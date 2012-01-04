@@ -39,6 +39,8 @@ SoftwareWebApp::Application.routes.draw do
     report_resources :collectl_executables_plot
   end
 
+  resources :resource_mappables
+
   readonly_resources :resources do
     get :autocomplete_resource_name, :on => :collection
 
