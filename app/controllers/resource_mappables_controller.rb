@@ -11,7 +11,7 @@ class ResourceMappablesController < TableController
 
   def index
     @fields = Array.new(FIELDS)
-    @fields << link_field(:link_proc => lambda  { |id| collectl_executable_path(id, :resource_id => @resource.id) })
+    @fields << link_field(:link_proc => lambda  { |id| resource_mappable_path(id, :resource_id => @resource.id) })
 
     @rows = @mappable_class.where "resource_id = ?", @resource.id
     handle_search_criteria :name
@@ -19,37 +19,51 @@ class ResourceMappablesController < TableController
   end
 
   def show
-    find_and_show(@mappable_class, :@collectl_executable, {:template => "collectl_executables/show" })
+    find_and_show(@mappable_class, :@instance, {:template => mappable_view(:show) })
   end
 
   def new
-    @collectl_executable = @mappable_class.new(:resource => @resource)
-    show_object(@collectl_executable, {:template => "collectl_executables/new" })
+    @instance = @mappable_class.new(:resource => @resource)
+    show_object(@instance, {:template => mappable_view(:new) })
   end
 
   def create
-    @collectl_executable = @mappable_class.new(:name => params[:collectl_executable][:name], :resource => Resource.find(params[:collectl_executable][:resource_id]))
-    if @collectl_executable.save
+    @instance = @mappable_class.new(:name => params[:collectl_executable][:name], :resource => Resource.find(params[:collectl_executable][:resource_id]))
+    if @instance.save
       redirect_to(resource_mappables_path(:resource_id => @resource.id), :notice => 'Collectl Executable was successfully created.')
     else
-      render :template => "collectl_executables/new"
+      render :template => mappable_view(:new)
     end
   end
 
+
   def destroy
-    @collectl_executable = @mappable_class.find(params[:id])
-    @collectl_executable.destroy
+    @instance = @mappable_class.find(params[:id])
+    @instance.destroy
     redirect_to(resource_mappables_url(:resource_id => @resource.id))
   end
 
   private
+
+  def mappable_view(action)
+    "#{@mappable_type}s/#{action}"
+  end
 
   def set_resource
     @resource = Resource.find params[:resource_id]
   end
 
   def set_mappable_class
-    @mappable_class = CollectlExecutable
+    if params[:mappable_type].blank?
+      params[:mappable_type] = "collectl_executable"
+    end
+    @mappable_type = params[:mappable_type]
+    raise ArgumentError, "Unknown mappable type #{mappable_type}" unless ["collectl_executable", "module"].find_index(@mappable_type)
+    if @mappable_type == "collectl_executable"
+      @mappable_class = CollectlExecutable
+    else
+      @mappable_class = Module
+    end
   end
 
 end

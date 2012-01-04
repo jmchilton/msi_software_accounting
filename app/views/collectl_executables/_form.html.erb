@@ -1,10 +1,10 @@
-<%= form_for(@collectl_executable, :url => {:action => :create, :resource_id => @resource.id }) do |f| %>
-  <% if @collectl_executable.errors.any? %>
+<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id }) do |f| %>
+  <% if @instance.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@collectl_executable.errors.count, "error") %> prohibited this executable from being saved:</h2>
+      <h2><%= pluralize(@instance.errors.count, "error") %> prohibited this executable from being saved:</h2>
 
       <ul>
-      <% @collectl_executable.errors.full_messages.each do |msg| %>
+      <% @instance.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

@@ -17,14 +17,14 @@ describe ResourceMappablesController do
     it "assigns the requested executable as @collectl_executable" do
       collectl_executable = FactoryGirl.create(:collectl_executable, :resource => resource)
       get :show, :id => collectl_executable.id.to_s, :resource_id => resource.id
-      assigns(:collectl_executable).should eq(collectl_executable)
+      assigns(:instance).should eq(collectl_executable)
     end
   end
 
   describe "GET new" do
     it "assigns a new collectl_executable as @collectl_executable" do
       get :new, :resource_id => resource.id
-      assigns(:collectl_executable).should be_a_new(CollectlExecutable)
+      assigns(:instance).should be_a_new(CollectlExecutable)
     end
   end
 
@@ -41,8 +41,8 @@ describe ResourceMappablesController do
 
       it "assigns a newly created executable as @executable" do
         do_post
-        assigns(:collectl_executable).should be_a(CollectlExecutable)
-        assigns(:collectl_executable).should be_persisted
+        assigns(:instance).should be_a(CollectlExecutable)
+        assigns(:instance).should be_persisted
       end
 
       it "redirects to the created executable" do
@@ -60,7 +60,7 @@ describe ResourceMappablesController do
         # Trigger the behavior that occurs when invalid params are submitted
         stub_save
         do_post
-        assigns(:collectl_executable).should be_a_new(CollectlExecutable)
+        assigns(:instance).should be_a_new(CollectlExecutable)
       end
 
       it "re-renders the 'new' template" do
