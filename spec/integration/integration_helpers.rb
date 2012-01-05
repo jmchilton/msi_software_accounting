@@ -21,6 +21,17 @@ module IntegrationHelpers
 
   end
 
+  def build_user_resource_report(data_source_title)
+    visit_resource
+    click_link "Build Per User #{data_source_title} Usage Report"
+    build_report
+  end
+
+  def visit_resource(resource_name = RESOURCE_NAME)
+    visit_navigate_resources
+    view_row_with_content resource_name
+  end
+
   def visit_navigate_resources
     navigate "Resources"
   end

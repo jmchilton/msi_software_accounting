@@ -1,0 +1,7 @@
+<h1>Module <%= @instance.name %></h1>
+<%= model_field('name', "Name", @instance.name) %>
+<%= model_field('resource', "Resource", @instance.resource.blank? ? "Not mapped to a resource" : @instance.resource.name) %>
+<%= data_source_summary_link("Module Data Summary",  module_overview_path(@instance), "module") %>
+<%= model_link "Delete Module", resource_mappable_path(@instance, :mappable_type => "module"), :method => :delete %>
+<%= model_link "Back to Resource #{@instance.resource.name}", resource_path(@instance.resource) %>
+

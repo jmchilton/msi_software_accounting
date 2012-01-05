@@ -14,36 +14,27 @@ feature "Collectl Indexing" do
   end
 
   scenario "unindexed collectl executions" do
-    build_user_resource_report
-    lambda { find_row_with_content("collectl_user") }.should raise_error
+    build_collectl_user_resource_report
+    lambda { find_row_with_content USERNAME }.should raise_error
   end
-
 
   scenario "adding collectl executable" do
     add_collectl_executable
-    build_user_resource_report
-    find_row_with_content("collectl_user").should_not be_nil
+    build_collectl_user_resource_report
+    find_row_with_content(USERNAME).should_not be_nil
   end
 
   def add_collectl_executable
-    visit_test_resource
+    visit_resource
 
     click_link "Manage Collectl Executables"
     click_link "New Executable"
     fill_in 'Name', :with => 'resource.exe'
-    click_button "Create Collectl executable"
+    click_button "Create"
   end
 
-  def build_user_resource_report
-    visit_test_resource
-    click_link "Build Per User Collectl Usage Report"
-    build_report
+  def build_collectl_user_resource_report
+    build_user_resource_report "Collectl"
   end
-
-  def visit_test_resource
-    visit_navigate_resources
-    view_row_with_content "COLLECTL_TEST_RESOURCE"
-  end
-
 
 end

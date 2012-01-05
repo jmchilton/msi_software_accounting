@@ -1,5 +1,5 @@
-<h1>New collectl executable</h1>
+<h1>New Collectl Executable Mapping</h1>
 
-<%= render 'collectl_executables/form' %>
+<%= render :partial => 'resource_mappables/form' %>
 
-<%= link_to 'Back', resource_mappables_path(:resource_id => @resource.id) %>
+<%= link_to 'Back', resource_mappables_path(:resource_id => @resource.id, :mappable_type => "collectl_executable") %>

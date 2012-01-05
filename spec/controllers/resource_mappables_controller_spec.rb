@@ -47,7 +47,7 @@ describe ResourceMappablesController do
 
       it "redirects to the created executable" do
         do_post
-        response.should redirect_to(resource_mappables_path(:resource_id => resource.id))
+        response.should redirect_to(resource_mappables_path(:resource_id => resource.id, :mappable_type => "collectl_executable"))
       end
     end
 
@@ -90,7 +90,7 @@ describe ResourceMappablesController do
 
     it "redirects to the executables list" do
       do_destroy
-      response.should redirect_to(resource_mappables_path(:resource_id => resource.id))
+      response.should redirect_to(resource_mappables_path(:resource_id => resource.id, :mappable_type => "collectl_executable"))
     end
   end
 

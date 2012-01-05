@@ -1,0 +1,6 @@
+<h1>Modules for Resource <%= @resource.name %></h1>
+<% if use_jqgrid %>
+  <p>Double click a row to view more options for that module.</p>
+<% end %>
+<%= render :partial => "/table" %>
+<%= link_to 'Map New Module', new_resource_mappable_path(:resource_id => @resource.id, :mappable_type => "module") %>

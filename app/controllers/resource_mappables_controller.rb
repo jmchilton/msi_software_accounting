@@ -5,13 +5,9 @@ class ResourceMappablesController < TableController
   before_filter :set_resource
   before_filter :set_mappable_class
 
-  def table_template
-    "collectl_executables/index"
-  end
-
   def index
     @fields = Array.new(FIELDS)
-    @fields << link_field(:link_proc => lambda  { |id| resource_mappable_path(id, :resource_id => @resource.id) })
+    @fields << link_field(:link_proc => lambda  { |id| resource_mappable_path(id, :resource_id => @resource.id, :mappable_type => @mappable_type) })
 
     @rows = @mappable_class.where "resource_id = ?", @resource.id
     handle_search_criteria :name
@@ -28,9 +24,10 @@ class ResourceMappablesController < TableController
   end
 
   def create
-    @instance = @mappable_class.new(:name => params[:collectl_executable][:name], :resource => Resource.find(params[:collectl_executable][:resource_id]))
+    form_prefix = @mappable_class.name.underscore.to_sym
+    @instance = @mappable_class.new(:name => params[form_prefix][:name], :resource => Resource.find(params[form_prefix][:resource_id]))
     if @instance.save
-      redirect_to(resource_mappables_path(:resource_id => @resource.id), :notice => 'Collectl Executable was successfully created.')
+      redirect_to(resource_mappables_path(:resource_id => @resource.id, :mappable_type => @mappable_type), :notice => 'Collectl Executable was successfully created.')
     else
       render :template => mappable_view(:new)
     end
@@ -40,7 +37,13 @@ class ResourceMappablesController < TableController
   def destroy
     @instance = @mappable_class.find(params[:id])
     @instance.destroy
-    redirect_to(resource_mappables_url(:resource_id => @resource.id))
+    redirect_to(resource_mappables_url(:resource_id => @resource.id, :mappable_type => @mappable_type))
+  end
+
+  protected
+
+  def table_template
+    "#{@mappable_type}s/index"
   end
 
   private
@@ -62,7 +65,7 @@ class ResourceMappablesController < TableController
     if @mappable_type == "collectl_executable"
       @mappable_class = CollectlExecutable
     else
-      @mappable_class = Module
+      @mappable_class = SoftwareModule
     end
   end
 

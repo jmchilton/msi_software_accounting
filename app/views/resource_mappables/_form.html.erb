@@ -1,7 +1,7 @@
-<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id }) do |f| %>
+<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id, :mappable_type => @mappable_type }) do |f| %>
   <% if @instance.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@instance.errors.count, "error") %> prohibited this executable from being saved:</h2>
+      <h2><%= pluralize(@instance.errors.count, "error") %> prohibited this from being saved:</h2>
 
       <ul>
       <% @instance.errors.full_messages.each do |msg| %>
@@ -17,6 +17,6 @@
     <%= f.text_field :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Create" %>
   </div>
 <% end %>
