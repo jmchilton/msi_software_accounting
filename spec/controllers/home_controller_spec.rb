@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'controllers/helpers'
+#require 'controllers/helpers'
 
 describe HomeController do
   include Helpers

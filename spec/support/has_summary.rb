@@ -1,5 +1,6 @@
 module HasSummary
-
+  TEST_SUMMARY_OLDEST_USE = '2011-08-05 12:10:38'
+  TEST_SUMMARY_NEWEST_USE = '2011-08-07 12:10:38'
   share_examples_for "has summary" do
 
     specify "summary should contain count" do
@@ -7,11 +8,11 @@ module HasSummary
     end
 
     specify "summary should contain first date" do
-      Date.parse(summary[:first]).should eql(Date.parse('2011-08-05 12:10:38'))
+      Date.parse(summary[:first]).should eql(Date.parse(TEST_SUMMARY_OLDEST_USE))
     end
 
     specify "summary should contain last date" do
-      Date.parse(summary[:last]).should eql(Date.parse('2011-08-07 12:10:38'))
+      Date.parse(summary[:last]).should eql(Date.parse(TEST_SUMMARY_NEWEST_USE))
     end
 
   end
@@ -44,7 +45,7 @@ module HasSummary
   private
 
   def for_test_times(&block)
-    ['2011-08-05 12:10:38', '2011-08-06 12:10:38', '2011-08-07 12:10:38'].each &block
+    [TEST_SUMMARY_OLDEST_USE, '2011-08-06 12:10:38', TEST_SUMMARY_NEWEST_USE].each &block
   end
 
 end

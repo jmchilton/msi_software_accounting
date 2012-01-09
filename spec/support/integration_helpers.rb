@@ -1,5 +1,5 @@
 module IntegrationHelpers
-
+  include PageHelpers
 
   def it_should_download_file_named filename
     page.response_headers['Content-Disposition'].should include("filename=\"#{filename}\"")

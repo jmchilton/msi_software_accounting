@@ -1,4 +1,5 @@
-require 'controllers/helpers'
+require 'spec_helper'
+#require 'controllers/helpers'
 
 describe PeopleController do
   include Helpers

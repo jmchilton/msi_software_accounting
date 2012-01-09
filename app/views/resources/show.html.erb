@@ -8,6 +8,7 @@
 
 <%= data_source_summary_link("FLEXlm Data Summary",  resources_overview_path(@resource, :data_source => "flexlm"), "flexlm") %>
 <%= data_source_summary_link("Collectl Data Summary",  resources_overview_path(@resource, :data_source => "collectl"), "collectl") %>
+<%= data_source_summary_link("Module Load Data Summary",  resources_overview_path(@resource, :data_source => "module"), "module") %>
 
 <%= model_link "Build Per User FLEXlm Usage Report", new_resource_resource_model_report_path(@resource.id, :model_type => :user) %>
 <%= model_link "Build Per Group FLEXlm Usage Report", new_resource_resource_model_report_path(@resource.id, :model_type => :group) %>

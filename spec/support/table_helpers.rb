@@ -1,4 +1,3 @@
-require 'controllers/helpers'
 
 module TableHelpers
   include Helpers

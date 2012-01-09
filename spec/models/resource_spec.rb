@@ -10,7 +10,7 @@ describe Resource do
     describe "collectl" do
       let(:instance) { FactoryGirl.create(:resource) }
       let(:collectl_executable) { FactoryGirl.create(:collectl_executable, :name => "bowtie", :resource => instance) }
-      let(:summary) { instance.summarize("collectl") }
+      let(:summary) { instance.summarize(:collectl) }
 
       before(:each) {
         setup_collectl_executions(collectl_executable)
@@ -23,7 +23,7 @@ describe Resource do
     describe "flexlm" do
       let(:instance) { FactoryGirl.create(:resource)}
       let(:executable) { FactoryGirl.create(:executable, :identifier => "bowtie", :resource => instance) }
-      let(:summary) { instance.summarize("flexlm") }
+      let(:summary) { instance.summarize(:flexlm) }
 
       before(:each) {
         setup_flexlm_events(executable)
@@ -35,7 +35,7 @@ describe Resource do
     describe "modules" do
       let(:instance) { FactoryGirl.create(:resource) }
       let(:software_module) { FactoryGirl.create(:module, :resource => instance, :name => "bowtie") }
-      let(:summary) { instance.summarize("module") }
+      let(:summary) { instance.summarize(:module) }
 
       before(:each) { setup_module_loads(software_module) }
 
@@ -93,34 +93,6 @@ describe Resource do
 
   end
 
-
-  describe "report with fixtures" do #deprecated
-    let(:record1) { Resource.report(:data_source => :flexlm).find_by_id(1)  }
-
-    it "should include correct purchase totals" do
-      record1.fy11.should eql(20)
-      record1.fy10.should == 10 
-      record1.fy12.should == 25 
-      record1.fy13.should == 0 
-    end
-
-    it "should include resource name" do
-      record1.name.should == "resource_1"
-    end
-
-    it "should find records in range" do
-      Resource.report(:from => '2011-09-01', :to => '2011-09-02', :data_source => :flexlm).find_by_id(3).num_users.should == 1
-    end
-
-    it "should not find records for events after range" do
-      Resource.report(:from => "2011-09-05", :to => "", :data_source => :flexlm).find_by_id(3).should be_blank
-    end
-
-    it "should not find records for events before range" do
-      Resource.report(:from => nil, :to => "2011-08-04", :data_source => :flexlm).find_by_id(3).should be_blank
-    end
-
-  end
 
   it "should have msi_db_link" do
     resource = FactoryGirl.create(:resource)

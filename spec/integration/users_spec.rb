@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'integration/integration_helpers'
+#require 'integration/integration_helpers'
 
 describe "User navigation" do
   include IntegrationHelpers

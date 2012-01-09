@@ -1,5 +1,5 @@
 require 'spec_helper.rb'
-require 'integration/integration_helpers'
+#require 'integration/integration_helpers'
 require 'report_test_data'
 
 feature "College Reports" do
@@ -13,15 +13,6 @@ feature "College Reports" do
     let(:model_title) { "Colleges" }
     let(:expected_columns) { ["College"] }
   end
-
-  scenario "default options" do
-    click_report_link :flexlm, "Colleges"
-    page_should_have_header "FLEXlm Colleges Report"
-    build_and_verify_report
-    table_should_have_column "College"
-    page.should have_content "CFANS"
-  end
-
 
 end
 

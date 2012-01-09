@@ -10,11 +10,11 @@ class Resource < ReadOnlyModel
   end
 
   def summarize(data_source)
-    if data_source == "collectl"
+    if data_source == :collectl
       CollectlExecutable.summary_select.where("collectl_executables.resource_id = ?", id).first
-    elsif data_source == "flexlm"
+    elsif data_source == :flexlm
       Executable.summary_select.where("executable.rid = ?", id).first
-    elsif data_source == "module"
+    elsif data_source == :module
       SoftwareModule.summary_select.where("modules.resource_id = ?", id).first
     else
       raise ArgumentError, "Unknown data_source #{data_source}"

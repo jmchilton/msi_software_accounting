@@ -74,62 +74,6 @@ describe User do
     it_should_behave_like "collectl report that can exclude employees"
   end
 
-
-  describe "executable_report with fixtures" do # deprecated
-     let(:report1) { User.executable_report(1, {:data_source => :flexlm}) }
-     let(:alices_record) { record_for(report1, 'alice') }
-
-     it "should have record of user using feature" do
-       alices_record.should_not be_blank
-     end
-
-  end
-
-  describe "resource_report with fixtures" do # deprecated
-    let(:report1) { User.resource_report(1, {:data_source => :flexlm}) }
-    let(:alices_record) { record_for(report1, 'alice') }
-
-    it "should have record of user using software" do
-      alices_record.should_not be_blank
-    end
-
-    it "should have e-mail in the record" do
-      alices_record.email.should == "alice@example.com"
-    end
-
-    it "should have first name in the record" do
-      alices_record.first_name.should == "Alice"
-    end
-
-    it "should have last name in the record" do
-      alices_record.last_name.should == "Albert"
-    end
-
-    it "should have college in the record" do
-      alices_record.college_name.should == "CPH"
-    end
- 
-    it "should not have record of users who have not used software" do
-      record_for(report1, 'bob').should be_blank
-    end
-
-    it "should find events in date range" do
-      report = User.resource_report(3, {:from => '2011-09-01', :to => '2011-09-02', :data_source => :flexlm})
-      record_for(report, "shelly").should_not be_blank
-    end
-
-    it "should not find events before date range" do
-      report = User.resource_report(3, {:from => '2011-09-02', :to => '2011-09-03', :data_source => :flexlm})
-      record_for(report, "shelly").should be_blank
-    end
-
-    it "should not find events after date range" do
-      report = User.resource_report(3, {:from => '2011-06-02', :to => '2011-07-03', :data_source => :flexlm})
-      record_for(report, "shelly").should be_blank
-    end
-
-  end
-
   def record_for(records, username)
     records.find { |record| record.username == username}
   end

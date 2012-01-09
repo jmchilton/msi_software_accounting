@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'integration/integration_helpers'
+#require 'integration/integration_helpers'
 
 feature "Index Page", %q{
   In order to navigate the site
@@ -41,16 +41,6 @@ feature "Index Page", %q{
     can_visit_models_report "Groups", "group"
   end
 
-  scenario "Navigate to resources" do
-    visit_navigate_resources
-    current_path.should eql(resources_path)
-    click_link('View')
-    current_path.should eql(resource_path(1))
-    click_link('Build Per User FLEXlm Usage Report')
-    build_report
-    page.should have_content("alice") # Alice uses resource 1
-  end
-
   scenario "Navigate to FLEXlm Features" do
     visit_home
     within("#links-navigate") do
@@ -75,17 +65,6 @@ feature "Index Page", %q{
     current_path.should eql(purchases_path)
     click_link('New Purchase')
     current_path.should eql(new_purchase_path)
-  end
-
-  specify "Navigate to feature report" do
-    visit_navigate_resources
-    current_path.should eql(resources_path)
-    click_link('View')
-    current_path.should eql(resource_path(1))
-    click_link('Build FLEXlm Feature Report')
-    current_path.should eql(new_resource_executables_report_path(1))
-    build_report
-    current_path.should eql(resource_executables_report_index_path(1))
   end
 
   specify "Navigate to edit flexlm mapping" do

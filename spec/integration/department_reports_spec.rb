@@ -1,5 +1,5 @@
 require 'spec_helper.rb'
-require 'integration/integration_helpers'
+#require 'integration/integration_helpers'
 
 feature "Department Reports" do
   include IntegrationHelpers

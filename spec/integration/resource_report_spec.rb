@@ -1,13 +1,5 @@
 require "spec_helper.rb"
-require 'integration/integration_helpers'
 
-feature "Download Report" do
-
-  scenario "should generate valid CSV file" do
-    visit '/resources_report.csv'
-    page.should have_content("resource_1")
-  end
-end
 
 feature "resources report" do
   include IntegrationHelpers

@@ -49,7 +49,9 @@ module ApplicationHelper
       params[:data_source] = "flexlm"
     end
     data_source_sym = params[:data_source].to_sym
-    raise ArgumentError, "Unknown data source type #{data_source_sym}" unless [:flexlm, :collectl, :module].index(data_source_sym)
+    if not [:flexlm, :collectl, :module].index(data_source_sym)
+      raise ArgumentError, "Unknown data source type #{data_source_sym}"
+    end
     data_source_sym
   end
 
