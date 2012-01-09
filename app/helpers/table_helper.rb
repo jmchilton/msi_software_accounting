@@ -95,6 +95,8 @@ module TableHelper
     end
     if @allow_pagination
       @rows = with_pagination_and_ordering(@rows)
+    else
+      @rows = handle_ordering(@rows)
     end
     if for_json
       @rows = @rows.all
