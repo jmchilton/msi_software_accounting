@@ -6,6 +6,7 @@
 
 <%= data_source_summary_link("FLEXlm Data Summary",  executable_overview_path(@executable), "flexlm") %>
 <%= model_link "Plot Feature Usage", new_executable_executables_plot_path(@executable) %>
+<%= model_link "Plot Feature Checkouts", new_executable_executable_checkouts_plot_path(@executable) %>
 <%= model_link "Build Per User FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :user) %>
 <%= model_link "Build Per Group FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :group) %>
 <%= model_link "Build Per Department FLEXlm Usage Report", new_executable_executable_model_report_path(@executable.id, :model_type => :department) %>

@@ -12,6 +12,14 @@ class Executable < ActiveRecord::Base
       group("executable.exid, executable.identifier")
   end
 
+  def sample_checkouts(plot_options)
+    group_by_date_expression = DateSampler.sample_date_expression plot_options, "e.ev_date"
+    select_expression = "count(*) as value, #{group_by_date_expression} as for_date"
+    joins = Event.to_demographics_joins(plot_options)
+    Executable.select(select_expression).joins(joins).where("executable.exid = ?", exid).group(group_by_date_expression)
+  end
+
+
   def summarize
     Executable.summary_select.where("executable.exid = ?", exid).first
   end

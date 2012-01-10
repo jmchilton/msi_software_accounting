@@ -8,10 +8,13 @@
       both options may be left empty.
     </p>
     <%= render :partial => '/date_options' %>
-    <p class="form_item">
-      <label for="sample" style="display:inline">Use Daily Subsamples</label>
-      <%= check_box_tag "sample", "date", :checked => true  %>
-    </p>
+    <%= render :partial => '/exclude_employees_option', :locals => local_assigns %>
+    <% if local_assigns[:sample_option].nil? or local_assigns[:sample_option] %>
+        <p class="form_item">
+          <label for="sample" style="display:inline">Use Daily Subsamples</label>
+          <%= check_box_tag "sample", "date", :checked => true  %>
+        </p>
+    <% end %>
     <%= submit_tag("Build Chart", :id => 'build_chart_button') %>
   </fieldset>
 <% end %>

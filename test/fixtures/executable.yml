@@ -43,4 +43,11 @@ med_exec_unused:
   comment: medvendor
   rid: 4
 
+intel_compiler:
+  exid: 7
+  identifier_type: 1
+  identifier: intelcc
+  comment: intel
+  rid: 5
+
   

@@ -1,3 +1,5 @@
+require 'json'
+
 module IntegrationHelpers
   include PageHelpers
 
@@ -32,6 +34,11 @@ module IntegrationHelpers
     view_row_with_content resource_name
   end
 
+  def visit_flexlm_feature(feature)
+    navigate "FLEXlm Features"
+    view_row_with_content feature
+  end
+
   def visit_navigate_resources
     navigate "Resources"
   end
@@ -48,6 +55,25 @@ module IntegrationHelpers
 
   def view_row_with_content(cell_contents)
     find_row_with_content(cell_contents).click_link 'View'
+  end
+
+  def page_should_have_chart
+    page.should have_content("var chart_data")
+    page.should have_content("var chart_options")
+    page.should have_content(".graph();")
+    if block_given?
+      yield chart_data
+    end
+  end
+
+  def chart_data
+    raw_chart_data_match = page.html.match /.*var\s+chart_data\s*=\s*([^;]*);.*/
+    raw_chart_data = raw_chart_data_match[1]
+    JSON.parse(raw_chart_data)
+  end
+
+  def plot
+    click_button "Build Chart"
   end
 
   def build_report

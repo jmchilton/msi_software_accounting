@@ -54,6 +54,7 @@ FactoryGirl.define do
     #sequence(:feature) { |index| "feature #{index}" }
     #sequence(:vendor) { |index| "vendor #{index}" }
     operation "OUT"
+    ev_date (Time.now - 2.days)
     readonly
   end
 
@@ -82,6 +83,7 @@ FactoryGirl.define do
   factory :executable, :class => Executable do
     sequence(:identifier) { |index| "feature #{index}" }
     sequence(:comment) { |index| "comment #{index}" }
+
   end
 
   factory :collectl_executable, :class => CollectlExecutable do

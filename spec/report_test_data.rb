@@ -55,6 +55,7 @@ class ReportTestData
 
   USED_TWICE_RESOURCE_NAME = "resource_twice"
   USED_TWICE_EXECUTABLE_IDENTIFIER = "exec_used_twice"
+  USED_TWICE_DATE = Time.now - 2.days
 
   NON_TECH_RESOURCE_NAME = "nontechresource"
   TECH_RESOURCE_NAME = "techresource"
@@ -111,8 +112,8 @@ class ReportTestData
     if options[:flexlm]
       exec1 = FactoryGirl.create(:executable,  :resource => resource_1, :identifier => USED_TWICE_EXECUTABLE_IDENTIFIER)
 
-      FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec1)
-      FactoryGirl.create(:event, :process_user => user_tech, :executable => exec1)
+      FactoryGirl.create(:event, :process_user => user_non_tech, :executable => exec1, :ev_date => USED_TWICE_DATE)
+      FactoryGirl.create(:event, :process_user => user_tech, :executable => exec1, :ev_date => USED_TWICE_DATE)
     end
 
     if options[:collectl]

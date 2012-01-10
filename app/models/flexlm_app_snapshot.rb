@@ -5,12 +5,8 @@ class FlexlmAppSnapshot < ReadOnlyModel
 
   def self.sample_for_executable(executable_id, report_options = {})
     sample_by = report_options[:sample]
-    case sample_by
-      when "date"
-        group_by_date_expression = "DATE(flexlm_app_snapshots.for_date)"
-      else
-        group_by_date_expression = "flexlm_app_snapshots.for_date"
-    end
+
+    group_by_date_expression = DateSampler.sample_date_expression report_options, "flexlm_appsnapshots.for_date"
 
     sample_with = report_options[:sample_with]
     case sample_with

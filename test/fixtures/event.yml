@@ -35,7 +35,7 @@ event_carl_uses_r2_2:
   operation: OUT
   unam: carl2
   
-event_five: # User alyssa users resource 1
+event_five: # User alyssa user resource 1
   evid: 5
   ev_date: 2011-08-03 12:10:34
   feature: 1
@@ -57,3 +57,17 @@ event_rareapp:
   vendor: raravend
   operation: OUT
   unam: shelly
+
+
+<% i = 0 %>
+<% last_date = Time.parse("2011-08-03 05:00:00") %>
+<% (1..3000).each do  %>
+intel_compile_event_<%= i = i + 1 %>:
+  <% last_date = last_date + (0 + rand(3)) * rand(30).minutes %>
+  evid: <%= 1000 + i %>
+  ev_date: <%= last_date.strftime('%Y-%m-%d %H:%M:%S')  %>
+  feature: intelcc
+  vendor: intel
+  operation: OUT
+  unam: bob
+<% end %>

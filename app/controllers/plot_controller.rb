@@ -1,5 +1,10 @@
 class PlotController < ApplicationController
+  include ReportHelper
+
   DEFAULT_CHART_ID="chart"
+
+  def news
+  end
 
   protected
 
@@ -24,6 +29,14 @@ class PlotController < ApplicationController
         f.selection :mode => "x"
       end
     end
+  end
+
+  def plot_options
+    report_options.merge({:sample => params[:sample], :sample_with => "max" })
+  end
+
+  def collect_chart_data(samples, field = :value)
+    samples.collect { |sample| [sample[:for_date], sample[field]] }
   end
 
   def add_line_chart_data(data, label = nil, options = {})

@@ -1,5 +1,4 @@
 require 'spec_helper.rb'
-#require 'integration/integration_helpers'
 require 'report_test_data'
 
 feature "College Reports" do

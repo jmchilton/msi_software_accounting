@@ -23,6 +23,7 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :executables do 
     report_resources :executables_plot
+    report_resources :executable_checkouts_plot
     report_resources :executable_model_report
   end
 

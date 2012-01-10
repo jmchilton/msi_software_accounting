@@ -26,3 +26,6 @@ med_resource:
   id: 4
   name: medapp
 
+much_used_resource:
+  id: 5
+  name: intel_compiler

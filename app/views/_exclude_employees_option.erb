@@ -1,0 +1,6 @@
+    <% if local_assigns[:exclude_employees_option].nil? or local_assigns[:exclude_employees_option] %>
+    <p class="form_item"  title="Exclude users belonging to the tech, support, and swinst groups from this report.">
+      <label for="exclude_employees">Exclude Employees</label>
+      <%= check_box_tag("exclude_employees", "1", session[:last_exclude_employees] || false) %>
+    </p>
+    <% end %>

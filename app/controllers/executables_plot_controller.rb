@@ -1,8 +1,4 @@
 class ExecutablesPlotController < PlotController
-  include ReportHelper
-
-  def new
-  end
 
   def index
     max_samples = FlexlmAppSnapshot.sample_for_executable(@executable.exid, plot_options)
@@ -14,17 +10,5 @@ class ExecutablesPlotController < PlotController
     end
 
   end
-
-  private
-
-  def plot_options
-    report_options.merge({:sample => params[:sample], :sample_with => "max" })
-  end
-
-  def collect_chart_data(samples, field = :value)
-    samples.collect { |sample| [sample[:for_date], sample[field]] }
-  end
-
-
 
 end

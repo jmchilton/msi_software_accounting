@@ -36,14 +36,7 @@ class CollectlExecution < ActiveRecord::Base
         sample_with = "avg"
       end
 
-      sample_by = report_options[:sample]
-      case sample_by
-        when "date"
-          group_by_date_expression = "DATE(timestamp)"
-        else
-          group_by_date_expression = "timestamp"
-      end
-
+      group_by_date_expression = DateSampler.sample_date_expression report_options, "timestamp"
       samples = connection.select_all "SELECT #{sample_with}(sample_count) as value, #{group_by_date_expression} as for_date
                                             FROM
                                              (SELECT it.sample_date as timestamp, count(*) as sample_count
