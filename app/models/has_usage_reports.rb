@@ -1,3 +1,5 @@
+require 'aliased_sql'
+
 module HasUsageReports
 
   def self.executable_identifier_field(report_options)

@@ -1,3 +1,5 @@
+require 'aliased_sql'
+
 class College < ReadOnlyModel
   include HasUsageReports
 

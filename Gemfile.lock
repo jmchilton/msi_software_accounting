@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/jmchilton/aliased_sql.git
+  revision: fc17f836475c09fe01c8fd66805d6ee1deae6707
+  specs:
+    aliased_sql (0.1.0)
+      activerecord (>= 3.0)
+
+GIT
   remote: git://github.com/nicksieger/ci_reporter.git
   revision: af8674c7bddc338fad228c566a03e3b8188d8a22
   specs:
@@ -162,6 +169,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aliased_sql!
   assembly_line
   basic_model
   capybara

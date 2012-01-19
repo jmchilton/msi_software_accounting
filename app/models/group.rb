@@ -1,3 +1,5 @@
+require 'aliased_sql'
+
 class Group < ReadOnlyModel
   include HasUsageReports
 

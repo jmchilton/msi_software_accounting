@@ -1,3 +1,5 @@
+require 'aliased_sql'
+
 class Resource < ReadOnlyModel
   set_table_name "resources"
   set_primary_key "id"

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'report_test_data'
+require 'aliased_sql'
 
 describe College do
   include ModelHelpers

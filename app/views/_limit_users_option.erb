@@ -1,0 +1,6 @@
+    <% if not (local_assigns[:limit_users_option].nil?) and (local_assigns[:limit_users_option]) %>
+    <p class="form_item"  title="Limit report to the specified users with the specified usernames (if any).">
+      <label for="limit_users">Limit Users</label>
+      <%= text_area_tag("limit_users", session[:last_limit_users] || "") %>
+    </p>
+    <% end %>
