@@ -86,12 +86,24 @@ describe CollectlExecution do
       @execution2 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 01:25:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable1, :user => @user2)
       @execution3 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-01 00:25:00', :end_time => '2011-09-01 03:30:00', :collectl_executable => @collectl_executable2, :user => @user1)
 
-      @next_day_execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-02 01:00:00', :end_time => '2011-09-01 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
+      @next_day_execution1 = FactoryGirl.create(:collectl_execution, :start_time => '2011-09-02 01:00:00', :end_time => '2011-09-02 01:30:00', :collectl_executable => @collectl_executable1, :user => @user1)
     }
 
-
-    let(:samples) { CollectlExecution.sample_for_executable(@collectl_executable1.id, {:sample => sample_grouping, :sample_with => sample_with, :from => '2011-09-01', :to => '2011-09-03'}) }
+    let(:to) { '2011-09-03' }
+    let(:from) { '2011-09-01' }
+    let(:samples) { CollectlExecution.sample_for_executable(@collectl_executable1.id, {:sample => sample_grouping, :sample_with => sample_with, :from => from, :to => to}) }
     let(:sample) { samples[0] }
+
+    describe "sampling date range" do
+      let(:sample_grouping) { "date" }
+      let(:sample_with) { "max" }
+      let(:from) { '2011-09-02' }
+
+      it "should restrict usage to just one user" do
+        sample[:value].should eql(1)
+      end
+
+    end
 
     describe "sampling date with" do
       let(:sample_grouping) { "date" }
