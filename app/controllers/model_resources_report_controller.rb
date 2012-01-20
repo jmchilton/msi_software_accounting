@@ -4,20 +4,13 @@ class ModelResourcesReportController < ReportController
   include DepartmentResourcesReportGenerator
   include CollegeResourcesReportGenerator
 
-  before_filter :set_model_type
-
-  def new
-    render :template => "#{@model_type}_resources_report/new"
-  end
+  before_filter :check_model_type
 
   protected
 
   def report_method
-    "#{@model_type}_resources_report"
+    "#{model_type}_resources_report"
   end
 
-  def table_template
-    "#{@model_type}_resources_report/index"
-  end
 
 end

@@ -185,7 +185,8 @@ module TableHelpers
 
   shared_examples_for "standard report GET new" do
     before(:each) {
-      get :new, index_params_if_set
+      params = index_params_if_set
+      get :new, params
     }
 
     specify { it_should_respond_successfully_with_report_options }

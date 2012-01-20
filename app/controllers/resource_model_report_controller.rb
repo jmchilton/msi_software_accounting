@@ -4,12 +4,12 @@ class ResourceModelReportController < ReportController
   include ResourceGroupReportGenerator
   include ResourceUserReportGenerator
 
-  before_filter :set_model_type
+  before_filter :check_model_type
 
   protected
 
   def report_method
-    "resource_#{@model_type}_report"
+    "resource_#{model_type}_report"
   end
 
 end

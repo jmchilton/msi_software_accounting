@@ -2,4 +2,8 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  reports:
+    model: 
+      resources: "%{report_type_title} Resources Report for %{model_type_title} %{name}"
+      executables: "FLEXlm Feature Report for %{model_type_title} %{name}"
+    models: "%{report_type_title} %{model_type_title}s Report"

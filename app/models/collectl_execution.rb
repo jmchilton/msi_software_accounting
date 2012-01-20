@@ -28,7 +28,6 @@ class CollectlExecution < ActiveRecord::Base
     "INNER JOIN (#{CollectlExecution.valid_executions(report_options).to_sql}) e on e.collectl_executable_id = collectl_executables.id #{join_valid_users_and_groups(report_options)}"
   end
 
-  # http://richtextblog.blogspot.com/2007/09/mysql-temporary-tables-and-rails.html
   def self.sample_for_executable(collectl_executable_id, report_options)
     with_interval_timestamps_table(report_options[:from], report_options[:to]) do
       sample_with = "max"
@@ -49,6 +48,7 @@ class CollectlExecution < ActiveRecord::Base
     end
   end
 
+  # http://richtextblog.blogspot.com/2007/09/mysql-temporary-tables-and-rails.html
   def self.with_interval_timestamps_table(from, to, step = 15 * 60)
     begin
       connection.execute("DROP TABLE IF EXISTS interval_timestamps")

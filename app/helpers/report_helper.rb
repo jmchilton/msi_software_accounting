@@ -1,6 +1,9 @@
 module ReportHelper
   protected
 
+  def model_instance
+    instance_eval("@#{model_type}")
+  end
 
   def model_type
     model_type = params[:model_type].to_sym
@@ -41,9 +44,8 @@ module ReportHelper
     end
   end
 
-  def set_model_type
-    @model_type = params[:model_type]
-    raise(ArgumentError, "Unknown model_type #{@model_type}") unless ["user", "college", "group", "department"].index(@model_type)
+  def check_model_type
+    model_type
   end
 
 end

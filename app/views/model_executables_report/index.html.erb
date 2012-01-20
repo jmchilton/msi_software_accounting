@@ -1,0 +1,6 @@
+<h1><%=t 'reports.model.executables', :report_type_title => report_type_title, :model_type_title => model_type_title, :name => model_instance.name %></h1>
+<% if use_jqgrid %>
+  <p>Double click a row to view more options for that feature.</p>
+<% end %>
+<%= render :partial => "/table" %>
+

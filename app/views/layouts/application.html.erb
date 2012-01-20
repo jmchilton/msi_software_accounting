@@ -34,23 +34,23 @@
       <ul class="link-group" id="links-flexlm-reports">
         <lh>FLEXlm Reports</lh>
         <li><%= link_to "Resources", new_resources_report_path %></li>
-        <li><%= link_to "Colleges", new_colleges_report_path %></li>
-        <li><%= link_to "Departments", new_departments_report_path %></li>
-        <li><%= link_to "Groups", new_groups_report_path %></li>
+        <li><%= link_to "Colleges", new_models_report_path(:model_type => :college) %></li>
+        <li><%= link_to "Departments", new_models_report_path(:data_source => :flexlm, :model_type => :department) %></li>
+        <li><%= link_to "Groups", new_models_report_path(:model_type => :group) %></li>
       </ul>
       <ul class="link-group" id="links-collectl-reports">
         <lh>Collectl Reports</lh>
         <li><%= link_to "Resources", new_resources_report_path(:data_source => :collectl) %></li>
-        <li><%= link_to "Colleges", new_colleges_report_path(:data_source => :collectl) %></li>
-        <li><%= link_to "Departments", new_departments_report_path(:data_source => :collectl) %></li>
-        <li><%= link_to "Groups", new_groups_report_path(:data_source => :collectl) %></li>
+        <li><%= link_to "Colleges", new_models_report_path(:model_type => :college, :data_source => :collectl) %></li>
+        <li><%= link_to "Departments", new_models_report_path(:data_source => :collectl, :model_type => :department) %></li>
+        <li><%= link_to "Groups", new_models_report_path(:model_type => :group, :data_source => :collectl) %></li>
       </ul>
       <ul class="link-group" id="links-module-reports">
         <lh>Module Loading Reports</lh>
         <li><%= link_to "Resources", new_resources_report_path(:data_source => :module) %></li>
-        <li><%= link_to "Colleges", new_colleges_report_path(:data_source => :module) %></li>
-        <li><%= link_to "Departments", new_departments_report_path(:data_source => :module) %></li>
-        <li><%= link_to "Groups", new_groups_report_path(:data_source => :module) %></li>
+        <li><%= link_to "Colleges", new_models_report_path(:model_type => :college, :data_source => :module) %></li>
+        <li><%= link_to "Departments", new_models_report_path(:data_source => :module, :model_type => :department) %></li>
+        <li><%= link_to "Groups", new_models_report_path(:model_type => :group, :data_source => :module) %></li>
       </ul>
       <ul class="link-group" id="links-navigate">
         <lh>Navigate</lh>

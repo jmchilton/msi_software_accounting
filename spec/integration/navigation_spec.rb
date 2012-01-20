@@ -24,7 +24,7 @@ feature "Index Page", %q{
     report_types.each do |report_type|
       visit_home
       click_report_link report_type, link_name
-      current_path.should eql(eval("new_#{model_name}s_report_path"))
+      current_path.should eql(new_models_report_path)
       build_and_verify_report
     end
   end
@@ -80,7 +80,7 @@ feature "Index Page", %q{
     fill_in('From', :with => '12-05-2011')
     fill_in('To', :with => '12-05-2012')
     build_report
-    visit new_colleges_report_path
+    visit new_models_report_path(:data_source => :flexlm, :model_type => :college)
     find_field('From').value.should == '12-05-2011'
     find_field('To').value.should == '12-05-2012'
   end

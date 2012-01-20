@@ -4,12 +4,12 @@ class ExecutableModelReportController < ReportController
   include ExecutableGroupReportGenerator
   include ExecutableUserReportGenerator
 
-  before_filter :set_model_type
+  before_filter :check_model_type
 
   protected
 
   def report_method
-    "executable_#{@model_type}_report"
+    "executable_#{model_type}_report"
   end
 
 end

@@ -17,8 +17,8 @@
     along with the number of distinct users and groups of this resource along with the per year cost of the resource.
   </p>
   <p>
-    The <%= link_to "colleges", new_colleges_report_path %>, <%= link_to "departments", new_departments_report_path %>, and
-    <%= link_to "groups", new_groups_report_path %> FLEXlm reports will produce a table a table with one row for each
+    The <%= link_to "colleges", new_models_report_path(:data_source => :flexlm, :model_type => :college) %>, <%= link_to "departments", new_models_report_path(:data_source => :flexlm, :model_type => :department) %>, and
+    <%= link_to "groups", new_models_report_path(:data_source => :flexlm, :model_type => :group) %> FLEXlm reports will produce a table a table with one row for each
     college, department or group respectively, along with the number of tracked resources used by people from that unit,
     and the total per year cost of the resources used.
   </p>
