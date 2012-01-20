@@ -626,17 +626,22 @@ body .removed {
   width: 100%;
 }
 /* line 120, ../../app/stylesheets/application.scss */
+#page div.table_wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/* line 124, ../../app/stylesheets/application.scss */
 #page div.flot_canvas {
   width: 600px;
   height: 300px;
 }
-/* line 121, ../../app/stylesheets/application.scss */
+/* line 125, ../../app/stylesheets/application.scss */
 #page div.flot_overview {
   margin-top: 10px;
   width: 600px;
   height: 50px;
 }
-/* line 123, ../../app/stylesheets/application.scss */
+/* line 127, ../../app/stylesheets/application.scss */
 #page div#d_clip_container {
   position: relative;
 }
