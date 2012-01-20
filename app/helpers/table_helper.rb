@@ -67,26 +67,33 @@ module TableHelper
   def append_links_to_rows
     @fields.each do |field|
       key = field[:field]
-      is_link = field[:link]
-      if is_link
+      if is_link(field)
         @rows.each do |row|
-          row_id = row.id
-          if row_id.nil?
-            puts "Warning: Null row id for row #{row}"
-          else
-            link_proc = field[:link_proc]
-            if link_proc.is_a? String
-              expression = "#{field[:link_proc]}('#{row_id}')"
-              value = eval(expression)
-            else
-              value = link_proc.call(row_id)
-            end
-            row[key] = value
-          end
+          row[key] = link_value(field, row)
         end
       end
     end
+  end
 
+  def is_link(field)
+    field[:link]
+  end
+
+  def link_value(field, row)
+    row_id = row.id
+    if row_id.nil?
+      puts "Warning: Null row id for row #{row}"
+      value = field[:field]
+    else
+      link_proc = field[:link_proc]
+      if link_proc.is_a? String
+        expression = "#{field[:link_proc]}('#{row_id}')"
+        value = eval(expression)
+      else
+        value = link_proc.call(row_id)
+      end
+    end
+    value
   end
 
   def process_rows(for_json = false)
@@ -138,8 +145,8 @@ module TableHelper
   end
 
   def cell_value(field, row)
-    if field[:link]
-      link_to "View", instance_eval("#{field[:link_proc]}(row)")
+    if is_link(field)
+      link_to "View", link_value(field, row)
     else
       field_key = field[:field]
       if field_key.is_a?(Proc)

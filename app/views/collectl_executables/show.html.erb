@@ -3,6 +3,6 @@
 <%= model_field('resource', "Resource", @instance.resource.blank? ? "Not mapped to a resource" : @instance.resource.name) %>
 <%= data_source_summary_link("Collectl Data Summary",  collectl_executable_overview_path(@instance), "collectl") %>
 <%= model_link "Plot Executable Usage", new_collectl_executable_collectl_executables_plot_path(@instance) %>
-<%= model_link "Delete Executable", resource_mappable_path(@instance, :mappable_type => "collectl_executable"), :method => :delete %>
+<%= model_link "Delete Executable", resource_mappable_path(@instance, :mappable_type => "collectl_executable", :resource_id => @instance.resource.id), :method => :delete %>
 <%= model_link "Back to Resource #{@instance.resource.name}", resource_path(@instance.resource) %>
 

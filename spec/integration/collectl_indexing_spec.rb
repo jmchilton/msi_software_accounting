@@ -5,6 +5,7 @@ feature "Collectl Indexing" do
   include IntegrationHelpers
 
   RESOURCE_NAME = "COLLECTL_TEST_RESOURCE"
+  EXECUTABLE_NAME = 'resource.exe'
   USERNAME = "collectl_user"
 
   background do
@@ -14,8 +15,7 @@ feature "Collectl Indexing" do
   end
 
   scenario "unindexed collectl executions" do
-    build_collectl_user_resource_report
-    lambda { find_row_with_content USERNAME }.should raise_error
+    verify_user_not_found_in_resource_report
   end
 
   scenario "adding collectl executable" do
@@ -24,13 +24,29 @@ feature "Collectl Indexing" do
     find_row_with_content(USERNAME).should_not be_nil
   end
 
-  def add_collectl_executable
-    visit_resource
+  scenario "deleting collectl executable" do
+    add_collectl_executable
+    manage_executables
+    view_row_with_content EXECUTABLE_NAME
+    click_link 'Delete Executable'
+    verify_user_not_found_in_resource_report
+  end
 
-    click_link "Manage Collectl Executables"
+  def add_collectl_executable
+    manage_executables
     click_link "New Executable"
-    fill_in 'Name', :with => 'resource.exe'
+    fill_in 'Name', :with => EXECUTABLE_NAME
     click_button "Create"
+  end
+
+  def manage_executables
+    visit_resource
+    click_link "Manage Collectl Executables"
+  end
+
+  def verify_user_not_found_in_resource_report
+    build_collectl_user_resource_report
+    lambda { find_row_with_content USERNAME }.should raise_error
   end
 
   def build_collectl_user_resource_report
