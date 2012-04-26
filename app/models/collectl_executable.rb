@@ -6,6 +6,9 @@ class CollectlExecutable < ActiveRecord::Base
 
   after_save :index
 
+  validates :name, :presence => true
+
+
   def summarize
     CollectlExecutable.summary_select.where("collectl_executables.id = ?", id).first
   end

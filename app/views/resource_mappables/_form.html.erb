@@ -1,22 +1,16 @@
-<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id, :mappable_type => @mappable_type }) do |f| %>
-  <% if @instance.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@instance.errors.count, "error") %> prohibited this from being saved:</h2>
+<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id, :mappable_type => @mappable_type }, :html => {:class => :bp}) do |f| %>
+  <%= render :partial => "/save_error", :locals => {:instance => @instance} %>
+  <fieldset>
+    <%= f.hidden_field :resource_id %>
 
-      <ul>
-      <% @instance.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
-  <%= f.hidden_field :resource_id %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Create" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Create" %>
+    </div>
+
+  </fieldset>
 <% end %>

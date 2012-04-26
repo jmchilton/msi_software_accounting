@@ -7,3 +7,7 @@ en:
       resources: "%{report_type_title} Resources Report for %{model_type_title} %{name}"
       executables: "FLEXlm Feature Report for %{model_type_title} %{name}"
     models: "%{report_type_title} %{model_type_title}s Report"
+  collectl_executables:
+    name: "Executable"
+  modules:
+    name: "Name"

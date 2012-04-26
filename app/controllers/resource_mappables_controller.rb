@@ -5,6 +5,7 @@ class ResourceMappablesController < TableController
   before_filter :set_resource
   before_filter :set_mappable_class
 
+
   def index
     @fields = Array.new(FIELDS)
     @fields << link_field(:link_proc => lambda  { |id| resource_mappable_path(id, :resource_id => @resource.id, :mappable_type => @mappable_type) })

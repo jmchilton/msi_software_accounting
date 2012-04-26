@@ -67,8 +67,9 @@ function enable_copy_email_link() {
       }
       var email_str = emails.join(",");
       clip.setText(email_str);
-    } );
 
+    } );
+    clip.addEventListener( 'onComplete', function() { alert("E-mail addresses have been copied."); } );
     clip.glue( 'd_clip_button', 'd_clip_container' );
   });
 }

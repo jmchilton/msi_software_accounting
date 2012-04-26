@@ -1,4 +1,9 @@
 class ExecutablesController < TableController
+  def autocomplete_execution_unmapped
+    json_for_autocomplete(RawCollectlExecution.unmapped_distinct(params[:term]), "executable")
+  end
+
+
   FIELDS = [id_field,
             {:field => lambda { |executable| executable.resource.name }, :label => "Resource"},
             {:field => "identifier", :label => "Feature"},

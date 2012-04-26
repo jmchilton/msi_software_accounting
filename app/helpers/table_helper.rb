@@ -16,7 +16,7 @@ module TableHelper
     if sql_column.nil?
       sql_column = field.to_s
     end
-    query = params[:field]
+    query = params[field]
     if perform_search?
       unless query.blank?
         rows = rows.where "#{sql_column} like ?", "%#{query}%"

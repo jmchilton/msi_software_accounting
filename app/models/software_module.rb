@@ -4,6 +4,8 @@ class SoftwareModule < ActiveRecord::Base
 
   belongs_to :resource
 
+  validates :name, :presence => true
+
   def summarize
     SoftwareModule.summary_select.where("modules.name = ?", name).first
   end

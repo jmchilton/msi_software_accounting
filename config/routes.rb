@@ -19,7 +19,7 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :event_types, :only => [:index, :show, :update, :edit]
 
-  resources :executables do 
+  resources :executables do
     report_resources :executables_plot
     report_resources :executable_checkouts_plot
     report_resources :executable_model_report
@@ -36,9 +36,12 @@ SoftwareWebApp::Application.routes.draw do
 
   resources :collectl_executables do
     report_resources :collectl_executables_plot
+    get :autocomplete_execution_unmapped, :on => :collection
   end
 
-  resources :resource_mappables
+  resources :resource_mappables do
+
+  end
 
   readonly_resources :resources do
     get :autocomplete_resource_name, :on => :collection

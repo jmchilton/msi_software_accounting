@@ -1,5 +1,19 @@
 <h1>New Collectl Executable Mapping</h1>
 
-<%= render :partial => 'resource_mappables/form' %>
+<%= form_for(@instance, :url => {:action => :create, :resource_id => @resource.id, :mappable_type => @mappable_type }, :html => {:class => :bp}) do |f| %>
+  <%= render :partial => "/save_error", :locals => {:instance => @instance} %>
+  <fieldset>
+    <%= f.hidden_field :resource_id %>
+
+    <div class="field">
+      <%= f.label :name, t("collectl_executables.name") %>
+      <%= autocomplete_field_tag "name", '', autocomplete_execution_unmapped_collectl_executables_path %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Create" %>
+    </div>
+  </fieldset>
+
+<% end %>
 
 <%= link_to 'Back', resource_mappables_path(:resource_id => @resource.id, :mappable_type => "collectl_executable") %>

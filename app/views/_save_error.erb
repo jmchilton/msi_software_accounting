@@ -1,0 +1,10 @@
+<% if local_assigns[:instance].errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(local_assigns[:instance].errors.count, "error") %> prohibited this from being saved:</h2>
+    <ul>
+    <% local_assigns[:instance].errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
