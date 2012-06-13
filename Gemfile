@@ -49,9 +49,10 @@ group :development, :test do
 end
 
 gem "rspec-rails", "2.6"
+gem "ci_reporter", :git => "git://github.com/nicksieger/ci_reporter.git"
+
 group :test do
   gem 'assembly_line'
   gem 'factory_girl_rails'
   gem "capybara"
-  gem "ci_reporter", :git => "git://github.com/nicksieger/ci_reporter.git"
 end

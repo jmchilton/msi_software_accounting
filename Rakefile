@@ -8,7 +8,6 @@ SoftwareWebApp::Application.load_tasks
 
 require 'rubygems'
 
-
 desc 'Default: run specs.'
 task :default => :spec
 
