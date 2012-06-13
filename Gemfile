@@ -43,6 +43,9 @@ group :development, :test do
     gem 'rb-inotify', '>= 0.8.5', :require => false
   end
   gem "guard-livereload"
+
+  gem "capistrano"
+  gem "rvm-capistrano"
 end
 
 group :test do
