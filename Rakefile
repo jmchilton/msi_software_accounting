@@ -7,8 +7,6 @@ require 'rake'
 SoftwareWebApp::Application.load_tasks
 
 require 'rubygems'
-require 'rspec/core/rake_task'
-require 'ci/reporter/rake/rspec'
 
 
 desc 'Default: run specs.'
@@ -16,6 +14,10 @@ task :default => :spec
 
 desc "Run specs"
 RSpec::Core::RakeTask.new do |t|
+  require 'rspec/core/rake_task'
+  require 'ci/reporter/rake/rspec'
+
+
   t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
   # Put spec opts in a file named .rspec in root
   t.rcov = true

@@ -48,8 +48,8 @@ group :development, :test do
   gem "rvm-capistrano"
 end
 
-gem "rspec-rails", "2.6"
 group :test do
+  gem "rspec-rails", "2.6"
   gem 'assembly_line'
   gem 'factory_girl_rails'
   gem "capybara"
