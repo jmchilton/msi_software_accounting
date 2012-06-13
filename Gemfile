@@ -48,10 +48,10 @@ group :development, :test do
   gem "rvm-capistrano"
 end
 
+gem "rspec-rails", "2.6"
 group :test do
   gem 'assembly_line'
   gem 'factory_girl_rails'
   gem "capybara"
-  gem "rspec-rails", "2.6"
   gem "ci_reporter", :git => "git://github.com/nicksieger/ci_reporter.git"
 end
