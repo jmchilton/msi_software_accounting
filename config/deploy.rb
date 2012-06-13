@@ -2,14 +2,17 @@ set :application, "MSI Software Accounting"
 set :repository,  "git@github.com:jmchilton/msi_software_accounting.git"
 set :scm, "git"
 set :user, "softacct"
-ssh_options[:forward_agent] = true
+#ssh_options[:forward_agent] = true
 set :branch, "master"
 
 set :deploy_to, "/home/softacct/app"
 server "appdev-dom0.msi.umn.edu", :app, :web, :db, :primary => true
 set :use_sudo, false
 
-set :rvm_ruby_string, 'softacct@rails3'
+set :rvm_ruby_string, '1.8.7@softacct'
+set :rvm_type, :system  
+require "rvm/capistrano"
+require 'bundler/capistrano'
 
 #role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 #role :app, "your app-server here"                          # This may be the same as your `Web` server
