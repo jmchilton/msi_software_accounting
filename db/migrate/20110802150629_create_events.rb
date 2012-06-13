@@ -1,6 +1,6 @@
 class CreateEvents < ActiveRecord::Migration
   def self.up
-    create_table("swacct.event", :primary_key => :evid) do |t|
+    create_table("event", :primary_key => :evid) do |t|
       t.integer :evid
       t.datetime :ev_date
       t.string :vendor
@@ -16,6 +16,6 @@ class CreateEvents < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "swacct.event"
+    drop_table "event"
   end
 end

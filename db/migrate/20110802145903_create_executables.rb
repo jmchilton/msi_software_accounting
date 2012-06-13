@@ -1,6 +1,6 @@
 class CreateExecutables < ActiveRecord::Migration
   def self.up
-    create_table("swacct.executable", :primary_key => "exid") do |t|
+    create_table("executable", :primary_key => "exid") do |t|
       t.integer :exid
       t.integer :identifier_type
       t.string :identifier
@@ -11,6 +11,6 @@ class CreateExecutables < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "swacct.executable"
+    drop_table "executable"
   end
 end

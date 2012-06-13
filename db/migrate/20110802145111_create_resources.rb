@@ -1,6 +1,6 @@
 class CreateResources < ActiveRecord::Migration
   def self.up
-    create_table ("swacct.resources", :primary_key => "rid") do |t|
+    create_table ("resources", :primary_key => "rid") do |t|
       t.integer :rid
       t.string :name
       t.string :short_name
@@ -14,6 +14,6 @@ class CreateResources < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "swacct.resources"
+    drop_table "resources"
   end
 end

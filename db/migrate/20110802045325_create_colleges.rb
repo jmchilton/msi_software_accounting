@@ -1,6 +1,6 @@
 class CreateColleges < ActiveRecord::Migration
   def self.up
-    create_table("people.colleges", :primary_key => "id") do |t|
+    create_table("colleges", :primary_key => "id") do |t|
       t.integer :id
       t.string :name
 
@@ -9,6 +9,6 @@ class CreateColleges < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "people.colleges"
+    drop_table "colleges"
   end
 end

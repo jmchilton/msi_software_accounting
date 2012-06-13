@@ -1,6 +1,6 @@
 class CreateGroups < ActiveRecord::Migration
   def self.up
-    create_table("people.groups", :primary_key => :gid) do |t|
+    create_table("groups", :primary_key => :gid) do |t|
       t.integer :gid
       t.string :name
 
@@ -9,6 +9,6 @@ class CreateGroups < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "people.groups"
+    drop_table "groups"
   end
 end

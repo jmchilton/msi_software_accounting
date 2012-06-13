@@ -1,6 +1,6 @@
 class CreatePurchases < ActiveRecord::Migration
   def self.up
-    create_table("swacct.purchase", :primary_key => :pid) do |t|
+    create_table("purchase", :primary_key => :pid) do |t|
       t.integer :pid
       t.integer :rid
       t.string :os
@@ -16,6 +16,6 @@ class CreatePurchases < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "swacct.purchase"
+    drop_table "purchase"
   end
 end

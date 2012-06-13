@@ -1,6 +1,6 @@
 class CreateDepartments < ActiveRecord::Migration
   def self.up
-    create_table("people.departments", :primary_key => "id") do |t|
+    create_table("departments", :primary_key => "id") do |t|
       t.integer :id
       t.string :name
 
@@ -9,6 +9,6 @@ class CreateDepartments < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table("people.departments")
+    drop_table("departments")
   end
 end
