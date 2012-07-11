@@ -233,7 +233,7 @@ module Jqgrid
           onSelectAll: function(ids, selected){
             var selected_records = new cookieArray("#{id}_selected_records");
             // Process the ids
-            alert(selected_records.items());
+            //alert(selected_records.items());
             $.each(ids, function (i, id) {
               if (selected) {
                 selected_records.add(id);
@@ -243,7 +243,7 @@ module Jqgrid
             });
             // Save the cookie
             selected_records.save();
-            alert(selected_records.items());
+            //alert(selected_records.items());
           },
           gridComplete: function(){
             // Hide the select all checkbox if required
