@@ -39,8 +39,9 @@ SoftwareWebApp::Application.routes.draw do
     get :autocomplete_execution_unmapped, :on => :collection
   end
 
-  resources :resource_mappables do
+  resources :raw_collectl_executables, :only => [:index]
 
+  resources :resource_mappables do
   end
 
   readonly_resources :resources do
