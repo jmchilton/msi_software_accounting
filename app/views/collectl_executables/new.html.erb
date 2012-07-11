@@ -7,7 +7,7 @@
 
     <div class="field">
       <%= f.label :name, t("collectl_executables.name") %>
-      <%= autocomplete_field_tag "name", '', autocomplete_execution_unmapped_collectl_executables_path %>
+      <%= autocomplete_field_tag "collectl_executable[name]", '', autocomplete_execution_unmapped_collectl_executables_path %>
     </div>
     <div class="actions">
       <%= f.submit "Create" %>
