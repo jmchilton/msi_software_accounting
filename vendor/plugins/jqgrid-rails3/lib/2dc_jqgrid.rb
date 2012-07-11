@@ -215,34 +215,47 @@ module Jqgrid
           // Clear cookie if it exists
           var selected_records = new cookieArray("#{id}_selected_records");
           selected_records.clear();
+          // Create another cookie to track those records unselected
+          var unselected_records = new cookieArray("#{id}_unselected_records");
+          unselected_records.clear();
         ~
         # Create handlers to handle selection
-        multiselect_handlers = %Q~
+        multiselect_onselectrow = %Q~
           // Handles single record selection
-          onSelectRow: function(id, selected){
-            var selected_records = new cookieArray("#{id}_selected_records");
-            if (selected) {
-              selected_records.add(id);
-            } else {
-              selected_records.delete(id);
-            }
-            // Save the cookie
-            selected_records.save();
-          },
+          var selected_records = new cookieArray("#{id}_selected_records");
+          var unselected_records = new cookieArray("#{id}_unselected_records");
+          //alert(selected_records.items());
+          if (selected) {
+            selected_records.add(ids);
+            unselected_records.del(ids);
+          } else {
+            selected_records.del(ids);
+            unselected_records.add(ids);
+          }
+          // Save the cookie
+          selected_records.save();
+          unselected_records.save();
+          //alert(selected_records.items());
+        ~
+        multiselect_handlers = %Q~
           // Handle select all
           onSelectAll: function(ids, selected){
             var selected_records = new cookieArray("#{id}_selected_records");
+            var unselected_records = new cookieArray("#{id}_unselected_records");
             // Process the ids
             //alert(selected_records.items());
             $.each(ids, function (i, id) {
               if (selected) {
                 selected_records.add(id);
+                unselected_records.del(id);
               } else {
-                selected_records.clear();
+                selected_records.del(id);
+                unselected_records.add(id);
               }
             });
             // Save the cookie
             selected_records.save();
+            unselected_records.save();
             //alert(selected_records.items());
           },
           gridComplete: function(){
