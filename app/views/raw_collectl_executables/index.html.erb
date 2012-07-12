@@ -7,9 +7,18 @@
 </p>
 <% if use_jqgrid %>
   <script type="text/javascript">
-    var moo = function(selection) {
-      alert("Have selection!!!");
-    }
+    $(document).ready(function() {
+      $(":submit").click(function(event) {
+        //var selected_records = $.cookie("data_table_selected_records");
+        var grid = $('#data_table');
+        var selection = grid.jqGrid('getGridParam','selarrrow');
+        var executables = selection.map(function(index) {
+          return grid.getRowData(index)["executable"];
+        });
+        $("input[name='executables']").val(executables.join());
+        alert($("input[name='executables']").val());
+      })
+    });
   </script>
 <% end %>
 <%= render :partial => "/table" %>
@@ -18,6 +27,7 @@
   <fieldset>
 
     <%= hidden_field_tag "_method", "put" %>
+    <%= hidden_field_tag "executables", "" %>
     <p class="field">
       <label for="resource_name">Resource</label>
       <%= resource_name_field("") %>
