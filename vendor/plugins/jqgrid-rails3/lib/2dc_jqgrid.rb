@@ -278,28 +278,28 @@ module Jqgrid
         ~
       end
 
+
       # Enable master-details, kept for backward compatability, if you want a single or
       # multiple detail grids linked to a master use options[:master_detail_grids]
       masterdetails = ""
       if options[:master_details]
-        masterdetails = %Q/
-          onSelectRow: function(ids) {
-            if(ids == null) {
-              ids=0;
-              if(jQuery("##{id}_details").getGridParam('records') >0 )
-              {
-                jQuery("##{id}_details").setGridParam({url:"#{options[:details_url]}?q=1&id="+ids,page:1})
-                .setCaption("#{options[:details_caption]}: "+ids)
-                .trigger('reloadGrid');
-              }
-            }
-            else
+        masterdetails = %Q~
+          if(ids == null) {
+            ids=0;
+            if(jQuery("##{id}_details").getGridParam('records') >0 )
             {
               jQuery("##{id}_details").setGridParam({url:"#{options[:details_url]}?q=1&id="+ids,page:1})
-              .setCaption("#{options[:details_caption]} : "+ids)
+              .setCaption("#{options[:details_caption]}: "+ids)
               .trigger('reloadGrid');
             }
-          },/
+          }
+          else
+          {
+            jQuery("##{id}_details").setGridParam({url:"#{options[:details_url]}?q=1&id="+ids,page:1})
+            .setCaption("#{options[:details_caption]} : "+ids)
+            .trigger('reloadGrid');
+          }
+        ~
       end
 
       # Enable master-details, using this option you can specify any number of detail grids to be linked
@@ -323,8 +323,8 @@ module Jqgrid
             grid_methods += %Q~
               caption_value = $('##{id}').jqGrid('getCell', ids, '#{grid[:caption_field]}');
               jQuery("##{grid[:grid_id]}").setGridParam({url:"#{grid[:details_url]}?q=1&id="+ids,page:1})
-                .setCaption("#{grid[:caption]}: "+caption_value)
-                .trigger('reloadGrid');
+                .setCaption("#{grid[:caption]}: "+caption_value);
+              jQuery("##{grid[:grid_id]}").trigger('reloadGrid');
               ~
             if grid.has_key?(:edit_url)
               grid_methods += %Q~
@@ -335,12 +335,10 @@ module Jqgrid
         end
         unless grid_methods.blank?
           masterdetailgrids = %Q~
-            onSelectRow: function(ids) {
-              var caption_value;
-              if(ids != null) {
-                #{grid_methods}
-              }
-            },~
+            if (ids == null) ids = 0;
+            var caption_value;
+            #{grid_methods}
+          ~
         end
       end
 
@@ -360,17 +358,43 @@ module Jqgrid
         });/
       end
 
+
+      # Enable inline editing
+      # When a row is selected, all fields are transformed to input types
+      editable = ""
+      if options[:edit].to_s == 'true' && options[:inline_edit].to_s == 'true'
+        editable = %Q/
+          if(ids && ids!==lastsel){
+            jQuery('##{id}').restoreRow(lastsel);
+            jQuery('##{id}').editRow(ids, true, #{options[:inline_edit_handler]}, #{error_handler_name});
+            lastsel=ids;
+          }
+        /
+      end
+
+
       # Enable direct selection (when a row in the table is clicked)
       # The javascript function created by the user (options[:selection_handler]) will be called with the selected row id as a parameter
       direct_link = ""
-      if options[:direct_selection] && options[:selection_handler].present? && options[:multi_selection].blank?
+      if options[:direct_selection] && options[:selection_handler].present?
         direct_link = %Q/
-        onSelectRow: function(id){ 
-          if(id){ 
-            #{options[:selection_handler]}(id); 
-          } 
-        },/
+          if(ids){
+            #{options[:selection_handler]}(ids);
+          }
+        /
       end
+
+      # As there may be multiple options requiring the use of the onSelectRow event, we need to include them all
+      onselectrow = %Q~
+        onSelectRow: function(ids, selected){
+          #{multiselect_onselectrow}
+          #{masterdetails}
+          #{masterdetailgrids}
+          #{editable}
+          #{direct_link}
+        },
+      ~
+
 
       # Enable grid_loaded callback
       # When data are loaded into the grid, call the Javascript function options[:grid_loaded] (defined by the user)
@@ -381,20 +405,6 @@ module Jqgrid
           #{options[:grid_loaded]}();
         },
         /
-      end
-
-      # Enable inline editing
-      # When a row is selected, all fields are transformed to input types
-      editable = ""
-      if options[:edit] && options[:inline_edit] == 'true'
-        editable = %Q/
-        onSelectRow: function(id){ 
-          if(id && id!==lastsel){ 
-            jQuery('##{id}').restoreRow(lastsel);
-            jQuery('##{id}').editRow(id, true, #{options[:inline_edit_handler]}, #{error_handler_name});
-            lastsel=id; 
-          } 
-        },/
       end
       
       # Context menu
@@ -480,39 +490,40 @@ module Jqgrid
         
         subgrid = %Q~
         subGridRowExpanded: function(subgrid_id, row_id) {
-        		var subgrid_table_id, pager_id;
-        		subgrid_table_id = subgrid_id+"_t";
-        		pager_id = "p_"+subgrid_table_id;
-        		$("#"+subgrid_id).html("<table id='"+subgrid_table_id+"' class='scroll'></table><div id='"+pager_id+"' class='scroll'></div>");
-        		var subgrd = jQuery("#"+subgrid_table_id).jqGrid({
-        			url:"#{options[:subgrid][:url]}?q=2&id="+row_id,
+            var subgrid_table_id, pager_id;
+            subgrid_table_id = subgrid_id+"_t";
+            pager_id = "p_"+subgrid_table_id;
+            $("#"+subgrid_id).html("<table id='"+subgrid_table_id+"' class='scroll'></table><div id='"+pager_id+"' class='scroll'></div>");
+            var subgrd = jQuery("#"+subgrid_table_id).jqGrid({
+              url:"#{options[:subgrid][:url]}?q=2&id="+row_id,
               editurl:'#{options[:subgrid][:edit_url]}?parent_id='+row_id,                            
-        			datatype: "json",
-        			colNames: #{sub_col_names},
-        			colModel: #{sub_col_model},
-        		   	rowNum:#{options[:subgrid][:rows_per_page]},
-        		   	pager: pager_id,
-        		   	imgpath: '/images/jqgrid',
-        		   	sortname: '#{options[:subgrid][:sort_column]}',
-        		    sortorder: '#{options[:subgrid][:sort_order]}',
+              datatype: "json",
+              colNames: #{sub_col_names},
+              colModel: #{sub_col_model},
+                rowNum:#{options[:subgrid][:rows_per_page]},
+                pager: pager_id,
+                imgpath: '/images/jqgrid',
+                sortname: '#{options[:subgrid][:sort_column]}',
+                sortorder: '#{options[:subgrid][:sort_order]}',
                 viewrecords: #{options[:subgrid][:viewrecords]},
                 rowlist: #{options[:subgrid][:rowlist]},
                 shrinkToFit: #{options[:subgrid][:shrinkToFit]},
                 toolbar : [true,"top"], 
-        		    #{subgrid_inline_edit}
-        		    #{subgrid_direct_link}
+                #{subgrid_inline_edit}
+                #{subgrid_direct_link}
                 #{subgrid_context_menu}
-        		    height: '100%'
-        		})
-        		.navGrid("#"+pager_id,{edit:#{options[:subgrid][:edit]},add:#{options[:subgrid][:add]},del:#{options[:subgrid][:delete]},search:false})
+                height: '100%'
+            })
+            .navGrid("#"+pager_id,{edit:#{options[:subgrid][:edit]},add:#{options[:subgrid][:add]},del:#{options[:subgrid][:delete]},search:false})
             .navButtonAdd("#"+pager_id,{caption:"",title:$.jgrid.nav.searchtitle, buttonicon :'ui-icon-search', onClickButton:function(){ subgrd[0].toggleToolbar() } })
             subgrd.filterToolbar();
             subgrd[0].toggleToolbar();
-        	},
-        	subGridRowColapsed: function(subgrid_id, row_id) {
-        	},
+          },
+          subGridRowColapsed: function(subgrid_id, row_id) {
+          },
         ~
       end
+
 
       # Generate required Javascript & html to create the jqgrid
       %Q(
