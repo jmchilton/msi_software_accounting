@@ -61,6 +61,7 @@ module Jqgrid
           :customButtons       => [],
           :before_show_form_edit => 'null',
           :before_show_form_add  => 'null',
+          :group_by            => 'null',
           :scroll              => 'false'
         }.merge(options)
       
@@ -190,7 +191,7 @@ module Jqgrid
                 // Add value to the items.
                 items.push(val);
               },
-              "delete": function(val) {
+              "del": function(val) {
                 // Remove value from the items.
                 if($.inArray(val, items) > -1) items.splice($.inArray(val, items), 1);
               },
@@ -395,6 +396,28 @@ module Jqgrid
         },
       ~
 
+      # Enable beforeRequest callback
+      # Before requesting data, call the Javascript function options[:before_request] (defined by the user)
+      before_request = ""
+      if options[:before_request].present?
+        before_request = %Q/
+        beforeRequest: function(){
+          #{options[:before_request]}();
+        },
+        /
+      end
+
+      # Enable gridComplete callback
+      # When grid completely loaded, call the Javascript function options[:grid_complete] (defined by the user)
+      grid_complete = ""
+      if options[:grid_complete].present?
+        grid_complete = %Q/
+        gridComplete: function(){
+          #{options[:grid_complete]}();
+        },
+        /
+      end
+
 
       # Enable grid_loaded callback
       # When data are loaded into the grid, call the Javascript function options[:grid_loaded] (defined by the user)
@@ -405,6 +428,19 @@ module Jqgrid
           #{options[:grid_loaded]}();
         },
         /
+      end
+
+      # Check for grouping
+      grouping = ''
+      grouping_view = ''
+      if options[:group_by] != 'null'
+        grouping = 'grouping: true,'
+        grouping_view = %Q~
+          groupingView: {
+            groupField: ['#{options[:group_by]}'],
+            groupDataSorted: true
+          },
+        ~
       end
       
       # Context menu
@@ -558,13 +594,14 @@ module Jqgrid
               shrinkToFit: #{options[:shrinkToFit]}, 
               footerrow: #{options[:footerrow]},
               userDataOnFooter: #{options[:userDataOnFooter]},
+              #{grouping}
+              #{grouping_view}
               #{multiselect}
               #{multiselect_handlers}
-              #{masterdetails}
-              #{masterdetailgrids}
+              #{onselectrow}
               #{grid_loaded}
-              #{direct_link}
-              #{editable}
+              #{before_request}
+              #{grid_complete}
               #{context_menu}
               #{subgrid_enabled}
               #{subgrid}
@@ -678,9 +715,13 @@ module JqgridJson
   def to_jqgrid_json(attributes, current_page, per_page, total, user_data=nil)
     json = %Q({"page":"#{current_page}","total":#{total/per_page.to_i+1},"records":"#{total}")
     if total > 0
+      #row_num = 0
       json << %Q(,"rows":[)
       each do |elem|
+        #elem.id ||= row_num
+        #row_num += 1
         elem.id ||= index(elem)
+
         json << %Q({"id":"#{elem.id}","cell":[)
         if elem.is_a? Hash
           couples = elem
