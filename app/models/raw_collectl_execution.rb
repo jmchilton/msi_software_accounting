@@ -4,7 +4,7 @@ class RawCollectlExecution < ActiveRecord::Base
   def self.unmapped_distinct(term)
     term ||= ""
     like_clause = (postgres? ? 'ILIKE' : 'LIKE')
-    select("#{table_name}.executable as id, count(*) as the_count, #{table_name}.executable").
+    select("count(*) as the_count, #{table_name}.executable").
     joins("left join collectl_executions ce on ce.id = #{table_name}.id").
     where("ce.id IS NULL").where("LOWER(#{table_name}.executable) #{like_clause} ?", "%#{term.downcase}%").
     group("#{table_name}.executable").

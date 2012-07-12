@@ -6,6 +6,26 @@
   executables below.
 </p>
 <% if use_jqgrid %>
-  <p>D</p>
+  <script type="text/javascript">
+    var moo = function(selection) {
+      alert("Have selection!!!");
+    }
+  </script>
 <% end %>
 <%= render :partial => "/table" %>
+
+<%= form_tag(url_for({:action => "create"}), :class => "bp", :method => :put) do %>
+  <fieldset>
+
+    <%= hidden_field_tag "_method", "put" %>
+    <p class="field">
+      <label for="resource_name">Resource</label>
+      <%= resource_name_field("") %>
+    </p>
+
+    <div class="field">
+      <%= submit_tag("Assign Executables") %>
+    </div>
+  </fieldset>
+<% end %>
+
