@@ -15,6 +15,7 @@ require "rvm/capistrano"
 require 'bundler/capistrano'
 require "whenever/capistrano"
 
+after "deploy:create_symlink", "whenever:update_crontab"  
 
 #role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 #role :app, "your app-server here"                          # This may be the same as your `Web` server
