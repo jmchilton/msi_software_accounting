@@ -23,10 +23,10 @@
 <% end %>
 <%= render :partial => "/table" %>
 
-<%= form_tag(url_for({:action => "create"}), :class => "bp", :method => :put) do %>
+<%= form_tag(url_for({:action => "create"}), :class => "bp", :method => :post) do %>
   <fieldset>
 
-    <%= hidden_field_tag "_method", "put" %>
+    <%= hidden_field_tag "_method", "post" %>
     <%= hidden_field_tag "executables", "" %>
     <p class="field">
       <label for="resource_name">Resource</label>

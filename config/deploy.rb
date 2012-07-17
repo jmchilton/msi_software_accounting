@@ -13,6 +13,8 @@ set :rvm_ruby_string, '1.8.7@softacct'
 set :rvm_type, :system  
 require "rvm/capistrano"
 require 'bundler/capistrano'
+require "whenever/capistrano"
+
 
 #role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 #role :app, "your app-server here"                          # This may be the same as your `Web` server

@@ -15,10 +15,9 @@ class RawCollectlExecutablesController < TableController
   end
 
   def create
-    resource = Resource.find(params[:resource_id])
     executables = params[:executables].split(",")
     executables.each do |executable|
-      instance = CollectlExecutable.new(:name => executable, :resource => resource)
+      instance = CollectlExecutable.new(:name => executable, :resource => selected_resource)
       instance.save
     end
     redirect_to(raw_collectl_executables_path, :notice => "Executables saved")    
